@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.category_product.CategoryProductViewModel" />
+
+        <variable
+            name="sharedViewModel"
+            type="com.anaraya.anaraya.home.activity.HomeActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/btnBackAllCategoryProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtCategoryName_AllCategoryProduct"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="2"
+            android:text="@{viewModel.categoryName}"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackAllCategoryProduct"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearchAllCategoryProduct"
+            app:layout_constraintStart_toEndOf="@+id/btnBackAllCategoryProduct"
+            app:layout_constraintTop_toTopOf="@+id/btnBackAllCategoryProduct"
+            tools:text="TUNA" />
+
+        <ImageButton
+            android:id="@+id/btnSearchAllCategoryProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackAllCategoryProduct"
+            app:layout_constraintEnd_toStartOf="@+id/btnCartCat"
+            app:layout_constraintTop_toTopOf="@+id/btnBackAllCategoryProduct" />
+
+        <ImageButton
+            android:id="@+id/btnCartCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_cart"
+            android:layout_marginEnd="15dp"
+            android:onClick="@{()->viewModel.navigateToCart()}"
+            app:layout_constraintBottom_toBottomOf="@+id/btnSearchAllCategoryProduct"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnSearchAllCategoryProduct" />
+
+        <TextView
+            android:id="@+id/txtBadgeCat"
+            style="@style/textNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_badge"
+            android:paddingHorizontal="5dp"
+            bindTextNumOfBasket="@{sharedViewModel.homeState.productInBasket}"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:maxLength="4"
+            app:layout_constraintBottom_toBottomOf="@+id/btnCartCat"
+            app:layout_constraintEnd_toEndOf="@+id/btnCartCat"
+            tools:text="20" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollChips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:scrollbarSize="5dp"
+            android:scrollbarStyle="outsideInset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtCategoryName_AllCategoryProduct">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipCategoryFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                app:chipSpacingHorizontal="10dp"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAll"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/all"
+                    android:textColor="@color/color_text_chip"
+                    android:textSize="@dimen/chipTextSize"
+                    app:chipBackgroundColor="@color/color_background_chip"
+                    app:chipCornerRadius="@dimen/chipCorner"
+                    app:chipStrokeColor="@color/color_stroke_chip"
+                    app:chipStrokeWidth="@dimen/chipStroke" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </HorizontalScrollView>
+
+        <View
+            android:id="@+id/lineUnderHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollChips" />
+
+        <ProgressBar
+            android:id="@+id/progress_categoryProduct"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.loadingState}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderHorizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerCategoryProduct"
+            bindRecyclerGridLayout="@{2}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_categoryProduct" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

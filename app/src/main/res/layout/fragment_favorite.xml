@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.favorite.FavoriteViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.favorite.FavoriteFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_fav"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.products.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consFavEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            bindImageEmptyFav="@{viewModel.products.showEmptyFav}"
+            android:visibility="invisible"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_fav">
+
+            <ImageView
+                android:id="@+id/imgFavEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_empty_fav"
+                app:layout_constraintBottom_toTopOf="@+id/txtFavEmpty"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/txtFavEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_regular"
+                android:text="@string/no_items_has_been_added"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/btnGoToMarget"
+                app:layout_constraintEnd_toEndOf="@+id/imgFavEmpty"
+                app:layout_constraintStart_toStartOf="@+id/imgFavEmpty"
+                app:layout_constraintTop_toBottomOf="@+id/imgFavEmpty" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGoToMarget"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:background="@drawable/shape_button_add_2"
+                android:fontFamily="@font/inter400"
+                android:paddingVertical="18dp"
+                android:text="@string/add_items"
+                android:textAllCaps="false"
+                android:layout_marginTop="50dp"
+                android:onClick="@{()->viewModel.navigateToHome()}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtFavEmpty" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFav"
+            bindRecyclerLayout="@{false}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            bindConsEmptyFav="@{viewModel.products.showEmptyFav}"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnAddAllToCart"
+            app:layout_constraintTop_toBottomOf="@+id/progress_fav" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAddAllToCart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="30dp"
+            bindConsEmptyFav="@{viewModel.products.showEmptyFav}"
+            android:onClick="@{()->viewModel.addAllToBasket()}"
+            android:background="@drawable/shape_button_add_2"
+            android:fontFamily="@font/inter400"
+            android:paddingVertical="18dp"
+            android:text="@string/add_all_to_cart"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerFav" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

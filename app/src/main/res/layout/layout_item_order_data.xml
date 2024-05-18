@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.order.get_order.OrderUiStateData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/itemOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/imgOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_order"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtOrderId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="2"
+            android:text="@{Integer.toString(item.orderId)}"
+            android:textColor="@color/colorTextApp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgOrder"
+            app:layout_constraintTop_toTopOf="@+id/imgOrder"
+            tools:text="Order #TX8778" />
+
+        <!--<TextView
+            android:id="@+id/txtOrderStatus"
+            android:layout_width="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="1"
+            android:text="@{item.orderStatus}"
+            android:textColor="@color/colorTextApp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/txtOrderId"
+            app:layout_constraintTop_toTopOf="@+id/imgOrder"
+            tools:text="waiting" />-->
+
+        <!--   <TextView
+               android:id="@+id/txtOrderDeliverStatus"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="5dp"
+               android:ellipsize="end"
+               android:fontFamily="@font/inter400"
+               android:maxLines="1"
+               android:text="@{item.orderStatus}"
+               android:textColor="@color/colorGrey"
+               android:textSize="14sp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="@+id/txtOrderId"
+               app:layout_constraintTop_toBottomOf="@+id/txtOrderId"
+               tools:text="waiting" />-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consOrderDetails"
+            bindStatusOrderVisibility="@{item.expanded}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@+id/imgOrder"
+            app:layout_constraintTop_toBottomOf="@+id/imgOrder">
+
+            <ImageView
+                android:id="@+id/imgOrderPlacedStatus"
+                bindImgOrderStatus="@{item.orderPlaced}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_order_pending_state"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtOrderPlace"
+                style="@style/textOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="@string/order_placed"
+                app:layout_constraintBottom_toBottomOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintStart_toEndOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toTopOf="@+id/imgOrderPlacedStatus" />
+
+            <ImageView
+                android:id="@+id/lineOrderPlaced"
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/img_line_order"
+                app:layout_constraintEnd_toEndOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/imgOrderPlacedStatus" />
+
+            <ImageView
+                android:id="@+id/imgOrderAcceptedStatus"
+                bindImgOrderStatus="@{item.orderAccepted}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_order_pending_state"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/lineOrderPlaced" />
+
+            <TextView
+                android:id="@+id/txtOrderAccept"
+                style="@style/textOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="@string/order_accepted"
+                app:layout_constraintBottom_toBottomOf="@+id/imgOrderAcceptedStatus"
+                app:layout_constraintStart_toEndOf="@+id/imgOrderAcceptedStatus"
+                app:layout_constraintTop_toTopOf="@+id/imgOrderAcceptedStatus" />
+
+            <ImageView
+                android:id="@+id/lineOrderAccepted"
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/img_line_order"
+                app:layout_constraintEnd_toEndOf="@+id/imgOrderAcceptedStatus"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderAcceptedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/imgOrderAcceptedStatus" />
+
+            <ImageView
+                android:id="@+id/imgOrderPreparingStatus"
+                bindImgOrderStatus="@{item.orderPreparing}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_order_pending_state"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/lineOrderAccepted" />
+
+            <TextView
+                android:id="@+id/txtOrderPrepare"
+                style="@style/textOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="@string/order_prepared"
+                app:layout_constraintBottom_toBottomOf="@+id/imgOrderPreparingStatus"
+                app:layout_constraintStart_toEndOf="@+id/imgOrderPreparingStatus"
+                app:layout_constraintTop_toTopOf="@+id/imgOrderPreparingStatus" />
+
+            <ImageView
+                android:id="@+id/lineOrderPreparing"
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/img_line_order"
+                app:layout_constraintEnd_toEndOf="@+id/imgOrderPreparingStatus"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPreparingStatus"
+                app:layout_constraintTop_toBottomOf="@+id/imgOrderPreparingStatus" />
+
+            <ImageView
+                android:id="@+id/imgOrderOutForDeliveryStatus"
+                bindImgOrderStatus="@{item.orderOutForDelivery}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_order_pending_state"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/lineOrderPreparing" />
+
+            <TextView
+                android:id="@+id/txtOrderOutForDelivery"
+                style="@style/textOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="@string/out_for_delivery"
+                app:layout_constraintBottom_toBottomOf="@+id/imgOrderOutForDeliveryStatus"
+                app:layout_constraintStart_toEndOf="@+id/imgOrderOutForDeliveryStatus"
+                app:layout_constraintTop_toTopOf="@+id/imgOrderOutForDeliveryStatus" />
+
+            <ImageView
+                android:id="@+id/lineOrderOutForDelivery"
+                android:layout_width="4dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/img_line_order"
+                app:layout_constraintEnd_toEndOf="@+id/imgOrderOutForDeliveryStatus"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderOutForDeliveryStatus"
+                app:layout_constraintTop_toBottomOf="@+id/imgOrderOutForDeliveryStatus" />
+
+            <ImageView
+                android:id="@+id/imgOrderReceivedStatus"
+                bindImgOrderStatus="@{item.orderDelivered}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_order_pending_state"
+                app:layout_constraintStart_toStartOf="@+id/imgOrderPlacedStatus"
+                app:layout_constraintTop_toBottomOf="@+id/lineOrderOutForDelivery" />
+
+            <TextView
+                android:id="@+id/txtOrderReceived"
+                style="@style/textOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:text="@string/recived"
+                app:layout_constraintBottom_toBottomOf="@+id/imgOrderReceivedStatus"
+                app:layout_constraintStart_toEndOf="@+id/imgOrderReceivedStatus"
+                app:layout_constraintTop_toTopOf="@+id/imgOrderReceivedStatus" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/lineUnderStatus"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/consOrderDetails" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

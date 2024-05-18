@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.address.AddressUiStateData" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="5dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@color/colorPrimary"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+
+            <ImageView
+                android:id="@+id/imgAddressMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/img_address"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_location_address"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgAddressMap" />
+
+            <TextView
+                android:id="@+id/txtMyApartmentAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/inter400"
+                android:text="@{item.addressUiState.addressLabel}"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAddress"
+                app:layout_constraintStart_toEndOf="@+id/imgAddress"
+                app:layout_constraintTop_toTopOf="@+id/imgAddress"
+                tools:text="My Apartment" />
+
+            <TextView
+                android:id="@+id/txtChangeAddress"
+                bindTextChangeVisibility="@{item.userAddress}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="30dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/inter400"
+                android:padding="8dp"
+                android:text="@string/change"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imgAddress"
+                tools:text="Change" />
+
+            <TextView
+                android:id="@+id/txtAddress"
+                bindTextAddress="@{item.addressUiState}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:fontFamily="@font/inter300"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/switchDefault"
+                app:layout_constraintEnd_toEndOf="@id/txtChangeAddress"
+                app:layout_constraintStart_toStartOf="@+id/txtMyApartmentAddress"
+                app:layout_constraintTop_toBottomOf="@+id/txtMyApartmentAddress"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id." />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchDefault"
+                bindSwitch="@{item.defaultAddress}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="140dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtAddress"
+                app:switchPadding="10dp"
+                app:thumbTint="@color/color_switch"
+                app:trackTint="@color/color_switch" />
+
+            <TextView
+                android:id="@+id/txtSwitch"
+                bindSwitchText="@{item.defaultAddress}"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreySwitchText"
+                app:layout_constraintBottom_toBottomOf="@+id/switchDefault"
+                app:layout_constraintEnd_toEndOf="@+id/txtChangeAddress"
+                app:layout_constraintTop_toTopOf="@+id/switchDefault"
+                tools:text="Make Default" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

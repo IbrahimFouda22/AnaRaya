@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.family.FamilyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.more.family.FamilyFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_Family"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.familyUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_Family">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/txtReferrals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter500"
+                    android:text="@string/reference_a_family_or_a_friend"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/edtLayoutNameFamily"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutNameFamily"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.familyUiState.nameError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/edtLayoutPhoneFamily"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtReferrals"
+                    app:placeholderText="@string/name">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNameFamily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutPhoneFamily"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.familyUiState.phoneError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/edtLayoutRelationship"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutNameFamily"
+                    app:placeholderText="@string/phone_number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPhoneFamily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutRelationship"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.familyUiState.relationshipError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintBottom_toTopOf="@+id/edtLayoutEmailFamily"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPhoneFamily"
+                    app:placeholderText="@string/relationship"
+                    app:placeholderTextColor="@color/colorTextHint">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/edtRelationship"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutEmailFamily"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutPassEmailMsgError="@{viewModel.familyUiState.emailErrorMsg}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnSendFamily"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutRelationship"
+                    app:placeholderText="@string/email_address_optional">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtEmailFamily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSendFamily"
+                    style="@style/btnAddressTypeSelected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/send"
+                    app:layout_constraintBottom_toTopOf="@+id/imgFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutEmailFamily" />
+
+                <ImageView
+                    android:id="@+id/imgFamily"
+                    android:layout_width="241dp"
+                    android:layout_height="187dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/img_family"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btnSendFamily" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

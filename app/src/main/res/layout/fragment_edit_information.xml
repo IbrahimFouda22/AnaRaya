@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.my_information.edit_info.EditInformationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".home.more.my_information.edit_info.EditInformationFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_editInfo"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.editInfoUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtEditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter500"
+            android:text="@string/edit_information"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_editInfo"
+            tools:text="Edit Information" />
+
+        <TextView
+            android:id="@+id/txtEditInfoType"
+            style="@style/textMyInfo"
+            bindTextEditInfoType="@{viewModel.type}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEditInfo" />
+
+        <EditText
+            android:id="@+id/edtInfoType"
+            bindInputType="@{viewModel.type}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/text_here"
+            android:inputType="text"
+            android:padding="10dp"
+            android:text="@={viewModel.valueState}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtEditInfoType"
+            app:layout_constraintTop_toBottomOf="@+id/txtEditInfoType" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSaveEditInfo"
+            style="@style/btnAddressTypeSelected"
+            bindButtonEditAddress="@{viewModel.editInfoUiState.saveIsVisible}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{()->viewModel.updateData()}"
+            android:text="@string/save"
+            app:layout_constraintTop_toBottomOf="@+id/edtInfoType" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

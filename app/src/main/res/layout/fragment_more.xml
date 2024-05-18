@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.MoreViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.more.MoreFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_more"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.moreUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardImgPersonalMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgPersonalMore"
+                bindImage="@{viewModel.moreUiState.profileUiState.profileImage}"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtNameMore"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="1"
+            android:text="@{viewModel.moreUiState.profileUiState.name}"
+            android:textColor="@color/colorTextMore"
+            app:layout_constraintEnd_toStartOf="@+id/btnEditMore"
+            app:layout_constraintStart_toEndOf="@+id/cardImgPersonalMore"
+            app:layout_constraintTop_toTopOf="@+id/cardImgPersonalMore"
+            tools:text="Ahmed ALi" />
+
+        <ImageButton
+            android:id="@+id/btnEditMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToMyInfo()}"
+            android:padding="2dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/txtNameMore"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtNameMore"
+            app:layout_constraintTop_toTopOf="@+id/txtNameMore" />
+
+        <TextView
+            android:id="@+id/txtEmailMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="1"
+            android:text="@{viewModel.moreUiState.profileUiState.email}"
+            android:textColor="@color/colorTextEmailMore"
+            app:layout_constraintBottom_toBottomOf="@+id/cardImgPersonalMore"
+            app:layout_constraintStart_toStartOf="@+id/txtNameMore"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameMore"
+            tools:text="ahmedali@gmail.com" />
+
+        <View
+            android:id="@+id/lineUnderPersonalMore"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@id/cardImgPersonalMore" />
+
+        <ImageView
+            android:id="@+id/imgOrderMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_order"
+            app:layout_constraintStart_toStartOf="@+id/cardImgPersonalMore"
+            app:layout_constraintTop_toBottomOf="@id/lineUnderPersonalMore" />
+
+        <TextView
+            android:id="@+id/txtOrderMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:onClick="@{()->viewModel.navigateToOrders()}"
+            android:text="@string/orders"
+            app:layout_constraintBottom_toBottomOf="@+id/imgOrderMore"
+            app:layout_constraintStart_toEndOf="@+id/imgOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgOrderMore" />
+
+        <ImageView
+            android:id="@+id/imgInfoMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_info"
+            app:layout_constraintStart_toStartOf="@+id/imgOrderMore"
+            app:layout_constraintTop_toBottomOf="@id/imgOrderMore" />
+
+        <TextView
+            android:id="@+id/txtInfoMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToMyInfo()}"
+            android:text="@string/my_information"
+            app:layout_constraintBottom_toBottomOf="@+id/imgInfoMore"
+            app:layout_constraintStart_toEndOf="@+id/imgInfoMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgInfoMore" />
+
+        <ImageView
+            android:id="@+id/imgOfficeDeliveryMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_gps"
+            app:layout_constraintStart_toStartOf="@+id/imgInfoMore"
+            app:layout_constraintTop_toBottomOf="@id/imgInfoMore" />
+
+        <TextView
+            android:id="@+id/txtOfficeDeliveryMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToSchedule()}"
+            android:text="@string/office_delivery_schedule"
+            app:layout_constraintBottom_toBottomOf="@+id/imgOfficeDeliveryMore"
+            app:layout_constraintStart_toEndOf="@+id/imgOfficeDeliveryMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgOfficeDeliveryMore" />
+
+        <!--<ImageView
+            android:id="@+id/imgPaymentMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_payment"
+            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"
+            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />
+
+        <TextView
+            android:id="@+id/txtPaymentMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/payment_methods"
+            app:layout_constraintBottom_toBottomOf="@+id/imgPaymentMore"
+            app:layout_constraintStart_toEndOf="@+id/imgPaymentMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgPaymentMore" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imgPromoMore"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/dimen_between_images"-->
+<!--            android:src="@drawable/ic_promo"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtPromoMore"-->
+<!--            style="@style/textMore"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/promo_code"-->
+<!--            android:onClick="@{()->viewModel.navigateToPromo()}"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imgPromoMore"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgPromoMore"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imgPromoMore" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/imgNotificationMore"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/dimen_between_images"-->
+<!--            android:src="@drawable/ic_notification"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtNotificationMore"-->
+<!--            style="@style/textMore"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/notifications"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/imgNotificationMore"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/imgNotificationMore"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/imgNotificationMore" />-->
+
+        <ImageView
+            android:id="@+id/imgHelpMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_help"
+            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"
+            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />
+
+        <TextView
+            android:id="@+id/txtHelpMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToHelp()}"
+            android:text="@string/help"
+            app:layout_constraintBottom_toBottomOf="@+id/imgHelpMore"
+            app:layout_constraintStart_toEndOf="@+id/imgHelpMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgHelpMore" />
+
+        <ImageView
+            android:id="@+id/imgFeedbackMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_feedback"
+            app:layout_constraintStart_toStartOf="@+id/imgHelpMore"
+            app:layout_constraintTop_toBottomOf="@id/imgHelpMore" />
+
+        <TextView
+            android:id="@+id/txtFeedbackMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToFeedBack()}"
+            android:text="@string/feedback"
+            app:layout_constraintBottom_toBottomOf="@+id/imgFeedbackMore"
+            app:layout_constraintStart_toEndOf="@+id/imgFeedbackMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgFeedbackMore" />
+
+
+        <ImageView
+            android:id="@+id/imgAboutMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_about"
+            app:layout_constraintStart_toStartOf="@+id/imgFeedbackMore"
+            app:layout_constraintTop_toBottomOf="@id/imgFeedbackMore" />
+
+        <TextView
+            android:id="@+id/txtAboutMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about"
+            android:onClick="@{()->viewModel.navigateToAboutUs()}"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAboutMore"
+            app:layout_constraintStart_toEndOf="@+id/imgAboutMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgAboutMore" />
+
+        <ImageView
+            android:id="@+id/imgChildMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_child"
+            app:layout_constraintStart_toStartOf="@+id/imgAboutMore"
+            app:layout_constraintTop_toBottomOf="@id/imgAboutMore" />
+
+        <TextView
+            android:id="@+id/txtChildMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/family"
+            android:onClick="@{()->viewModel.navigateToFamily()}"
+            app:layout_constraintBottom_toBottomOf="@+id/imgChildMore"
+            app:layout_constraintStart_toEndOf="@+id/imgChildMore"
+            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
+            app:layout_constraintTop_toTopOf="@+id/imgChildMore" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_button_dismiss"
+            android:fontFamily="@font/inter_light"
+            android:text="@string/log_out"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btnEditMore"
+            app:layout_constraintStart_toStartOf="@+id/cardImgPersonalMore"
+            app:layout_constraintTop_toBottomOf="@id/imgChildMore" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

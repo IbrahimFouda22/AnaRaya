@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.filter.FilterViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/progressFilter"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.filterUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/scrollFilter" />
+
+        <ScrollView
+            android:id="@+id/scrollFilter"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/btnFilter"
+            app:layout_constraintTop_toBottomOf="@+id/progressFilter"
+            android:layout_marginTop="60dp"
+            android:background="@color/white"
+            tools:context=".home.filter.FilterFragment">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_filter"
+                android:paddingHorizontal="40dp"
+                android:paddingVertical="20dp">
+
+                <TextView
+                    android:id="@+id/txtPricesFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter500"
+                    android:text="@string/prices"
+                    android:textColor="@color/colorTextApp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkboxHighest"
+                    style="@style/styleCheckBoxFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/highest_discount"
+                    app:layout_constraintStart_toStartOf="@+id/txtPricesFilter"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPricesFilter" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkboxLowest"
+                    style="@style/styleCheckBoxFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/lowest_discount"
+                    app:layout_constraintStart_toStartOf="@+id/txtPricesFilter"
+                    app:layout_constraintTop_toBottomOf="@+id/checkboxHighest" />
+
+                <LinearLayout
+                    android:id="@+id/consCatFilter"
+                    bindConsLayout="@{viewModel.filterUiState.showCat}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkboxLowest">
+
+                    <TextView
+                        android:id="@+id/txtCategoriesFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter500"
+                        android:text="@string/categories"
+                        android:textColor="@color/colorTextApp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/consBrandFilter"
+                    bindConsLayout="@{viewModel.filterUiState.showBrand}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/consCatFilter">
+
+                    <TextView
+                        android:id="@+id/txtBrandFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter500"
+                        android:text="@string/brand"
+                        android:textColor="@color/colorTextApp"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnFilter"
+            style="@style/btnAddressTypeSelected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="10dp"
+            android:paddingVertical="15dp"
+            android:text="@string/filter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollFilter" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.cart.CartUiList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:id="@+id/imgCheckOut"
+            bindImage="@{item.stockImg}"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_no_internet" />
+
+        <TextView
+            android:id="@+id/txtNameItemCheckOut"
+            style="@style/textNormalTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter600"
+            android:maxLines="2"
+            android:text="@{item.name}"
+            android:textColor="@color/colorTextNameProduct"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/txtDescItemCheckOut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgCheckOut"
+            app:layout_constraintTop_toTopOf="@+id/imgCheckOut"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Bell Pepper Red" />
+
+        <TextView
+            android:id="@+id/txtDescItemCheckOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter400"
+            android:maxLines="2"
+            android:text="@{item.desc}"
+            android:textColor="@color/colorTextGrey"
+            app:layout_constraintBottom_toBottomOf="@+id/imgCheckOut"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameItemCheckOut"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameItemCheckOut"
+            tools:text="1kg, Price" />
+
+        <TextView
+            android:id="@+id/txtItemsCountCheckOut"
+            style="@style/textNormalTitle"
+            bindNumOfItems="@{item.qty}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgCheckOut"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemCheckOut"
+            tools:text="14 items in cart" />
+
+        <TextView
+            android:id="@+id/txtPriceCheckOut"
+            style="@style/textNormalTitle"
+            bindTxtPrice="@{item.price}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/txtItemsCountCheckOut"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameItemCheckOut"
+            app:layout_constraintTop_toTopOf="@+id/txtItemsCountCheckOut"
+            tools:text="$4.99" />
+
+        <View
+            android:id="@+id/lineUnderTitleCheckOut"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtItemsCountCheckOut" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.productdetails.ProductDetailsViewModel" />
+        <variable
+            name="sharedViewModel"
+            type="com.anaraya.anaraya.home.activity.HomeActivityViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:scrollIndicators="end"
+        android:scrollbars="vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".home.productdetails.ProductDetailsFragment">
+
+            <ProgressBar
+                android:id="@+id/progress_productDetails"
+                style="?android:attr/progressBarStyleHorizontal"
+                bindProgress="@{viewModel.product.loading}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateBehavior="cycle"
+                android:indeterminateTint="@color/colorPrimary"
+                android:progressTint="@color/colorPrimary"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardProductDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_card_product_details"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@+id/progress_productDetails">
+
+                <ImageButton
+                    android:id="@+id/btnBackProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_arrow_back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/btnCartProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:onClick="@{()->viewModel.navigateToCart()}"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_cart"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnBackProductDetails"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/btnBackProductDetails" />
+                <TextView
+                    android:id="@+id/txtBadge"
+                    style="@style/textNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_badge"
+                    android:paddingHorizontal="5dp"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:maxLength="4"
+                    bindTextNumOfBasket="@{sharedViewModel.homeState.productInBasket}"
+                    app:layout_constraintBottom_toTopOf="@+id/viewPagerProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/btnCartProductDetails"
+                    tools:text="20" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardTxtDiscountItemProductDetails"
+                    bindCardDiscountPrice="@{viewModel.product.productDetailsUiState.discount}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorBackgroundTextDiscount"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintStart_toStartOf="@+id/viewPagerProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/btnBackProductDetails">
+
+                    <TextView
+                        android:id="@+id/txtDiscountItemProductDetails"
+                        style="@style/textNormalHome"
+                        bindTxtDiscountPrice="@{viewModel.product.productDetailsUiState.discount}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="5dp"
+                        android:padding="2dp"
+                        android:textSize="@dimen/dimen_text_discount_size"
+                        app:drawableStartCompat="@drawable/ic_discount"
+                        tools:ignore="SmallSp"
+                        tools:text="Discount 20%" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPagerProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="160dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:background="@color/colorBackGroundCardProductDetails"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnCartProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/btnBackProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/cardTxtDiscountItemProductDetails" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dotsIndicatorSlider_productDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:dotsColor="@color/colorDotsUnSelected"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="5dp"
+                app:dotsSpacing="4dp"
+                app:dotsWidthFactor="2.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardProductDetails"
+                app:progressMode="true"
+                app:selectedDotColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/txtNameProductDetails"
+                style="@style/textNormalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@{viewModel.product.productDetailsUiState.name}"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dotsIndicatorSlider_productDetails"
+                tools:text="Naturel Red Apple" />
+
+            <TextView
+                android:id="@+id/txtQtyProductDetails"
+                style="@style/textNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@{viewModel.product.productDetailsUiState.specs1}"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtNameProductDetails"
+                tools:text="1kg,Price" />
+
+            <ImageButton
+                android:id="@+id/btnFavProductDetails"
+                bindFav="@{viewModel.product.favouriteStock}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{()->viewModel.favButton()}"
+                app:layout_constraintBottom_toBottomOf="@+id/txtNameProductDetails"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/txtNameProductDetails" />
+
+            <ImageButton
+                android:id="@+id/btnMinusProductDetails"
+                bindButtonMinusQtyBasket="@{viewModel.product.btnMinusVisibility}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{()->viewModel.minusQty()}"
+                android:src="@drawable/ic_minus"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtQtyProductDetails" />
+
+            <TextView
+                android:id="@+id/txtQtyCountProductDetails"
+                style="@style/textNormalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/background_text_qty"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="@{Integer.toString(viewModel.product.qtyInBasket)}"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMinusProductDetails"
+                app:layout_constraintStart_toEndOf="@+id/btnMinusProductDetails"
+                app:layout_constraintTop_toTopOf="@+id/btnMinusProductDetails"
+                tools:text="1" />
+
+            <ImageButton
+                android:id="@+id/btnPlusProductDetails"
+                bindButtonPlusQtyBasket="@{viewModel.product.btnPlusVisibility}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="@{()->viewModel.plusQty()}"
+                android:padding="5dp"
+                android:src="@drawable/ic_add_product_details"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMinusProductDetails"
+                app:layout_constraintStart_toEndOf="@+id/txtQtyCountProductDetails"
+                app:layout_constraintTop_toTopOf="@+id/btnMinusProductDetails" />
+
+            <TextView
+                android:id="@+id/txtPriceProductDetails"
+                style="@style/textNormalTitle"
+                bindTxtPrice="@{viewModel.product.allPrice}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnMinusProductDetails"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintTop_toTopOf="@+id/btnMinusProductDetails"
+                tools:text="$4.99" />
+
+            <TextView
+                android:id="@+id/txtLimitation"
+                bindTextLimitation="@{viewModel.product.productDetailsUiState.limitQtyForUserPerMonth}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/inter300"
+                android:textAlignment="center"
+                android:textColor="@color/colorGreyText"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/txtLeftQty"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/btnMinusProductDetails" />
+
+            <TextView
+                android:id="@+id/txtLeftQty"
+                availableQtyCardBasket="@{viewModel.product.productDetailsUiState.availableQty}"
+                qtyInBasketCardBasket="@{viewModel.product.productDetailsUiState.qtyInBasket}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/inter300"
+                android:textAlignment="center"
+                android:textColor="@color/colorGreyText"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtLimitation"
+                app:layout_constraintTop_toTopOf="@+id/txtLimitation"
+                tools:text="" />
+
+            <View
+                android:id="@+id/lineUnderQtyProductDetails"
+                android:layout_width="0dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/shape_line"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtLeftQty" />
+
+            <TextView
+                android:id="@+id/txtTitleDescriptionProductDetails"
+                style="@style/textNormalTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="@string/product_details"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/lineUnderQtyProductDetails"
+                tools:text="Product Details" />
+
+            <ImageButton
+                android:id="@+id/btnTxtDescDownProductDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                android:src="@drawable/ic_arrow_down_2"
+                app:layout_constraintBottom_toBottomOf="@+id/txtTitleDescriptionProductDetails"
+                app:layout_constraintEnd_toEndOf="@id/btnFavProductDetails"
+                app:layout_constraintTop_toTopOf="@+id/txtTitleDescriptionProductDetails" />
+
+            <TextView
+                android:id="@+id/txtDescriptionProductDetails"
+                style="@style/textNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:maxLines="2"
+                android:text="@{viewModel.product.productDetailsUiState.description}"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/txtTitleDescriptionProductDetails"
+                tools:text="ibrahim fouda mohamed youssef ibrahim fouda mohamed youssef ibrahim fouda mohamed youssef ibrahim fouda mohamed youssef" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAddToBasket"
+                availableQty="@{viewModel.product.productDetailsUiState.availableQty}"
+                inBasket="@{viewModel.product.productDetailsUiState.inBasket}"
+                limitation="@{viewModel.product.productDetailsUiState.limitQtyForUserPerMonth}"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/shape_button_add_2"
+                android:text="@string/add_to_basket"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtDescriptionProductDetails" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cardBasket"
+                availableQtyFrom="@{viewModel.product.productDetailsUiState.availableQty}"
+                inBasketFrom="@{viewModel.product.productDetailsUiState.inBasket}"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:background="@drawable/shape_button_remove_from_cart"
+                android:onClick="@{()->viewModel.removeProductFromCart()}"
+                android:text="@string/remove_from_cart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtDescriptionProductDetails">
+
+                <!--                    bindButtonPlusQtyBasket="@{viewModel.product.btnPlusVisibility}"-->
+
+            </androidx.appcompat.widget.AppCompatButton>
+            <!--<androidx.cardview.widget.CardView
+                android:id="@+id/cardBasket"
+                availableQty="@{viewModel.product.productDetailsUiState.availableQty}"
+                inBasket="@{viewModel.product.productDetailsUiState.inBasket}"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/add_to_basket"
+                android:visibility="invisible"
+                app:cardBackgroundColor="@color/colorCardBasket"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtDescriptionProductDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:id="@+id/btnDeleteCartProductDetailsCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{()->viewModel.removeProductFromCart()}"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_remove"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        availableQtyCardBasket="@{viewModel.product.productDetailsUiState.availableQty}"
+                        qtyInBasketCardBasket="@{viewModel.product.productDetailsUiState.qtyInBasket}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter300"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toStartOf="@+id/btnAddCartProductDetailsCard"
+                        app:layout_constraintHorizontal_bias="0.2"
+                        app:layout_constraintStart_toEndOf="@+id/btnDeleteCartProductDetailsCard"
+                        app:layout_constraintTop_toBottomOf="@+id/btnDeleteCartProductDetailsCard"
+                        app:layout_constraintTop_toTopOf="@+id/btnDeleteCartProductDetailsCard" />
+
+                    <ImageButton
+                        android:id="@+id/btnAddCartProductDetailsCard"
+                        bindButtonPlusQtyBasket="@{viewModel.product.btnPlusVisibility}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:onClick="@{()->viewModel.plusQty()}"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_add_basket"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>-->
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardNoStocks"
+                bindCardNoStocks="@{viewModel.product.productDetailsUiState.availableQty}"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="25dp"
+                android:visibility="invisible"
+                app:cardBackgroundColor="@color/colorCardBasket"
+                app:cardCornerRadius="15dp"
+                app:layout_constraintEnd_toEndOf="@+id/btnFavProductDetails"
+                app:layout_constraintStart_toStartOf="@+id/txtNameProductDetails"
+                app:layout_constraintTop_toBottomOf="@id/txtDescriptionProductDetails">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter300"
+                        android:text="@string/coming_soon"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                bindVisibilityConsHomeTrending="@{viewModel.product.visibilityRecommended}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txtTitleDescriptionProductDetails"
+                app:layout_constraintTop_toBottomOf="@+id/btnAddToBasket">
+
+                <TextView
+                    android:id="@+id/txtRecommendedProducts"
+                    style="@style/textNormalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recommended_products"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerRecommended"
+                    bindRecyclerLayout="@{true}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRecommendedProducts"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/layout_item_home_category" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

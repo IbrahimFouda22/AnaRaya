@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.otp.OTPViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".home.otp.OTPFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_otp"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.otpUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtVerificationCodeOTP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter500"
+            android:text="@string/verification_code"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_otp"
+            tools:text="Verification Code" />
+
+        <TextView
+            android:id="@+id/txtUnderHeadVerificationCodeOTP"
+            style="@style/textMyInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/we_have_sent_the_verification_code_to_your_mobile_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtVerificationCodeOTP" />
+
+        <com.mukeshsolanki.OtpView
+            android:id="@+id/otp_view"
+            style="@style/OtpWidget.OtpView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:clickable="true"
+            android:cursorVisible="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:textAllCaps="true"
+            android:textColor="@color/colorTextGrey"
+            app:OtpCursorColor="@color/colorPrimary"
+            app:OtpHideLineWhenFilled="false"
+            app:OtpItemCount="6"
+            app:OtpItemRadius="10dp"
+            app:OtpItemSpacing="6dp"
+            app:OtpLineColor="@color/color_stroke_otp"
+            app:OtpLineWidth="1.6dp"
+            app:OtpState_filled="true"
+            app:OtpViewType="rectangle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtUnderHeadVerificationCodeOTP"
+            tools:text="11" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

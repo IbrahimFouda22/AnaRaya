@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.feedback.question1.Question1ViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.more.feedback.question1.Question1Fragment">
+
+        <TextView
+            android:id="@+id/txtQuestion1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter500"
+            android:text="@string/did_you_enjoy_ana_raya_app"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imgAngry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgAngry"
+            bindImageFeedback="@{viewModel.question1UiState.angry}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.setAngry()}"
+            android:src="@drawable/img_angry"
+            app:layout_constraintBottom_toTopOf="@+id/btnNextFeedBack"
+            app:layout_constraintEnd_toStartOf="@+id/imgSad"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtQuestion1" />
+
+        <ImageView
+            android:id="@+id/imgSad"
+            bindImageFeedback="@{viewModel.question1UiState.sad}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.setSad()}"
+            android:src="@drawable/img_sad"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAngry"
+            app:layout_constraintEnd_toStartOf="@+id/imgNormal"
+            app:layout_constraintStart_toEndOf="@+id/imgAngry"
+            app:layout_constraintTop_toTopOf="@+id/imgAngry" />
+
+        <ImageView
+            android:id="@+id/imgNormal"
+            bindImageFeedback="@{viewModel.question1UiState.normal}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.setNormal()}"
+            android:src="@drawable/img_normal"
+            app:layout_constraintBottom_toBottomOf="@+id/imgSad"
+            app:layout_constraintEnd_toStartOf="@+id/imgSatisfy"
+            app:layout_constraintStart_toEndOf="@+id/imgSad"
+            app:layout_constraintTop_toTopOf="@+id/imgSad" />
+
+        <ImageView
+            android:id="@+id/imgSatisfy"
+            bindImageFeedback="@{viewModel.question1UiState.satisfy}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.setSatisfy()}"
+            android:src="@drawable/img_satisfy"
+            app:layout_constraintBottom_toBottomOf="@+id/imgNormal"
+            app:layout_constraintEnd_toStartOf="@+id/imgHappy"
+            app:layout_constraintStart_toEndOf="@+id/imgNormal"
+            app:layout_constraintTop_toTopOf="@+id/imgNormal" />
+
+        <ImageView
+            android:id="@+id/imgHappy"
+            bindImageFeedback="@{viewModel.question1UiState.happy}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.setHappy()}"
+            android:src="@drawable/img_happy"
+            app:layout_constraintBottom_toBottomOf="@+id/imgSatisfy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgSatisfy"
+            app:layout_constraintTop_toTopOf="@+id/imgSatisfy" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNextFeedBack"
+            style="@style/btnAddressTypeSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="100dp"
+            android:paddingVertical="15dp"
+            android:text="@string/next"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgAngry" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.address.AddressUiStateData" />
+    </data>
+
+    <com.chauthai.swipereveallayout.SwipeRevealLayout
+        android:id="@+id/swipeRevealLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:dragEdge="right"
+        app:mode="same_level">
+
+        <!-- Your secondary layout here -->
+        <FrameLayout
+            android:id="@+id/delLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/layout_item_address_delete" />
+        </FrameLayout>
+
+
+        <!-- Your main layout here -->
+        <FrameLayout
+            android:id="@+id/dataLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                layout="@layout/layout_item_address_data"
+                app:item="@{item}" />
+        </FrameLayout>
+
+    </com.chauthai.swipereveallayout.SwipeRevealLayout>
+</layout>

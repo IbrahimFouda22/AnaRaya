@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintSplash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    app:layoutDescription="@xml/fragment_splash_scene"
+    tools:context=".landing.splash.Splash1Fragment">
+
+
+    <ImageView
+        android:id="@+id/imgSplash1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_splash_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgTextSplash1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_text_splash_1"
+        app:layout_constraintEnd_toEndOf="@+id/imgSplash1"
+        app:layout_constraintStart_toStartOf="@+id/imgSplash1"
+        app:layout_constraintTop_toBottomOf="@+id/imgSplash1" />
+
+    <ImageView
+        android:id="@+id/imgTextSplash2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_text_splash_2"
+        app:layout_constraintEnd_toEndOf="@+id/imgSplash1"
+        app:layout_constraintStart_toStartOf="@+id/imgSplash1"
+        app:layout_constraintTop_toBottomOf="@+id/imgSplash1" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

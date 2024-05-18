@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.shared_data.ProductUiState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:id="@+id/imgFav"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            bindImage="@{item.image}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_no_internet" />
+
+        <TextView
+            android:id="@+id/txtNameItemFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/inter600"
+            android:text="@{item.name}"
+            android:textColor="@color/colorTextNameProduct"
+            app:layout_constraintStart_toEndOf="@+id/imgFav"
+            app:layout_constraintTop_toTopOf="@+id/imgFav"
+            tools:text="Bell Pepper Red" />
+
+        <TextView
+            android:id="@+id/txtDescItemFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter400"
+            android:text="@{item.specs1}"
+            android:textColor="@color/colorTextGrey"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemFav"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameItemFav"
+            tools:text="1kg, Price" />
+
+
+        <TextView
+            android:id="@+id/txtPriceFav"
+            style="@style/textNormalTitle"
+            bindTxtPrice="@{item.price}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgFav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgFav"
+            tools:text="$4.99" />
+
+        <View
+            android:id="@+id/lineUnderTitleFav"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgFav" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

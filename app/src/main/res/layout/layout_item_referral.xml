@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.more.family.family_referrals.ReferralsItemUiState" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:id="@+id/imgReferralItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_referral_item"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtNameReferralItem"
+            bindTextReferralsItem="@{item.referralName}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:fontFamily="@font/inter500"
+            android:textColor="@color/colorTextReferralItem"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/imgReferralItem"
+            app:layout_constraintTop_toTopOf="@+id/imgReferralItem"
+            tools:text="Referral sent to Ahmed" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter400"
+            android:text="@{item.referralEmail}"
+            android:textColor="@color/colorGreyTextReferral"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameReferralItem"
+            app:layout_constraintStart_toStartOf="@+id/txtNameReferralItem"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameReferralItem"
+            tools:text="Referral sent to Ahmed" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

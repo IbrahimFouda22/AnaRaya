@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.address.AddressUiStateData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/radioAddressCart"
+            style="@style/Widget.App.RadioButton"
+            bindRadio="@{item.defaultAddress}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMyApartmentAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/inter400"
+            android:text="@{item.addressUiState.addressLabel}"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/radioAddressCart"
+            app:layout_constraintStart_toEndOf="@+id/radioAddressCart"
+            app:layout_constraintTop_toTopOf="@+id/radioAddressCart"
+            tools:text="My Apartment" />
+
+        <TextView
+            android:id="@+id/txtAddress"
+            bindTextAddress="@{item.addressUiState}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/inter300"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtMyApartmentAddress"
+            app:layout_constraintTop_toBottomOf="@+id/txtMyApartmentAddress"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id." />
+
+        <View
+            android:id="@+id/lineUnderTitleAddressCart"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

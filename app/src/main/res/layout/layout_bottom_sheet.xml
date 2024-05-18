@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.cart.CheckOutUiStateData" />
+        <variable
+            name="selectedMethod"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_bottom_sheet"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/txtCheckOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter600"
+            android:text="@string/checkout"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnCloseBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_close_bottom_sheet"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/lineUnderTxtCheckOutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtCheckOut" />
+
+
+        <TextView
+            android:id="@+id/txtDeliveryBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter300"
+            android:text="@string/delivery"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtCheckOutBottom" />
+
+        <TextView
+            android:id="@+id/txtDeliveryBottomValue"
+            style="@style/textBottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/delivery_schedule"
+            android:textAlignment="textEnd"
+            app:drawableEndCompat="@drawable/ic_eye_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="@+id/txtDeliveryBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtDeliveryBottom"
+            app:layout_constraintTop_toTopOf="@+id/txtDeliveryBottom"
+            tools:text="Delivery Schedule " />
+
+        <View
+            android:id="@+id/lineUnderTxtDeliveryBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtDeliveryBottom" />
+
+
+        <TextView
+            android:id="@+id/txtDeliveryAddressBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter300"
+            android:text="@string/delivery_address"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtDeliveryBottom" />
+
+        <TextView
+            android:id="@+id/txtDeliveryAddressBottomValue"
+            style="@style/textBottomSheet"
+            bindTextAddressCheckOut="@{item.deliveryAddressLabel}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/my_apartment"
+            android:textAlignment="textEnd"
+            app:drawableEndCompat="@drawable/ic_arr_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="@+id/txtDeliveryAddressBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtDeliveryAddressBottom"
+            app:layout_constraintTop_toTopOf="@+id/txtDeliveryAddressBottom"
+            tools:text="My Apartment" />
+
+        <View
+            android:id="@+id/lineUnderTxtDeliveryAddressBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtDeliveryAddressBottom" />
+
+
+<!--            bindPaymentVisibility="@{item.deliveryAddressLabel}"-->
+        <TextView
+            android:id="@+id/txtPaymentBottom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter300"
+            android:text="@string/payment"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtDeliveryAddressBottom" />
+
+        <TextView
+            android:id="@+id/txtPaymentBottomValue"
+            style="@style/textBottomSheet"
+            bindTextPaymentCheckOut="@{selectedMethod}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="1"
+            android:textAlignment="textEnd"
+            android:textSize="16sp"
+            app:drawableEndCompat="@drawable/ic_down_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPaymentBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtPaymentBottom"
+            app:layout_constraintTop_toTopOf="@+id/txtPaymentBottom"
+            tools:text="Cash on delivery" />
+
+<!--            bindPaymentVisibility="@{item.deliveryAddressLabel}"-->
+        <View
+            android:id="@+id/lineUnderTxtPaymentBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtPaymentBottom" />
+
+
+        <!--<TextView
+            android:id="@+id/txtPromoCodeBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter300"
+            android:text="@string/promo_code"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtDeliveryAddressBottom" />
+
+        <TextView
+            android:id="@+id/txtPromoCodeBottomValue"
+            style="@style/textBottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dp"
+            android:text="@string/pick_discount"
+            android:textAlignment="textEnd"
+            app:drawableEndCompat="@drawable/ic_arr_bottom_sheet"
+            app:layout_constraintBottom_toBottomOf="@+id/txtPromoCodeBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtPromoCodeBottom"
+            app:layout_constraintTop_toTopOf="@+id/txtPromoCodeBottom"
+            tools:text="Pick discount" />
+
+        <View
+            android:id="@+id/lineUnderTxtPromoCodeBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtPromoCodeBottom" />-->
+
+
+        <TextView
+            android:id="@+id/txtTotalCostBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/inter300"
+            android:text="@string/total_cost"
+            android:textColor="@color/colorTextGrey"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/txtCheckOut"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtPaymentBottom" />
+
+        <TextView
+            android:id="@+id/txtTotalCostBottomValue"
+            style="@style/textPriceBottomSheet"
+            bindTxtPrice="@{item.totalCost}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusable="false"
+            android:textAlignment="textEnd"
+            app:layout_constraintBottom_toBottomOf="@+id/txtTotalCostBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtTotalCostBottom"
+            app:layout_constraintTop_toTopOf="@+id/txtTotalCostBottom"
+            tools:text="$13.97" />
+
+        <View
+            android:id="@+id/lineUnderTxtTotalCostBottom"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintTop_toBottomOf="@+id/txtTotalCostBottom"
+            tools:layout_editor_absoluteX="20dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/conTermsAndConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderTxtTotalCostBottom">
+
+            <TextView
+                android:id="@+id/txtBeforeTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter400"
+                android:text="@string/before_terms"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toStartOf="@+id/txtTermsCondition"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SmallSp" />
+
+            <TextView
+                android:id="@+id/txtTermsCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/inter700"
+                android:text="@string/terms_and_conditions"
+                android:textColor="@color/colorTextNameProduct"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtBeforeTerms"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtBeforeTerms"
+                app:layout_constraintTop_toTopOf="@+id/txtBeforeTerms"
+                tools:ignore="SmallSp" />
+
+            <!--<TextView
+                android:id="@+id/txtAnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/inter400"
+                android:text="@string/and"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtBeforeTerms"
+                app:layout_constraintEnd_toStartOf="@+id/txtCondition"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txtTermsCondition"
+                app:layout_constraintTop_toTopOf="@+id/txtBeforeTerms"
+                tools:ignore="SmallSp" />
+
+            <TextView
+                android:id="@+id/txtCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:fontFamily="@font/inter700"
+                android:text="@string/conditions"
+                android:textColor="@color/colorTextNameProduct"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/txtBeforeTerms"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txtAnd"
+                app:layout_constraintTop_toTopOf="@+id/txtBeforeTerms"
+                tools:ignore="SmallSp" />-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPlaceOrderBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/shape_button_add_2"
+            android:fontFamily="@font/inter400"
+            android:paddingHorizontal="30dp"
+            android:text="@string/place_order"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/conTermsAndConditions"
+            tools:layout_editor_absoluteX="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

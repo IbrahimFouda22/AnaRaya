@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.address.edit_address.EditAddressViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progress_editAddress"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.editAddressUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            app:layout_constraintTop_toBottomOf="@+id/progress_editAddress"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                tools:context=".home.address.edit_address.EditAddressFragment">
+
+                <ImageView
+                    android:id="@+id/imgAddressMapEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/img_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- <androidx.appcompat.widget.AppCompatButton
+                     android:id="@+id/btnApartment"
+                     style="@style/btnAddressTypeUnSelected"
+                     bindBtnApartment="@{viewModel.addressTypeState.apartment}"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:layout_marginEnd="10dp"
+                     android:onClick="@{()->viewModel.setApartment()}"
+                     android:paddingVertical="15dp"
+                     android:text="@string/apartment"
+                     app:layout_constraintEnd_toStartOf="@+id/btnOffice"
+                     app:layout_constraintHorizontal_bias="0.5"
+                     app:layout_constraintHorizontal_chainStyle="spread"
+                     app:layout_constraintStart_toStartOf="@id/imgAddressMapAdd"
+                     app:layout_constraintTop_toBottomOf="@id/imgAddressMapAdd" />
+
+                 <androidx.appcompat.widget.AppCompatButton
+                     android:id="@+id/btnOffice"
+                     style="@style/btnAddressTypeUnSelected"
+                     bindBtnOffice="@{viewModel.addressTypeState.office}"
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="10dp"
+                     android:onClick="@{()->viewModel.setOffice()}"
+                     android:paddingVertical="15dp"
+                     android:text="@string/office"
+                     app:layout_constraintBottom_toBottomOf="@+id/btnApartment"
+                     app:layout_constraintEnd_toEndOf="@id/imgAddressMapAdd"
+                     app:layout_constraintHorizontal_bias="0.5"
+                     app:layout_constraintStart_toEndOf="@+id/btnApartment"
+                     app:layout_constraintTop_toTopOf="@+id/btnApartment" />-->
+
+                <TextView
+                    android:id="@+id/txtAddressLabelEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/address_label"
+                    app:layout_constraintStart_toStartOf="@+id/imgAddressMapEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/imgAddressMapEdit" />
+
+                <EditText
+                    android:id="@+id/edtAddressLabelEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.addressLabel}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressLabelEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddressLabelEdit" />
+
+                <TextView
+                    android:id="@+id/txtGovernorateEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/governorate"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressLabelEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/edtAddressLabelEdit" />
+
+                <EditText
+                    android:id="@+id/edtGovernorateEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.governorate}"
+                    app:layout_constraintEnd_toStartOf="@+id/edtDistrictEdit"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtGovernorateEdit" />
+
+                <TextView
+                    android:id="@+id/txtDistrictEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/district"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtGovernorateEdit"
+                    app:layout_constraintStart_toStartOf="@+id/edtDistrictEdit"
+                    app:layout_constraintTop_toTopOf="@+id/txtGovernorateEdit" />
+
+                <EditText
+                    android:id="@+id/edtDistrictEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.district}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/edtGovernorateEdit"
+                    app:layout_constraintTop_toTopOf="@+id/edtGovernorateEdit" />
+
+                <TextView
+                    android:id="@+id/txtAddressEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtGovernorateEdit" />
+
+                <EditText
+                    android:id="@+id/edtAddressEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.address}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddressEdit" />
+
+                <TextView
+                    android:id="@+id/txtStreetEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/street"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtAddressEdit" />
+
+                <EditText
+                    android:id="@+id/edtStreetEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.street}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtStreetEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/txtStreetEdit" />
+
+                <TextView
+                    android:id="@+id/txtBuildingEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/building"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtStreetEdit" />
+
+                <EditText
+                    android:id="@+id/edtBuildingEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="number"
+                    android:padding="15dp"
+                    android:text="@={viewModel.building}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtBuildingEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/txtBuildingEdit" />
+
+                <TextView
+                    android:id="@+id/txtLandmarkEdit"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/landmark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtBuildingEdit" />
+
+                <EditText
+                    android:id="@+id/edtLandmarkEdit"
+                    style="@style/textAddEditAddressHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_edit_add_address"
+                    android:hint="@string/text_here"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:text="@={viewModel.landmark}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtLandmarkEdit"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLandmarkEdit" />
+
+                <TextView
+                    android:id="@+id/txtUnderAddressPageEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter300"
+                    android:text="@string/text_under_address_page"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLandmarkEdit"
+                    tools:ignore="SmallSp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSaveEdit"
+                    style="@style/btnAddressTypeSelected"
+                    bindButtonEditAddress="@{viewModel.editAddressUiState.saveIsVisible}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/save"
+                    android:onClick="@{()->viewModel.editAddress()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtUnderAddressPageEdit"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:layout_editor_absoluteX="20dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.cart.CartUiList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            bindImage="@{item.stockImg}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_no_internet" />
+
+        <TextView
+            android:id="@+id/txtNameItemCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:fontFamily="@font/inter600"
+            android:text="@{item.name}"
+            android:textColor="@color/colorTextNameProduct"
+            app:layout_constraintStart_toEndOf="@+id/imgCart"
+            app:layout_constraintTop_toTopOf="@+id/imgCart"
+            tools:text="Bell Pepper Red" />
+
+        <TextView
+            android:id="@+id/txtDescItemCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter400"
+            android:text="@{item.desc}"
+            android:textColor="@color/colorTextGrey"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemCart"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameItemCart"
+            tools:text="1kg, Price" />
+
+        <ImageButton
+            android:id="@+id/btnMinusCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_minus"
+            bindButtonMinusQtyBasket="@{item.minus}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemCart"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescItemCart" />
+
+        <TextView
+            android:id="@+id/txtQtyCountCart"
+            style="@style/textNormalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/background_text_qty"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="6dp"
+            android:text="@{Integer.toString(item.qty)}"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMinusCart"
+            app:layout_constraintStart_toEndOf="@+id/btnMinusCart"
+            app:layout_constraintTop_toTopOf="@+id/btnMinusCart"
+            tools:text="1" />
+
+        <ImageButton
+            android:id="@+id/btnPlusCart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            bindButtonPlusQtyBasket="@{item.plus}"
+            android:src="@drawable/ic_add_product_details"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMinusCart"
+            app:layout_constraintStart_toEndOf="@+id/txtQtyCountCart"
+            app:layout_constraintTop_toTopOf="@+id/btnMinusCart" />
+
+        <TextView
+            android:id="@+id/txtPriceCart"
+            style="@style/textNormalTitle"
+            bindTxtPrice="@{item.price}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imgCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgCart"
+            tools:text="$4.99" />
+
+        <View
+            android:id="@+id/lineUnderTitleCart"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnMinusCart" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

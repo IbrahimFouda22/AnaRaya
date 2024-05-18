@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.authentication.AuthViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".authentication.signin.SignInFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_SignIn"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.signInResponse.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnHelp_signIn"
+            app:layout_constraintTop_toBottomOf="@+id/progress_SignIn">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtTitle_signIn"
+                    style="@style/textNormalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_your_raya_id"
+                    android:textSize="@dimen/txtTitleSignIn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtRayaIdNum_signIn"
+                    style="@style/textNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/raya_id_number"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle_signIn" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutRayaIdNum_signIn"
+                    style="@style/normalEditTextApp"
+                    bindTextInputLayoutEmptyError="@{viewModel.signInResponse.signInRayaIdError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtRayaIdNum_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRayaIdNum_signIn">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtRayaIdNum_signIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtNationalIdNum_signIn"
+                    style="@style/textNormal"
+                    bindTextNationalIdSignInVisibility="@{viewModel.stateSignIn}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/national_id_number"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutRayaIdNum_signIn" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutNationalIdNum_signIn"
+                    style="@style/normalEditTextApp"
+                    bindEditTextNationalIdSignInVisibility="@{viewModel.stateSignIn}"
+                    bindTextInputLayoutEmptyError="@{viewModel.signInResponse.signInNationalIdError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNationalIdNum_signIn">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNationalIdNum_signIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/txtPassword_signIn"
+                    style="@style/textNormal"
+                    bindTextPasswordSignInVisibility="@{viewModel.stateSignIn}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/password"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutNationalIdNum_signIn" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutPassword_signIn"
+                    style="@style/passwordEditTextApp"
+                    bindEditTextPasswordSignInVisibility="@{viewModel.stateSignIn}"
+                    bindTextInputLayoutPassEmailMsgError="@{viewModel.signInResponse.signInPasswordErrorMsg}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:paddingBottom="@dimen/dimen_keyboard"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword_signIn">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPassword_signIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:padding="5dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtBtnForgotPass"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/inter500"
+                    android:padding="5dp"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPassword_signIn" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <ImageButton
+            android:id="@+id/btnArrowNext_signIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_arrow_right"
+            android:padding="10dp"
+            android:src="@drawable/icon_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnHelp_signIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_question"
+            android:padding="15dp"
+            android:src="@drawable/ic_contact_num"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

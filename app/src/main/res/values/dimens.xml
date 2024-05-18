@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="txtSkip">20sp</dimen>
+    <dimen name="txtHead">20sp</dimen>
+    <dimen name="txtUnderHead">18sp</dimen>
+    <dimen name="txtTitleSignIn">25sp</dimen>
+    <dimen name="dimenCardProductDetails">30dp</dimen>
+    <dimen name="dimenLayoutFilter">30dp</dimen>
+    <dimen name="chipStroke">1dp</dimen>
+    <dimen name="chipCorner">20dp</dimen>
+    <dimen name="chipTextSize">14sp</dimen>
+    <dimen name="sizeIconsMore">20dp</dimen>
+    <dimen name="dimen_between_images">18dp</dimen>
+    <dimen name="dimen_text_discount_size">10sp</dimen>
+    <dimen name="dimen_keyboard">10dp</dimen>
+    <dimen name="dimen_box_edit_text_corner">10dp</dimen>
+</resources>

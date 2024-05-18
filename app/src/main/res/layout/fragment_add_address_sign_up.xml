@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.add_address_sign_up.AddAddressSignUpViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".add_address_sign_up.AddAddressSignUpFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_addAddressSignUp"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.addAddressUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_addAddressSignUp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/consApartmentSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                tools:context=".home.address.add_address.AddAddressFragment">
+
+                <ImageView
+                    android:id="@+id/imgAddressMapAddSignUp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/img_address"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/txtAddressLabelSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/address_label"
+                    app:layout_constraintStart_toStartOf="@id/imgAddressMapAddSignUp"
+                    app:layout_constraintTop_toBottomOf="@id/imgAddressMapAddSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutAddressLabelSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.addressLabelError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressLabelSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddressLabelSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtAddressLabelSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.addressLabel}"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtGovernorateSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/governorate"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressLabelSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutAddressLabelSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutUserGovernorateSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.governorateUserError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toStartOf="@+id/edtLayoutDistrictSignUp"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtGovernorateSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtGovernorateSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.governorate}"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtDistrictSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/district"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtGovernorateSignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutDistrictSignUp"
+                    app:layout_constraintTop_toTopOf="@+id/txtGovernorateSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutDistrictSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.districtError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/edtLayoutUserGovernorateSignUp"
+                    app:layout_constraintTop_toTopOf="@+id/edtLayoutUserGovernorateSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtDistrictSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.district}"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtAddressSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutUserGovernorateSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutAddressSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.addressError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddressSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtAddressSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.address}"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtStreetSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/street"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutAddressSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutStreetSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.streetError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtStreetSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtStreetSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtStreetSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.street}"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtBuildingSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/building"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutStreetSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutBuildingSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.buildingError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtBuildingSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtBuildingSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtBuildingSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.building}"
+                        android:inputType="number"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtLandmarkSignUp"
+                    style="@style/textAddEditAddressName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/landmark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutBuildingSignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutLandmarkSignUp"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.addAddressUiState.landMarkError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtLandmarkSignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLandmarkSignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtLandmarkSignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={viewModel.landmark}"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtUnderAddressPageSignUp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter300"
+                    android:text="@string/text_under_address_page"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="10sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutLandmarkSignUp"
+                    tools:ignore="SmallSp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSaveSignUp"
+                    style="@style/btnAddressTypeSelected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/save"
+                    android:onClick="@{()->viewModel.addUserAddress()}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtUnderAddressPageSignUp" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

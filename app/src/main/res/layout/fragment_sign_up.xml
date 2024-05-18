@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.authentication.AuthViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".authentication.signin.SignInFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_SignUp"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.signUpResponse.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/btnArrowNext_SignUp"
+            app:layout_constraintTop_toBottomOf="@+id/progress_SignUp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtTitle_SignUp"
+                    style="@style/textNormalTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enter_your_information"
+                    android:textSize="@dimen/txtTitleSignIn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtRayaIdNum_SignUp"
+                    style="@style/textNormal"
+                    bindTextRayaIdSignUpVisibility="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/raya_id_number"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutRayaIdNum_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindEditTextRayaIdSignUpVisibility="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutEmptyError="@{viewModel.signUpResponse.signUpRayaIdError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRayaIdNum_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtRayaIdNum_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtNationalIdNum_SignUp"
+                    style="@style/textNormal"
+                    bindTextNationalIdSignUpVisibility="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/national_id_number"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutRayaIdNum_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutNationalIdNum_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindEditTextNationalIdSignUpVisibility="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutEmptyError="@{viewModel.signUpResponse.signUpNationalIdError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dimen_keyboard"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNationalIdNum_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtNationalIdNum_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtName_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/name"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle_SignUp" />
+
+                <TextView
+                    android:id="@+id/txtNameStar"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/star"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@+id/txtName_SignUp"
+                    app:layout_constraintTop_toTopOf="@+id/txtName_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutName_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutEmptyError="@{viewModel.signUpResponse.signUpNameError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtName_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtName_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtEmail_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/email"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutName_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutEmail_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutPassEmailMsgError="@{viewModel.signUpResponse.signUpEmailErrorMsg}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtEmail_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtEmail_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtMobileNumber_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/mobile_number"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutEmail_SignUp" />
+
+                <TextView
+                    android:id="@+id/txtMobileStar"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/star"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@+id/txtMobileNumber_SignUp"
+                    app:layout_constraintTop_toTopOf="@+id/txtMobileNumber_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutMobileNumber_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutEmptyError="@{viewModel.signUpResponse.signUpPhoneError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMobileNumber_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtMobileNumber_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtPassword_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/password"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutMobileNumber_SignUp" />
+
+                <TextView
+                    android:id="@+id/txtPasswordStar"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/star"
+                    android:textColor="@color/red"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toEndOf="@+id/txtPassword_SignUp"
+                    app:layout_constraintTop_toTopOf="@+id/txtPassword_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutPassword_SignUp"
+                    style="@style/passwordEditTextApp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    bindTextInputLayoutPassEmailMsgError="@{viewModel.signUpResponse.signUpPasswordErrorMsg}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/dimen_keyboard"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword_SignUp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPassword_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtDOB_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/date_of_birth"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPassword_SignUp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutDOB_SignUp"
+                    style="@style/normalEditTextApp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDOB_SignUp"
+                    app:placeholderText="DD/MM/YYYY">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtDOB_SignUp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:inputType="none"
+                        android:padding="5dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtGender_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/gender"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutDOB_SignUp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroupGender_signUp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/txtGender_SignUp">
+
+                    <RadioButton
+                        android:id="@+id/radioMale_signUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/male"
+                        android:textColor="@color/color_text_radio" />
+
+                    <RadioButton
+                        android:id="@+id/radioFemale_signUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/female"
+                        android:textColor="@color/color_text_radio" />
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/txtAddress_SignUp"
+                    style="@style/textNormal"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/address"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_SignUp"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroupGender_signUp" />
+
+                <ImageView
+                    android:id="@+id/imgAddressSignUp"
+                    bindSignUp2="@{viewModel.stateSignUp}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="5dp"
+                    android:onClick="@{()->viewModel.navigateToAddAddress()}"
+                    android:src="@drawable/img_address"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddress_SignUp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+        <ImageButton
+            android:id="@+id/btnArrowNext_SignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_arrow_right"
+            android:padding="10dp"
+            android:src="@drawable/icon_arrow_right"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

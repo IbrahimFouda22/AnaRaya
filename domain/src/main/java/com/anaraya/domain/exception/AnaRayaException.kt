@@ -1,0 +1,16 @@
+package com.anaraya.domain.exception
+
+open class AnaRayaException(message: String?) : Exception(message)
+open class AuthException(message: String?):AnaRayaException(message)
+open class ValidateException(message: String?):AnaRayaException(message)
+class EmptyDataException(message: String?):ValidateException(message)
+class PasswordInValidFormatException(message: String?):ValidateException(message)
+class EmailInValidFormatException(message: String?):ValidateException(message)
+class TermsAndConditionException(message: String?):ValidateException(message)
+class BadRequest(message: String?):ValidateException(message)
+class SignUpDataException(message: String?):ValidateException(message)
+class ResetPasswordBlockedException(message: String?):ValidateException(message)
+class UnAuthException(message: String?):AuthException(message)
+class NoInternetException(message: String?):AnaRayaException(message)
+class ServerException(message: String?):AnaRayaException(message)
+class InternalServerException(message: String?):AnaRayaException(message)

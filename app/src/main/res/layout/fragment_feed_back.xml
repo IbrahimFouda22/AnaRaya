@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.feedback.FeedBackViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".home.more.feedback.FeedBackFragment">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabFeedBack"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hapticFeedbackEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabBackground="@color/white"
+            app:tabIndicatorColor="@color/color_tab_feedback"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="bottom"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/color_tab_feedback" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager_FeedBack"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tabFeedBack" />
+
+        <!--<androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnMaybeLater"
+            style="@style/btnAddressTypeSelected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="40dp"
+            android:paddingVertical="15dp"
+            android:text="@string/maybe_later"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnNoThankYou"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewPager_FeedBack" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNoThankYou"
+            style="@style/btnAddressTypeUnSelected"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:paddingVertical="15dp"
+            android:text="@string/no_thank_you"
+            android:textColor="@color/colorTextThankYou"
+            app:layout_constraintBottom_toBottomOf="@+id/btnMaybeLater"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnMaybeLater"
+            app:layout_constraintTop_toTopOf="@+id/btnMaybeLater" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

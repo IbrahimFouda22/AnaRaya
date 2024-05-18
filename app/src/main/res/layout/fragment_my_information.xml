@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.more.my_information.MyInformationViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".home.more.my_information.MyInformationFragment">
+        <ProgressBar
+            android:id="@+id/progress_myInfo"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.myInfoUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/txtUserInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter500"
+            android:text="@string/user_information"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_myInfo"
+            tools:text="User Information" />
+        <TextView
+            android:id="@+id/txtNameInfo"
+            style="@style/textMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtUserInfo" />
+        <TextView
+            android:id="@+id/txtNameInfoValue"
+            style="@style/textMyInfoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.myInfoUiState.profileUiState.name}"
+            app:layout_constraintEnd_toStartOf="@+id/txtNameInfoEdit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameInfo" />
+        <TextView
+            android:id="@+id/txtNameInfoEdit"
+            style="@style/textMyInfoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToName()}"
+            android:padding="5dp"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/txtNameInfoValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtNameInfoValue"
+            app:layout_constraintTop_toTopOf="@+id/txtNameInfoValue" />
+        <View
+            android:id="@+id/lineUnderNameInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtNameInfoEdit" />
+        <TextView
+            android:id="@+id/txtEmailInfo"
+            style="@style/textMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderNameInfo" />
+        <TextView
+            android:id="@+id/txtEmailInfoValue"
+            style="@style/textMyInfoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.myInfoUiState.profileUiState.email}"
+            app:layout_constraintEnd_toStartOf="@+id/txtEmailInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfoValue"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmailInfo" />
+        <TextView
+            android:id="@+id/txtEmailInfoEdit"
+            style="@style/textMyInfoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToEmail()}"
+            android:padding="5dp"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmailInfoValue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtEmailInfoValue"
+            app:layout_constraintTop_toTopOf="@+id/txtEmailInfoValue" />
+        <View
+            android:id="@+id/lineUnderEmailInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtEmailInfoEdit" />
+        <TextView
+            android:id="@+id/txtMobileNumberInfo"
+            style="@style/textMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/mobile_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderEmailInfo" />
+        <TextView
+            android:id="@+id/txtMobileNumberInfoValue"
+            style="@style/textMyInfoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.myInfoUiState.profileUiState.phoneNumber}"
+            app:layout_constraintEnd_toStartOf="@+id/txtMobileNumberInfoVerify"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfoValue"
+            app:layout_constraintTop_toBottomOf="@+id/txtMobileNumberInfo" />
+        <TextView
+            android:id="@+id/txtMobileNumberInfoEdit"
+            style="@style/textMyInfoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToPhone()}"
+            android:padding="5dp"
+            android:text="@string/edit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/txtMobileNumberInfoValue"
+            app:layout_constraintStart_toEndOf="@+id/txtMobileNumberInfoVerify"
+            app:layout_constraintTop_toTopOf="@+id/txtMobileNumberInfoValue" />
+        <TextView
+            android:id="@+id/txtMobileNumberInfoVerify"
+            style="@style/textMyInfoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:textColor="@color/colorWarning"
+            android:text="@string/verify"
+            bindViewVisibilityGone="@{viewModel.myInfoUiState.visibleVerifyPhone}"
+            app:layout_constraintBottom_toBottomOf="@+id/txtMobileNumberInfoValue"
+            app:layout_constraintStart_toEndOf="@+id/txtMobileNumberInfoValue"
+            app:layout_constraintTop_toTopOf="@+id/txtMobileNumberInfoValue" />
+        <View
+            android:id="@+id/lineUnderMobileInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfo"
+            app:layout_constraintTop_toBottomOf="@id/txtMobileNumberInfoEdit" />
+        <TextView
+            android:id="@+id/txtDefaultAddressInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter500"
+            android:text="@string/address"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderMobileInfo"
+            tools:text="Address" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToAddresses()}"
+            android:padding="5dp"
+            android:src="@drawable/ic_add_address"
+            app:layout_constraintBottom_toBottomOf="@+id/txtDefaultAddressInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtDefaultAddressInfo" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardAddressMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/txtNameInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfoValue"
+            app:layout_constraintTop_toBottomOf="@+id/txtDefaultAddressInfo">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.navigateToAddresses()}">
+
+                <ImageView
+                    android:id="@+id/imgDefaultAddressMyInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_address"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imgLocationDefaultAddressMyInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_location_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtAddressLabelMyInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@{viewModel.myInfoUiState.profileUiState.defaultAddressUiState.addressLabel}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/imgLocationDefaultAddressMyInfo"
+                    app:layout_constraintTop_toTopOf="@+id/imgLocationDefaultAddressMyInfo"
+                    tools:text="My Apartment" />
+
+                <TextView
+                    android:id="@+id/txtAddressMyInfo"
+                    bindTextAddress="@{viewModel.myInfoUiState.profileUiState.defaultAddressUiState}"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter300"
+                    android:textColor="@color/colorTextAddress"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txtAddressLabelMyInfo"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAddressLabelMyInfo"
+                    tools:text="My Apartment" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtChangePassInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter500"
+            android:text="@string/change_password"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardAddressMyInfo"
+            tools:text="Change password" />
+
+        <TextView
+            android:id="@+id/txtChangePassValueInfo"
+            style="@style/textMyInfoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/pass"
+            app:layout_constraintEnd_toStartOf="@+id/txtChangePassInfoEdit"
+            app:layout_constraintStart_toStartOf="@+id/txtNameInfoValue"
+            app:layout_constraintTop_toBottomOf="@+id/txtChangePassInfo" />
+
+        <TextView
+            android:id="@+id/txtChangePassInfoEdit"
+            style="@style/textMyInfoEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="@{()->viewModel.navigateToChangePass()}"
+            android:padding="5dp"
+            android:text="@string/edit"
+            app:layout_constraintBottom_toBottomOf="@+id/txtChangePassValueInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txtChangePassValueInfo"
+            app:layout_constraintTop_toTopOf="@+id/txtChangePassValueInfo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

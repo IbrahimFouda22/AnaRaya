@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.shared_data.ProductUiState" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@color/colorStroke"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardItemProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardTxtDiscountItemProduct"
+                        bindCardDiscount="@{item.discount}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorBackgroundTextDiscount"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtDiscountItemProduct"
+                            style="@style/textNormalHome"
+                            bindTxtDiscount="@{item.discount}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:padding="2dp"
+                            android:textSize="@dimen/dimen_text_discount_size"
+                            app:drawableStartCompat="@drawable/ic_discount"
+                            tools:ignore="SmallSp"
+                            tools:text="Discount 20%" />
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/imgItemProduct"
+                        bindImage="@{item.image}"
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="10dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@color/colorBackgroundItemProduct"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cardTxtDiscountItemProduct"
+                        tools:src="@drawable/img_splash_2" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtNameItemProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_light"
+                android:maxLines="1"
+                android:text="@{item.name}"
+                android:textColor="@color/colorTextNameProduct"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardItemProduct"
+                tools:text="Beef Bone" />
+
+            <TextView
+                android:id="@+id/txtWightItemProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/inter_light"
+                android:maxLines="1"
+                android:text="@{item.qty}"
+                android:textColor="@color/colorTextQtyProduct"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"
+                app:layout_constraintTop_toBottomOf="@+id/txtNameItemProduct"
+                tools:text="1Kg, Price" />
+
+            <TextView
+                android:id="@+id/txtBeforePriceItemProduct"
+                style="@style/textNormalTitle"
+                bindTxtDiscountPrice="@{item.discount}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_strike_line"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingEnd="5dp"
+                android:textColor="@color/colorLineStrike"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddProductItem"
+                app:layout_constraintEnd_toStartOf="@+id/txtPriceItemProduct"
+                app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"
+                app:layout_constraintTop_toTopOf="@+id/btnAddProductItem"
+                tools:ignore="RtlSymmetry"
+                tools:text="EGP4.99" />
+
+
+            <TextView
+                android:id="@+id/txtPriceItemProduct"
+                style="@style/textNormalTitle"
+                bindTxtPrice="@{item.price}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/colorTextNameProduct"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btnAddProductItem"
+                app:layout_constraintEnd_toStartOf="@+id/btnAddProductItem"
+                app:layout_constraintStart_toEndOf="@+id/txtBeforePriceItemProduct"
+                app:layout_constraintTop_toTopOf="@+id/btnAddProductItem"
+                tools:text="EGP4.9" />
+
+            <ImageButton
+                android:id="@+id/btnAddProductItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/shape_button_add"
+                android:padding="8dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtWightItemProduct" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

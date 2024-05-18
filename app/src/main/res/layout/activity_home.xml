@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.home.activity.HomeActivityViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        android:id="@+id/consHome"
+        tools:context=".home.activity.HomeActivity">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consData"
+            bindConsInternet="@{viewModel.homeState.error}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolBarActivity"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                style="@style/textTitleBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSearch_homeActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardElevation="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/navHome"
+                app:layout_constraintTop_toBottomOf="@+id/toolBarActivity">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/txtDelivery_homeActivity"
+                        style="@style/textNormalHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:drawablePadding="10dp"
+                        android:focusable="true"
+                        android:padding="5dp"
+                        android:text="@string/office_delivery_schedule"
+                        app:drawableEndCompat="@drawable/ic_arrow_down"
+                        app:drawableStartCompat="@drawable/ic_office_delivery"
+                        app:layout_constraintBottom_toTopOf="@+id/edtSearch"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/edtSearch"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/background_edit_search"
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawablePadding="10dp"
+                        android:hint="@string/search_product"
+                        android:padding="10dp"
+                        app:layout_constraintEnd_toStartOf="@+id/btnFavHome"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txtDelivery_homeActivity" />
+
+                    <ImageButton
+                        android:id="@+id/btnFavHome"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_fav"
+                        android:layout_marginEnd="5dp"
+                        android:onClick="@{()->viewModel.navigateToFav()}"
+                        app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
+                        app:layout_constraintEnd_toStartOf="@+id/btnCart"
+                        app:layout_constraintStart_toEndOf="@+id/edtSearch"
+                        app:layout_constraintTop_toTopOf="@+id/edtSearch" />
+                    <ImageButton
+                        android:id="@+id/btnCart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_cart"
+                        app:layout_constraintBottom_toBottomOf="@+id/btnFavHome"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/btnFavHome"
+                        app:layout_constraintTop_toTopOf="@+id/btnFavHome" />
+
+                    <ImageButton
+                        android:id="@+id/btnFilter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_filter"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/edtSearch"
+                        app:layout_constraintTop_toTopOf="@+id/edtSearch" />
+
+                    <TextView
+                        android:id="@+id/txtBadge"
+                        style="@style/textNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/shape_badge"
+                        android:paddingHorizontal="5dp"
+                        bindTextNumOfBasket="@{viewModel.homeState.productInBasket}"
+                        android:textColor="@color/white"
+                        android:textSize="10sp"
+                        android:maxLength="4"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
+                        app:layout_constraintEnd_toEndOf="@+id/btnCart"
+                        tools:text="20" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/navHome"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:defaultNavHost="true"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavHome"
+                app:layout_constraintTop_toBottomOf="@+id/cardSearch_homeActivity"
+                app:navGraph="@navigation/nav_home" />
+
+            <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
+            <!--            android:id="@+id/bottomNavHome"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:itemActiveIndicatorStyle="@null"-->
+            <!--            app:itemBackground="@color/white"-->
+            <!--            app:itemIconSize="30dp"-->
+            <!--            app:itemTextAppearanceActive="@color/colorPrimary"-->
+            <!--            app:itemIconTint="@color/color_bottom_nav"-->
+            <!--            app:itemTextColor="@color/color_bottom_nav"-->
+            <!--            app:labelVisibilityMode="selected"-->
+            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--            app:menu="@menu/home_menu" />-->
+
+            <com.ismaeldivita.chipnavigation.ChipNavigationBar
+                android:id="@+id/bottomNavHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:padding="5dp"
+                app:cnb_animationDuration="400"
+                app:cnb_menuResource="@menu/menu_chip"
+                app:cnb_unselectedColor="@color/colorNavIconUnSelected"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/consNoInternet"
+            bindConsNoInternet="@{viewModel.homeState.error}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/btnBackHomeActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imgNoInternetHomeActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:src="@drawable/img_no_internet"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnBackHomeActivity" />
+
+            <TextView
+                android:id="@+id/txtProblem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/inter_light"
+                android:text="@string/there_is_a_problem"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/imgNoInternetHomeActivity"
+                app:layout_constraintStart_toStartOf="@+id/imgNoInternetHomeActivity"
+                app:layout_constraintTop_toBottomOf="@+id/imgNoInternetHomeActivity" />
+
+            <TextView
+                android:id="@+id/txtUnderHeadNoInternet"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/inter_light"
+                android:text="@string/text_under_text_problem"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtProblem" />
+
+            <Button
+                android:id="@+id/btnReload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/shape_button_add"
+                android:text="@string/reload"
+                app:layout_constraintTop_toBottomOf="@+id/txtUnderHeadNoInternet" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

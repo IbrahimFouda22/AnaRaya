@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.home.more.promo.PromoCodeUiItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/imgPromo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_promo_back"
+            app:layout_constraintEnd_toStartOf="@id/imgCopy"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgCopy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/img_copy_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/imgPromo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgGift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_gift"
+            app:layout_constraintBottom_toBottomOf="@+id/imgPromo"
+            app:layout_constraintEnd_toEndOf="@+id/imgPromo"
+            app:layout_constraintTop_toTopOf="@+id/imgPromo" />
+
+        <ImageView
+            android:id="@+id/imgIcCopy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_copy"
+            app:layout_constraintBottom_toBottomOf="@+id/imgCopy"
+            app:layout_constraintEnd_toEndOf="@+id/imgCopy"
+            app:layout_constraintStart_toStartOf="@+id/imgCopy"
+            app:layout_constraintTop_toBottomOf="@+id/txtCopy" />
+
+        <TextView
+            android:id="@+id/txtPromoName"
+            style="@style/textPromoName"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:ellipsize="end"
+            android:text="@{item.name}"
+            app:layout_constraintBottom_toTopOf="@+id/txtPromoOff"
+            app:layout_constraintEnd_toStartOf="@id/imgGift"
+            app:layout_constraintStart_toStartOf="@id/imgPromo"
+            app:layout_constraintTop_toTopOf="@id/imgGift"
+            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintVertical_weight="2"
+            tools:text="PROMO CODE TITLE" />
+
+        <TextView
+            android:id="@+id/txtPromoOff"
+            style="@style/textPromoOff"
+            bindTextDiscountOff="@{item.discount}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/imgGift"
+            app:layout_constraintEnd_toEndOf="@id/txtPromoName"
+            app:layout_constraintStart_toStartOf="@id/txtPromoName"
+            app:layout_constraintTop_toBottomOf="@id/txtPromoName"
+            app:layout_constraintVertical_weight="1"
+            tools:text="PROMO CODE TITLE" />
+
+        <TextView
+            android:id="@+id/txtCopy"
+            style="@style/textPromoOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@string/copy"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/imgIcCopy"
+            app:layout_constraintEnd_toEndOf="@id/imgCopy"
+            app:layout_constraintStart_toStartOf="@id/imgCopy"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="COPY" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

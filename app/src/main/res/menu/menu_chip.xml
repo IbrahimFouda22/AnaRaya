@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_raya"
+        android:title="@string/home"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_textColor="@color/colorPrimary"
+        app:cnb_iconColor="@color/colorPrimary" />
+    <!--<item
+        android:id="@+id/marketFragment"
+        android:icon="@drawable/ic_market"
+        android:title="@string/market"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_textColor="@color/colorPrimary"
+        app:cnb_iconColor="@color/colorPrimary" />-->
+    <item
+        android:id="@+id/servicesFragment"
+        android:icon="@drawable/ic_services"
+        android:title="@string/services"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_textColor="@color/colorPrimary"
+        app:cnb_iconColor="@color/colorPrimary" />
+    <item
+        android:id="@+id/moreFragment"
+        android:icon="@drawable/ic_more"
+        android:title="@string/more"
+        app:cnb_backgroundColor="@color/white"
+        app:cnb_textColor="@color/colorPrimary"
+        app:cnb_iconColor="@color/colorPrimary" />
+</menu>

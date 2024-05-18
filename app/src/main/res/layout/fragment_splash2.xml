@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".landing.splash.Splash2Fragment">
+
+    <ImageView
+        android:id="@+id/imgSplash3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_splash_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgTextSplash3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_text_splash_3"
+        app:layout_constraintEnd_toEndOf="@+id/imgSplash3"
+        app:layout_constraintStart_toStartOf="@+id/imgSplash3"
+        app:layout_constraintTop_toBottomOf="@+id/imgSplash3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
