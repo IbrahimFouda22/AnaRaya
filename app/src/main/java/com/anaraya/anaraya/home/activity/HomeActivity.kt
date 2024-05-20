@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -84,13 +83,13 @@ class HomeActivity : AppCompatActivity() {
         sharedPreferences.edit().putBoolean(getString(R.string.show_pop_schedule), true).apply()
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        when(navHostFragment.navController.currentBackStackEntry){
-            navHostFragment.navController.getBackStackEntry(R.id.homeFragment) -> binding.bottomNavHome.setItemSelected(R.id.homeFragment)
-            navHostFragment.navController.getBackStackEntry(R.id.servicesFragment) -> binding.bottomNavHome.setItemSelected(R.id.servicesFragment)
-            navHostFragment.navController.getBackStackEntry(R.id.moreFragment) -> binding.bottomNavHome.setItemSelected(R.id.moreFragment)
-        }
-    }
+//    @Deprecated("Deprecated in Java")
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        when(navHostFragment.navController.currentBackStackEntry){
+//            navHostFragment.navController.getBackStackEntry(R.id.homeFragment) -> binding.bottomNavHome.setItemSelected(R.id.homeFragment)
+//            navHostFragment.navController.getBackStackEntry(R.id.servicesFragment) -> binding.bottomNavHome.setItemSelected(R.id.servicesFragment)
+//            navHostFragment.navController.getBackStackEntry(R.id.moreFragment) -> binding.bottomNavHome.setItemSelected(R.id.moreFragment)
+//        }
+//    }
 }

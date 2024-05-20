@@ -63,10 +63,7 @@
     </Transition>
 
 
-    <ConstraintSet android:id="@+id/start">
-        <!--        <Constraint android:id="@+id/backgroundBlue" android:alpha="1"/>-->
-        <!--        <Constraint android:id="@+id/backgroundWhite" android:alpha="0"/>-->
-    </ConstraintSet>
+    <ConstraintSet android:id="@+id/start"/>
 
     <ConstraintSet android:id="@+id/end" />
 

@@ -7,17 +7,17 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.authentication.user.AuthViewModel" />
+            type="com.anaraya.anaraya.authentication.family.AuthFamilyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".authentication.user.signin.SignInFragment">
+        tools:context=".authentication.family.signin_family.SignInFamilyFragment">
 
         <ProgressBar
-            android:id="@+id/progress_SignIn"
+            android:id="@+id/progress_SignInFamily"
             style="?android:attr/progressBarStyleHorizontal"
             bindProgress="@{viewModel.signInResponse.loading}"
             android:layout_width="match_parent"
@@ -32,16 +32,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:fillViewport="true"
-            app:layout_constraintBottom_toTopOf="@+id/btnHelp_signIn"
-            app:layout_constraintTop_toBottomOf="@+id/progress_SignIn">
+            app:layout_constraintBottom_toTopOf="@+id/btnHelp_signInFamily"
+            app:layout_constraintTop_toBottomOf="@+id/progress_SignInFamily">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/txtTitle_signIn"
+                    android:id="@+id/txtTitle_signInFamily"
                     style="@style/textNormalTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,28 +50,28 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/txtRayaIdNum_signIn"
+                    android:id="@+id/txtRayaIdNum_signInFamily"
                     style="@style/textNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/raya_id_number"
-                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/txtTitle_signIn" />
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitle_signInFamily" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edtLayoutRayaIdNum_signIn"
+                    android:id="@+id/edtLayoutRayaIdNum_signInFamily"
                     style="@style/normalEditTextApp"
                     bindTextInputLayoutEmptyError="@{viewModel.signInResponse.signInRayaIdError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/txtRayaIdNum_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/txtRayaIdNum_signIn">
+                    app:layout_constraintStart_toStartOf="@+id/txtRayaIdNum_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/txtRayaIdNum_signInFamily">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtRayaIdNum_signIn"
+                        android:id="@+id/edtRayaIdNum_signInFamily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -80,29 +79,29 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/txtNationalIdNum_signIn"
+                    android:id="@+id/txtNationalIdNum_signInFamily"
                     style="@style/textNormal"
                     bindTextNationalIdSignInVisibility="@{viewModel.stateSignIn}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="@string/national_id_number"
-                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutRayaIdNum_signIn" />
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutRayaIdNum_signInFamily" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edtLayoutNationalIdNum_signIn"
+                    android:id="@+id/edtLayoutNationalIdNum_signInFamily"
                     style="@style/normalEditTextApp"
                     bindEditTextNationalIdSignInVisibility="@{viewModel.stateSignIn}"
                     bindTextInputLayoutEmptyError="@{viewModel.signInResponse.signInNationalIdError}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
-                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/txtNationalIdNum_signIn">
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signInFamily"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNationalIdNum_signInFamily">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtNationalIdNum_signIn"
+                        android:id="@+id/edtNationalIdNum_signInFamily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -111,7 +110,7 @@
 
 
                 <TextView
-                    android:id="@+id/txtPassword_signIn"
+                    android:id="@+id/txtPassword_signInFamily"
                     style="@style/textNormal"
                     bindTextPasswordSignInVisibility="@{viewModel.stateSignIn}"
                     android:layout_width="wrap_content"
@@ -119,11 +118,11 @@
                     android:layout_marginTop="15dp"
                     android:text="@string/password"
                     android:visibility="invisible"
-                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutNationalIdNum_signIn" />
+                    app:layout_constraintStart_toStartOf="@+id/txtTitle_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutNationalIdNum_signInFamily" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/edtLayoutPassword_signIn"
+                    android:id="@+id/edtLayoutPassword_signInFamily"
                     style="@style/passwordEditTextApp"
                     bindEditTextPasswordSignInVisibility="@{viewModel.stateSignIn}"
                     bindTextInputLayoutPassEmailMsgError="@{viewModel.signInResponse.signInPasswordErrorMsg}"
@@ -131,12 +130,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:paddingBottom="@dimen/dimen_keyboard"
-                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
-                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/txtPassword_signIn">
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signInFamily"
+                    app:layout_constraintStart_toStartOf="@+id/edtLayoutRayaIdNum_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPassword_signInFamily">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtPassword_signIn"
+                        android:id="@+id/edtPassword_signInFamily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
@@ -145,7 +144,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/txtBtnForgotPass"
+                    android:id="@+id/txtBtnForgotPassFamily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -157,44 +156,16 @@
                     android:text="@string/forgot_password"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signIn"
-                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPassword_signIn" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_signInFamily"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPassword_signInFamily" />
 
-                <TextView
-                    android:id="@+id/txtOr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/inter500"
-                    android:padding="5dp"
-                    android:text="@string/or"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtBtnForgotPass" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnSignInAsFamily"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/shape_button_add_2"
-                    android:fontFamily="@font/inter400"
-                    android:paddingHorizontal="10dp"
-                    android:text="@string/sign_in_as_a_family_referral"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtOr" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
 
         <ImageButton
-            android:id="@+id/btnArrowNext_signIn"
+            android:id="@+id/btnArrowNext_signInFamily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_arrow_right"
@@ -204,7 +175,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageButton
-            android:id="@+id/btnHelp_signIn"
+            android:id="@+id/btnHelp_signInFamily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_question"

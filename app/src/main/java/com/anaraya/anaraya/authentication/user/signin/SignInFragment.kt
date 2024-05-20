@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.authentication.signin
+package com.anaraya.anaraya.authentication.user.signin
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -15,7 +15,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
-import com.anaraya.anaraya.authentication.AuthViewModel
+import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentSignInBinding
 import com.anaraya.anaraya.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,8 +40,7 @@ class SignInFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSignInBinding.inflate(layoutInflater)
-        //requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         btnBack = requireActivity().findViewById(R.id.btnBackMainActivity)
@@ -83,6 +82,9 @@ class SignInFragment : Fragment() {
             reload()
         }
 
+        binding.btnSignInAsFamily.setOnClickListener {
+            viewModel.navigateToFamily()
+        }
         binding.btnHelpSignIn.setOnClickListener {
             if(contactNumber == null)
                 viewModel.getContactNumber()

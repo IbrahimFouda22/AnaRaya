@@ -590,35 +590,47 @@ fun bindTextReferralsItem(textView: TextView, text: String) {
 }
 
 //sign up visibility
-@BindingAdapter("bindTextNationalIdSignUpVisibility")
-fun bindTextNationalIdSignUpVisibility(textView: TextView, state: Int) {
-    if (state == 1) textView.visible()
-    else textView.invisible()
+@BindingAdapter("bindSignUp1")
+fun bindSignUp1(view: View, state: Int) {
+    if (state == 1) view.visible()
+    else view.invisible()
 }
-
-@BindingAdapter("bindEditTextNationalIdSignUpVisibility")
-fun bindEditTextNationalIdSignUpVisibility(editText: TextInputLayout, state: Int) {
-    if (state == 1) editText.visible()
-    else editText.invisible()
-}
-
-@BindingAdapter("bindTextRayaIdSignUpVisibility")
-fun bindTextRayaIdSignUpVisibility(textView: TextView, state: Int) {
-    if (state == 1) textView.visible()
-    else textView.invisible()
-}
-
-@BindingAdapter("bindEditTextRayaIdSignUpVisibility")
-fun bindEditTextRayaIdSignUpVisibility(editText: TextInputLayout, state: Int) {
-    if (state == 1) editText.visible()
-    else editText.invisible()
-}
-
 
 @BindingAdapter("bindSignUp2")
 fun bindSignUp2(view: View, state: Int) {
     if (state == 2) view.visible()
     else view.gone()
+}
+@BindingAdapter("bindSignUp3")
+fun bindSignUp3(view: View, state: Int) {
+    if (state == 3) view.visible()
+    else view.gone()
+}
+@BindingAdapter("bindSignUp4")
+fun bindSignUp4(view: View, state: Int) {
+    if (state == 4) view.visible()
+    else view.gone()
+}
+//family
+@BindingAdapter("bindSignUpFamily1")
+fun bindSignUpFamily1(view: View, state: Int) {
+    if (state in 1..3) view.visible()
+    else view.invisible()
+}
+@BindingAdapter("bindSignUpFamily2")
+fun bindSignUpFamily2(view: View, state: Int) {
+    if (state in 2..3) view.visible()
+    else view.invisible()
+}
+@BindingAdapter("bindSignUpFamily3")
+fun bindSignUpFamily3(view: View, state: Int) {
+    if (state == 3) view.visible()
+    else view.invisible()
+}
+@BindingAdapter("bindSignUpFamily4")
+fun bindSignUpFamily4(view: View, state: Int) {
+    if (state == 4) view.visible()
+    else view.invisible()
 }
 
 //reset password visibility

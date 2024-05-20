@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.authentication.signup
+package com.anaraya.anaraya.authentication.family.signup_family
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -17,8 +17,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
-import com.anaraya.anaraya.authentication.AuthViewModel
-import com.anaraya.anaraya.databinding.FragmentSignUpBinding
+import com.anaraya.anaraya.authentication.family.AuthFamilyViewModel
+import com.anaraya.anaraya.databinding.FragmentSignUpFamilyBinding
 import com.anaraya.anaraya.home.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,15 +26,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SignUpFragment : Fragment() {
-    private lateinit var binding: FragmentSignUpBinding
+class SignUpFamilyFragment : Fragment() {
+    private lateinit var binding: FragmentSignUpFamilyBinding
     private val sharedViewModel by viewModels<MainActivityViewModel>({ requireActivity() })
     private lateinit var btnBack: ImageButton
     private lateinit var btnReload: Button
-    private val viewModel by viewModels<AuthViewModel>({ requireActivity() })
+    private val viewModel by viewModels<AuthFamilyViewModel>({ requireActivity() })
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    private var code = "0"
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -42,14 +43,15 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSignUpBinding.inflate(layoutInflater)
+        binding = FragmentSignUpFamilyBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
 
         btnBack = requireActivity().findViewById(R.id.btnBackMainActivity)
         btnReload = requireActivity().findViewById(R.id.btnReloadMain)
 
-        binding.btnArrowNextSignUp.setOnClickListener {
+        binding.btnArrowNextSignUpFamily.setOnClickListener {
             setStateSignUpPlus()
         }
 
@@ -63,6 +65,12 @@ class SignUpFragment : Fragment() {
                 if (it.auth) {
                     setStateSignUpPlus(true)
                 }
+                if (it.isOtpSent) {
+                    setStateSignUpPlus(auth = true, isMobileCorrect = true)
+                }
+                if (it.isOtpCorrect) {
+                    setStateSignUpPlus(isOtpCorrect = true)
+                }
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
                     Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
@@ -72,9 +80,9 @@ class SignUpFragment : Fragment() {
             }
         }
 
-        binding.edtDOBSignUp.setOnFocusChangeListener { _, hasFocus ->
+        binding.edtDOBSignUpFamily.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
-                binding.edtDOBSignUp.showSoftInputOnFocus = false
+                binding.edtDOBSignUpFamily.showSoftInputOnFocus = false
                 val d = DatePickerDialog(requireContext())
                 d.setCancelable(false)
                 d.show()
@@ -83,12 +91,12 @@ class SignUpFragment : Fragment() {
                         if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
                     val month =
                         if (d.datePicker.month.toString().length == 1) "0${d.datePicker.month}" else d.datePicker.month
-                    binding.edtDOBSignUp.setText("${d.datePicker.year}-$month-$day")
-                    binding.edtDOBSignUp.clearFocus()
+                    binding.edtDOBSignUpFamily.setText("${d.datePicker.year}-$month-$day")
+                    binding.edtDOBSignUpFamily.clearFocus()
                     d.cancel()
                 }
                 d.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
-                    binding.edtDOBSignUp.clearFocus()
+                    binding.edtDOBSignUpFamily.clearFocus()
                     d.cancel()
                 }
             }
@@ -100,49 +108,57 @@ class SignUpFragment : Fragment() {
         btnReload.setOnClickListener {
             reload()
         }
-
         return binding.root
     }
 
-    private fun setStateSignUpPlus(auth: Boolean = false) {
+    private fun setStateSignUpPlus(
+        auth: Boolean = false,
+        isMobileCorrect: Boolean = false,
+        isOtpCorrect: Boolean = false
+    ) {
         var num = viewModel.stateSignUp.value
         when (num) {
             1 -> {
                 val boolean = viewModel.validateRayaNationalId(
-                    binding.edtRayaIdNumSignUp.text.toString(),
-                    binding.edtNationalIdNumSignUp.text.toString()
+                    binding.edtRayaIdNumSignUpFamily.text.toString(),
                 )
                 if (boolean) {
                     if (auth) {
                         viewModel.setStateSignUpUpdate(++num)
                     } else {
                         viewModel.checkAuth(
-                            binding.edtRayaIdNumSignUp.text.toString(),
-                            binding.edtNationalIdNumSignUp.text.toString()
+                            binding.edtRayaIdNumSignUpFamily.text.toString(),
                         )
                     }
                 }
             }
 
-            else -> viewModel.signUp(
-                binding.edtRayaIdNumSignUp.text.toString(),
-                binding.edtNationalIdNumSignUp.text.toString(),
-                binding.edtNameSignUp.text.toString(),
-                binding.edtEmailSignUp.text.toString().ifEmpty { null },
-                binding.edtPasswordSignUp.text.toString(),
-                binding.edtMobileNumberSignUp.text.toString().ifEmpty { null },
-                binding.edtDOBSignUp.text.toString().ifEmpty { null },
-                if (binding.radioGroupGenderSignUp.checkedRadioButtonId == binding.radioMaleSignUp.id) 1
-                else if ((binding.radioGroupGenderSignUp.checkedRadioButtonId == binding.radioFemaleSignUp.id)) 2
-                else null,
-                viewModel.signUpResponse.value.addressUiStateData?.addressLabel,
-                viewModel.signUpResponse.value.addressUiStateData?.governorate,
-                viewModel.signUpResponse.value.addressUiStateData?.district,
-                viewModel.signUpResponse.value.addressUiStateData?.address,
-                viewModel.signUpResponse.value.addressUiStateData?.street,
-                viewModel.signUpResponse.value.addressUiStateData?.building,
-                viewModel.signUpResponse.value.addressUiStateData?.landmark,
-            )
+            2 -> {
+
+                if (auth && isMobileCorrect) {
+                    viewModel.setStateSignUpUpdate(++num)
+                } else {
+                    viewModel.sendVerifyCode(
+                        binding.edtRayaIdNumSignUpFamily.text.toString(),
+                        binding.edtPhoneNumberSignUpFamily.text.toString(),
+                    )
+                }
+
+            }
+
+            3 -> {
+                if (isOtpCorrect) {
+                    viewModel.setStateSignUpUpdate(++num)
+                } else {
+                    viewModel.checkVerifyCode(
+                        binding.edtRayaIdNumSignUpFamily.text.toString(),
+                        binding.edtPhoneNumberSignUpFamily.text.toString(),
+                        binding.edtOtpFamilySignUpFamily.text.toString()
+                    )
+                }
+            }
+
+            else -> signUp()
         }
     }
 
@@ -150,26 +166,31 @@ class SignUpFragment : Fragment() {
         sharedPreferences.edit().putString("token", token).apply()
         sharedPreferences.edit().putInt(getString(R.string.productsinbasket), 0).apply()
         sharedPreferences.edit().putBoolean("auth", false).apply()
-        sharedPreferences.edit().putString("rayaId", binding.edtRayaIdNumSignUp.text.toString())
+        sharedPreferences.edit()
+            .putString("rayaId", binding.edtRayaIdNumSignUpFamily.text.toString())
             .apply()
         sharedPreferences.edit()
-            .putString("nationalId", binding.edtNationalIdNumSignUp.text.toString()).apply()
-        sharedPreferences.edit().putString("password", binding.edtPasswordSignUp.text.toString())
+            .putString("password", binding.edtPasswordSignUpFamily.text.toString())
             .apply()
     }
 
     private fun reload() {
         sharedViewModel.reloadClick()
+        signUp()
+        sharedViewModel.reloadClickDone()
+    }
+
+    private fun signUp() {
         viewModel.signUp(
-            binding.edtRayaIdNumSignUp.text.toString(),
-            binding.edtNationalIdNumSignUp.text.toString(),
-            binding.edtNameSignUp.text.toString(),
-            binding.edtEmailSignUp.text.toString(),
-            binding.edtPasswordSignUp.text.toString(),
-            binding.edtMobileNumberSignUp.text.toString(),
-            binding.edtDOBSignUp.text.toString(),
-            if (binding.radioGroupGenderSignUp.checkedRadioButtonId == binding.radioMaleSignUp.id) 1
-            else if ((binding.radioGroupGenderSignUp.checkedRadioButtonId == binding.radioFemaleSignUp.id)) 2
+            binding.edtRayaIdNumSignUpFamily.text.toString(),
+            binding.edtPhoneNumberSignUpFamily.text.toString(),
+            binding.edtOtpFamilySignUpFamily.text.toString(),
+            binding.edtNameSignUpFamily.text.toString(),
+            binding.edtEmailSignUpFamily.text.toString(),
+            binding.edtPasswordSignUpFamily.text.toString(),
+            binding.edtDOBSignUpFamily.text.toString(),
+            if (binding.radioGroupGenderSignUpFamily.checkedRadioButtonId == binding.radioMaleSignUpFamily.id) 1
+            else if ((binding.radioGroupGenderSignUpFamily.checkedRadioButtonId == binding.radioFemaleSignUp.id)) 2
             else null,
             viewModel.signUpResponse.value.addressUiStateData?.addressLabel,
             viewModel.signUpResponse.value.addressUiStateData?.governorate,
@@ -179,7 +200,5 @@ class SignUpFragment : Fragment() {
             viewModel.signUpResponse.value.addressUiStateData?.building,
             viewModel.signUpResponse.value.addressUiStateData?.landmark,
         )
-        sharedViewModel.reloadClickDone()
     }
-
 }

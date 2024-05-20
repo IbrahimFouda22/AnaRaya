@@ -14,7 +14,6 @@ import com.anaraya.data.pagingsource.SearchPagingSource
 import com.anaraya.data.pagingsource.StoreProductServicePagingSource
 import com.anaraya.data.pagingsource.TrendingProductPagingSource
 import com.anaraya.data.remote.RemoteDataSource
-import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.repo.IRepo
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -228,7 +227,9 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
         ::SearchPagingSource
     )
 
-    override suspend fun getStoreCategory(isProduct: Boolean) = remoteDataSource.getStoreCategory(isProduct)
+    override suspend fun getStoreCategory(isProduct: Boolean) =
+        remoteDataSource.getStoreCategory(isProduct)
+
     override suspend fun getStoreSubCategory(categoryId: Int) =
         remoteDataSource.getStoreSubCategory(categoryId)
 
@@ -273,6 +274,49 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
     ) = remoteDataSource.addNewReferral(name, phoneNumber, relationshipId, email)
 
     override suspend fun getAllReferrals() = remoteDataSource.getAllReferrals()
+    override suspend fun checkHrIdFamily(hrId: String) = remoteDataSource.checkHrIdFamily(hrId)
+    override suspend fun sendFamilyOTP(hrId: String, phoneNumber: String) =
+        remoteDataSource.sendFamilyOTP(hrId, phoneNumber)
+
+    override suspend fun checkFamilyOTP(
+        hrId: String,
+        phoneNumber: String,
+        otp: String
+    ) = remoteDataSource.checkFamilyOTP(hrId, phoneNumber, otp)
+
+    override suspend fun signUpFamily(
+        hrId: String,
+        phoneNumber: String,
+        otp: String,
+        name: String,
+        email: String?,
+        password: String,
+        dateOfBirth: String?,
+        gender: Int?,
+        addressLabel: String?,
+        governorate: String?,
+        district: String?,
+        address: String?,
+        street: String?,
+        building: String?,
+        landmark: String?
+    ) = remoteDataSource.signUpFamily(
+        hrId,
+        phoneNumber,
+        otp,
+        name,
+        email,
+        password,
+        dateOfBirth,
+        gender,
+        addressLabel,
+        governorate,
+        district,
+        address,
+        street,
+        building,
+        landmark
+    )
 
 
     private fun <T : Any> getData(sourceFactory: (RemoteDataSource) -> PagingSource<Int, T>): Flow<PagingData<T>> {

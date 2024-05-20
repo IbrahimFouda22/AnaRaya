@@ -98,7 +98,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/address_label"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnOffice" />
 
@@ -110,7 +109,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtAddressLabel"
                     app:layout_constraintTop_toBottomOf="@+id/txtAddressLabel">
@@ -131,7 +129,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/governorate"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/txtAddressLabel"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutAddressLabel" />
 
@@ -144,7 +141,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
                     android:layout_marginEnd="10dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toStartOf="@+id/edtLayoutDistrict"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,7 +161,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/district"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/txtGovernorate"
                     app:layout_constraintStart_toStartOf="@+id/edtLayoutDistrict"
                     app:layout_constraintTop_toTopOf="@+id/txtGovernorate" />
@@ -179,7 +174,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/edtLayoutUserGovernorate"
@@ -201,7 +195,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/address"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutUserGovernorate" />
 
@@ -213,7 +206,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtAddress"
                     app:layout_constraintTop_toBottomOf="@+id/txtAddress">
@@ -234,7 +226,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/street"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutAddress" />
 
@@ -246,7 +237,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtStreet"
                     app:layout_constraintTop_toBottomOf="@+id/txtStreet">
@@ -267,7 +257,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/building"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutStreet" />
 
@@ -279,7 +268,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtBuilding"
                     app:layout_constraintTop_toBottomOf="@+id/txtBuilding">
@@ -300,7 +288,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@string/landmark"
-                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutBuilding" />
 
@@ -312,7 +299,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtLandmark"
                     app:layout_constraintTop_toBottomOf="@+id/txtLandmark">
@@ -335,7 +321,6 @@
                     android:text="@string/text_under_address_page"
                     android:textColor="@color/colorGreyText"
                     android:textSize="10sp"
-                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutLandmark"
@@ -351,7 +336,6 @@
                     android:layout_marginBottom="20dp"
                     android:paddingVertical="15dp"
                     android:text="@string/save"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/txtUnderAddressPage" />
 

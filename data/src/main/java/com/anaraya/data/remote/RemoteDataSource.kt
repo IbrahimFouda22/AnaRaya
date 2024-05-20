@@ -466,7 +466,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     }
 
     override suspend fun getStoreCategory(isProduct: Boolean): List<Category> {
-        return if(isProduct) wrapApiResponse {
+        return if (isProduct) wrapApiResponse {
             apiService.getProductCategory()
         }.toEntity()
         else
@@ -558,6 +558,66 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     override suspend fun getAllReferrals(): Referrals {
         return wrapApiResponse {
             apiService.getAllReferrals()
+        }.toEntity()
+    }
+
+    override suspend fun checkHrIdFamily(hrId: String): BaseResponse {
+        return wrapApiResponse {
+            apiService.checkHrIdFamily(hrId)
+        }.toEntity()
+    }
+
+    override suspend fun sendFamilyOTP(hrId: String, phoneNumber: String): BaseResponse {
+        return wrapApiResponse {
+            apiService.sendFamilyOTP(hrId, phoneNumber)
+        }.toEntity()
+    }
+
+    override suspend fun checkFamilyOTP(
+        hrId: String,
+        phoneNumber: String,
+        otp: String
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.checkFamilyOTP(hrId, phoneNumber, otp)
+        }.toEntity()
+    }
+
+    override suspend fun signUpFamily(
+        hrId: String,
+        phoneNumber: String,
+        otp: String,
+        name: String,
+        email: String?,
+        password: String,
+        dateOfBirth: String?,
+        gender: Int?,
+        addressLabel: String?,
+        governorate: String?,
+        district: String?,
+        address: String?,
+        street: String?,
+        building: String?,
+        landmark: String?
+    ): Auth {
+        return wrapApiResponse {
+            apiService.signUpFamily(
+                hrId,
+                phoneNumber,
+                otp,
+                name,
+                email,
+                password,
+                dateOfBirth,
+                gender,
+                addressLabel,
+                governorate,
+                district,
+                address,
+                street,
+                building,
+                landmark
+            )
         }.toEntity()
     }
 

@@ -219,8 +219,34 @@ interface IRepo {
 
     suspend fun sendPhoneOtp(): BaseResponse
 
-    suspend fun getAllRelationships():List<Relationships>
-    suspend fun addNewReferral(name: String,phoneNumber: String, relationshipId: Int, email: String? = null):BaseResponse
-    suspend fun getAllReferrals(): Referrals
+    suspend fun getAllRelationships(): List<Relationships>
+    suspend fun addNewReferral(
+        name: String,
+        phoneNumber: String,
+        relationshipId: Int,
+        email: String? = null
+    ): BaseResponse
 
+    suspend fun getAllReferrals(): Referrals
+    suspend fun checkHrIdFamily(hrId: String): BaseResponse
+    suspend fun sendFamilyOTP(hrId: String, phoneNumber: String): BaseResponse
+    suspend fun checkFamilyOTP(hrId: String, phoneNumber: String, otp: String): BaseResponse
+
+    suspend fun signUpFamily(
+        hrId: String,
+        phoneNumber: String,
+        otp: String,
+        name: String,
+        email: String?,
+        password: String,
+        dateOfBirth: String?,
+        gender: Int?,
+        addressLabel: String?,
+        governorate: String?,
+        district: String?,
+        address: String?,
+        street: String?,
+        building: String?,
+        landmark: String?,
+    ): Auth
 }

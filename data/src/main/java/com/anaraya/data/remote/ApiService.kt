@@ -436,4 +436,43 @@ interface ApiService {
 
     @GET("Family/GetAllReferrals")
     suspend fun getAllReferrals(): Response<ReferralsDto>
+
+    @POST("Family/CheckHrId")
+    suspend fun checkHrIdFamily(
+        @Query("HrId") hrId: String
+    ):Response<BaseResponseDto>
+
+    @POST("Family/SendOTP")
+    suspend fun sendFamilyOTP(
+        @Query("HrId") hrId: String,
+        @Query("PhoneNumber") phoneNumber : String,
+    ): Response<BaseResponseDto>
+    @POST("Family/CheckOTP")
+    suspend fun checkFamilyOTP(
+        @Query("HrId") hrId: String,
+        @Query("PhoneNumber") phoneNumber : String,
+        @Query("Otp") otp  : String,
+    ): Response<BaseResponseDto>
+
+    @FormUrlEncoded
+    @POST("Family/SignUp")
+    suspend fun signUpFamily(
+        @Query("HrId") hrId: String,
+        @Query("PhoneNumber") phoneNumber : String,
+        @Query("Otp") otp  : String,
+        @Field("Name") name: String,
+        @Field("Email") email: String? = null,
+        @Field("Password") password: String,
+        @Field("DateOfBirth") dateOfBirth: String? = null,
+        @Field("Gender") gender: Int? = null,
+        @Field("AdressLabel") addressLabel: String? = null,
+        @Field("Governorate") governorate: String? = null,
+        @Field("District") district: String? = null,
+        @Field("Address") address: String? = null,
+        @Field("Street") street: String? = null,
+        @Field("Building") building: String? = null,
+        @Field("Landmark") landmark: String? = null,
+        @Field("Lat") lat: Double? = null,
+        @Field("Lng") lng: Double? = null,
+    ): Response<AuthDto>
 }

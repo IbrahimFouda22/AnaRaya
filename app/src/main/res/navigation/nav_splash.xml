@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/authenticationFragment"
-        android:name="com.anaraya.anaraya.authentication.AuthenticationFragment"
+        android:name="com.anaraya.anaraya.authentication.user.AuthenticationFragment"
         tools:layout="@layout/fragment_authentication">
         <action
             android:id="@+id/action_authenticationFragment_to_helpFragment"
@@ -63,6 +63,9 @@
         <action
             android:id="@+id/action_authenticationFragment_to_addAddressSignUpFragment"
             app:destination="@id/addAddressSignUpFragment" />
+        <action
+            android:id="@+id/action_authenticationFragment_to_authenticationFamilyFragment"
+            app:destination="@id/authenticationFamilyFragment" />
     </fragment>
     <fragment
         android:id="@+id/languageFragment"
@@ -96,4 +99,9 @@
         android:name="com.anaraya.anaraya.add_address_sign_up.AddAddressSignUpFragment"
         android:label="@string/add_address"
         tools:layout="@layout/fragment_add_address_sign_up" />
+    <fragment
+        android:id="@+id/authenticationFamilyFragment"
+        tools:layout="@layout/fragment_authentication_family"
+        android:name="com.anaraya.anaraya.authentication.family.AuthenticationFamilyFragment"
+        android:label="AuthenticationFamilyFragment" />
 </navigation>

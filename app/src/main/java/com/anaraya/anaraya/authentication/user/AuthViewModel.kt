@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.authentication
+package com.anaraya.anaraya.authentication.user
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anaraya.anaraya.R
+import com.anaraya.anaraya.authentication.AddressUiStateData
+import com.anaraya.anaraya.authentication.AuthUiState
 import com.anaraya.domain.entity.Auth
 import com.anaraya.domain.entity.CheckAuth
 import com.anaraya.domain.entity.ContactNumber
@@ -20,6 +22,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,12 +56,11 @@ class AuthViewModel @Inject constructor(
     private val _signUpResponse = MutableStateFlow(AuthUiState())
     val signUpResponse = _signUpResponse as StateFlow<AuthUiState>
 
-
     private val _resetPassResponse = MutableStateFlow(AuthUiState())
     val resetPassResponse = _resetPassResponse as StateFlow<AuthUiState>
 
-//    private val _authState = MutableStateFlow(AuthUiState())
-//    val authState = _authState as StateFlow<AuthUiState>
+    private val _navigateToFamilyState = MutableStateFlow(false)
+    val navigateToFamilyState = _navigateToFamilyState.asStateFlow()
 
     init {
         getContactNumber()
@@ -732,6 +734,18 @@ class AuthViewModel @Inject constructor(
     fun navigateToAddAddressDone() {
         _signUpResponse.update {
             it.copy(navigateToAddAddress = false)
+        }
+    }
+
+    fun navigateToFamily() {
+        _navigateToFamilyState.update {
+            true
+        }
+    }
+
+    fun navigateToFamilyDone() {
+        _navigateToFamilyState.update {
+            false
         }
     }
 

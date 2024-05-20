@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.anaraya.anaraya.R
-import com.anaraya.anaraya.authentication.AuthViewModel
+import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentAddAddressSignUpBinding
 import com.anaraya.anaraya.util.showMainToolBar
 import dagger.hilt.android.AndroidEntryPoint

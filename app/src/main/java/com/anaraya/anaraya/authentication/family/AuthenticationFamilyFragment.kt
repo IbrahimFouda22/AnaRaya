@@ -1,59 +1,58 @@
-package com.anaraya.anaraya.authentication
+package com.anaraya.anaraya.authentication.family
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.anaraya.anaraya.authentication.resetpassword.ResetPasswordFragment
-import com.anaraya.anaraya.authentication.signin.SignInFragment
-import com.anaraya.anaraya.authentication.signup.SignUpFragment
-import com.anaraya.anaraya.databinding.FragmentAuthenticationBinding
+import com.anaraya.anaraya.R
+import com.anaraya.anaraya.authentication.AuthAdapter
+import com.anaraya.anaraya.authentication.family.signin_family.SignInFamilyFragment
+import com.anaraya.anaraya.authentication.family.signup_family.SignUpFamilyFragment
+import com.anaraya.anaraya.authentication.user.AuthenticationFragmentDirections
+import com.anaraya.anaraya.authentication.user.resetpassword.ResetPasswordFragment
+import com.anaraya.anaraya.databinding.FragmentAuthenticationFamilyBinding
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.Tab
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthenticationFragment : Fragment() {
-    private lateinit var binding: FragmentAuthenticationBinding
+class AuthenticationFamilyFragment : Fragment() {
+    private lateinit var binding: FragmentAuthenticationFamilyBinding
     private lateinit var onPageSelected: ViewPager2.OnPageChangeCallback
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-    private val viewModel by viewModels<AuthViewModel>({ requireActivity() })
+    private val viewModel by viewModels<AuthFamilyViewModel>({ requireActivity() })
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentAuthenticationBinding.inflate(layoutInflater)
+        binding = FragmentAuthenticationFamilyBinding.inflate(layoutInflater)
         var list: ArrayList<Fragment>
         var adapter: AuthAdapter
-//        Log.d("state", "${sharedPreferences.getBoolean(context.getString(R.string.signupstate),false)}")
-//        if(sharedPreferences.getBoolean(context.getString(R.string.signupstate),false)) {
-//            setStateSignUpUpdate(2)
-//            sharedPreferences.edit().putBoolean(context.getString(R.string.signupstate),false).apply()
-//        }
+
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.stateViewPager.collectLatest{
-                binding.tabAuth.removeAllTabs()
-                list = if(it == 0){
-                    binding.tabAuth.addTab(binding.tabAuth.newTab().setText("Sign in"))
-                    binding.tabAuth.addTab(binding.tabAuth.newTab().setText("Sign up"))
+            viewModel.stateViewPager.collectLatest {
+                binding.tabAuthFamily.removeAllTabs()
+                list = if (it == 0) {
+                    binding.tabAuthFamily.addTab(binding.tabAuthFamily.newTab().setText(getString(R.string.sign_in)))
+                    binding.tabAuthFamily.addTab(binding.tabAuthFamily.newTab().setText(getString(R.string.sign_up)))
                     viewModel.resetSignInResponse()
                     arrayListOf(
-                        SignInFragment(),
-                        SignUpFragment()
+                        SignInFamilyFragment(),
+                        SignUpFamilyFragment()
                     )
-                } else{
-                    binding.tabAuth.addTab(binding.tabAuth.newTab().setText("Reset Password"))
+                } else {
+                    binding.tabAuthFamily.addTab(binding.tabAuthFamily.newTab().setText("Reset Password"))
                     viewModel.resetResetPassResponse()
                     arrayListOf(
                         ResetPasswordFragment(),
@@ -66,7 +65,7 @@ class AuthenticationFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.signUpResponse.collectLatest {
-                if(it.navigateToAddAddress){
+                if (it.navigateToAddAddress) {
                     findNavController().navigate(AuthenticationFragmentDirections.actionAuthenticationFragmentToAddAddressSignUpFragment())
                     viewModel.navigateToAddAddressDone()
                 }
@@ -76,38 +75,36 @@ class AuthenticationFragment : Fragment() {
 
 
         onPageSelected = getOnPageChangeCallBack()
-        binding.tabAuth.addOnTabSelectedListener(getTabOnSelectedListener())
+        binding.tabAuthFamily.addOnTabSelectedListener(getTabOnSelectedListener())
         binding.viewPagerAuth.registerOnPageChangeCallback(onPageSelected)
 
 
-        binding.btnArrowBackSignIn.setOnClickListener {
-            if(viewModel.stateViewPager.value == 0){
+        binding.btnArrowBackSignInFamily.setOnClickListener {
+            if (viewModel.stateViewPager.value == 0) {
                 if (viewModel.statePage.value == 0)
                     setStateSignInMinus()
                 else
                     setStateSignUpMinus()
-            }
-            else{
+            } else {
                 setStateResetPassMinus()
             }
         }
 
         return binding.root
     }
-
     private fun getTabOnSelectedListener(): TabLayout.OnTabSelectedListener {
         return object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: Tab?) {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
                     binding.viewPagerAuth.currentItem = tab.position
                     viewModel.setStatePage(tab.position)
                 }
             }
 
-            override fun onTabUnselected(tab: Tab?) {
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
 
-            override fun onTabReselected(tab: Tab?) {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
             }
 
         }
@@ -117,7 +114,7 @@ class AuthenticationFragment : Fragment() {
         return object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.tabAuth.selectTab(binding.tabAuth.getTabAt(position))
+                binding.tabAuthFamily.selectTab(binding.tabAuthFamily.getTabAt(position))
             }
         }
     }
@@ -152,5 +149,4 @@ class AuthenticationFragment : Fragment() {
             else -> viewModel.setStateViewPagerUpdate(0)
         }
     }
-
 }

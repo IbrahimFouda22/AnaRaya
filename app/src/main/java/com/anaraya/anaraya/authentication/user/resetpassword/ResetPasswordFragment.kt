@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.authentication.resetpassword
+package com.anaraya.anaraya.authentication.user.resetpassword
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.anaraya.anaraya.authentication.AuthViewModel
+import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentResetPasswordBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -25,14 +25,14 @@ class ResetPasswordFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentResetPasswordBinding.inflate(layoutInflater)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         binding.btnArrowNextResetPassword.setOnClickListener {
             setStateResetPlus()
         }
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.resetPassResponse.collectLatest {
                 if (it.error != null) {
                     Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
@@ -109,16 +109,10 @@ class ResetPasswordFragment : Fragment() {
             }
 
             else -> {
-//                val boolean = viewModel.validateRayaNationalId(
-//                    binding.edtRayaIdNumSignUp.text.toString(),
-//                    binding.edtNationalIdNumSignUp.text.toString()
-//                )
                 viewModel.resetPass(
                     rayaId, nationalId, code, newPass
                 )
             }
         }
     }
-
-
 }

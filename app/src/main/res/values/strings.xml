@@ -275,6 +275,13 @@
     <string name="email_address_optional">Email address(Optional)</string>
     <string name="relationship_is_empty">Relationship is empty</string>
     <string name="referrals_sent_to">Referrals sent to %1$s</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="or">Or</string>
+    <string name="sign_in_as_a_family_referral">Sign in as a Family Referral</string>
+    <string name="family_referral_sign_up">Family Referral Sign up?</string>
+    <string name="otp">OTP</string>
+    <string name="otp_is_empty">OTP is empty</string>
 
     <string-array name="lang">
         <item>English</item>

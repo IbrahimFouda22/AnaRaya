@@ -45,8 +45,6 @@ class AddAddressFragment : Fragment() {
     private var allCompanyAddressListId = emptyList<String>()
     private var allCompanyAddressListInFav= emptyList<Boolean>()
 
-    //    private var apartment = false
-//    private var office = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,12 +64,6 @@ class AddAddressFragment : Fragment() {
         val adapterAllCompanies =
             ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
         binding.edtLineOfBusiness.setAdapter(adapterAllCompanies)
-
-//        val adapterAllGovernorate =
-//            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-//        binding.edtLineGovernorate.setAdapter(adapterAllGovernorate)
-
-
         val adapter = CompanyAddressAdapter()
 
         lifecycleScope.launch {
@@ -100,7 +92,6 @@ class AddAddressFragment : Fragment() {
                         }
                         adapterAllCompanies.addAll(m)
                     }
-//                    binding.edtLineOfBusiness.adapter = ArrayAdapter<String>(requireContext(),it.allCompanies.size)
                 }
                 if (it.allGovernorate.isNotEmpty()) {
                     if (allGovernorate.isEmpty()) {
@@ -121,12 +112,6 @@ class AddAddressFragment : Fragment() {
                         binding.edtLineNameOfTheCompany.setAdapter(adapterAllCompanyAddress)
                     }
                 }
-                /*if (it.allCompanyAddresses == null) {
-                    adapter.submitData(PagingData.empty())
-                    val adapterAllCompanyAddress =
-                        ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-                    binding.edtLineNameOfTheCompany.setAdapter(adapterAllCompanyAddress)
-                }*/
                 if (it.allCompanyAddresses != null) {
                     //adapter.submitData(PagingData.from(emptyList()))
                     it.allCompanyAddresses.collectLatest { data ->
@@ -191,15 +176,6 @@ class AddAddressFragment : Fragment() {
                 }
             }
         }
-
-//        lifecycleScope.launch {
-//            viewModel.addressTypeState.collectLatest {
-//                apartment = it.apartment
-//                office = it.office
-//            }
-//        }
-        //var arrayAdapter = ArrayAdapter<AddressUiState>
-
 
         binding.btnSave.setOnClickListener {
             addUserAddress()
@@ -266,10 +242,6 @@ class AddAddressFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        if(navArgs.fromCart)
-//            sharedViewModel.getCheckOut()
-//        else
-//            sharedViewModel.getCheckOutDone()
         binding.unbind()
     }
 

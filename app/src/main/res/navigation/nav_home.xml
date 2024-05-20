@@ -86,18 +86,20 @@
         app:destination="@id/servicesFragment"
         app:enterAnim="@android:anim/fade_in"
         app:exitAnim="@android:anim/fade_out"
+        app:launchSingleTop="false"
         app:popEnterAnim="@android:anim/fade_in"
         app:popExitAnim="@android:anim/fade_out"
-        app:popUpTo="@id/homeFragment"
+        app:popUpTo="@id/nav_home"
         app:popUpToInclusive="false" />
     <action
         android:id="@+id/action_global_moreFragment"
         app:destination="@id/moreFragment"
         app:enterAnim="@android:anim/fade_in"
         app:exitAnim="@android:anim/fade_out"
+        app:launchSingleTop="false"
         app:popEnterAnim="@android:anim/fade_in"
         app:popExitAnim="@android:anim/fade_out"
-        app:popUpTo="@id/homeFragment"
+        app:popUpTo="@id/nav_home"
         app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/scheduleFragment"
