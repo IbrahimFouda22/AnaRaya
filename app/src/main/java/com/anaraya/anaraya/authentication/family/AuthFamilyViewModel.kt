@@ -92,10 +92,9 @@ class AuthFamilyViewModel @Inject constructor(
         _statePage.update {
             num
         }
-        if (num == 0)
-            _stateSignIn.update {
-                1
-            }
+        if (num == 0) _stateSignIn.update {
+            1
+        }
         else {
             if (sharedPreferences.getBoolean(context.getString(R.string.signupstate), false)) {
                 _stateSignUp.update {
@@ -127,13 +126,13 @@ class AuthFamilyViewModel @Inject constructor(
         }
     }
 
-    fun signIn(rayaId: String?, national: String?, password: String?) {
+    fun signIn(rayaId: String?, password: String?) {
         _signInResponse.update {
             AuthUiState(error = null, isLoading = true)
         }
         viewModelScope.launch {
             try {
-                onSignInSuccess(authUseCase.signIn(rayaId, national, password))
+                onSignInSuccess(authUseCase.signIn(rayaId, password))
             } catch (e: EmptyDataException) {
                 onSignInFailure(e.message)
             } catch (e: PasswordInValidFormatException) {
@@ -164,8 +163,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.raya_id_is_empty) -> {
                 _signInResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signInRayaIdError = true
+                        isLoading = false, signInRayaIdError = true
                     )
                 }
             }
@@ -173,8 +171,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.national_id_is_empty) -> {
                 _signInResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signInNationalIdError = true
+                        isLoading = false, signInNationalIdError = true
                     )
                 }
             }
@@ -184,7 +181,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_counter_msg)
+                        signInPasswordErrorNumber = 1
                     )
                 }
             }
@@ -194,7 +191,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_upper_msg)
+                        signInPasswordErrorNumber = 2
                     )
                 }
             }
@@ -204,7 +201,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_lower_msg)
+                        signInPasswordErrorNumber = 3
                     )
                 }
             }
@@ -214,7 +211,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_digit_msg)
+                        signInPasswordErrorNumber = 4
                     )
                 }
             }
@@ -224,7 +221,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_special_msg)
+                        signInPasswordErrorNumber = 5
                     )
                 }
             }
@@ -272,8 +269,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        resetRayaIdError = true
+                        isLoading = false, resetRayaIdError = true
                     )
                 }
             }
@@ -312,8 +308,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpRayaIdError = true
+                        isLoading = false, signUpRayaIdError = true
                     )
                 }
             }
@@ -327,8 +322,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpMobilePhoneError = true
+                        isLoading = false, signUpMobilePhoneError = true
                     )
                 }
             }
@@ -366,8 +360,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpRayaIdError = true
+                        isLoading = false, signUpRayaIdError = true
                     )
                 }
             }
@@ -381,8 +374,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpMobilePhoneError = true
+                        isLoading = false, signUpMobilePhoneError = true
                     )
                 }
             }
@@ -396,8 +388,7 @@ class AuthFamilyViewModel @Inject constructor(
                 }
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpOtpError = true
+                        isLoading = false, signUpOtpError = true
                     )
                 }
             }
@@ -407,8 +398,7 @@ class AuthFamilyViewModel @Inject constructor(
     fun checkAuth(rayaId: String) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = true,
-                auth = false
+                isLoading = true, auth = false
             )
         }
         viewModelScope.launch {
@@ -425,9 +415,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onCheckAuthSuccess(checkAuth: BaseResponse) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                auth = checkAuth.isSucceed,
-                error = null
+                isLoading = false, auth = checkAuth.isSucceed, error = null
             )
         }
     }
@@ -435,9 +423,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onCheckAuthFailure(error: String) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                auth = false,
-                error = error
+                isLoading = false, auth = false, error = error
             )
         }
     }
@@ -447,12 +433,17 @@ class AuthFamilyViewModel @Inject constructor(
             it.copy(
                 isLoading = true,
                 isOtpSent = false,
+                error = null,
+                messageSignUp = null
             )
         }
         viewModelScope.launch {
             try {
-                if (validateOTPData(rayaId, phoneNumber))
-                    onSendVerifyCodeSuccess(authUseCase.sendFamilyOTP(rayaId, phoneNumber))
+                if (validateOTPData(
+                        rayaId,
+                        phoneNumber
+                    )
+                ) onSendVerifyCodeSuccess(authUseCase.sendFamilyOTP(rayaId, phoneNumber))
             } catch (e: NoInternetException) {
                 onSendVerifyCodeFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -464,9 +455,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onSendVerifyCodeSuccess(checkAuth: BaseResponse) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                isOtpSent = checkAuth.isSucceed,
-                error = null
+                isLoading = false, isOtpSent = checkAuth.isSucceed, error = null
             )
         }
     }
@@ -474,8 +463,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onSendVerifyCodeFailure(error: String) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                error = error
+                isLoading = false, error = error
             )
         }
     }
@@ -494,8 +482,7 @@ class AuthFamilyViewModel @Inject constructor(
                         phoneNumber,
                         otp,
                     )
-                )
-                    onCheckVerifyCodeSuccess(authUseCase.checkFamilyOTP(rayaId, phoneNumber, otp))
+                ) onCheckVerifyCodeSuccess(authUseCase.checkFamilyOTP(rayaId, phoneNumber, otp))
             } catch (e: NoInternetException) {
                 onCheckVerifyCodeFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -507,9 +494,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onCheckVerifyCodeSuccess(checkAuth: BaseResponse) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                isOtpCorrect = checkAuth.isSucceed,
-                error = null
+                isLoading = false, isOtpCorrect = checkAuth.isSucceed, error = null
             )
         }
     }
@@ -517,8 +502,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onCheckVerifyCodeFailure(error: String) {
         _signUpResponse.update {
             AuthUiState(
-                isLoading = false,
-                error = error
+                isLoading = false, error = error
             )
         }
     }
@@ -546,8 +530,7 @@ class AuthFamilyViewModel @Inject constructor(
     private fun onGetContactNumberFailure(error: String) {
         _signUpResponse.update {
             AuthUiState(
-                contactNumber = null,
-                error = error
+                contactNumber = null, error = error
             )
         }
     }
@@ -626,8 +609,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.name_is_empty) -> {
                 _signUpResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpNameError = true
+                        isLoading = false, signUpNameError = true
                     )
                 }
             }
@@ -635,8 +617,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.phone_is_empty) -> {
                 _signUpResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        signUpPhoneError = true
+                        isLoading = false, signUpPhoneError = true
                     )
                 }
             }
@@ -656,7 +637,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_counter_msg)
+                        signUpPasswordErrorNumber = 1
                     )
                 }
             }
@@ -666,7 +647,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_upper_msg)
+                        signUpPasswordErrorNumber = 2
                     )
                 }
             }
@@ -676,7 +657,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_lower_msg)
+                        signUpPasswordErrorNumber = 3
                     )
                 }
             }
@@ -686,7 +667,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_digit_msg)
+                        signUpPasswordErrorNumber = 4
                     )
                 }
             }
@@ -696,7 +677,7 @@ class AuthFamilyViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_special_msg)
+                        signUpPasswordErrorNumber = 5
                     )
                 }
             }
@@ -714,7 +695,6 @@ class AuthFamilyViewModel @Inject constructor(
 
     fun forgetPass(
         rayaId: String,
-        national: String
     ) {
         _resetPassResponse.update {
             AuthUiState(isLoading = true, error = null)
@@ -724,9 +704,10 @@ class AuthFamilyViewModel @Inject constructor(
                 onForgetPassSuccess(
                     authUseCase.forgetPass(
                         rayaId,
-                        national,
                     )
                 )
+            } catch (e: EmptyDataException) {
+                onForgetPassFailure(e.message)
             } catch (e: NoInternetException) {
                 onForgetPassFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -748,19 +729,33 @@ class AuthFamilyViewModel @Inject constructor(
     }
 
     private fun onForgetPassFailure(error: String?) {
-        _resetPassResponse.update {
-            AuthUiState(
-                isLoading = false,
-                isSucceedForgetPass = false,
-                error = error,
-                messageForgetPass = null
-            )
+        when (error) {
+            context.getString(R.string.raya_id_is_empty) -> {
+                _resetPassResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        isSucceedForgetPass = false,
+                        error = error,
+                        messageForgetPass = null,
+                        resetRayaIdError = true
+                    )
+                }
+            }
+            else -> {
+                _resetPassResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        isSucceedForgetPass = false,
+                        error = error,
+                        messageForgetPass = null
+                    )
+                }
+            }
         }
     }
 
     fun forgetPassCheckPass(
         rayaId: String?,
-        national: String?,
         code: String?,
     ) {
         _resetPassResponse.update {
@@ -770,13 +765,11 @@ class AuthFamilyViewModel @Inject constructor(
             try {
                 onForgetPassCheckPassSuccess(
                     authUseCase.forgetPassCheckCode(
-                        rayaId,
-                        national,
-                        code
+                        rayaId, code
                     )
                 )
             } catch (e: EmptyDataException) {
-                onForgetPassCheckPassFailure(context.getString(R.string.no_internet))
+                onForgetPassCheckPassFailure(e.message)
             } catch (e: NoInternetException) {
                 onForgetPassCheckPassFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -810,8 +803,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.national_id_is_empty) -> {
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        resetNationalIdError = true
+                        isLoading = false, resetNationalIdError = true
                     )
                 }
             }
@@ -819,8 +811,7 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.verification_is_empty) -> {
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        resetVerificationError = true
+                        isLoading = false, resetVerificationError = true
                     )
                 }
             }
@@ -839,10 +830,7 @@ class AuthFamilyViewModel @Inject constructor(
     }
 
     fun resetPass(
-        rayaId: String,
-        national: String,
-        code: String,
-        newPass: String?
+        rayaId: String, code: String, newPass: String?
     ) {
         _resetPassResponse.update {
             AuthUiState(isLoading = true, error = null)
@@ -851,14 +839,11 @@ class AuthFamilyViewModel @Inject constructor(
             try {
                 onResetPassSuccess(
                     authUseCase.resetPass(
-                        rayaId,
-                        national,
-                        code,
-                        newPass
+                        rayaId, code, newPass
                     )
                 )
             } catch (e: EmptyDataException) {
-                onResetPassFailure(context.getString(R.string.no_internet))
+                onResetPassFailure(e.message)
             } catch (e: NoInternetException) {
                 onResetPassFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -883,18 +868,63 @@ class AuthFamilyViewModel @Inject constructor(
             context.getString(R.string.new_password_is_empty) -> {
                 _resetPassResponse.update {
                     AuthUiState(
+                        isLoading = false, resetNewPassError = true
+                    )
+                }
+            }
+            context.getString(R.string.password_format_counter) -> {
+                _signUpResponse.update {
+                    AuthUiState(
                         isLoading = false,
-                        resetNewPassError = true
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 1
                     )
                 }
             }
 
+            context.getString(R.string.password_format_upper) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 2
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_lower) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 3
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_digit) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 4
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_special) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 5
+                    )
+                }
+            }
             else -> {
                 _resetPassResponse.update {
                     AuthUiState(
-                        isLoading = false,
-                        error = error,
-                        messageResetPass = null
+                        isLoading = false, error = error, messageResetPass = null
                     )
                 }
             }

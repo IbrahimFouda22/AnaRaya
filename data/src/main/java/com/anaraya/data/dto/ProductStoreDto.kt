@@ -9,6 +9,9 @@ data class ProductStoreDtoData(
 
 )
 
+data class ProductStoreDtoDetails(
+    val data: ProductStoreDtoItemList
+)
 data class ProductStoreDtoItemList(
     val id: Int,
     val category: String,
@@ -22,9 +25,11 @@ data class ProductStoreDtoItemList(
     val location: String,
     val productImageUrl: String? = null,
     val userAction: Int,
-    val numberOfBuyers: Int,
-    val customerInformation: List<CustomerInformation>,
-    val customerWantsToBuy: List<Int>,
+    val status: Int,
+    val customerWantsToBuy: Int,
+    val isAnonymous:Boolean?,
+    val handleDelivery:Boolean?,
+    val customerInformation: CustomerInformation?,
 )
 
 data class CustomerInformation(
@@ -38,3 +43,5 @@ data class CustomerInformation(
     val sellingStatus: Int,
     val payMethod: Int
 )
+
+

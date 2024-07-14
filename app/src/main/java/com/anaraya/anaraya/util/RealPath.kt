@@ -1,4 +1,4 @@
-package com.pupilJ.jk.util
+package com.anaraya.anaraya.util
 
 import android.annotation.SuppressLint
 import android.content.ContentUris

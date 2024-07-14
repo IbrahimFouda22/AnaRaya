@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:padding="10dp"
         android:background="@color/white"
-        tools:context=".home.home.HomeFragment">
+        tools:context=".screens.home.HomeFragment">
 
         <ProgressBar
             android:id="@+id/progress_homeDesign"

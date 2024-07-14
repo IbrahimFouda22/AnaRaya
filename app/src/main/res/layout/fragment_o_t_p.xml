@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.otp.OTPViewModel" />
+            type="com.anaraya.anaraya.screens.otp.OTPViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context=".home.otp.OTPFragment">
+        tools:context=".screens.otp.OTPFragment">
 
         <ProgressBar
             android:id="@+id/progress_otp"

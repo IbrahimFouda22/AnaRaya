@@ -17,7 +17,7 @@ import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.family.AuthFamilyViewModel
 import com.anaraya.anaraya.databinding.FragmentSignInFamilyBinding
-import com.anaraya.anaraya.home.activity.HomeActivity
+import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -94,17 +94,15 @@ class SignInFamilyFragment : Fragment() {
         var num = viewModel.stateSignIn.value
         when (num) {
             1 -> viewModel.setStateSignInUpdate(++num)
-            2 -> viewModel.setStateSignInUpdate(++num)
             else -> signIn(
                 binding.edtRayaIdNumSignInFamily.text.toString(),
-                binding.edtNationalIdNumSignInFamily.text.toString(),
                 binding.edtPasswordSignInFamily.text.toString()
             )
         }
     }
 
-    private fun signIn(rayaId: String?, nationalId: String?, password: String?) {
-        viewModel.signIn(rayaId, nationalId, password)
+    private fun signIn(rayaId: String?, password: String?) {
+        viewModel.signIn(rayaId, password)
     }
 
     private fun saveUser(token: String, productsInBasket: Int) {
@@ -113,9 +111,9 @@ class SignInFamilyFragment : Fragment() {
         sharedPreferences.edit().putBoolean("auth", false).apply()
         sharedPreferences.edit().putString("rayaId", binding.edtRayaIdNumSignInFamily.text.toString())
             .apply()
-        sharedPreferences.edit()
-            .putString("nationalId", binding.edtNationalIdNumSignInFamily.text.toString()).apply()
         sharedPreferences.edit().putString("password", binding.edtPasswordSignInFamily.text.toString())
+            .apply()
+        sharedPreferences.edit().putBoolean("isFamily", true)
             .apply()
     }
 
@@ -123,7 +121,6 @@ class SignInFamilyFragment : Fragment() {
         sharedViewModel.reloadClick()
         signIn(
             binding.edtRayaIdNumSignInFamily.text.toString(),
-            binding.edtNationalIdNumSignInFamily.text.toString(),
             binding.edtPasswordSignInFamily.text.toString()
         )
         sharedViewModel.reloadClickDone()
@@ -133,7 +130,7 @@ class SignInFamilyFragment : Fragment() {
         AlertDialog.Builder(requireContext()).setCancelable(false)
             .setTitle(getString(R.string.contact_number)).setMessage(contactNumber)
             .setNeutralButton(
-                "OK"
+                requireContext().getString(R.string.ok)
             ) { dialog, _ ->
                 dialog.cancel()
             }.show()

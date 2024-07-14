@@ -7,5 +7,6 @@ data class ProductsAdsDto(
 data class ProductsAdsDtoData(
     val id: Int,
     val adsImageUrl: String? = null,
-    val isProductOrBrand: Boolean
+    val adsLink: String? = null,
+    val adsType: Int,
 )

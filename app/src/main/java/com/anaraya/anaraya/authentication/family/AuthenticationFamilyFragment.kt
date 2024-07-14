@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.AuthAdapter
+import com.anaraya.anaraya.authentication.family.reset_pass_family.ResetPasswordFamilyFragment
 import com.anaraya.anaraya.authentication.family.signin_family.SignInFamilyFragment
 import com.anaraya.anaraya.authentication.family.signup_family.SignUpFamilyFragment
 import com.anaraya.anaraya.authentication.user.AuthenticationFragmentDirections
@@ -52,10 +53,10 @@ class AuthenticationFamilyFragment : Fragment() {
                         SignUpFamilyFragment()
                     )
                 } else {
-                    binding.tabAuthFamily.addTab(binding.tabAuthFamily.newTab().setText("Reset Password"))
+                    binding.tabAuthFamily.addTab(binding.tabAuthFamily.newTab().setText(getString(R.string.reset_password)))
                     viewModel.resetResetPassResponse()
                     arrayListOf(
-                        ResetPasswordFragment(),
+                        ResetPasswordFamilyFragment(),
                     )
                 }
                 adapter = AuthAdapter(list, childFragmentManager, lifecycle)

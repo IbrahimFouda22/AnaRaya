@@ -1,0 +1,43 @@
+package com.anaraya.anaraya.screens.activity
+
+import com.anaraya.anaraya.screens.cart.CartUiList
+import com.anaraya.anaraya.screens.services.store.product.my_items.ProductStoreItemState
+
+data class HomeActivityUiState(
+    val isLoading: Boolean = false,
+    val error: String? = null,
+    val isFCMSent: Boolean = false,
+    val reloadClick: Boolean = false,
+    val getUserMyInfo: Boolean = false,
+    val getAddresses: Boolean = false,
+    val getUserMoreInfo: Boolean = false,
+    val getCart: Boolean = false,
+    val getTrendingData: Boolean = false,
+    val getPointsData: Boolean = false,
+    val navigateToFav: Boolean = false,
+    val navigateToItemDetailsProduct: Boolean = false,
+    val navigateToBrand: Boolean = false,
+    val navigateToMainCat: Boolean = false,
+    val navigateToCat: Boolean = false,
+    val navigateToExploreProduct: Boolean = false,
+    val navigateToExploreService: Boolean = false,
+    val navigateToTermsAndCondition: Boolean = false,
+    val navigateToProduct: Boolean = false,
+    val navigateToSurvey: Boolean = false,
+    val navigateToMarketPlaceProduct: Boolean = false,
+    val navigateToMarketPlaceService: Boolean = false,
+    val navigationId: String = "-1",
+    val openSearch: Boolean = false,
+    val productInBasket: Int = 0,
+    val priceHighest: Boolean = false,
+    val priceLowest: Boolean = false,
+    val getSearchData: Boolean = false,
+    val showSurveyImage: Boolean = true,
+    val isEnteredToTermsAndCondition: Boolean = false,
+    val listCat:List<Int> = emptyList(),
+    val listBrand:List<Int> = emptyList(),
+    val itemDetailsProductId: Int? = null,
+    val cartUiListState: List<CartUiList> = emptyList(),
+    val exploreSubCatId: Int = -1,
+    val exploreSubCatName: String = "",
+)

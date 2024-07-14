@@ -22,6 +22,8 @@ import com.anaraya.domain.entity.CompanyGovernorate
 import com.anaraya.domain.entity.ContactNumber
 import com.anaraya.domain.entity.DeliverySchedule
 import com.anaraya.domain.entity.EditInfo
+import com.anaraya.domain.entity.ExploreProduct
+import com.anaraya.domain.entity.ExploreServices
 import com.anaraya.domain.entity.FeedBack
 import com.anaraya.domain.entity.Help
 import com.anaraya.domain.entity.HelpDetails
@@ -31,12 +33,18 @@ import com.anaraya.domain.entity.PlaceOrder
 import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
 import com.anaraya.domain.entity.ProductDetails
-import com.anaraya.domain.entity.ProductStoreItemList
+import com.anaraya.domain.entity.ProductStore
 import com.anaraya.domain.entity.Profile
 import com.anaraya.domain.entity.PromoCode
 import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.entity.Relationships
 import com.anaraya.domain.entity.ResetChangePass
+import com.anaraya.domain.entity.ServiceStoreItemList
+import com.anaraya.domain.entity.Survey
+import com.anaraya.domain.entity.SurveyBody
+import com.anaraya.domain.entity.SurveyImage
+import com.anaraya.domain.entity.Surveys
+import com.anaraya.domain.entity.SurveysStatus
 import kotlinx.coroutines.flow.Flow
 import java.io.File
 
@@ -72,9 +80,14 @@ interface IRepo {
 
     suspend fun getProductsAds(): List<ProductAd>
     suspend fun getTrendingProducts(): Flow<PagingData<Product>>
+    suspend fun getPointsProducts(): Flow<PagingData<Product>>
+
     suspend fun getHomeCategory(): Flow<PagingData<MainCategory>>
     suspend fun getProductById(productId: Int): ProductDetails
+    suspend fun getProductsByCategory(mainCatId: Int): Flow<PagingData<Product>>
     suspend fun getProductsByMainCategory(mainCatId: Int): Flow<PagingData<Product>>
+    suspend fun getProductsByBrand(brandId: Int): Flow<PagingData<Product>>
+
     suspend fun getProductsInsideMainCatAndCat(
         categoryId: Int,
         mainCatId: Int
@@ -85,7 +98,11 @@ interface IRepo {
     suspend fun getAllProduct(): Flow<PagingData<Product>>
     suspend fun getAll(): Flow<PagingData<Product>>
     suspend fun addToCart(productId: Int, productQty: Int): AddRemoveCart
+    suspend fun addPointToCart(productId: Int, productQty: Int): AddRemoveCart
+
     suspend fun removeProductFromCart(productId: Int): AddRemoveCart
+    suspend fun removeProductPointFromCart(productId: Int): AddRemoveCart
+
     suspend fun getCart(): Cart
 
     suspend fun getAddress(): Addresses
@@ -127,6 +144,9 @@ interface IRepo {
     suspend fun updateName(name: String): EditInfo
     suspend fun updateEmail(email: String): EditInfo
     suspend fun updatePhoneNumber(phone: String): EditInfo
+    suspend fun updateDOB(dob: String): EditInfo
+    suspend fun updateGender(gender: Int): EditInfo
+    suspend fun changePassword(currentPassword: String, newPassword: String): EditInfo
 
     suspend fun getOrders(): Order
 
@@ -175,6 +195,8 @@ interface IRepo {
     suspend fun getAllPromoCodes(): PromoCode
     suspend fun applyPromo(promoCode: String): ApplyPromo
     suspend fun getAboutUs(): AboutUS
+    suspend fun getTermsAndCondition(): BaseResponse
+    suspend fun getPrivacyPolicy(): BaseResponse
 
     suspend fun getSupportContactNumber(): ContactNumber
     suspend fun addAllToBasket(): AddAllToBasket
@@ -189,28 +211,71 @@ interface IRepo {
         highestOrLowest: Int?,
     ): Flow<PagingData<Product>>
 
-    suspend fun getStoreCategory(isProduct: Boolean): List<Category>
+    suspend fun getStoreProductCategory(): List<Category>
+    suspend fun getStoreServicesCategory(): List<Category>
     suspend fun getStoreSubCategory(categoryId: Int): List<Category>
 
-    suspend fun storeAdd(
+    suspend fun storeAddProduct(
         subCategoryId: String,
         condition: String,
         title: String,
         itemDescription: String,
         price: String,
         location: String,
+        isAnonymous: Boolean,
+        handleDelivery: Boolean,
         productImage: File,
-        isProduct: Boolean
+    ): BaseResponse
+    suspend fun storeUpdateProduct(
+        id: Int,
+        subCategoryId: String?,
+        condition: String?,
+        title: String?,
+        itemDescription: String?,
+        price: String?,
+        location: String?,
+        isAnonymous: Boolean?,
+        handleDelivery: Boolean?,
+        productImage: File?,
+    ): BaseResponse
+    suspend fun storeAddService(
+        subCategoryId: String,
+        title: String,
+        itemDescription: String,
+        price: String,
+        location: String,
+        serviceImage: File,
     ): BaseResponse
 
-    suspend fun getStoreProductAndService(
+    suspend fun getStoreProduct(
         status: Int,
-        isProduct: Boolean
-    ): Flow<PagingData<ProductStoreItemList>>
+    ): Flow<PagingData<ProductStore>>
+    suspend fun getStoreProductByIdForOwner(
+        productId: Int
+    ): ProductStore
 
-    suspend fun requestToDelete(
+    suspend fun getStoreService(
+        status: Int,
+    ): Flow<PagingData<ServiceStoreItemList>>
+
+    suspend fun getExploreProducts(
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): Flow<PagingData<ExploreProduct>>
+    suspend fun getExploreServices(
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): Flow<PagingData<ExploreServices>>
+
+    suspend fun requestToDeleteProduct(
         customerProductId: Int,
-        isProduct: Boolean
+    ): BaseResponse
+    suspend fun requestToDeleteService(
+        customerProductId: Int,
     ): BaseResponse
 
     suspend fun verifyPhone(
@@ -249,4 +314,32 @@ interface IRepo {
         building: String?,
         landmark: String?,
     ): Auth
+    suspend fun signInFamily(
+        rayaId: String,
+        password: String,
+    ): Auth
+
+    suspend fun forgetPassFamily(rayaId: String): ResetChangePass
+    suspend fun forgetPassCheckCodeFamily(
+        rayaId: String,
+        code: String
+    ): ResetChangePass
+    suspend fun resetPassFamily(
+        rayaId: String,
+        code: String,
+        newPassword: String
+    ): ResetChangePass
+    suspend fun addToNotifyMe(productId: Int):BaseResponse
+    suspend fun removeFromNotifyMe(productId: Int):BaseResponse
+    suspend fun getUserLoyaltyPoints():BaseResponse
+    suspend fun sendFCMToken(token: String, enabled: Boolean): BaseResponse
+    suspend fun updateFCMToken(token: String, enabled: Boolean): BaseResponse
+    suspend fun requestToBuy(productId: Int): BaseResponse
+    suspend fun requestToRent(serviceId: Int, rentTo: String, rentFrom: String): BaseResponse
+    suspend fun getSurveysStatus(): SurveysStatus
+    suspend fun getAllSurveys(): Surveys
+    suspend fun getSurvey(surveyId: Int): Survey
+    suspend fun submitSurvey(surveyBody: SurveyBody): BaseResponse
+    suspend fun getSurveyImage(): SurveyImage
+
 }

@@ -3,14 +3,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.aboutus.AboutUSViewModel" />
+            type="com.anaraya.anaraya.screens.more.aboutus.AboutUSViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.aboutus.AboutUsFragment">
+        tools:context=".screens.more.aboutus.AboutUsFragment">
 
         <ProgressBar
             android:id="@+id/progress_aboutUS"

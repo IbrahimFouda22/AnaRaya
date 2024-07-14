@@ -17,7 +17,7 @@ import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentSignInBinding
-import com.anaraya.anaraya.home.activity.HomeActivity
+import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -64,7 +64,8 @@ class SignInFragment : Fragment() {
 
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                    if (it.error != getString(R.string.no_internet))
+                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (!it.isSucceedSignIn) {
                     Toast.makeText(context, it.messageSignIn, Toast.LENGTH_SHORT).show()
@@ -120,6 +121,8 @@ class SignInFragment : Fragment() {
         sharedPreferences.edit()
             .putString("nationalId", binding.edtNationalIdNumSignIn.text.toString()).apply()
         sharedPreferences.edit().putString("password", binding.edtPasswordSignIn.text.toString())
+            .apply()
+        sharedPreferences.edit().putBoolean("isFamily", false)
             .apply()
     }
 

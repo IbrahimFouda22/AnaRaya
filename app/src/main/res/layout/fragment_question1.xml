@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.feedback.question1.Question1ViewModel" />
+            type="com.anaraya.anaraya.screens.more.feedback.question1.Question1ViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.feedback.question1.Question1Fragment">
+        tools:context=".screens.more.feedback.question1.Question1Fragment">
 
         <TextView
             android:id="@+id/txtQuestion1"

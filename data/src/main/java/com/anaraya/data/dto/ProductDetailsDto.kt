@@ -19,6 +19,7 @@ data class ProductDetailsData(
     val stockImages: List<String?>?=null,
     val favouriteStock: Boolean,
     val inBasket: Boolean,
+    val notifyMe: Boolean,
     val qtyInBasket: Int,
     val limityQtyForUserPerMonth: Int,
     val qtyUsedFromLimtit: Int,

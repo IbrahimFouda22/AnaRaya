@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp">
+
+        <ImageButton
+            android:id="@+id/imgGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_gallery"
+            android:layout_marginEnd="80dp"
+            app:layout_constraintEnd_toStartOf="@id/imgCamera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter400"
+            android:text="@string/gallery"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/imgGallery"
+            app:layout_constraintStart_toStartOf="@id/imgGallery"
+            app:layout_constraintTop_toBottomOf="@+id/imgGallery" />
+
+        <ImageButton
+            android:id="@+id/imgCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgGallery"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/inter400"
+            android:text="@string/camera"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@id/imgCamera"
+            app:layout_constraintStart_toStartOf="@id/imgCamera"
+            app:layout_constraintTop_toBottomOf="@+id/imgCamera" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

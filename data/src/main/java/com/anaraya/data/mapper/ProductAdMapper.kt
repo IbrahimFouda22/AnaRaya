@@ -8,7 +8,8 @@ fun ProductsAdsDto.toEntity():List<ProductAd>{
         ProductAd(
             id = it.id,
             image = it.adsImageUrl,
-            isProductOrBrand = it.isProductOrBrand
+            adsLink = it.adsLink,
+            adsType = it.adsType
         )
     }
 }

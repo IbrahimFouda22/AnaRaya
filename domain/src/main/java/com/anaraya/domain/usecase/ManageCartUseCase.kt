@@ -9,9 +9,14 @@ class ManageCartUseCase @Inject constructor(private val repo: IRepo) {
         productId: Int,
         productQty: Int
     ) =repo.addToCart(productId, productQty)
+    suspend fun addPointCart(
+        productId: Int,
+        productQty: Int
+    ) =repo.addPointToCart(productId, productQty)
 
     suspend fun getCart() = repo.getCart()
     suspend fun removeProductFromCart(productId: Int) = repo.removeProductFromCart(productId)
+    suspend fun removeProductPointFromCart(productId: Int) = repo.removeProductPointFromCart(productId)
 
     suspend fun getCheckOut() = repo.checkOut()
     suspend fun addAllToBasket() = repo.addAllToBasket()

@@ -6,6 +6,8 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
+    id ("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -46,6 +48,10 @@ android {
         dataBinding = true
         buildConfig = true
     }
+    buildFeatures.compose = true
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0"
+    }
 }
 
 dependencies {
@@ -57,9 +63,14 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     implementation("com.google.android.gms:play-services-vision-common:19.1.3")
+    implementation("com.google.firebase:firebase-messaging:24.0.0")
+    implementation("androidx.compose.material3:material3-android:1.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    //compose
+    implementation("androidx.activity:activity-compose:1.9.0")
 
     //dotsIndicator
     implementation("com.tbuonomo:dotsindicator:5.0")

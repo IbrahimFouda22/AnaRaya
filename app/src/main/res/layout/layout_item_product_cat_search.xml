@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.shared_data.ProductUiState" />
+            type="com.anaraya.anaraya.screens.shared_data.ProductUiState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,9 +32,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardTxtDiscountItemProduct"
+                    bindCardDiscountPrice="@{item.discount}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    bindCardDiscountPrice="@{item.discount}"
                     android:backgroundTint="@color/colorBackgroundTextDiscount"
                     app:cardCornerRadius="10dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="5dp"
-                        android:padding="2dp"
+                        android:paddingHorizontal="4dp"
+                        android:paddingVertical="2dp"
                         android:textSize="@dimen/dimen_text_discount_size"
                         app:drawableStartCompat="@drawable/ic_discount"
                         tools:text="Discount 20%" />
@@ -68,13 +69,13 @@
 
                 <ImageButton
                     android:id="@+id/btnAddProductItem"
+                    availableQty="@{item.availableQty}"
+                    inBasket="@{item.inBasket}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="1dp"
                     android:background="@drawable/shape_button_add"
                     android:padding="8dp"
-                    availableQty="@{item.availableQty}"
-                    inBasket="@{item.inBasket}"
                     android:src="@drawable/ic_add"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -84,32 +85,33 @@
 
         <TextView
             android:id="@+id/txtNameItemProduct"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/inter_light"
-            android:textColor="@color/colorTextNameProduct"
+            android:layout_marginHorizontal="10dp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="2"
             android:text="@{item.name}"
-            android:textSize="12sp"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardItemProduct"
             tools:text="Beef Bone" />
 
-        <TextView
-            android:id="@+id/txtWightItemProduct"
-            android:fontFamily="@font/inter_light"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="@{item.specs1}"
-            android:textColor="@color/colorTextQtyProduct"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"
-            app:layout_constraintTop_toBottomOf="@+id/txtNameItemProduct"
-            tools:text="1Kg, Price" />
+        <!--        <TextView-->
+        <!--            android:id="@+id/txtWightItemProduct"-->
+        <!--            android:fontFamily="@font/inter_light"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:ellipsize="end"-->
+        <!--            android:maxLines="1"-->
+        <!--            android:text="@{item.specs1}"-->
+        <!--            android:textColor="@color/colorTextQtyProduct"-->
+        <!--            android:textSize="12sp"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/txtNameItemProduct"-->
+        <!--            tools:text="1Kg, Price" />-->
 
         <TextView
             android:id="@+id/txtBeforePriceItemProduct"
@@ -121,31 +123,50 @@
             android:background="@drawable/shape_strike_line"
             android:ellipsize="end"
             android:maxLines="1"
+            android:paddingEnd="5dp"
             android:textColor="@color/colorLineStrike"
             android:textSize="12sp"
-            android:paddingEnd="5dp"
             app:layout_constraintEnd_toStartOf="@+id/txtPriceItemProduct"
             app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"
-            app:layout_constraintTop_toBottomOf="@+id/txtWightItemProduct"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameItemProduct"
             tools:ignore="RtlSymmetry"
             tools:text="EGP4.99" />
-
 
 
         <TextView
             android:id="@+id/txtPriceItemProduct"
             style="@style/textNormalTitle"
             bindTxtPrice="@{item.price}"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:textColor="@color/colorTextNameProduct"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtBeforePriceItemProduct"
-            app:layout_constraintTop_toBottomOf="@+id/txtWightItemProduct"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameItemProduct"
             tools:text="EGP4.99" />
 
+        <TextView
+            android:id="@+id/txtUnAvailableItemProduct"
+            bindTextUnavailable="@{item.availableQty}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_un_available"
+            android:fontFamily="@font/inter400"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            android:text="@string/currently_unavailable"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtNameItemProduct"
+            app:layout_constraintTop_toBottomOf="@+id/txtPriceItemProduct"
+            tools:ignore="RtlSymmetry,SmallSp"
+            tools:text="Currently unavailable" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

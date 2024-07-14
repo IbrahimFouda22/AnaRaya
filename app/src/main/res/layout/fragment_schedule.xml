@@ -5,21 +5,22 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.schedule.ScheduleViewModel" />
+            type="com.anaraya.anaraya.screens.schedule.ScheduleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackGroundSchedule"
-        tools:context=".home.schedule.ScheduleFragment">
+        android:background="@color/white"
+        android:padding="16dp"
+        tools:context=".screens.schedule.ScheduleFragment">
 
 
         <ProgressBar
             android:id="@+id/progress_schedule"
             style="?android:attr/progressBarStyleHorizontal"
-            bindProgress="@{viewModel.scheduleUiState.loading}"
+            bindProgress="@{viewModel.loadingState}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:indeterminate="true"
@@ -29,38 +30,101 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/imgSchedule"
-            bindImage="@{viewModel.scheduleUiState.deliveryScheduleImage}"
+        <TextView
+            android:id="@+id/txtCompanyDelivery"
+            style="@style/textAddEditAddressName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/company"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnClose_schedule" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtLayoutCompanyDelivery"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+            app:boxStrokeColor="@color/color_stroke_search"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtCompanyDelivery"
+            app:layout_constraintTop_toBottomOf="@+id/txtCompanyDelivery"
+            app:placeholderText="@string/select_company"
+            app:placeholderTextColor="@color/colorTextHint">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtCompanyDelivery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtGovernorateDelivery"
+            style="@style/textAddEditAddressName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/governorate"
+            app:layout_constraintStart_toStartOf="@+id/txtCompanyDelivery"
+            app:layout_constraintTop_toBottomOf="@+id/edtLayoutCompanyDelivery" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtLayoutGovernorateDelivery"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+            app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+            app:boxStrokeColor="@color/color_stroke_search"
+            app:expandedHintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtGovernorateDelivery"
+            app:placeholderText="@string/select_your_government"
+            app:placeholderTextColor="@color/colorTextHint">
+
+            <AutoCompleteTextView
+                android:id="@+id/edtLineGovernmentDelivery"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDelivery"
+            bindRecyclerLayout="@{false}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toTopOf="@+id/btnDismissToHome"
-            app:layout_constraintTop_toBottomOf="@+id/progress_schedule" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDismissToHome"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/shape_button_dismiss"
-            android:onClick="@{()->viewModel.navigateToBack()}"
-            android:padding="12dp"
-            android:text="@string/proceed"
-            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgSchedule" />
+            app:layout_constraintStart_toStartOf="@+id/edtLayoutGovernorateDelivery"
+            app:layout_constraintTop_toBottomOf="@+id/edtLayoutGovernorateDelivery" />
 
         <ImageButton
             android:id="@+id/btnClose_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="14dp"
-            android:background="?android:attr/selectableItemBackground"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/background_arrow_right"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{()->viewModel.navigateToBack()}"
-            android:padding="5dp"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

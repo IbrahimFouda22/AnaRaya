@@ -1,15 +1,7 @@
 package com.anaraya.domain.entity
 
+
 data class ProductStore(
-    val data: ProductStoreData
-)
-
-data class ProductStoreData(
-    val itemsList: List<ProductStoreItemList>
-
-)
-
-data class ProductStoreItemList(
     val id: Int,
     val category: String,
     val categoryId: Int,
@@ -22,9 +14,11 @@ data class ProductStoreItemList(
     val location: String,
     val productImageUrl: String? = null,
     val userAction: Int,
-    val numberOfBuyers: Int,
-    val customerInformation: List<CustomerInformation>,
-    val customerWantsToBuy: List<Int>,
+    val status: Int,
+    val customerWantsToBuy: Int,
+    val isAnonymous: Boolean,
+    val handleDelivery: Boolean,
+    val customerInformation: CustomerInformation? = null,
 )
 
 data class CustomerInformation(
@@ -34,7 +28,7 @@ data class CustomerInformation(
     val nationalID: String,
     val hrId: String,
     val phoneNumber: String,
-    val  email: String,
+    val email: String,
     val sellingStatus: Int,
-    val payMethod: Int
+    val payMethod: Int,
 )

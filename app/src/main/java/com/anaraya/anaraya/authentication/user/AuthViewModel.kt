@@ -1,6 +1,5 @@
 package com.anaraya.anaraya.authentication.user
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
@@ -32,7 +31,7 @@ class AuthViewModel @Inject constructor(
     private val authUseCase: ManageAuthUseCase,
     private val manageContactNumberUseCase: ManageContactNumberUseCase,
     private val sharedPreferences: SharedPreferences,
-    @field:SuppressLint("StaticFieldLeak") @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context
 ) : ViewModel() {
 
     private val _stateViewPager = MutableStateFlow(0)
@@ -187,7 +186,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_counter_msg)
+                        signInPasswordErrorNumber = 1
                     )
                 }
             }
@@ -197,7 +196,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_upper_msg)
+                        signInPasswordErrorNumber = 2
                     )
                 }
             }
@@ -207,7 +206,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_lower_msg)
+                        signInPasswordErrorNumber = 3
                     )
                 }
             }
@@ -217,7 +216,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_digit_msg)
+                        signInPasswordErrorNumber = 4
                     )
                 }
             }
@@ -227,7 +226,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signInPasswordError = true,
-                        signInPasswordErrorMsg = context.getString(R.string.password_format_special_msg)
+                        signInPasswordErrorNumber = 5
                     )
                 }
             }
@@ -458,7 +457,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpEmailError = true,
-                        signUpEmailErrorMsg = context.getString(R.string.email_invalid_format)
+                        signUpEmailErrorMsg = context.getString(R.string.email_invalid_format_msg)
                     )
                 }
             }
@@ -468,7 +467,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_counter_msg)
+                        signUpPasswordErrorNumber = 1
                     )
                 }
             }
@@ -478,7 +477,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_upper_msg)
+                        signUpPasswordErrorNumber = 2
                     )
                 }
             }
@@ -488,7 +487,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_lower_msg)
+                        signUpPasswordErrorNumber = 3
                     )
                 }
             }
@@ -498,7 +497,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_digit_msg)
+                        signUpPasswordErrorNumber = 4
                     )
                 }
             }
@@ -508,7 +507,7 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         signUpPasswordError = true,
-                        signUpPasswordErrorMsg = context.getString(R.string.password_format_special_msg)
+                        signUpPasswordErrorNumber = 5
                     )
                 }
             }
@@ -588,7 +587,7 @@ class AuthViewModel @Inject constructor(
                     )
                 )
             } catch (e: EmptyDataException) {
-                onForgetPassCheckPassFailure(context.getString(R.string.no_internet))
+                onForgetPassCheckPassFailure(e.message)
             } catch (e: NoInternetException) {
                 onForgetPassCheckPassFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -670,7 +669,7 @@ class AuthViewModel @Inject constructor(
                     )
                 )
             } catch (e: EmptyDataException) {
-                onResetPassFailure(context.getString(R.string.no_internet))
+                onResetPassFailure(e.message)
             } catch (e: NoInternetException) {
                 onResetPassFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -697,6 +696,55 @@ class AuthViewModel @Inject constructor(
                     AuthUiState(
                         isLoading = false,
                         resetNewPassError = true
+                    )
+                }
+            }
+            context.getString(R.string.password_format_counter) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 1
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_upper) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 2
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_lower) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 3
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_digit) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 4
+                    )
+                }
+            }
+
+            context.getString(R.string.password_format_special) -> {
+                _signUpResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        resetNewPassError = true,
+                        restPasswordErrorNumber = 5
                     )
                 }
             }

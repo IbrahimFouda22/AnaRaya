@@ -8,6 +8,7 @@ data class Cart(
 
 data class CartData(
     val data: List<CartDataList>,
+    val loyaltyData: List<CartDataList>,
     val cartTotal: Double,
     val cartDeliveryFee: Double,
     val cartTotalAmount: Double,
@@ -23,6 +24,7 @@ data class CartDataList(
     val qty: Int,
     val specs1: String,
     val specs2: String,
+    val description: String,
     val stockImg: String? = null,
     val productAvailableQty: Int,
     val deliveryFee: Double,

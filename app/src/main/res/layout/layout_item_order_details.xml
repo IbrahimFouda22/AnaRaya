@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.order.get_order.OrderUiStateData" />
+            type="com.anaraya.anaraya.screens.order.get_order.OrderUiStateData" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout

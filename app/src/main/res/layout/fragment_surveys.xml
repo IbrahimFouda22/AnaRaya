@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<data>
+    <variable
+        name="viewModel"
+        type="com.anaraya.anaraya.screens.more.surveys.SurveysViewModel" />
+</data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".screens.more.surveys.SurveysFragment">
+
+    <ProgressBar
+        android:id="@+id/progressSurveys"
+        style="?android:attr/progressBarStyleHorizontal"
+        bindProgress="@{viewModel.surveysUiState.loading}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateTint="@color/colorPrimary"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSurveys"
+        bindRecyclerLayout="@{false}"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressSurveys" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

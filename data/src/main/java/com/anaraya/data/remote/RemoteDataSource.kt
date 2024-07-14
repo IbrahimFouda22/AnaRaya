@@ -1,6 +1,7 @@
 package com.anaraya.data.remote
 
 import android.content.res.Resources.NotFoundException
+import com.anaraya.data.mapper.toDto
 import com.anaraya.data.mapper.toEntity
 import com.anaraya.domain.entity.AboutUS
 import com.anaraya.domain.entity.AddAllToBasket
@@ -23,6 +24,8 @@ import com.anaraya.domain.entity.CompanyGovernorate
 import com.anaraya.domain.entity.ContactNumber
 import com.anaraya.domain.entity.DeliverySchedule
 import com.anaraya.domain.entity.EditInfo
+import com.anaraya.domain.entity.ExploreProduct
+import com.anaraya.domain.entity.ExploreServices
 import com.anaraya.domain.entity.FeedBack
 import com.anaraya.domain.entity.Help
 import com.anaraya.domain.entity.HelpDetails
@@ -32,20 +35,28 @@ import com.anaraya.domain.entity.PlaceOrder
 import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
 import com.anaraya.domain.entity.ProductDetails
-import com.anaraya.domain.entity.ProductStoreItemList
+import com.anaraya.domain.entity.ProductStore
 import com.anaraya.domain.entity.Profile
 import com.anaraya.domain.entity.PromoCode
 import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.entity.Relationships
 import com.anaraya.domain.entity.ResetChangePass
+import com.anaraya.domain.entity.ServiceStoreItemList
+import com.anaraya.domain.entity.Survey
+import com.anaraya.domain.entity.SurveyBody
+import com.anaraya.domain.entity.SurveyImage
+import com.anaraya.domain.entity.Surveys
+import com.anaraya.domain.entity.SurveysStatus
 import com.anaraya.domain.exception.BadRequest
 import com.anaraya.domain.exception.EmptyDataException
+import com.anaraya.domain.exception.IllegalStateException
 import com.anaraya.domain.exception.InternalServerException
 import com.anaraya.domain.exception.NoInternetException
 import com.anaraya.domain.exception.ResetPasswordBlockedException
 import com.anaraya.domain.exception.ServerException
 import com.anaraya.domain.exception.SignUpDataException
 import com.anaraya.domain.exception.UnAuthException
+import com.google.gson.JsonSyntaxException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -126,6 +137,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun getPointsProducts(pageNumber: Int): List<Product> {
+        return wrapApiResponse {
+            apiService.getPointsProducts(pageNumber)
+        }.toEntity()
+    }
+
     override suspend fun getAll(pageNumber: Int): List<Product> {
         return wrapApiResponse {
             apiService.getAll(pageNumber)
@@ -144,17 +161,29 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
-    override suspend fun getProductsByMainCategory(
-        mainCatId: Int, pageNumber: Int
+    override suspend fun getProductsByCategory(
+        mainCatId: Int, pageNumber: Int,
     ): List<Product> {
+        return wrapApiResponse {
+            apiService.getProductsByCategory(mainCatId, pageNumber)
+        }.toEntity()
+    }
+
+    override suspend fun getProductsByMainCategory(mainCatId: Int, pageNumber: Int): List<Product> {
         return wrapApiResponse {
             apiService.getProductsByMainCategory(mainCatId, pageNumber)
         }.toEntity()
     }
 
+    override suspend fun getProductsByBrand(brandId: Int, pageNumber: Int): List<Product> {
+        return wrapApiResponse {
+            apiService.getProductsByBrand(brandId, pageNumber)
+        }.toEntity()
+    }
+
 
     override suspend fun getProductsInsideMainCatAndCat(
-        categoryId: Int, mainCatId: Int, pageNumber: Int
+        categoryId: Int, mainCatId: Int, pageNumber: Int,
     ): List<Product> {
         return wrapApiResponse {
             apiService.getProductsInsideMainCatAndCat(categoryId, mainCatId, pageNumber)
@@ -192,9 +221,21 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun addPointToCart(productId: Int, productQty: Int): AddRemoveCart {
+        return wrapApiResponse {
+            apiService.addProductPointToCart(productId, productQty)
+        }.toEntity()
+    }
+
     override suspend fun removeProductFromCart(productId: Int): AddRemoveCart {
         return wrapApiResponse {
             apiService.removeProductFromCart(productId)
+        }.toEntity()
+    }
+
+    override suspend fun removeProductPointFromCart(productId: Int): AddRemoveCart {
+        return wrapApiResponse {
+            apiService.removeProductPointsFromCart(productId)
         }.toEntity()
     }
 
@@ -217,7 +258,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     }
 
     override suspend fun changeDefaultAddress(
-        addressId: String, userOrCompanyAddress: Boolean
+        addressId: String, userOrCompanyAddress: Boolean,
     ): ChangeDefaultAddress {
         return wrapApiResponse {
             apiService.changeDefaultAddress(addressId, userOrCompanyAddress)
@@ -231,7 +272,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         address: String,
         street: String,
         building: String,
-        landmark: String
+        landmark: String,
     ): AddUpdateAddress {
         return wrapApiResponse {
             apiService.addAddress(
@@ -254,7 +295,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         address: String,
         street: String,
         building: String,
-        landmark: String
+        landmark: String,
     ): AddUpdateAddress {
         return wrapApiResponse {
             apiService.updateAddress(
@@ -293,6 +334,24 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun updateDOB(dob: String): EditInfo {
+        return wrapApiResponse {
+            apiService.updateDOB(dob)
+        }.toEntity()
+    }
+
+    override suspend fun updateGender(gender: Int): EditInfo {
+        return wrapApiResponse {
+            apiService.updateGender(gender)
+        }.toEntity()
+    }
+
+    override suspend fun changePassword(currentPassword: String, newPassword: String): EditInfo {
+        return wrapApiResponse {
+            apiService.changePass(currentPassword, newPassword)
+        }.toEntity()
+    }
+
     override suspend fun getOrders(): Order {
         return wrapApiResponse {
             apiService.getOrders()
@@ -306,7 +365,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     }
 
     override suspend fun forgetPassCheckCode(
-        rayaId: String, nationalId: String, code: String
+        rayaId: String, nationalId: String, code: String,
     ): ResetChangePass {
         return wrapApiResponse {
             apiService.forgetPassCheckCode(rayaId, nationalId, code)
@@ -314,7 +373,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     }
 
     override suspend fun resetPass(
-        rayaId: String, nationalId: String, code: String, newPassword: String
+        rayaId: String, nationalId: String, code: String, newPassword: String,
     ): ResetChangePass {
         return wrapApiResponse {
             apiService.resetPass(rayaId, nationalId, code, newPassword)
@@ -360,7 +419,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     }
 
     override suspend fun getAllCompanyAddresses(
-        pageNumber: Int, companyId: Int, governorate: String
+        pageNumber: Int, companyId: Int, governorate: String,
     ): CompanyAddress {
         return wrapApiResponse {
             apiService.getAllCompanyAddress(pageNumber, companyId, governorate)
@@ -427,6 +486,18 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun getTermsAndCondition(): BaseResponse {
+        return wrapApiResponse {
+            apiService.getTermsAndCondition()
+        }.toEntity()
+    }
+
+    override suspend fun getPrivacyPolicy(): BaseResponse {
+        return wrapApiResponse {
+            apiService.getPrivacyPolicy()
+        }.toEntity()
+    }
+
     override suspend fun getSupportContactNumber(): ContactNumber {
         return wrapApiResponse {
             apiService.getSupportContactNumber()
@@ -451,7 +522,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         catIds: List<Int>?,
         brandIds: List<Int>?,
         highestOrLowest: Int?,
-        pageNumber: Int
+        pageNumber: Int,
     ): List<Product> {
         return wrapApiResponse {
             apiService.search(
@@ -465,14 +536,16 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
-    override suspend fun getStoreCategory(isProduct: Boolean): List<Category> {
-        return if (isProduct) wrapApiResponse {
+    override suspend fun getStoreProductCategory(): List<Category> {
+        return wrapApiResponse {
             apiService.getProductCategory()
         }.toEntity()
-        else
-            wrapApiResponse {
-                apiService.getServiceCategory()
-            }.toEntity()
+    }
+
+    override suspend fun getStoreServicesCategory(): List<Category> {
+        return wrapApiResponse {
+            apiService.getServiceCategory()
+        }.toEntity()
     }
 
     override suspend fun getStoreSubCategory(categoryId: Int): List<Category> {
@@ -481,47 +554,131 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
-    override suspend fun storeAdd(
+    override suspend fun storeAddProduct(
         subCategoryId: RequestBody,
         condition: RequestBody,
         title: RequestBody,
         itemDescription: RequestBody,
         price: RequestBody,
         location: RequestBody,
+        isAnonymous: RequestBody,
+        handleDelivery: RequestBody,
         productImage: MultipartBody.Part,
-        isProduct: Boolean
     ): BaseResponse {
-        return if (isProduct) {
-            wrapApiResponse {
-                apiService.storeAddProduct(
-                    subCategoryId, condition, title, itemDescription, price, location, productImage
-                )
-            }.toEntity()
-        } else {
-            wrapApiResponse {
-                apiService.storeAddService(
-                    subCategoryId, condition, title, itemDescription, price, location, productImage
-                )
-            }.toEntity()
-        }
+        return wrapApiResponse {
+            apiService.storeAddProduct(
+                subCategoryId,
+                condition,
+                title,
+                itemDescription,
+                price,
+                location,
+                isAnonymous,
+                handleDelivery,
+                productImage
+            )
+        }.toEntity()
+
     }
 
-    override suspend fun getStoreProductAndService(
-        pageNumber: Int, status: Int, isProduct: Boolean
-    ): List<ProductStoreItemList> {
-        return if (isProduct) wrapApiResponse {
+    override suspend fun storeUpdateProduct(
+        id: RequestBody,
+        subCategoryId: RequestBody?,
+        condition: RequestBody?,
+        title: RequestBody?,
+        itemDescription: RequestBody?,
+        price: RequestBody?,
+        location: RequestBody?,
+        isAnonymous: RequestBody?,
+        handleDelivery: RequestBody?,
+        productImage: MultipartBody.Part?,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.storeUpdateProduct(
+                id,
+                subCategoryId,
+                condition,
+                title,
+                itemDescription,
+                price,
+                location,
+                isAnonymous,
+                handleDelivery,
+                productImage
+            )
+        }.toEntity()
+    }
+
+    override suspend fun storeAddServices(
+        subCategoryId: RequestBody,
+        title: RequestBody,
+        itemDescription: RequestBody,
+        price: RequestBody,
+        location: RequestBody,
+        serviceImage: MultipartBody.Part,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.storeAddService(
+                subCategoryId, title, itemDescription, price, location, serviceImage
+            )
+        }.toEntity()
+    }
+
+    override suspend fun getStoreProduct(
+        pageNumber: Int, status: Int,
+    ): List<ProductStore> {
+        return wrapApiResponse {
             apiService.getStoreMyProduct(pageNumber, status)
         }.toEntity()
-        else wrapApiResponse {
+    }
+
+    override suspend fun getStoreProductByIdForOwner(productId: Int): ProductStore {
+        return wrapApiResponse {
+            apiService.getStoreProductByIdForOwner(productId)
+        }.toEntity()
+    }
+
+    override suspend fun getStoreService(
+        pageNumber: Int, status: Int,
+    ): List<ServiceStoreItemList> {
+        return wrapApiResponse {
             apiService.getStoreMyService(pageNumber, status)
         }.toEntity()
     }
 
-    override suspend fun requestToDelete(customerProductId: Int, isProduct: Boolean): BaseResponse {
-        return if (isProduct) wrapApiResponse {
+    override suspend fun getExploreProducts(
+        pageNumber: Int,
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): List<ExploreProduct> {
+        return wrapApiResponse {
+            apiService.getExploreProducts(pageNumber, searchWord, searchLanguage, catID, subCatId)
+        }.toEntity()
+    }
+
+    override suspend fun getExploreServices(
+        pageNumber: Int,
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): List<ExploreServices> {
+        return wrapApiResponse {
+            apiService.getExploreServices(pageNumber, searchWord, searchLanguage, catID, subCatId)
+        }.toEntity()
+    }
+
+
+    override suspend fun requestToDeleteProduct(customerProductId: Int): BaseResponse {
+        return wrapApiResponse {
             apiService.requestToDeleteProduct(customerProductId)
         }.toEntity()
-        else wrapApiResponse {
+    }
+
+    override suspend fun requestToDeleteService(customerProductId: Int): BaseResponse {
+        return wrapApiResponse {
             apiService.requestToDeleteService(customerProductId)
         }.toEntity()
     }
@@ -548,7 +705,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         name: String,
         phoneNumber: String,
         relationshipId: Int,
-        email: String?
+        email: String?,
     ): BaseResponse {
         return wrapApiResponse {
             apiService.addNewReferral(name, phoneNumber, relationshipId, email)
@@ -576,7 +733,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     override suspend fun checkFamilyOTP(
         hrId: String,
         phoneNumber: String,
-        otp: String
+        otp: String,
     ): BaseResponse {
         return wrapApiResponse {
             apiService.checkFamilyOTP(hrId, phoneNumber, otp)
@@ -598,7 +755,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         address: String?,
         street: String?,
         building: String?,
-        landmark: String?
+        landmark: String?,
     ): Auth {
         return wrapApiResponse {
             apiService.signUpFamily(
@@ -621,8 +778,115 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun signInFamily(rayaId: String, password: String): Auth {
+        return wrapApiResponse {
+            apiService.signInFamily(hrCode = rayaId, password = password)
+        }.toEntity()
+    }
+
+    override suspend fun forgetPassFamily(rayaId: String): ResetChangePass {
+        return wrapApiResponse {
+            apiService.forgetPassFamily(rayaId)
+        }.toEntity()
+    }
+
+    override suspend fun forgetPassCheckCodeFamily(rayaId: String, code: String): ResetChangePass {
+        return wrapApiResponse {
+            apiService.forgetPassCheckCodeFamily(rayaId, code)
+        }.toEntity()
+    }
+
+    override suspend fun resetPassFamily(
+        rayaId: String,
+        code: String,
+        newPassword: String,
+    ): ResetChangePass {
+        return wrapApiResponse {
+            apiService.resetPassFamily(rayaId, code, newPassword)
+        }.toEntity()
+    }
+
+    override suspend fun addToNotifyMe(productId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.addToNotifyMe(productId)
+        }.toEntity()
+    }
+
+    override suspend fun removeFromNotifyMe(productId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.removeFromNotifyMe(productId)
+        }.toEntity()
+    }
+
+    override suspend fun getUserLoyaltyPoints(): BaseResponse {
+        return wrapApiResponse {
+            apiService.getUserLoyaltyPoints()
+        }.toEntity()
+    }
+
+    override suspend fun sendFCMToken(token: String, enabled: Boolean): BaseResponse {
+        return wrapApiResponse {
+            apiService.sendFCMToken(token, enabled)
+        }.toEntity()
+    }
+
+    override suspend fun updateFCMToken(token: String, enabled: Boolean): BaseResponse {
+        return wrapApiResponse {
+            apiService.updateFCMToken(token, enabled)
+        }.toEntity()
+    }
+
+    override suspend fun requestToBuy(productId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.requestToBuy(productId)
+        }.toEntity()
+    }
+
+    override suspend fun requestToRent(
+        serviceId: Int,
+        rentTo: String,
+        rentFrom: String,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.requestToRent(
+                serviceId, rentTo, rentFrom
+            )
+        }.toEntity()
+    }
+
+    override suspend fun getSurveysStatus(): SurveysStatus {
+        return wrapApiResponse {
+            apiService.getSurveysStatus()
+        }.toEntity()
+    }
+
+    override suspend fun getAllSurveys(): Surveys {
+        return wrapApiResponse {
+            apiService.getAllSurveys()
+        }.toEntity()
+    }
+
+    override suspend fun getSurvey(surveyId: Int): Survey {
+        return wrapApiResponse {
+            apiService.getSurvey(surveyId)
+        }.toEntity()
+    }
+
+    override suspend fun submitSurvey(surveyBody: SurveyBody): BaseResponse {
+        return wrapApiResponse {
+            apiService.submitSurvey(surveyBody.toDto())
+        }.toEntity()
+    }
+
+    override suspend fun getSurveyImage(): SurveyImage {
+        return wrapApiResponse {
+            apiService.getSurveyImage()
+        }.toEntity()
+    }
+
+
     private suspend fun <T> wrapApiResponse(
-        request: suspend () -> Response<T>
+        request: suspend () -> Response<T>,
     ): T {
         try {
             val response = request()
@@ -696,6 +960,8 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                     else -> ServerException("Server error")
                 }
             }
+        } catch (e: JsonSyntaxException) {
+            throw IllegalStateException("IllegalStateException")
         } catch (e: UnknownHostException) {
             throw NoInternetException("No Internet")
         } catch (io: IOException) {

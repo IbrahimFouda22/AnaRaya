@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.screens.points_products.PointsProductsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.points_products.PointsProductsFragment">
+
+        <ImageButton
+            android:id="@+id/btnBackPointsProducts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtCategoryNamePointsProducts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter400"
+            android:maxLines="2"
+            android:text="@string/points_items"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackPointsProducts"
+            app:layout_constraintEnd_toStartOf="@+id/btnSearchPointsProduct"
+            app:layout_constraintStart_toEndOf="@+id/btnBackPointsProducts"
+            app:layout_constraintTop_toTopOf="@+id/btnBackPointsProducts" />
+
+        <ImageButton
+            android:id="@+id/btnSearchPointsProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackPointsProducts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBackPointsProducts" />
+
+        <View
+            android:id="@+id/lineUnderHorizontalAllPointsProducts"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnSearchPointsProduct" />
+
+        <ProgressBar
+            android:id="@+id/progressPointsProducts"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.loadingState}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/lineUnderHorizontalAllPointsProducts" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPointsProducts"
+            bindRecyclerGridLayout="@{2}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginVertical="10dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressPointsProducts" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

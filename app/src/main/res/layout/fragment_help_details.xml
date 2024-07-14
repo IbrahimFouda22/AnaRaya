@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.help.help_details.HelpDetailsViewModel" />
+            type="com.anaraya.anaraya.screens.more.help.help_details.HelpDetailsViewModel" />
         <variable
             name="problem"
             type="String" />
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.help.help_details.HelpDetailsFragment">
+        tools:context=".screens.more.help.help_details.HelpDetailsFragment">
 
         <ProgressBar
             android:id="@+id/progress_helpDetails"

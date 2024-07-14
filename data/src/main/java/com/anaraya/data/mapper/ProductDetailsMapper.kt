@@ -20,6 +20,7 @@ fun ProductDetailsDto.toEntity(): ProductDetails {
             specs1 = data.specs1,
             description = data.description,
             inBasket = data.inBasket,
+            notifyMe = data.notifyMe,
             favouriteStock = data.favouriteStock,
             qtyInBasket = data.qtyInBasket,
             limitQtyForUserPerMonth = data.limityQtyForUserPerMonth,
@@ -31,7 +32,7 @@ fun ProductDetailsDto.toEntity(): ProductDetails {
                 Product(
                     priceBefore = data.pricE_BEFORE,
                     priceAfter = data.pricE_AFTER,
-                    name = data.specs1,
+                    name = data.description,
                     specs2 = data.specs2,
                     availableQty = data.availableQty,
                     discount = data.discount,
@@ -42,6 +43,7 @@ fun ProductDetailsDto.toEntity(): ProductDetails {
                     specs1 = data.specs1,
                     description = data.description,
                     inBasket = data.inBasket,
+                    notifyMe = data.notifyMe,
                     favouriteStock = data.favouriteStock,
                     qtyInBasket = data.qtyInBasket,
                     images = data.stockImages?.map {

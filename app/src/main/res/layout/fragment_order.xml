@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_background_your_order"
-        tools:context=".home.order.OrderFragment">
+        tools:context=".screens.order.OrderFragment">
 
         <ImageView
             android:id="@+id/imgOrder"

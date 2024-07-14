@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.screens.services.store.product.my_items.item_details.ItemDetailsProductViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.services.store.product.my_items.item_details.ItemDetailsFragment">
+
+
+        <ImageButton
+            android:id="@+id/btnBackAllExploreProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtProductNameExploreProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="2"
+            android:text="@string/item_details"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackAllExploreProductDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBackAllExploreProductDetails" />
+
+        <ProgressBar
+            android:id="@+id/progressExploreProductDetails"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.product.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/txtProductNameExploreProductDetails" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressExploreProductDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardImageExploreProductDetails"
+                    android:layout_width="240dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorGreyLight"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            bindImage="@{viewModel.product.product.productImageUrl}"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/txtNameExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@{viewModel.product.product.title}"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardImageExploreProductDetails"
+                    tools:text="Beef Bone" />
+
+                <TextView
+                    android:id="@+id/txtDescExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@{viewModel.product.product.itemDescription}"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNameExploreProductDetails"
+                    tools:text="Beef Bone" />
+
+                <TextView
+                    android:id="@+id/txtPriceExploreProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/price2"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails" />
+
+                <TextView
+                    android:id="@+id/txtPriceValueExploreProductDetails"
+                    bindTxtPrice="@{viewModel.product.product.price}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtPriceExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtPriceExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtPriceExploreProductDetails"
+                    tools:text="1000.0 EGP" />
+
+                <TextView
+                    android:id="@+id/txtStatusExploreProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/condition2"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPriceExploreProductDetails" />
+
+                <TextView
+                    android:id="@+id/txtStatusValueExploreProductDetails"
+                    bindTextCondition="@{viewModel.product.product.condition}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtStatusExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtStatusExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtStatusExploreProductDetails"
+                    tools:text="New" />
+
+                <TextView
+                    android:id="@+id/txtCategoryExploreProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/category2"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/txtStatusExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtStatusExploreProductDetails" />
+
+                <TextView
+                    android:id="@+id/txtCategoryValueExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.category}"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtCategoryExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtCategoryExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtCategoryExploreProductDetails"
+                    tools:text="furniture" />
+
+                <TextView
+                    android:id="@+id/txtLocationExploreProductDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/location2"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryExploreProductDetails" />
+
+                <TextView
+                    android:id="@+id/txtLocationValueExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.location}"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtLocationExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtLocationExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtLocationExploreProductDetails"
+                    tools:text="Cairo" />
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtSellerInfo"-->
+                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="15dp"-->
+                <!--                android:fontFamily="@font/inter400"-->
+                <!--                android:text="@string/seller_info"-->
+                <!--                android:textAlignment="center"-->
+                <!--                android:textColor="@color/colorTextNameProduct"-->
+                <!--                android:textSize="18sp"-->
+                <!--                android:textStyle="bold"-->
+                <!--                app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"-->
+                <!--                app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"-->
+                <!--                tools:text="Seller Info" />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtSellerName"-->
+                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="10dp"-->
+                <!--                android:fontFamily="@font/inter400"-->
+                <!--                android:text="@string/name"-->
+                <!--                android:textColor="@color/colorGrey"-->
+                <!--                android:textSize="14sp"-->
+                <!--                app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtSellerNameValue"-->
+                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginStart="10dp"-->
+                <!--                android:layout_marginTop="10dp"-->
+                <!--                android:ellipsize="end"-->
+                <!--                android:fontFamily="@font/inter400"-->
+                <!--                android:maxLines="1"-->
+                <!--                android:text="@{item.sellerName}"-->
+                <!--                android:textAlignment="textEnd"-->
+                <!--                android:textColor="@color/colorTextNameProduct"-->
+                <!--                android:textSize="14sp"-->
+                <!--                app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/txtSellerName"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtSellerNumber"-->
+                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginTop="2dp"-->
+                <!--                android:fontFamily="@font/inter400"-->
+                <!--                android:text="@string/number"-->
+                <!--                android:textColor="@color/colorGrey"-->
+                <!--                android:textSize="14sp"-->
+                <!--                app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />-->
+
+                <!--            <TextView-->
+                <!--                android:id="@+id/txtSellerNumberValue"-->
+                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
+                <!--                android:layout_width="0dp"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginStart="10dp"-->
+                <!--                android:layout_marginTop="2dp"-->
+                <!--                android:ellipsize="end"-->
+                <!--                android:fontFamily="@font/inter400"-->
+                <!--                android:maxLines="1"-->
+                <!--                android:text="@{item.sellerPhoneNumber}"-->
+                <!--                android:textAlignment="textEnd"-->
+                <!--                android:textColor="@color/colorTextNameProduct"-->
+                <!--                android:textSize="14sp"-->
+                <!--                app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"-->
+                <!--                app:layout_constraintStart_toEndOf="@+id/txtSellerNumber"-->
+                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />-->
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRequestToEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/shape_button_add_items"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="18dp"
+                    android:text="@string/request_to_edit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnRequestToDelete"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRequestToDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_add_items"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="18dp"
+                    android:text="@string/request_to_delete"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@+id/btnRequestToEdit"
+                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@id/btnRequestToEdit"
+                    app:layout_constraintTop_toTopOf="@+id/btnRequestToEdit" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

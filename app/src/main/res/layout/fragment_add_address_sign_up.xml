@@ -43,7 +43,7 @@
                 android:background="@color/white"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                tools:context=".home.address.add_address.AddAddressFragment">
+                tools:context=".screens.address.add_address.AddAddressFragment">
 
                 <ImageView
                     android:id="@+id/imgAddressMapAddSignUp"

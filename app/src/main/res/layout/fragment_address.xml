@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.address.AddressViewModel" />
+            type="com.anaraya.anaraya.screens.address.AddressViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="match_parent"
-        tools:context=".home.address.AddressFragment">
+        tools:context=".screens.address.AddressFragment">
 
         <ProgressBar
             android:id="@+id/progress_Address"

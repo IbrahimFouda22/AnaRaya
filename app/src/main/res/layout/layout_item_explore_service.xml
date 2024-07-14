@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreServiceUiDetails" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/white">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardItemExploreService"
+            android:layout_width="116dp"
+            android:layout_height="116dp"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="@color/colorGreyLight"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    bindImage="@{item.serviceImageUrl}"
+                    android:layout_width="116dp"
+                    android:layout_height="116dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/txtItemExploreService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="2"
+            android:text="@{item.title}"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/clickExploreService"
+            app:layout_constraintEnd_toStartOf="@+id/clickExploreService"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardItemExploreService"
+            tools:text="Fruits Vegetable" />
+
+        <TextView
+            android:id="@+id/txtDescExploreService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="2"
+            android:text="@{item.serviceDescription}"
+            android:textColor="@color/colorTextNameProduct"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/clickExploreService"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtItemExploreService"
+            tools:text="Fruits Vegetable" />
+
+        <TextView
+            android:id="@+id/txtPriceExploreService"
+            bindTxtPrice="@{item.price}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="2dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="2"
+            android:textColor="@color/colorGrey"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/clickExploreService"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescExploreService"
+            tools:text="500 EGP" />
+
+        <ImageButton
+            android:id="@+id/clickExploreService"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_ic_store"
+            android:src="@drawable/ic_store"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardItemExploreService" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

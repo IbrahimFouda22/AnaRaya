@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="image"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgSurvey"
+            bindImage="@{image}"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_no_internet" />
+        <ImageButton
+            android:id="@+id/btnClose"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/background_arrow_right"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnCancelSurvey"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            style="@style/buttonStyle2"-->
+        <!--            android:fontFamily="@font/inter400"-->
+        <!--            android:paddingHorizontal="30dp"-->
+        <!--            android:text="@string/cancel"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="@color/colorPrimary"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnGoToSurvey" />-->
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnGoToSurvey"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:background="@drawable/shape_button_add_2"-->
+        <!--            android:fontFamily="@font/inter400"-->
+        <!--            android:paddingHorizontal="30dp"-->
+        <!--            android:text="@string/go_to_survey"-->
+        <!--            android:textAllCaps="false"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/imgSurvey" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

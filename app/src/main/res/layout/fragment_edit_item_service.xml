@@ -3,14 +3,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.services.store.edit.EditItemServiceViewModel" />
+            type="com.anaraya.anaraya.screens.services.store.product.edit_product.EditItemServiceViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.services.store.edit.EditItemServiceFragment">
+        tools:context=".screens.services.store.product.edit_product.EditItemServiceFragment">
 
         <ProgressBar
             android:id="@+id/progressSell"
@@ -35,7 +35,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="20dp">
 
                 <TextView
                     android:id="@+id/txtSellStore"
@@ -77,7 +78,7 @@
                         android:id="@+id/edtTitleSell"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.editItemServiceUiState.itemSell.title}"
+                        android:text="@{viewModel.editItemServiceUiState.product.title}"
                         android:inputType="text"
                         android:padding="15dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -226,7 +227,7 @@
                         android:id="@+id/edtItemDescriptionSell"
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
-                        android:text="@{viewModel.editItemServiceUiState.itemSell.itemDescription}"
+                        android:text="@{viewModel.editItemServiceUiState.product.itemDescription}"
                         android:gravity="top|start"
                         android:inputType="textMultiLine"
                         android:padding="15dp" />
@@ -258,7 +259,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
-                        android:text="@{Double.toString(viewModel.editItemServiceUiState.itemSell.price)}"
+                        android:text="@{Double.toString(viewModel.editItemServiceUiState.product.price)}"
                         android:padding="15dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -288,7 +289,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@{viewModel.editItemServiceUiState.itemSell.location}"
+                        android:text="@{viewModel.editItemServiceUiState.product.location}"
                         android:padding="15dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -321,7 +322,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:text="@{viewModel.editItemServiceUiState.itemSell.productImageUrl}"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        text="@{viewModel.editItemServiceUiState.product.productImageUrl}"
                         android:inputType="none"
                         android:padding="15dp" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -339,6 +342,84 @@
                     app:layout_constraintStart_toEndOf="@+id/edtLayoutPictureSell"
                     app:layout_constraintTop_toBottomOf="@+id/txtPictureSell" />
 
+                <TextView
+                    android:id="@+id/txtAnonymous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/would_you_like_to_be_anonymous_to_potential_buyers"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPictureSell" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutAnonymous"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.editItemServiceUiState.anonymousError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAnonymous"
+                    app:placeholderText="@string/item_selected"
+                    app:placeholderTextColor="@color/colorTextHint">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/edtAnonymous"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtHandleDelivery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/would_you_also_like_us_to_handle_the_delivery"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutAnonymous" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutHandleDelivery"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.editItemServiceUiState.deliveryError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtHandleDelivery"
+                    app:placeholderText="@string/item_selected"
+                    app:placeholderTextColor="@color/colorTextHint">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/edtHandleDelivery"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.checkbox.MaterialCheckBox
                     android:id="@+id/checkboxAgreeSellStore"
                     style="@style/styleCheckBoxFilter"
@@ -350,8 +431,9 @@
                     android:text="@string/i_agree_to_the_terms_conditions"
                     android:textColor="@color/colorGreyText"
                     android:textSize="14sp"
+                    android:checked="true"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPictureSell" />
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutHandleDelivery" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSubmitSellStore"

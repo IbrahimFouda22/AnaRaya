@@ -80,7 +80,7 @@
     </fragment>
     <fragment
         android:id="@+id/helpFragment"
-        android:name="com.anaraya.anaraya.home.more.help.HelpFragment"
+        android:name="com.anaraya.anaraya.screens.more.help.HelpFragment"
         android:label="@string/help"
         tools:layout="@layout/fragment_help" />
     <fragment

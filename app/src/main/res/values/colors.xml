@@ -34,6 +34,7 @@
     <color name="colorBackgroundItemCategory"> #FBFBFB</color>
     <color name="colorBackGroundSchedule"> #0866A4</color>
     <color name="red"> #F2452B</color>
+    <color name="green"> #0FBD66</color>
     <color name="colorGreyTextDismiss"> #7C7C7C</color>
     <color name="colorBackGroundTextDismiss"> #F5F5F5</color>
     <color name="colorBackGroundCardProductDetails"> #F2F3F2</color>
@@ -47,6 +48,7 @@
     <color name="colorGreyMinusButton">#B3B3B3</color>
     <color name="colorCardBasket">#DADADA</color>
     <color name="colorBackBtnAddItems">#F5F5F5</color>
+    <color name="colorRequestToBuy">#877D78</color>
     <color name="colorTextGrey">#7C7C7C</color>
     <color name="colorBackIcDelete">#FFE5E5</color>
     <color name="colorGreySwitch">#C8CBD0</color>

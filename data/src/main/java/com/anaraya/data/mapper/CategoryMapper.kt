@@ -17,7 +17,7 @@ fun MainCategoryDto.toEntity(): List<MainCategory> {
 
 
 fun CategoryDto.toEntity(): List<Category> {
-    return data.map {
-        Category(name = it.name, id = it.id)
-    }
+    return data?.map {
+        Category(name = it.name, id = it.id, imageUrl = it.imageUrl)
+    } ?: emptyList()
 }

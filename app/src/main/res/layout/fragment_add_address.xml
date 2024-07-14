@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.address.add_address.AddAddressViewModel" />
+            type="com.anaraya.anaraya.screens.address.add_address.AddAddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,7 @@
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
                 android:visibility="visible"
-                tools:context=".home.address.add_address.AddAddressFragment">
+                tools:context=".screens.address.add_address.AddAddressFragment">
 
                 <ImageView
                     android:id="@+id/imgAddressMapAdd"
@@ -346,7 +346,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="@string/line_of_business"
+                    android:text="@string/company"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btnOffice" />
@@ -371,7 +371,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtLineOfBusiness"
                     app:layout_constraintTop_toBottomOf="@+id/txtLineOfBusiness"
-                    app:placeholderText="@string/select_line_of_business"
+                    app:placeholderText="@string/select_company"
                     app:placeholderTextColor="@color/colorTextHint">
 
                     <AutoCompleteTextView
@@ -432,7 +432,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/name_of_the_company"
+                    android:text="@string/office"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutGovernorate" />
@@ -457,7 +457,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txtNameOfTheCompany"
                     app:layout_constraintTop_toBottomOf="@+id/txtNameOfTheCompany"
-                    app:placeholderText="@string/select_street"
+                    app:placeholderText="@string/select_office"
                     app:placeholderTextColor="@color/colorTextHint">
 
                     <AutoCompleteTextView

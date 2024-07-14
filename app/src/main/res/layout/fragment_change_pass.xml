@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.screens.more.my_information.changePass.ChangePassViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".screens.more.my_information.changePass.ChangePassFragment">
+
+        <ProgressBar
+            android:id="@+id/progress_editInfo"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.editInfoUiState.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtEditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter500"
+            android:text="@string/edit_information"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_editInfo"
+            tools:text="Edit Information" />
+
+        <TextView
+            android:id="@+id/txtCurrentPass"
+            style="@style/textMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/current_password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEditInfo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtLayoutCurrentPass"
+            style="@style/passwordEditTextApp"
+            bindTextInputLayoutPassMsgError="@{viewModel.editInfoUiState.currentPasswordErrorNumber}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/dimen_keyboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtCurrentPass"
+            app:layout_constraintTop_toBottomOf="@+id/txtCurrentPass">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCurrentPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="textPassword"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtNewPassword"
+            style="@style/textMyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/new_password"
+            app:layout_constraintStart_toStartOf="@+id/edtLayoutCurrentPass"
+            app:layout_constraintTop_toBottomOf="@+id/edtLayoutCurrentPass" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtLayoutNewPass"
+            style="@style/passwordEditTextApp"
+            bindTextInputLayoutPassMsgError="@{viewModel.editInfoUiState.newPasswordErrorNumber}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/dimen_keyboard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txtNewPassword"
+            app:layout_constraintTop_toBottomOf="@+id/txtNewPassword">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNewPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:inputType="textPassword"
+                android:padding="5dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSaveEditInfo"
+            style="@style/btnAddressTypeSelected"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/save"
+            app:layout_constraintTop_toBottomOf="@+id/edtLayoutNewPass" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

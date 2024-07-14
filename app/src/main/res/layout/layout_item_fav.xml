@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.shared_data.ProductUiState" />
+            type="com.anaraya.anaraya.screens.shared_data.ProductUiState" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout

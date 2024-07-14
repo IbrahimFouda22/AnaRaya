@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.anaraya.anaraya.R
-import com.anaraya.anaraya.home.activity.HomeActivity
+import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")

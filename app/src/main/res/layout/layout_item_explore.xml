@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.home.CategoryUiState" />
+            type="com.anaraya.anaraya.screens.home.CategoryUiState" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

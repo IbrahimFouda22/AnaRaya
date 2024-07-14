@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.address.edit_address.EditAddressViewModel" />
+            type="com.anaraya.anaraya.screens.address.edit_address.EditAddressViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
                 android:background="@color/white"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="10dp"
-                tools:context=".home.address.edit_address.EditAddressFragment">
+                tools:context=".screens.address.edit_address.EditAddressFragment">
 
                 <ImageView
                     android:id="@+id/imgAddressMapEdit"

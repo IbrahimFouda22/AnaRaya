@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.address.AddressUiStateData" />
+            type="com.anaraya.anaraya.screens.address.AddressUiStateData" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout

@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.total_cost.TotalCostViewModel" />
+            type="com.anaraya.anaraya.screens.total_cost.TotalCostViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context=".home.total_cost.TotalCostFragment">
+        tools:context=".screens.total_cost.TotalCostFragment">
 
         <ProgressBar
             android:id="@+id/progress_totalCost"
@@ -100,6 +100,35 @@
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/txtItemsCount"
                             app:layout_constraintTop_toTopOf="@+id/txtItemsCount"
+                            tools:text="EGP 30,12" />
+                        <TextView
+                            android:id="@+id/txtTotalPoints"
+                            style="@style/textUnderHeadTotalCost"
+                            bindNumOfItems="@{viewModel.totalCostUiState.addOrderUiState.numOfItems}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            bindViewVisibilityGone="@{viewModel.totalCostUiState.visibilityPoints}"
+                            app:layout_constraintEnd_toStartOf="@+id/txtTotalPointsValue"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintHorizontal_chainStyle="spread_inside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtItemsCount"
+                            tools:text="14 items in cart" />
+
+                        <TextView
+                            android:id="@+id/txtTotalPointsValue"
+                            style="@style/textUnderHeadValueTotalCost"
+                            bindTxtPrice="@{viewModel.totalCostUiState.totalPoints}"
+                            isPoints="@{true}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtTotalPoints"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/txtTotalPoints"
+                            app:layout_constraintTop_toTopOf="@+id/txtTotalPoints"
                             tools:text="EGP 30,12" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>

@@ -5,14 +5,14 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.promo.PromoViewModel" />
+            type="com.anaraya.anaraya.screens.more.promo.PromoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.promo.PromoCodeFragment">
+        tools:context=".screens.more.promo.PromoCodeFragment">
 
         <ProgressBar
             android:id="@+id/progress_promo"

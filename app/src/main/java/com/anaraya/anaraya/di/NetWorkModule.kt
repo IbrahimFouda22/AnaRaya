@@ -39,17 +39,17 @@ object NetWorkModule {
         interceptor: RayaInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
-        return OkHttpClient.Builder().connectTimeout(20, TimeUnit.SECONDS).addInterceptor(
+        return OkHttpClient.Builder().connectTimeout(600, TimeUnit.SECONDS).addInterceptor(
             httpLoggingInterceptor
         )
-            .readTimeout(20, TimeUnit.SECONDS).addInterceptor(interceptor).build()
+            .readTimeout(600, TimeUnit.SECONDS).addInterceptor(interceptor).build()
     }
 
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder().client(okHttpClient).addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create())).baseUrl(
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().disableHtmlEscaping().setLenient().create())).baseUrl(
                 BuildConfig.BASE_URL
             ).build()
     }

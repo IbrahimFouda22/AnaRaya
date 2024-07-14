@@ -9,6 +9,7 @@ data class CartDto(
 
 data class CartDtoData(
     val stocksList: List<CartDtoStockList>,
+    val loyaltyStockList: List<CartDtoLoyaltyStockList>,
     val cartTotal: Double,
     val deliveryFee: Double,
     val totalAmount: Double,
@@ -21,6 +22,7 @@ data class CartDtoStockList(
     val id: Int,
     val cat: String,
     val maiN_CAT: String,
+    val description: String,
     val brand: String,
     val pricePerOne: Double,
     val totalPrice: Double,
@@ -30,5 +32,18 @@ data class CartDtoStockList(
     val specs1: String,
     val specs2: String,
     val stockImg: String? = null
-
+)
+data class CartDtoLoyaltyStockList(
+    val id: Int,
+    val cat: String,
+    val maiN_CAT: String,
+    val description: String,
+    val brand: String,
+    val pointsPerOne: Double,
+    val totalPoints: Double,
+    val productAvailableQty: Int,
+    val qty: Int,
+    val specs1: String,
+    val specs2: String,
+    val stockImg: String? = null
 )

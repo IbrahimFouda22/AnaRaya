@@ -5,7 +5,7 @@
     <data>
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.cart.CartUiList" />
+            type="com.anaraya.anaraya.screens.cart.CartUiList" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout
@@ -22,8 +22,6 @@
             android:layout_height="wrap_content">
             <include layout="@layout/layout_item_cart_delete"/>
         </FrameLayout>
-
-
 
         <!-- Your main layout here -->
         <FrameLayout

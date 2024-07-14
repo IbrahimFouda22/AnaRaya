@@ -33,6 +33,21 @@ fun CartDtoData.toEntity():CartData{
                 specs2 = it.specs2,
                 stockImg = it.stockImg,
                 deliveryFee = it.deliveryFee,
+                description = it.description,
+            )
+        },
+        loyaltyData = this.loyaltyStockList.map {
+            CartDataList(
+                id = it.id,
+                pricePerOne = it.pointsPerOne,
+                productAvailableQty = it.productAvailableQty,
+                totalProductPrice = it.totalPoints,
+                qty = it.qty,
+                specs1 = it.specs1,
+                specs2 = it.specs2,
+                stockImg = it.stockImg,
+                description = it.description,
+                deliveryFee = 0.0,
             )
         }
     )

@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.services.store.my_items.ProductStoreItemState" />
+            type="com.anaraya.anaraya.screens.services.store.product.my_items.ProductStoreItemState" />
     </data>
 
     <com.chauthai.swipereveallayout.SwipeRevealLayout
@@ -31,7 +31,7 @@
             android:id="@+id/dataLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <include layout="@layout/layout_item_item_store_data"
+            <include layout="@layout/layout_item_item_store_product_data"
                 app:item="@{item}"/>
         </FrameLayout>
 

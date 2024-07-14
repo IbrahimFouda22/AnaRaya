@@ -51,7 +51,7 @@ class AuthenticationFragment : Fragment() {
                         SignUpFragment()
                     )
                 } else {
-                    binding.tabAuth.addTab(binding.tabAuth.newTab().setText("Reset Password"))
+                    binding.tabAuth.addTab(binding.tabAuth.newTab().setText(getString(R.string.reset_password)))
                     viewModel.resetResetPassResponse()
                     arrayListOf(
                         ResetPasswordFragment(),

@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.more.help.help_details.HelpDetailsUiStateData" />
+            type="com.anaraya.anaraya.screens.more.help.help_details.HelpDetailsUiStateData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

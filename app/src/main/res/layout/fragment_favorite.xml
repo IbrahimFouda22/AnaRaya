@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.favorite.FavoriteViewModel" />
+            type="com.anaraya.anaraya.screens.favorite.FavoriteViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +12,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.favorite.FavoriteFragment">
+        tools:context=".screens.favorite.FavoriteFragment">
 
         <ProgressBar
             android:id="@+id/progress_fav"

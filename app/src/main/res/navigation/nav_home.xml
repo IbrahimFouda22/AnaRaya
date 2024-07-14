@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.anaraya.anaraya.home.home.HomeFragment"
+        android:name="com.anaraya.anaraya.screens.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
@@ -31,12 +31,27 @@
         <action
             android:id="@+id/action_homeFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_storeServiceFragment"
+            app:destination="@id/storeServiceFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_surveyDetailsFragment"
+            app:destination="@id/surveyDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_surveysFragment"
+            app:destination="@id/surveysFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_pointsProductsFragment"
+            app:destination="@id/pointsProductsFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.anaraya.anaraya.home.more.MoreFragment"
+        android:name="com.anaraya.anaraya.screens.more.MoreFragment"
         android:label="@string/more"
-        tools:layout="@layout/fragment_more" >
+        tools:layout="@layout/fragment_more">
         <action
             android:id="@+id/action_moreFragment_to_feedBackFragment"
             app:destination="@id/feedBackFragment" />
@@ -61,15 +76,30 @@
         <action
             android:id="@+id/action_moreFragment_to_familyFragment"
             app:destination="@id/familyFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_privacyPolicyFragment"
+            app:destination="@id/privacyPolicyFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_termsAndConditionFragment"
+            app:destination="@id/termsAndConditionFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_surveysFragment"
+            app:destination="@id/surveysFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_languageMoreFragment"
+            app:destination="@id/languageMoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/servicesFragment"
-        android:name="com.anaraya.anaraya.home.services.ServicesFragment"
+        android:name="com.anaraya.anaraya.screens.services.ServicesFragment"
         android:label=' '
-        tools:layout="@layout/fragment_services" >
+        tools:layout="@layout/fragment_services">
         <action
             android:id="@+id/action_servicesFragment_to_storeFragment"
             app:destination="@id/storeFragment" />
+        <action
+            android:id="@+id/action_servicesFragment_to_storeServiceFragment"
+            app:destination="@id/storeServiceFragment" />
     </fragment>
     <action
         android:id="@+id/action_global_homeFragment"
@@ -103,12 +133,12 @@
         app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/scheduleFragment"
-        android:name="com.anaraya.anaraya.home.schedule.ScheduleFragment"
+        android:name="com.anaraya.anaraya.screens.schedule.ScheduleFragment"
         android:label="ScheduleFragment"
         tools:layout="@layout/fragment_schedule" />
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.anaraya.anaraya.home.productdetails.ProductDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.productdetails.ProductDetailsFragment"
         android:label="@string/productdetails"
         tools:layout="@layout/fragment_product_details">
         <argument
@@ -120,19 +150,29 @@
         <action
             android:id="@+id/action_productDetailsFragment_self"
             app:destination="@id/productDetailsFragment" />
+        <argument
+            android:name="isPoints"
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/allProductFragment"
-        android:name="com.anaraya.anaraya.home.all_product.AllProductFragment"
+        android:name="com.anaraya.anaraya.screens.trending_products.AllProductFragment"
         android:label="AllProductFragment"
         tools:layout="@layout/fragment_all_product">
         <action
             android:id="@+id/action_allProductFragment_to_productDetailsFragment"
             app:destination="@id/productDetailsFragment" />
+        <argument
+            android:name="textTrending"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_allProductFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryProductFragment"
-        android:name="com.anaraya.anaraya.home.category_product.CategoryProductFragment"
+        android:name="com.anaraya.anaraya.screens.category_product.CategoryProductFragment"
         android:label="CategoryProductFragment"
         tools:layout="@layout/fragment_category_product">
         <argument
@@ -147,10 +187,13 @@
         <action
             android:id="@+id/action_categoryProductFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_categoryProductFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.anaraya.anaraya.home.search.SearchFragment"
+        android:name="com.anaraya.anaraya.screens.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search">
         <action
@@ -159,10 +202,18 @@
         <action
             android:id="@+id/action_searchFragment_to_filterFragment"
             app:destination="@id/filterFragment" />
+        <argument
+            android:name="selectionType"
+            android:defaultValue="-1"
+            app:argType="integer" />
+        <argument
+            android:name="id"
+            android:defaultValue="-1"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.anaraya.anaraya.home.cart.CartFragment"
+        android:name="com.anaraya.anaraya.screens.cart.CartFragment"
         android:label="@string/my_cart"
         tools:layout="@layout/fragment_cart">
         <action
@@ -180,7 +231,7 @@
     </fragment>
     <fragment
         android:id="@+id/addressFragment"
-        android:name="com.anaraya.anaraya.home.address.AddressFragment"
+        android:name="com.anaraya.anaraya.screens.address.AddressFragment"
         android:label="@string/edit_address"
         tools:layout="@layout/fragment_address">
         <action
@@ -191,54 +242,57 @@
             app:destination="@id/editAddressFragment" />
         <argument
             android:name="fromCart"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/addAddressFragment"
-        android:name="com.anaraya.anaraya.home.address.add_address.AddAddressFragment"
+        android:name="com.anaraya.anaraya.screens.address.add_address.AddAddressFragment"
         android:label="@string/add_address"
-        tools:layout="@layout/fragment_add_address" >
+        tools:layout="@layout/fragment_add_address">
         <argument
             android:name="fromCart"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/totalCostFragment"
-        tools:layout="@layout/fragment_total_cost"
-        android:name="com.anaraya.anaraya.home.total_cost.TotalCostFragment"
-        android:label="Total cost" >
+        android:name="com.anaraya.anaraya.screens.total_cost.TotalCostFragment"
+        android:label="Total cost"
+        tools:layout="@layout/fragment_total_cost">
         <action
             android:id="@+id/action_totalCostFragment_to_orderFragment"
+            app:destination="@id/orderFragment"
             app:popUpTo="@id/cartFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/orderFragment" />
+            app:popUpToInclusive="true" />
         <argument
             android:name="orderState"
-            app:argType="com.anaraya.anaraya.home.shared_data.AddOrderUiState" />
+            app:argType="com.anaraya.anaraya.screens.shared_data.AddOrderUiState" />
         <argument
             android:name="paymentMethod"
             app:argType="string" />
+        <argument
+            android:name="totalPoints"
+            app:argType="float" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
-        tools:layout="@layout/fragment_order"
-        android:name="com.anaraya.anaraya.home.order.OrderFragment"
-        android:label="OrderFragment" />
+        android:name="com.anaraya.anaraya.screens.order.OrderFragment"
+        android:label="OrderFragment"
+        tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/feedBackFragment"
-        tools:layout="@layout/fragment_feed_back"
-        android:name="com.anaraya.anaraya.home.more.feedback.FeedBackFragment"
-        android:label="@string/feedback" />
+        android:name="com.anaraya.anaraya.screens.more.feedback.FeedBackFragment"
+        android:label="@string/feedback"
+        tools:layout="@layout/fragment_feed_back" />
     <fragment
         android:id="@+id/myInformationFragment"
-        tools:layout="@layout/fragment_my_information"
-        android:name="com.anaraya.anaraya.home.more.my_information.MyInformationFragment"
-        android:label="@string/information" >
+        android:name="com.anaraya.anaraya.screens.more.my_information.MyInformationFragment"
+        android:label="@string/information"
+        tools:layout="@layout/fragment_my_information">
         <argument
             android:name="UserProfile"
-            app:argType="com.anaraya.anaraya.home.shared_data.ProfileUiState"
+            app:argType="com.anaraya.anaraya.screens.shared_data.ProfileUiState"
             app:nullable="true" />
         <action
             android:id="@+id/action_myInformationFragment_to_addressFragment"
@@ -249,21 +303,30 @@
         <action
             android:id="@+id/action_myInformationFragment_to_OTPFragment"
             app:destination="@id/OTPFragment" />
+        <action
+            android:id="@+id/action_myInformationFragment_to_editDOBFragment"
+            app:destination="@id/editDOBFragment" />
+        <action
+            android:id="@+id/action_myInformationFragment_to_editGenderFragment"
+            app:destination="@id/editGenderFragment" />
+        <action
+            android:id="@+id/action_myInformationFragment_to_changePassFragment"
+            app:destination="@id/changePassFragment" />
     </fragment>
     <fragment
         android:id="@+id/editAddressFragment"
-        tools:layout="@layout/fragment_edit_address"
-        android:name="com.anaraya.anaraya.home.address.edit_address.EditAddressFragment"
-        android:label="@string/edit_address" >
+        android:name="com.anaraya.anaraya.screens.address.edit_address.EditAddressFragment"
+        android:label="@string/edit_address"
+        tools:layout="@layout/fragment_edit_address">
         <argument
             android:name="address"
-            app:argType="com.anaraya.anaraya.home.shared_data.AddressUiState" />
+            app:argType="com.anaraya.anaraya.screens.shared_data.AddressUiState" />
     </fragment>
     <fragment
         android:id="@+id/editInformationFragment"
-        android:name="com.anaraya.anaraya.home.more.my_information.edit_info.EditInformationFragment"
+        android:name="com.anaraya.anaraya.screens.more.my_information.edit_info.EditInformationFragment"
         android:label="@string/edit"
-        tools:layout="@layout/fragment_edit_information" >
+        tools:layout="@layout/fragment_edit_information">
         <argument
             android:name="type"
             app:argType="string" />
@@ -274,85 +337,232 @@
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
-        android:name="com.anaraya.anaraya.home.order.get_order.OrdersFragment"
+        android:name="com.anaraya.anaraya.screens.order.get_order.OrdersFragment"
         android:label="@string/orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
         android:id="@+id/favoriteFragment"
-        tools:layout="@layout/fragment_favorite"
-        android:name="com.anaraya.anaraya.home.favorite.FavoriteFragment"
-        android:label="@string/favorite" />
+        android:name="com.anaraya.anaraya.screens.favorite.FavoriteFragment"
+        android:label="@string/favorite"
+        tools:layout="@layout/fragment_favorite" />
     <fragment
         android:id="@+id/filterFragment"
-        android:name="com.anaraya.anaraya.home.filter.FilterFragment"
+        android:name="com.anaraya.anaraya.screens.filter.FilterFragment"
         android:label="@string/filters"
         tools:layout="@layout/fragment_filter" />
     <fragment
         android:id="@+id/helpFragment2"
-        tools:layout="@layout/fragment_help"
-        android:name="com.anaraya.anaraya.home.more.help.HelpFragment"
-        android:label="@string/help" >
+        android:name="com.anaraya.anaraya.screens.more.help.HelpFragment"
+        android:label="@string/help"
+        tools:layout="@layout/fragment_help">
         <action
             android:id="@+id/action_helpFragment2_to_helpDetailsFragment"
             app:destination="@id/helpDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/helpDetailsFragment"
-        android:name="com.anaraya.anaraya.home.more.help.help_details.HelpDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.more.help.help_details.HelpDetailsFragment"
         android:label="@string/help"
-        tools:layout="@layout/fragment_help_details" >
+        tools:layout="@layout/fragment_help_details">
         <argument
             android:name="topic"
-            app:argType="com.anaraya.anaraya.home.more.help.HelpUiStateData" />
+            app:argType="com.anaraya.anaraya.screens.more.help.HelpUiStateData" />
     </fragment>
     <fragment
         android:id="@+id/promoCodeFragment"
-        tools:layout="@layout/fragment_promo_code"
-        android:name="com.anaraya.anaraya.home.more.promo.PromoCodeFragment"
-        android:label="@string/promo_code" />
+        android:name="com.anaraya.anaraya.screens.more.promo.PromoCodeFragment"
+        android:label="@string/promo_code"
+        tools:layout="@layout/fragment_promo_code" />
     <fragment
         android:id="@+id/aboutUsFragment"
-        tools:layout="@layout/fragment_about_us"
-        android:name="com.anaraya.anaraya.home.more.aboutus.AboutUsFragment"
-        android:label="@string/aboutus" />
+        android:name="com.anaraya.anaraya.screens.more.aboutus.AboutUsFragment"
+        android:label="@string/aboutus"
+        tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/storeFragment"
-        android:name="com.anaraya.anaraya.home.services.store.StoreFragment"
-        tools:layout="@layout/fragment_store"
-        android:label="StoreFragment" >
-        <argument
-            android:name="isProducts"
-            app:argType="boolean" />
+        android:name="com.anaraya.anaraya.screens.services.store.product.StoreFragment"
+        android:label="StoreFragment"
+        tools:layout="@layout/fragment_store">
         <action
-            android:id="@+id/action_storeFragment_to_editItemServiceFragment"
-            app:destination="@id/editItemServiceFragment" />
+            android:id="@+id/action_storeFragment_to_exploreProductsFragment"
+            app:destination="@id/exploreProductsFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_termsAndConditionFragment"
+            app:destination="@id/termsAndConditionFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_itemDetailsFragment"
+            app:destination="@id/itemDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editItemServiceFragment"
-        android:name="com.anaraya.anaraya.home.services.store.edit.EditItemServiceFragment"
-        tools:layout="@layout/fragment_edit_item_service"
-        android:label="EditItemServiceFragment" >
+        android:name="com.anaraya.anaraya.screens.services.store.product.edit_product.EditItemServiceFragment"
+        android:label="EditItemServiceFragment"
+        tools:layout="@layout/fragment_edit_item_service" >
         <argument
-            android:name="isProducts"
-            app:argType="boolean" />
+            android:name="productId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/OTPFragment"
-        android:name="com.anaraya.anaraya.home.otp.OTPFragment"
+        android:name="com.anaraya.anaraya.screens.otp.OTPFragment"
         android:label="@string/edit"
         tools:layout="@layout/fragment_o_t_p" />
     <fragment
         android:id="@+id/familyFragment"
-        android:name="com.anaraya.anaraya.home.more.family.FamilyFragment"
+        android:name="com.anaraya.anaraya.screens.more.family.FamilyFragment"
         android:label="@string/my_referrals"
-        tools:layout="@layout/fragment_family" >
+        tools:layout="@layout/fragment_family">
         <action
             android:id="@+id/action_familyFragment_to_referralsFragment"
             app:destination="@id/referralsFragment" />
     </fragment>
     <fragment
         android:id="@+id/referralsFragment"
-        tools:layout="@layout/fragment_referrals"
-        android:name="com.anaraya.anaraya.home.more.family.family_referrals.ReferralsFragment"
-        android:label="@string/my_referrals" />
+        android:name="com.anaraya.anaraya.screens.more.family.family_referrals.ReferralsFragment"
+        android:label="@string/my_referrals"
+        tools:layout="@layout/fragment_referrals" />
+    <fragment
+        android:id="@+id/editDOBFragment"
+        android:name="com.anaraya.anaraya.screens.more.my_information.edit_dob.EditDOBFragment"
+        android:label="@string/edit"
+        tools:layout="@layout/fragment_edit_d_o_b">
+        <argument
+            android:name="data"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editGenderFragment"
+        android:name="com.anaraya.anaraya.screens.more.my_information.edit_gender.EditGenderFragment"
+        android:label="@string/edit"
+        tools:layout="@layout/fragment_edit_gender">
+        <argument
+            android:name="data"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePassFragment"
+        android:name="com.anaraya.anaraya.screens.more.my_information.changePass.ChangePassFragment"
+        android:label="@string/edit"
+        tools:layout="@layout/fragment_change_pass" />
+    <fragment
+        android:id="@+id/privacyPolicyFragment"
+        android:name="com.anaraya.anaraya.screens.more.privacy_policy.PrivacyPolicyFragment"
+        android:label="@string/privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+    <fragment
+        android:id="@+id/termsAndConditionFragment"
+        android:name="com.anaraya.anaraya.screens.more.terms_condition.TermsAndConditionFragment"
+        android:label="@string/terms_and_conditions"
+        tools:layout="@layout/fragment_terms_and_condition" />
+    <fragment
+        android:id="@+id/exploreProductsFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.explore.explore_products.ExploreProductsFragment"
+        android:label="fragment_explore_products"
+        tools:layout="@layout/fragment_explore_products">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_exploreProductsFragment_to_exploreProductDetailsFragment"
+            app:destination="@id/exploreProductDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreServicesFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreCategoriesServicesFragment"
+        android:label="fragment_explore_services"
+        tools:layout="@layout/fragment_explore_categories_services">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="categoryId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_exploreServicesFragment_to_exploreServiceDetailsFragment"
+            app:destination="@id/exploreServiceDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreProductDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.product_details.ExploreProductDetailsFragment"
+        android:label="ExploreProductDetailsFragment"
+        tools:layout="@layout/fragment_explore_product_details">
+        <argument
+            android:name="product"
+            app:argType="com.anaraya.anaraya.screens.services.store.product.explore.explore_products.ExploreProductUiDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/exploreServiceDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.service_details.ExploreServiceDetailsFragment"
+        android:label="fragment_explore_service_details"
+        tools:layout="@layout/fragment_explore_service_details">
+        <argument
+            android:name="service"
+            app:argType="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreServiceUiDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeServiceFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.StoreServiceFragment"
+        android:label="StoreServiceFragment"
+        tools:layout="@layout/fragment_store_service">
+        <action
+            android:id="@+id/action_storeServiceFragment_to_exploreServicesFragment"
+            app:destination="@id/exploreServicesFragment" />
+        <action
+            android:id="@+id/action_storeServiceFragment_to_termsAndConditionFragment"
+            app:destination="@id/termsAndConditionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/surveysFragment"
+        android:name="com.anaraya.anaraya.screens.more.surveys.SurveysFragment"
+        android:label="@string/surveys"
+        tools:layout="@layout/fragment_surveys">
+        <action
+            android:id="@+id/action_surveysFragment_to_surveyDetailsFragment"
+            app:destination="@id/surveyDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/surveyDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.more.surveys.details.SurveyDetailsFragment"
+        android:label="@string/surveys"
+        tools:layout="@layout/fragment_survey_details">
+        <argument
+            android:name="surveyId"
+            app:argType="integer" />
+        <argument
+            android:name="surveyTitle"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointsProductsFragment"
+        android:name="com.anaraya.anaraya.screens.points_products.PointsProductsFragment"
+        android:label="PointsProductsFragment"
+        tools:layout="@layout/fragment_points_products">
+        <action
+            android:id="@+id/action_pointsProductsFragment_to_productDetailsFragment"
+            app:destination="@id/productDetailsFragment" />
+        <action
+            android:id="@+id/action_pointsProductsFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageMoreFragment"
+        tools:layout="@layout/fragment_language_more"
+        android:name="com.anaraya.anaraya.screens.more.language.LanguageMoreFragment"
+        android:label="@string/language" />
+    <fragment
+        android:id="@+id/itemDetailsFragment"
+        tools:layout="@layout/fragment_item_details"
+        android:name="com.anaraya.anaraya.screens.services.store.product.my_items.item_details.ItemDetailsFragment"
+        android:label="ItemDetailsFragment" >
+        <action
+            android:id="@+id/action_itemDetailsFragment_to_editItemServiceFragment"
+            app:destination="@id/editItemServiceFragment" />
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp"
+        tools:context=".screens.more.language.LanguageMoreFragment">
+
+        <androidx.constraintlayout.widget.Group
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.constraintlayout.widget.Group>
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkboxArabic"
+            style="@style/styleCheckBoxFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/arabic"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkboxEnglish"
+            style="@style/styleCheckBoxFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/english"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkboxArabic" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkboxFrench"
+            style="@style/styleCheckBoxFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="@string/french"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/checkboxEnglish" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/txtWarningLanguage"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/inter400"-->
+<!--            android:textColor="@color/colorLineStrike"-->
+<!--            android:textSize="18sp"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:text="@string/if_you_change_language_app_will_restart"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/checkboxFrench" />-->
+
+        <Button
+            android:id="@+id/btnSubmitLanguage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/shape_button_add_2"
+            android:fontFamily="@font/inter400"
+            android:paddingHorizontal="30dp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/checkboxFrench" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

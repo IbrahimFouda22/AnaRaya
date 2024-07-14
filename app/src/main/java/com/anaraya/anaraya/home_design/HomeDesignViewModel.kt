@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.anaraya.anaraya.home.category_product.toUiState
-import com.anaraya.anaraya.home.home.CategoryUiState
-import com.anaraya.anaraya.home.home.ProductAdUiState
+import com.anaraya.anaraya.screens.category_product.toUiState
+import com.anaraya.anaraya.screens.home.CategoryUiState
+import com.anaraya.anaraya.screens.home.ProductAdUiState
 import com.anaraya.domain.entity.MainCategory
 import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
@@ -87,7 +87,8 @@ class HomeDesignViewModel @Inject constructor(
                     ProductAdUiState(
                         id = it.id,
                         image = it.image,
-                        isProductOrBrand = it.isProductOrBrand
+                        adsLink = it.adsLink,
+                        adsType = it.adsType
                     )
                 }
             )

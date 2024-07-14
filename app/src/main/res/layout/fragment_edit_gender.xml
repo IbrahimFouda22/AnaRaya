@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+
+    <variable
+        name="viewModel"
+        type="com.anaraya.anaraya.screens.more.my_information.edit_gender.EditGenderViewModel" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context="screens.more.my_information.edit_gender.EditGenderFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_editInfo"
+        style="?android:attr/progressBarStyleHorizontal"
+        bindProgress="@{viewModel.editInfoUiState.loading}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateTint="@color/colorPrimary"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtEditInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter500"
+        android:text="@string/edit_information"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_editInfo"
+        tools:text="Edit Information" />
+
+    <TextView
+        android:id="@+id/txtEditInfoType"
+        style="@style/textMyInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/please_select_gender"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditInfo" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGenderEditInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        bindGenderEditInfo="@{viewModel.valueState}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtEditInfoType"
+        app:layout_constraintTop_toBottomOf="@+id/txtEditInfoType">
+
+        <RadioButton
+            android:id="@+id/radioMaleEditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/male"
+            android:textColor="@color/color_text_radio" />
+
+        <RadioButton
+            android:id="@+id/radioFemaleEditInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/female"
+            android:textColor="@color/color_text_radio" />
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnSaveEditInfo"
+        style="@style/btnAddressTypeSelected"
+        bindButtonEditAddress="@{viewModel.editInfoUiState.saveIsVisible}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:onClick="@{()->viewModel.updateData()}"
+        android:text="@string/save"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupGenderEditInfo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

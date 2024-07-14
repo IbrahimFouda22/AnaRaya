@@ -1,0 +1,41 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<data>
+    <variable
+        name="viewModel"
+        type="com.anaraya.anaraya.screens.more.privacy_policy.PrivacyPolicyViewModel" />
+</data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.more.privacy_policy.PrivacyPolicyFragment">
+
+    <ProgressBar
+        android:id="@+id/progress_privacyPolicy"
+        style="?android:attr/progressBarStyleHorizontal"
+        bindProgress="@{viewModel.privacyPolicyUiState.loading}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:indeterminateTint="@color/colorPrimary"
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:padding="40dp"
+        android:id="@+id/txtPrivacyPolicy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/inter500"
+        android:text="@{viewModel.privacyPolicyUiState.data}"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_privacyPolicy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.search.SearchViewModel" />
+            type="com.anaraya.anaraya.screens.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.search.SearchFragment">
+        tools:context=".screens.search.SearchFragment">
 
         <ProgressBar
             android:id="@+id/progress_search"

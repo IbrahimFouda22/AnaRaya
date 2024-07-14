@@ -1,12 +1,12 @@
 package com.anaraya.data.dto
 
 data class ProductDto(
-    val data: ProductDtoData
+    val data: ProductDtoData,
+    val message: String?,
 )
 
 data class ProductDtoData(
-    val itemsList: List<ProductDtoItemList>
-
+    val itemsList: List<ProductDtoItemList>,
 )
 
 data class ProductDtoItemList(
@@ -23,7 +23,9 @@ data class ProductDtoItemList(
     val specs2: String,
     val stockImg: String? = null,
     val isInBasket: Boolean,
+    val isInLoyaltyBasket: Boolean = false,
     val limitQtyForUserPerMonth: Int,
     val qtyUsedFromLimit: Int,
     val qtyInBasket: Int,
+    val notifyMe: Boolean,
 )

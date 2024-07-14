@@ -19,7 +19,7 @@ import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentSignUpBinding
-import com.anaraya.anaraya.home.activity.HomeActivity
+import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -65,7 +65,8 @@ class SignUpFragment : Fragment() {
                 }
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                    if (it.error != getString(R.string.no_internet))
+                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (!it.isSucceedSignUp)
                     Toast.makeText(context, it.messageSignUp, Toast.LENGTH_SHORT).show()
@@ -83,7 +84,9 @@ class SignUpFragment : Fragment() {
                         if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
                     val month =
                         if (d.datePicker.month.toString().length == 1) "0${d.datePicker.month}" else d.datePicker.month
-                    binding.edtDOBSignUp.setText("${d.datePicker.year}-$month-$day")
+                    var m = month.toString().toInt()
+                    m++
+                    binding.edtDOBSignUp.setText("${d.datePicker.year}-$m-$day")
                     binding.edtDOBSignUp.clearFocus()
                     d.cancel()
                 }
@@ -140,6 +143,8 @@ class SignUpFragment : Fragment() {
         sharedPreferences.edit()
             .putString("nationalId", binding.edtNationalIdNumSignUp.text.toString()).apply()
         sharedPreferences.edit().putString("password", binding.edtPasswordSignUp.text.toString())
+            .apply()
+        sharedPreferences.edit().putBoolean("isFamily", false)
             .apply()
     }
 

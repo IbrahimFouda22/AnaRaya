@@ -1,10 +1,9 @@
 package com.anaraya.anaraya.home_design
 
 import androidx.paging.PagingData
-import com.anaraya.anaraya.home.home.CategoryUiState
-import com.anaraya.anaraya.home.home.ProductAdUiState
-import com.anaraya.anaraya.home.shared_data.Image
-import com.anaraya.anaraya.home.shared_data.ProductUiState
+import com.anaraya.anaraya.screens.home.CategoryUiState
+import com.anaraya.anaraya.screens.home.ProductAdUiState
+import com.anaraya.anaraya.screens.shared_data.ProductUiState
 import kotlinx.coroutines.flow.Flow
 
 

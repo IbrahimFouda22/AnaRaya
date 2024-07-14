@@ -21,7 +21,8 @@ fun FavoriteDto.toEntity():List<Product>{
             description = it.description,
             inBasket = it.isInBasket,
             limitQtyForUserPerMonth = it.limitQtyForUserPerMonth,
-            qtyUsedFromLimit = it.qtyUsedFromLimit
+            qtyUsedFromLimit = it.qtyUsedFromLimit,
+            notifyMe = it.notifyMe
         )
     }
 }

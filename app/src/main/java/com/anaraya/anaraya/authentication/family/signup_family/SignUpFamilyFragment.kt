@@ -19,7 +19,7 @@ import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.family.AuthFamilyViewModel
 import com.anaraya.anaraya.databinding.FragmentSignUpFamilyBinding
-import com.anaraya.anaraya.home.activity.HomeActivity
+import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,12 +35,11 @@ class SignUpFamilyFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-    private var code = "0"
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSignUpFamilyBinding.inflate(layoutInflater)
@@ -73,10 +72,17 @@ class SignUpFamilyFragment : Fragment() {
                 }
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                    if (it.error != getString(R.string.no_internet)) Toast.makeText(
+                        context,
+                        it.error,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                if (!it.isSucceedSignUp)
-                    Toast.makeText(context, it.messageSignUp, Toast.LENGTH_SHORT).show()
+                if (!it.isSucceedSignUp) Toast.makeText(
+                    context,
+                    it.messageSignUp,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -91,7 +97,9 @@ class SignUpFamilyFragment : Fragment() {
                         if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
                     val month =
                         if (d.datePicker.month.toString().length == 1) "0${d.datePicker.month}" else d.datePicker.month
-                    binding.edtDOBSignUpFamily.setText("${d.datePicker.year}-$month-$day")
+                    var m = month.toString().toInt()
+                    m++
+                    binding.edtDOBSignUpFamily.setText("${d.datePicker.year}-$m-$day")
                     binding.edtDOBSignUpFamily.clearFocus()
                     d.cancel()
                 }
@@ -114,7 +122,7 @@ class SignUpFamilyFragment : Fragment() {
     private fun setStateSignUpPlus(
         auth: Boolean = false,
         isMobileCorrect: Boolean = false,
-        isOtpCorrect: Boolean = false
+        isOtpCorrect: Boolean = false,
     ) {
         var num = viewModel.stateSignUp.value
         when (num) {
@@ -167,11 +175,10 @@ class SignUpFamilyFragment : Fragment() {
         sharedPreferences.edit().putInt(getString(R.string.productsinbasket), 0).apply()
         sharedPreferences.edit().putBoolean("auth", false).apply()
         sharedPreferences.edit()
-            .putString("rayaId", binding.edtRayaIdNumSignUpFamily.text.toString())
-            .apply()
+            .putString("rayaId", binding.edtRayaIdNumSignUpFamily.text.toString()).apply()
         sharedPreferences.edit()
-            .putString("password", binding.edtPasswordSignUpFamily.text.toString())
-            .apply()
+            .putString("password", binding.edtPasswordSignUpFamily.text.toString()).apply()
+        sharedPreferences.edit().putBoolean("isFamily", true).apply()
     }
 
     private fun reload() {

@@ -21,6 +21,8 @@ import com.anaraya.domain.entity.CompanyGovernorate
 import com.anaraya.domain.entity.ContactNumber
 import com.anaraya.domain.entity.DeliverySchedule
 import com.anaraya.domain.entity.EditInfo
+import com.anaraya.domain.entity.ExploreProduct
+import com.anaraya.domain.entity.ExploreServices
 import com.anaraya.domain.entity.FeedBack
 import com.anaraya.domain.entity.Help
 import com.anaraya.domain.entity.HelpDetails
@@ -30,12 +32,18 @@ import com.anaraya.domain.entity.PlaceOrder
 import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
 import com.anaraya.domain.entity.ProductDetails
-import com.anaraya.domain.entity.ProductStoreItemList
+import com.anaraya.domain.entity.ProductStore
 import com.anaraya.domain.entity.Profile
 import com.anaraya.domain.entity.PromoCode
 import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.entity.Relationships
 import com.anaraya.domain.entity.ResetChangePass
+import com.anaraya.domain.entity.ServiceStoreItemList
+import com.anaraya.domain.entity.Survey
+import com.anaraya.domain.entity.SurveyBody
+import com.anaraya.domain.entity.SurveyImage
+import com.anaraya.domain.entity.Surveys
+import com.anaraya.domain.entity.SurveysStatus
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -72,13 +80,16 @@ interface IRemoteDataSource {
 
     suspend fun getProductsAds(): List<ProductAd>
     suspend fun getTrendingProducts(pageNumber: Int): List<Product>
+    suspend fun getPointsProducts(pageNumber: Int): List<Product>
     suspend fun getHomeCategory(pageNumber: Int): List<MainCategory>
     suspend fun getProductById(productId: Int): ProductDetails
+    suspend fun getProductsByCategory(mainCatId: Int, pageNumber: Int): List<Product>
     suspend fun getProductsByMainCategory(mainCatId: Int, pageNumber: Int): List<Product>
+    suspend fun getProductsByBrand(brandId: Int, pageNumber: Int): List<Product>
     suspend fun getProductsInsideMainCatAndCat(
         categoryId: Int,
         mainCatId: Int,
-        pageNumber: Int
+        pageNumber: Int,
     ): List<Product>
 
     suspend fun getAllCategoryInsideMainCat(mainCatId: Int): List<Category>
@@ -87,14 +98,16 @@ interface IRemoteDataSource {
     suspend fun getAll(pageNumber: Int): List<Product>
 
     suspend fun addToCart(productId: Int, productQty: Int): AddRemoveCart
+    suspend fun addPointToCart(productId: Int, productQty: Int): AddRemoveCart
     suspend fun removeProductFromCart(productId: Int): AddRemoveCart
+    suspend fun removeProductPointFromCart(productId: Int): AddRemoveCart
     suspend fun getCart(): Cart
     suspend fun getAddress(): Addresses
 
     suspend fun getProfileData(): Profile
     suspend fun changeDefaultAddress(
         addressId: String,
-        userOrCompanyAddress: Boolean
+        userOrCompanyAddress: Boolean,
     ): ChangeDefaultAddress
 
     suspend fun addAddress(
@@ -126,6 +139,9 @@ interface IRemoteDataSource {
     suspend fun updateName(name: String): EditInfo
     suspend fun updateEmail(email: String): EditInfo
     suspend fun updatePhoneNumber(phone: String): EditInfo
+    suspend fun updateDOB(dob: String): EditInfo
+    suspend fun updateGender(gender: Int): EditInfo
+    suspend fun changePassword(currentPassword: String, newPassword: String): EditInfo
 
     suspend fun getOrders(): Order
 
@@ -133,14 +149,14 @@ interface IRemoteDataSource {
     suspend fun forgetPassCheckCode(
         rayaId: String,
         nationalId: String,
-        code: String
+        code: String,
     ): ResetChangePass
 
     suspend fun resetPass(
         rayaId: String,
         nationalId: String,
         code: String,
-        newPassword: String
+        newPassword: String,
     ): ResetChangePass
 
     suspend fun getAllFavorite(): List<Product>
@@ -155,7 +171,7 @@ interface IRemoteDataSource {
     suspend fun getAllCompanyAddresses(
         pageNumber: Int,
         companyId: Int,
-        governorate: String
+        governorate: String,
     ): CompanyAddress
 
     suspend fun getAllHelp(): Help
@@ -171,6 +187,8 @@ interface IRemoteDataSource {
     suspend fun getAllPromoCodes(): PromoCode
     suspend fun applyPromo(promoCode: String): ApplyPromo
     suspend fun getAboutUs(): AboutUS
+    suspend fun getTermsAndCondition(): BaseResponse
+    suspend fun getPrivacyPolicy(): BaseResponse
     suspend fun getSupportContactNumber(): ContactNumber
 
     suspend fun addAllToBasket(): AddAllToBasket
@@ -183,32 +201,81 @@ interface IRemoteDataSource {
         catIds: List<Int>?,
         brandIds: List<Int>?,
         highestOrLowest: Int?,
-        pageNumber: Int
+        pageNumber: Int,
     ): List<Product>
 
-    suspend fun getStoreCategory(isProduct: Boolean): List<Category>
+    suspend fun getStoreProductCategory(): List<Category>
+    suspend fun getStoreServicesCategory(): List<Category>
     suspend fun getStoreSubCategory(categoryId: Int): List<Category>
 
-    suspend fun storeAdd(
+    suspend fun storeAddProduct(
         subCategoryId: RequestBody,
         condition: RequestBody,
         title: RequestBody,
         itemDescription: RequestBody,
         price: RequestBody,
         location: RequestBody,
+        isAnonymous: RequestBody,
+        handleDelivery: RequestBody,
         productImage: MultipartBody.Part,
-        isProduct: Boolean
+    ): BaseResponse
+    suspend fun storeUpdateProduct(
+        id: RequestBody,
+        subCategoryId: RequestBody?,
+        condition: RequestBody?,
+        title: RequestBody?,
+        itemDescription: RequestBody?,
+        price: RequestBody?,
+        location: RequestBody?,
+        isAnonymous: RequestBody?,
+        handleDelivery: RequestBody?,
+        productImage: MultipartBody.Part?,
     ): BaseResponse
 
-    suspend fun getStoreProductAndService(
+    suspend fun storeAddServices(
+        subCategoryId: RequestBody,
+        title: RequestBody,
+        itemDescription: RequestBody,
+        price: RequestBody,
+        location: RequestBody,
+        serviceImage: MultipartBody.Part,
+    ): BaseResponse
+
+    suspend fun getStoreProduct(
         pageNumber: Int,
         status: Int,
-        isProduct: Boolean
-    ): List<ProductStoreItemList>
+    ): List<ProductStore>
+    suspend fun getStoreProductByIdForOwner(
+        productId: Int
+    ): ProductStore
 
-    suspend fun requestToDelete(
+    suspend fun getStoreService(
+        pageNumber: Int,
+        status: Int,
+    ): List<ServiceStoreItemList>
+
+    suspend fun getExploreProducts(
+        pageNumber: Int,
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): List<ExploreProduct>
+
+    suspend fun getExploreServices(
+        pageNumber: Int,
+        searchWord: String?,
+        searchLanguage: String?,
+        catID: Int?,
+        subCatId: Int?,
+    ): List<ExploreServices>
+
+    suspend fun requestToDeleteProduct(
         customerProductId: Int,
-        isProduct: Boolean
+    ): BaseResponse
+
+    suspend fun requestToDeleteService(
+        customerProductId: Int,
     ): BaseResponse
 
     suspend fun verifyPhone(
@@ -222,7 +289,7 @@ interface IRemoteDataSource {
         name: String,
         phoneNumber: String,
         relationshipId: Int,
-        email: String? = null
+        email: String? = null,
     ): BaseResponse
 
     suspend fun getAllReferrals(): Referrals
@@ -247,4 +314,37 @@ interface IRemoteDataSource {
         building: String?,
         landmark: String?,
     ): Auth
+
+    suspend fun signInFamily(
+        rayaId: String,
+        password: String,
+    ): Auth
+
+    suspend fun forgetPassFamily(rayaId: String): ResetChangePass
+    suspend fun forgetPassCheckCodeFamily(
+        rayaId: String,
+        code: String,
+    ): ResetChangePass
+
+    suspend fun resetPassFamily(
+        rayaId: String,
+        code: String,
+        newPassword: String,
+    ): ResetChangePass
+
+    suspend fun addToNotifyMe(productId: Int): BaseResponse
+    suspend fun removeFromNotifyMe(productId: Int): BaseResponse
+    suspend fun getUserLoyaltyPoints(): BaseResponse
+    suspend fun sendFCMToken(token: String, enabled: Boolean): BaseResponse
+    suspend fun updateFCMToken(token: String, enabled: Boolean): BaseResponse
+
+    suspend fun requestToBuy(productId: Int): BaseResponse
+    suspend fun requestToRent(serviceId: Int, rentTo: String, rentFrom: String): BaseResponse
+
+    suspend fun getSurveysStatus(): SurveysStatus
+
+    suspend fun getAllSurveys(): Surveys
+    suspend fun getSurvey(surveyId: Int): Survey
+    suspend fun submitSurvey(surveyBody: SurveyBody): BaseResponse
+    suspend fun getSurveyImage():SurveyImage
 }

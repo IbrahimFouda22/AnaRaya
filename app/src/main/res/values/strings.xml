@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Ana Raya</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="skip">Skip</string>
     <string name="get_started">Get Started</string>
-    <string name="textHeadScreen1">Shop Your Favorite \nProducts</string>
+    <string name="textHeadScreen1">Shop Your Favorite  Products</string>
     <string name="textUnderHeadScreen1">Selecting favorites has never been easier. Let\'s get started!</string>
     <string name="textHeadScreen2">Add Favorite Products to \nyour Cart</string>
     <string name="textUnderHeadScreen2">Begin your shopping journey by adding your favorite products to your cart.</string>
@@ -19,6 +19,7 @@
     <string name="mobile_number">Mobile Number</string>
     <string name="verification_code">Verification code</string>
     <string name="please_enter_password">Please Enter Password</string>
+    <string name="please_enter_dob">Please Enter Date of birth</string>
     <string name="new_password">New Password</string>
     <string name="choose_language">choose language</string>
     <string name="home">Home</string>
@@ -27,7 +28,7 @@
     <string name="more">More</string>
     <string name="office_delivery_schedule">Office Delivery Schedule</string>
     <string name="search_product">Search Product</string>
-    <string name="trending_now">Trending now</string>
+    <string name="trending_now" translatable="false">Trending now</string>
     <string name="view_all">View All</string>
     <string name="categories">Categories</string>
     <string name="dismiss_to_home">Dismiss to home</string>
@@ -35,7 +36,7 @@
     <string name="add_to_basket">Add To Basket</string>
     <string name="all">All</string>
     <string name="there_is_a_problem">There is a problem</string>
-    <string name="text_under_text_problem">Unfortunately, it was not possible to \nconnect to the internet. try again.</string>
+    <string name="text_under_text_problem">Unfortunately, it was not possible to  connect to the internet. try again.</string>
     <string name="reload">Reload</string>
     <string name="orders">Orders</string>
     <string name="my_information">My Information</string>
@@ -111,7 +112,7 @@
     <string name="edit">Edit</string>
     <string name="change_default_address">Change Default Address</string>
     <string name="change_password">Change password</string>
-    <string name="pass">**********</string>
+    <string name="pass" translatable="false">**********</string>
     <string name="please_add_addresses">Please add some addresses</string>
     <string name="address_label">AddressLabel</string>
     <string name="governorate">Governorate</string>
@@ -119,7 +120,7 @@
     <string name="address">Address</string>
     <string name="building">Building</string>
     <string name="landmark">Landmark</string>
-    <string name="no_addresses_founded">No addresses founded</string>
+    <string name="no_addresses_founded" translatable="false">No addresses founded</string>
     <string name="please_add_address">add address</string>
     <string name="recommended_products">Recommended Products</string>
     <string name="only_left_in_stock">Only %1$s left in stock</string>
@@ -143,13 +144,14 @@
     <string name="verification_is_empty">Verification Code is empty</string>
     <string name="name_is_empty">Name is empty</string>
     <string name="phone_is_empty">Mobile Phone is empty</string>
-    <string name="email_invalid_format">email invalid format</string>
-    <string name="password_format_counter">password must have at least 8 characters</string>
-    <string name="password_format_upper">password must have at least one uppercase</string>
-    <string name="password_format_lower">password must have at least one lowercase</string>
-    <string name="password_format_digit">password must have at least one digit</string>
-    <string name="password_format_special">password must have at least one special character</string>
-    <string name="no_internet">No Internet</string>
+    <string name="email_invalid_format" translatable="false">email invalid format</string>
+    <string name="email_invalid_format_msg">email invalid format</string>
+    <string name="password_format_counter" translatable="false">password must have at least 8 characters</string>
+    <string name="password_format_upper" translatable="false">password must have at least one uppercase</string>
+    <string name="password_format_lower" translatable="false">password must have at least one lowercase</string>
+    <string name="password_format_digit" translatable="false">password must have at least one digit</string>
+    <string name="password_format_special" translatable="false">password must have at least one special character</string>
+    <string name="no_internet" translatable="false">No Internet</string>
     <string name="require">Require</string>
     <string name="password_format_counter_msg">password must have at least 8 characters</string>
     <string name="password_format_upper_msg">password must have at least one uppercase</string>
@@ -168,7 +170,7 @@
     <string name="landmark_is_empty">Landmark Field is Empty"</string>
     <string name="field_require">Field require</string>
     <string name="optional">*optional</string>
-    <string name="show_pop_schedule">showPopSchedule</string>
+    <string name="show_pop_schedule" translatable="false">showPopSchedule</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
     <string name="language">Language</string>
     <string name="productdetails">ProductDetails</string>
@@ -179,18 +181,20 @@
     <string name="type_to_search">Type to Search</string>
     <string name="see_schedule">See Delivery Schedule?</string>
     <string name="ok">OK</string>
-    <string name="action_to_scedule">actionToScedule</string>
+    <string name="action_to_scedule" translatable="false">actionToScedule</string>
     <string name="select_line_of_business">Select line of business</string>
-    <string name="select_your_government">Select your Government</string>
-    <string name="select_street">Select Street</string>
-    <string name="no_titles">No Titles</string>
+    <string name="select_your_government">Select Governorate</string>
+    <string name="select_office">Select Office</string>
+    <string name="no_titles" translatable="false">No Titles</string>
     <string name="brand">Brand</string>
     <string name="not_found">Not Found</string>
     <string name="your_limitation_is_per_month">Your limitation is %1$s per month</string>
     <string name="remove_from_cart">Remove from cart</string>
     <string name="please_add_qty">please add qty</string>
     <string name="select_payment_method">Select Method</string>
-    <string name="l_e">L.E%1$s</string>
+    <string name="l_e">%1$s EGP</string>
+    <string name="l_e_before"><![CDATA[<strike>%1$s EGP</strike>]]></string>
+    <string name="points_price">%1$s Points</string>
     <string name="select_method">Select Method</string>
     <string name="no_items_has_been_added">No items has been added</string>
     <string name="this_address_already_in_your_addresses">This address already in your addresses</string>
@@ -198,7 +202,7 @@
     <string name="order_accepted">Accepted</string>
     <string name="order_prepared">Prepared</string>
     <string name="out_for_delivery">Out For Delivery</string>
-    <string name="recived">Recived</string>
+    <string name="recived">Received</string>
     <string name="short_review">SHORT REVIEW</string>
     <string name="submit">Submit</string>
     <string name="write_a_short_review_about_ana_raya_app">Write a short review about ana raya app</string>
@@ -210,13 +214,13 @@
     <string name="contact_number">Contact Number</string>
     <string name="add_all_to_cart">Add All To Cart</string>
     <string name="productsinbasket">productsInBasket</string>
-    <string name="star">*</string>
+    <string name="star" translatable="false">*</string>
     <string name="date_of_birth">Date of birth</string>
     <string name="cancel">Cancel</string>
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="signupstate">signUpState</string>
+    <string name="signupstate" translatable="false">signUpState</string>
     <string name="filter">Filter</string>
     <string name="explore_categories">Explore Categories</string>
     <string name="employee_store">Employee Store</string>
@@ -229,7 +233,7 @@
     <string name="offering_item_for_sale">Offering item for sale</string>
     <string name="title">Title</string>
     <string name="category">Category</string>
-    <string name="item_selected">Item selected</string>
+    <string name="item_selected">Select Option</string>
     <string name="condition">Condition</string>
     <string name="write_a_short_description_for_your_item">Write a short description for your item</string>
     <string name="choose_unique_title_for_your_item">Choose unique Title for Your item.</string>
@@ -282,9 +286,67 @@
     <string name="family_referral_sign_up">Family Referral Sign up?</string>
     <string name="otp">OTP</string>
     <string name="otp_is_empty">OTP is empty</string>
+    <string name="defaultt">Default</string>
+    <string name="make_default">Make Default</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="please_select_gender">Please Select Gender</string>
+    <string name="current_password">Current Password</string>
+    <string name="company">Company</string>
+    <string name="select_company">Select Company</string>
+    <string name="government">Government</string>
+    <string name="points">Points</string>
+    <string name="out_of_stock">Out of stock</string>
+    <string name="notify_me_when_available">Notify me when available</string>
+    <string name="remove_from_notification_list">Remove from notification list</string>
+    <string name="points_num">Points: %1$s</string>
+    <string name="points_num2">%1$s Points</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & conditions]]></string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="you_will_not_received_notifications">you will not received notifications</string>
+    <string name="points_items">Points Items</string>
+    <string name="currently_unavailable">Currently unavailable</string>
+    <string name="total_points">Total Points</string>
+    <string name="preview">Preview</string>
+    <string name="price2">Price:</string>
+    <string name="condition2">Condition:</string>
+    <string name="category2">Category:</string>
+    <string name="location2">Location:</string>
+    <string name="request_to_buy">Request to Buy</string>
+    <string name="request_sent">Request sent</string>
+    <string name="add_yours">Add yours</string>
+    <string name="surveys">Surveys</string>
+    <string name="written_question">Written Question</string>
+    <string name="go_to_survey">Go to Survey</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="french">French</string>
+    <string name="if_you_change_language_app_will_restart">If you change language app will restart</string>
+    <string name="question1">QUESTION1</string>
+    <string name="question2">QUESTION2</string>
+    <string name="please_fill_out_all_fields">Please fill out all fields</string>
+    <string name="please_allow_permission_to_take_an_image">Please allow permission to take an image</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="would_you_like_to_be_anonymous_to_potential_buyers">Would you like to be anonymous to potential buyers?</string>
+    <string name="would_you_also_like_us_to_handle_the_delivery">Would you also like us to handle the delivery?</string>
+    <string name="listed">Listed</string>
+    <string name="seller_info">Seller Info</string>
+    <string name="number">Number</string>
+    <string name="item_details">Item Details</string>
+    <string name="edit_request_pending">edit request pending</string>
+    <string name="add_request_pending">add request pending</string>
 
     <string-array name="lang">
+        <item>Arabic</item>
         <item>English</item>
-        <item>العربية</item>
+        <item>French</item>
+    </string-array>
+    <string-array name="arrayHandleDelivery">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+    <string-array name="arrayAnonymous">
+        <item>Yes</item>
+        <item>No, I would like to directly contact my\nsellers and arrange the sale my self</item>
     </string-array>
 </resources>

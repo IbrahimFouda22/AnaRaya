@@ -6,13 +6,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
 import com.anaraya.anaraya.R
-import com.anaraya.anaraya.home.activity.HomeActivityViewModel
+import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
 import com.google.android.material.appbar.MaterialToolbar
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import java.util.Locale
@@ -36,7 +34,6 @@ fun setLocal(activity: Activity, lang: String) {
     val config = resources.configuration
     config.setLocale(locale)
     resources.updateConfiguration(config, resources.displayMetrics)
-
 }
 
 fun showToolBar(activity: Activity, boolean: Boolean) {

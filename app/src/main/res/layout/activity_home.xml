@@ -5,18 +5,17 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.activity.HomeActivityViewModel" />
+            type="com.anaraya.anaraya.screens.activity.HomeActivityViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/consHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:fitsSystemWindows="true"
-        android:id="@+id/consHome"
-        tools:context=".home.activity.HomeActivity">
+        tools:context=".screens.activity.HomeActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,14 +28,15 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolBarActivity"
+                style="@style/textTitleBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/white"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
-                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                style="@style/textTitleBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleCentered="true" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSearch_homeActivity"
@@ -90,14 +90,15 @@
                         android:id="@+id/btnFavHome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_fav"
                         android:layout_marginEnd="5dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:onClick="@{()->viewModel.navigateToFav()}"
+                        android:src="@drawable/ic_fav"
                         app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
                         app:layout_constraintEnd_toStartOf="@+id/btnCart"
                         app:layout_constraintStart_toEndOf="@+id/edtSearch"
                         app:layout_constraintTop_toTopOf="@+id/edtSearch" />
+
                     <ImageButton
                         android:id="@+id/btnCart"
                         android:layout_width="wrap_content"
@@ -126,14 +127,14 @@
                     <TextView
                         android:id="@+id/txtBadge"
                         style="@style/textNormal"
+                        bindTextNumOfBasket="@{viewModel.homeState.productInBasket}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/shape_badge"
+                        android:maxLength="4"
                         android:paddingHorizontal="5dp"
-                        bindTextNumOfBasket="@{viewModel.homeState.productInBasket}"
                         android:textColor="@color/white"
                         android:textSize="10sp"
-                        android:maxLength="4"
                         android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@+id/edtSearch"
                         app:layout_constraintEnd_toEndOf="@+id/btnCart"
@@ -190,6 +191,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:padding="5dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_arrow_back"
                 app:layout_constraintStart_toStartOf="parent"

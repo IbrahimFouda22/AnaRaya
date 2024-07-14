@@ -76,7 +76,7 @@
                         android:id="@+id/edtRayaIdNum_SignUpFamily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number|datetime"
+                        android:inputType="number|textCapCharacters"
                         android:padding="5dp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -227,7 +227,7 @@
                     android:id="@+id/edtLayoutEmail_SignUpFamily"
                     style="@style/normalEditTextApp"
                     bindSignUpFamily4="@{viewModel.stateSignUp}"
-                    bindTextInputLayoutPassEmailMsgError="@{viewModel.signUpResponse.signUpEmailErrorMsg}"
+                    bindTextInputLayoutEmailMsgError="@{viewModel.signUpResponse.signUpEmailErrorMsg}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/edtLayoutRayaIdNum_SignUpFamily"
@@ -313,7 +313,7 @@
                     android:id="@+id/edtLayoutPassword_SignUpFamily"
                     style="@style/passwordEditTextApp"
                     bindSignUpFamily4="@{viewModel.stateSignUp}"
-                    bindTextInputLayoutPassEmailMsgError="@{viewModel.signUpResponse.signUpPasswordErrorMsg}"
+                    bindTextInputLayoutPassMsgError="@{viewModel.signUpResponse.signUpPasswordErrorNumber}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/dimen_keyboard"

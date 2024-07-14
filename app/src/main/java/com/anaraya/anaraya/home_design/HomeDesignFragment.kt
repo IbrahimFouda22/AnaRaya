@@ -16,13 +16,13 @@ import androidx.paging.LoadState
 import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.FragmentHomeDesignBinding
-import com.anaraya.anaraya.home.home.HomeAdsInteraction
-import com.anaraya.anaraya.home.home.ProductAdUiState
-import com.anaraya.anaraya.home.home.adapter.HomeAdsAdapter
-import com.anaraya.anaraya.home.home.adapter.HomeCategoryAdapter
-import com.anaraya.anaraya.home.home.adapter.HomeTrendingProductAdapter
-import com.anaraya.anaraya.home.shared_interaction.CategoryInteraction
-import com.anaraya.anaraya.home.shared_interaction.ProductInteractionListener
+import com.anaraya.anaraya.screens.home.interaction.HomeAdsInteraction
+import com.anaraya.anaraya.screens.home.ProductAdUiState
+import com.anaraya.anaraya.screens.home.adapter.HomeAdsAdapter
+import com.anaraya.anaraya.screens.home.adapter.HomeCategoryAdapter
+import com.anaraya.anaraya.screens.home.adapter.HomeTrendingProductAdapter
+import com.anaraya.anaraya.screens.shared_interaction.CategoryInteraction
+import com.anaraya.anaraya.screens.shared_interaction.ProductInteractionListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -220,7 +220,7 @@ class HomeDesignFragment : Fragment() , ProductInteractionListener, CategoryInte
         sharedViewModel.reloadClickDone()
     }
 
-    override fun adClick(productId: Int, isProduct: Boolean) {
+    override fun adClick(id: Int, type: Int,adLink:String?) {
         viewModel.navigateToAuth()
     }
 }

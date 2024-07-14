@@ -5,13 +5,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.family.FamilyViewModel" />
+            type="com.anaraya.anaraya.screens.more.family.FamilyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.family.FamilyFragment">
+        tools:context=".screens.more.family.FamilyFragment">
 
         <ProgressBar
             android:id="@+id/progress_Family"
@@ -130,7 +130,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edtLayoutEmailFamily"
                     style="@style/addressEditText"
-                    bindTextInputLayoutPassEmailMsgError="@{viewModel.familyUiState.emailErrorMsg}"
+                    bindTextInputLayoutEmailMsgError="@{viewModel.familyUiState.emailErrorMsg}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

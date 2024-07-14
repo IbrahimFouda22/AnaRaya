@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.filter.FilterViewModel" />
+            type="com.anaraya.anaraya.screens.filter.FilterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/progressFilter"
             android:layout_marginTop="60dp"
             android:background="@color/white"
-            tools:context=".home.filter.FilterFragment">
+            tools:context=".screens.filter.FilterFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

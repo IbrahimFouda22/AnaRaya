@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple android:color="@color/colorGreyLight" xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
+    <item android:id="@android:id/background">
         <shape android:shape="rectangle">
             <corners android:radius="10dp"/>
             <solid android:color="@color/colorBackBtnAddItems"/>

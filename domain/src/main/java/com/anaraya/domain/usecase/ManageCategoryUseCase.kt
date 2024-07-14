@@ -5,9 +5,8 @@ import javax.inject.Inject
 
 class ManageCategoryUseCase @Inject constructor(private val repo: IRepo) {
     suspend fun getHomeCategory() = repo.getHomeCategory()
-    suspend fun getAllCategoryInsideMainCat(mainCatId: Int) =
-        repo.getAllCategoryInsideMainCat(mainCatId)
 
     suspend fun getAllCats() = repo.getAllCats()
+    suspend fun getAllCatsInsideMainCat(mainCatId: Int) = repo.getAllCategoryInsideMainCat(mainCatId)
     suspend fun getAllBrands() = repo.getAllBrands()
 }

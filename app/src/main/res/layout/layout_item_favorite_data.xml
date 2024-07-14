@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.shared_data.ProductUiState" />
+            type="com.anaraya.anaraya.screens.shared_data.ProductUiState" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp">
@@ -25,26 +26,31 @@
 
         <TextView
             android:id="@+id/txtNameItemFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="20dp"
             android:fontFamily="@font/inter600"
             android:text="@{item.name}"
             android:textColor="@color/colorTextNameProduct"
+            android:textSize="14sp"
+            android:maxLines="5"
+            android:ellipsize="end"
+            app:layout_constraintBottom_toBottomOf="@+id/imgFav"
+            app:layout_constraintEnd_toStartOf="@+id/txtPriceFav"
             app:layout_constraintStart_toEndOf="@+id/imgFav"
             app:layout_constraintTop_toTopOf="@+id/imgFav"
             tools:text="Bell Pepper Red" />
 
-        <TextView
-            android:id="@+id/txtDescItemFav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter400"
-            android:text="@{item.specs1}"
-            android:textColor="@color/colorTextGrey"
-            app:layout_constraintStart_toStartOf="@+id/txtNameItemFav"
-            app:layout_constraintTop_toBottomOf="@+id/txtNameItemFav"
-            tools:text="1kg, Price" />
+<!--        <TextView-->
+<!--            android:id="@+id/txtDescItemFav"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/inter400"-->
+<!--            android:text="@{item.specs1}"-->
+<!--            android:textColor="@color/colorTextGrey"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/txtNameItemFav"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txtNameItemFav"-->
+<!--            tools:text="1kg, Price" />-->
 
 
         <TextView

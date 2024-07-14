@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.anaraya.anaraya.home.cart.CheckOutUiStateData" />
+            type="com.anaraya.anaraya.screens.cart.CheckOutUiStateData" />
         <variable
             name="selectedMethod"
             type="String" />

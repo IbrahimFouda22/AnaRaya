@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="name"
-            type="String" />
-    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.services.store.StoreFragment">
+        tools:context=".screens.services.store.product.StoreFragment">
 
         <TextView
             android:id="@+id/txtNameEmployeeStore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter700"
-            android:text="@{name}"
+            android:text="@string/items"
             android:layout_marginTop="16dp"
             android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Items"/>
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabStore"

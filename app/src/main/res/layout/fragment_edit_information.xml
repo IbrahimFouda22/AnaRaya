@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.my_information.edit_info.EditInformationViewModel" />
+            type="com.anaraya.anaraya.screens.more.my_information.edit_info.EditInformationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context=".home.more.my_information.edit_info.EditInformationFragment">
+        tools:context=".screens.more.my_information.edit_info.EditInformationFragment">
 
         <ProgressBar
             android:id="@+id/progress_editInfo"

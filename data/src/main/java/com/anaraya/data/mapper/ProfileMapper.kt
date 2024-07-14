@@ -12,10 +12,12 @@ fun ProfileDto.toEntity(): Profile {
         message = message,
         data = ProfileData(
             name = data.name,
+            dateOfBirth = data.dateOfBirth,
             phoneNumber = data.phoneNumber,
             email = data.email,
             profileImage = data.profileImage,
             phoneNumberConfirmed = data.phoneNumberConfirmed,
+            gender = if(data.gender.isNullOrEmpty()) 0 else data.gender.toInt(),
             userDefaultAddress =
             data.userDefaultAddress?.let {
                 Address(

@@ -21,6 +21,8 @@ import com.anaraya.data.dto.CompanyGovernorateDto
 import com.anaraya.data.dto.ContactNumberDto
 import com.anaraya.data.dto.DeliveryScheduleDto
 import com.anaraya.data.dto.EditInfoDto
+import com.anaraya.data.dto.ExploreProductsDto
+import com.anaraya.data.dto.ExploreServicesDto
 import com.anaraya.data.dto.FavoriteDto
 import com.anaraya.data.dto.FeedBackDto
 import com.anaraya.data.dto.HelpDetailsDto
@@ -31,15 +33,23 @@ import com.anaraya.data.dto.PlaceOrderDto
 import com.anaraya.data.dto.ProductDetailsDto
 import com.anaraya.data.dto.ProductDto
 import com.anaraya.data.dto.ProductStoreDto
+import com.anaraya.data.dto.ProductStoreDtoDetails
 import com.anaraya.data.dto.ProductsAdsDto
 import com.anaraya.data.dto.ProfileDto
 import com.anaraya.data.dto.PromoCodeDto
 import com.anaraya.data.dto.ReferralsDto
 import com.anaraya.data.dto.RelationshipsDto
 import com.anaraya.data.dto.ResetChangePassDto
+import com.anaraya.data.dto.ServiceStoreDto
+import com.anaraya.data.dto.SurveyBodyDto
+import com.anaraya.data.dto.SurveyDto
+import com.anaraya.data.dto.SurveyImageDto
+import com.anaraya.data.dto.SurveysDto
+import com.anaraya.data.dto.SurveysStatusDto
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -93,28 +103,44 @@ interface ApiService {
 
     @GET("Stocks/GetAllTrendingStocks")
     suspend fun getTrendingProducts(
-        @Query("PageNumber") pageNumber: Int
+        @Query("PageNumber") pageNumber: Int,
+    ): Response<ProductDto>
+
+    @GET("Stocks/GetAllRedemptionStocks")
+    suspend fun getPointsProducts(
+        @Query("PageNumber") pageNumber: Int,
     ): Response<ProductDto>
 
     @GET("Stocks/GetAll")
     suspend fun getAll(
-        @Query("PageNumber") pageNumber: Int
+        @Query("PageNumber") pageNumber: Int,
     ): Response<ProductDto>
 
-    @GET("Stocks/GetAllCatsWithImages")
+    @GET("Stocks/GetAllMainCatsWithImages")
     suspend fun getHomeCategory(
-        @Query("PageNumber") pageNumber: Int
+        @Query("PageNumber") pageNumber: Int,
     ): Response<MainCategoryDto>
 
 
     @GET("Stocks/GetStockByID")
     suspend fun getProductById(
-        @Query("productId") productId: Int
+        @Query("productId") productId: Int,
     ): Response<ProductDetailsDto>
 
-    @GET("Stocks/FilterByCat")
+    @GET("Stocks/FilterByMainCat")
     suspend fun getProductsByMainCategory(
+        @Query("MainCatId") catId: Int,
+        @Query("PageNumber") pageNumber: Int,
+    ): Response<ProductDto>
+    @GET("Stocks/FilterByCat")
+    suspend fun getProductsByCategory(
         @Query("CatId") catId: Int,
+        @Query("PageNumber") pageNumber: Int,
+    ): Response<ProductDto>
+
+    @GET("Stocks/FilterByBrand")
+    suspend fun getProductsByBrand(
+        @Query("BrandId") brandId: Int,
         @Query("PageNumber") pageNumber: Int,
     ): Response<ProductDto>
 
@@ -126,20 +152,12 @@ interface ApiService {
         @Query("PageNumber") pageNumber: Int,
     ): Response<ProductDto>
 
-    /*@FormUrlEncoded
-    @POST("Stocks/Filter")
-    suspend fun getProductsByCat(
-        @Field("CatId") catId: Int,
-        @Query("PageNumber") pageNumber: Int,
-    ): Response<ProductDto>*/
 
-    @GET("Stocks/GetCatsInsideMainCat")
+    @GET("Stocks/GetAllCatsByMainCatId")
     suspend fun getAllCatInsideMainCat(
-        @Query("MainCatId") mainCatId: Int
+        @Query("MainCatId") mainCatId: Int,
     ): Response<CategoryDto>
 
-//    @GET("Stocks/GetAllCats")
-//    suspend fun getAllCat(): Response<CategoryDto>
 
     @GET("Stocks/GetAllTrendingStocks")
     suspend fun getAllTrendingProduct(
@@ -161,6 +179,12 @@ interface ApiService {
 
     @POST("UserBasket/AddStock")
     suspend fun addProductToCart(
+        @Query("productId") productId: Int,
+        @Query("productQty") productQty: Int,
+    ): Response<AddRemoveCartDto>
+
+    @POST("UserBasket/LoyaltyPoints/AddStock")
+    suspend fun addProductPointToCart(
         @Query("productId") productId: Int,
         @Query("productQty") productQty: Int,
     ): Response<AddRemoveCartDto>
@@ -196,7 +220,7 @@ interface ApiService {
 
     @POST("CompanyAddresses/AddToFavourites")
     suspend fun addCompanyAddress(
-        @Query("CompanyAddressId") companyAddressId: String
+        @Query("CompanyAddressId") companyAddressId: String,
     ): Response<AddUpdateAddressDto>
 
     @FormUrlEncoded
@@ -214,7 +238,12 @@ interface ApiService {
 
     @DELETE("UserBasket/RemoveStock")
     suspend fun removeProductFromCart(
-        @Query("productId") productId: Int
+        @Query("productId") productId: Int,
+    ): Response<AddRemoveCartDto>
+
+    @DELETE("UserBasket/LoyaltyPoints/RemoveStock")
+    suspend fun removeProductPointsFromCart(
+        @Query("productId") productId: Int,
     ): Response<AddRemoveCartDto>
 
     @GET("UserCheckOut/Get")
@@ -223,29 +252,39 @@ interface ApiService {
 
     @POST("UserCheckOut/PlaceOrder")
     suspend fun placeOrder(
-        @Query("PaymentMethod") paymentMethod: String
+        @Query("PaymentMethod") paymentMethod: String,
     ): Response<PlaceOrderDto>
 
     @PUT("User/UpdateName")
     suspend fun updateName(
-        @Query("name") name: String
+        @Query("name") name: String,
     ): Response<EditInfoDto>
 
     @PUT("User/UpdateEmail")
     suspend fun updateEmail(
-        @Query("email") email: String
+        @Query("email") email: String,
     ): Response<EditInfoDto>
 
     @PUT("User/UpdatePhoneNumber")
     suspend fun updatePhoneNumber(
-        @Query("phoneNumber") phoneNumber: String
+        @Query("phoneNumber") phoneNumber: String,
+    ): Response<EditInfoDto>
+
+    @PUT("User/UpdateDateOfBirth")
+    suspend fun updateDOB(
+        @Query("dateOfBirth") dateOfBirth: String,
+    ): Response<EditInfoDto>
+
+    @PUT("User/UpdateGender")
+    suspend fun updateGender(
+        @Query("gender") gender: Int,
     ): Response<EditInfoDto>
 
     @FormUrlEncoded
     @POST("User/ChangePassword")
     suspend fun changePass(
         @Field("CurrentPassword") currentPassword: String,
-        @Field("NewPassword") newPassword: String
+        @Field("NewPassword") newPassword: String,
     ): Response<EditInfoDto>
 
     @GET("Orders/GetAll")
@@ -256,7 +295,7 @@ interface ApiService {
     @POST("ForgetPassword")
     suspend fun forgetPass(
         @Field("Hrid") rayaId: String,
-        @Field("NationalID") nationalId: String
+        @Field("NationalID") nationalId: String,
     ): Response<ResetChangePassDto>
 
     @FormUrlEncoded
@@ -264,7 +303,7 @@ interface ApiService {
     suspend fun forgetPassCheckCode(
         @Field("Hrid") rayaId: String,
         @Field("NationalID") nationalId: String,
-        @Field("Code") code: String
+        @Field("Code") code: String,
     ): Response<ResetChangePassDto>
 
     @FormUrlEncoded
@@ -288,14 +327,14 @@ interface ApiService {
 
     @GET("CompanyAddresses/GetGovernorateByCompanyId")
     suspend fun getAllGovernorateByCompanyId(
-        @Query("CompanyId") companyId: Int
+        @Query("CompanyId") companyId: Int,
     ): Response<CompanyGovernorateDto>
 
     @GET("CompanyAddress/GetByCompanyIdAndGovernorate")
     suspend fun getAllCompanyAddress(
         @Query("PageNumber") pageNumber: Int,
         @Query("CompanyId") companyId: Int,
-        @Query("Governorate") governorate: String
+        @Query("Governorate") governorate: String,
     ): Response<CompanyAddressDto>
 
     @GET("Help/GetAllHelp")
@@ -303,7 +342,7 @@ interface ApiService {
 
     @GET("Help/GetHelpProplemsAndAnswersByHelpId")
     suspend fun getHelpDetails(
-        @Query("HelpId") helpId: Int
+        @Query("HelpId") helpId: Int,
     ): Response<HelpDetailsDto>
 
     @GET("OfficesDeliverySchedule/Get")
@@ -336,6 +375,12 @@ interface ApiService {
     @GET("AboutUs/Get")
     suspend fun getAboutUs(): Response<AboutUSDto>
 
+    @GET("TermsAndConditions/Get")
+    suspend fun getTermsAndCondition(): Response<BaseResponseDto>
+
+    @GET("PrivacyPolicy/Get")
+    suspend fun getPrivacyPolicy(): Response<BaseResponseDto>
+
     @GET("Support/GetSupportNumber")
     suspend fun getSupportContactNumber(): Response<ContactNumberDto>
 
@@ -344,7 +389,7 @@ interface ApiService {
 
     @DELETE("User/DeleteAddress")
     suspend fun deleteAddress(
-        @Query("AddressId") addressId: String
+        @Query("AddressId") addressId: String,
     ): Response<AddUpdateAddressDto>
 
     @FormUrlEncoded
@@ -363,7 +408,7 @@ interface ApiService {
 
     @GET("MarketPlaceSubCategory/GetAllByCatId")
     suspend fun getStoreSubCategory(
-        @Query("CategoryId") categoryId: Int
+        @Query("CategoryId") categoryId: Int,
     ): Response<CategoryDto>
 
     @GET("MarketPlaceCategory/GetAllForServices")
@@ -378,6 +423,8 @@ interface ApiService {
         @Part("ItemDescription") itemDescription: RequestBody,
         @Part("Price") price: RequestBody,
         @Part("Location") location: RequestBody,
+        @Part("IsAnonymous") isAnonymous: RequestBody,
+        @Part("HandleDelivery") handleDelivery: RequestBody,
         @Part ProductImage: MultipartBody.Part,
     ): Response<BaseResponseDto>
 
@@ -385,7 +432,6 @@ interface ApiService {
     @POST("MarketPlaceService/Add")
     suspend fun storeAddService(
         @Part("MarketPlaceSubCategoryId") subCategoryId: RequestBody,
-        @Part("Condition") condition: RequestBody,
         @Part("Title") title: RequestBody,
         @Part("ServiceDescription") itemDescription: RequestBody,
         @Part("Price") price: RequestBody,
@@ -398,26 +444,57 @@ interface ApiService {
         @Query("PageNumber") pageNumber: Int,
         @Query("status") status: Int,
     ): Response<ProductStoreDto>
+    @GET("MarketPlaceProduct/GetByIdForOwner")
+    suspend fun getStoreProductByIdForOwner(
+        @Query("ProductId") productId: Int,
+    ): Response<ProductStoreDtoDetails>
 
     @GET("MarketPlaceService/GetByStatus")
     suspend fun getStoreMyService(
         @Query("PageNumber") pageNumber: Int,
         @Query("status") status: Int,
-    ): Response<ProductStoreDto>
+    ): Response<ServiceStoreDto>
 
     @PUT("MarketPlaceProduct/Cancel")
     suspend fun requestToDeleteProduct(
-        @Query("CustomerProductId") customerProductId: Int
+        @Query("CustomerProductId") customerProductId: Int,
     ): Response<BaseResponseDto>
 
     @PUT("MarketPlaceService/Cancel")
     suspend fun requestToDeleteService(
-        @Query("CustomerProductId") customerProductId: Int
+        @Query("CustomerProductId") customerProductId: Int,
+    ): Response<BaseResponseDto>
+
+    @Multipart
+    @PUT("MarketPlaceProduct/Update")
+    suspend fun storeUpdateProduct(
+        @Part("id") id: RequestBody?,
+        @Part("MarketPlaceSubCategoryId") subCategoryId: RequestBody?,
+        @Part("Condition") condition: RequestBody?,
+        @Part("Title") title: RequestBody?,
+        @Part("ItemDescription") itemDescription: RequestBody?,
+        @Part("Price") price: RequestBody?,
+        @Part("Location") location: RequestBody?,
+        @Part("IsAnonymous") isAnonymous: RequestBody?,
+        @Part("HandleDelivery") handleDelivery: RequestBody?,
+        @Part ProductImage: MultipartBody.Part?,
+    ): Response<BaseResponseDto>
+
+    @Multipart
+    @PUT("MarketPlaceService/Update")
+    suspend fun storeUpdateService(
+        @Part("MarketPlaceSubCategoryId") subCategoryId: RequestBody,
+        @Part("Condition") condition: RequestBody,
+        @Part("Title") title: RequestBody,
+        @Part("ItemDescription") itemDescription: RequestBody,
+        @Part("Price") price: RequestBody,
+        @Part("Location") location: RequestBody,
+        @Part ProductImage: MultipartBody.Part,
     ): Response<BaseResponseDto>
 
     @POST("User/VerifyPhoneNumber")
     suspend fun verifyPhone(
-        @Query("code") code: String
+        @Query("code") code: String,
     ): Response<BaseResponseDto>
 
     @POST("User/PhoneNumberOTP")
@@ -439,27 +516,28 @@ interface ApiService {
 
     @POST("Family/CheckHrId")
     suspend fun checkHrIdFamily(
-        @Query("HrId") hrId: String
-    ):Response<BaseResponseDto>
+        @Query("HrId") hrId: String,
+    ): Response<BaseResponseDto>
 
     @POST("Family/SendOTP")
     suspend fun sendFamilyOTP(
         @Query("HrId") hrId: String,
-        @Query("PhoneNumber") phoneNumber : String,
+        @Query("PhoneNumber") phoneNumber: String,
     ): Response<BaseResponseDto>
+
     @POST("Family/CheckOTP")
     suspend fun checkFamilyOTP(
         @Query("HrId") hrId: String,
-        @Query("PhoneNumber") phoneNumber : String,
-        @Query("Otp") otp  : String,
+        @Query("PhoneNumber") phoneNumber: String,
+        @Query("Otp") otp: String,
     ): Response<BaseResponseDto>
 
     @FormUrlEncoded
     @POST("Family/SignUp")
     suspend fun signUpFamily(
         @Query("HrId") hrId: String,
-        @Query("PhoneNumber") phoneNumber : String,
-        @Query("Otp") otp  : String,
+        @Query("PhoneNumber") phoneNumber: String,
+        @Query("Otp") otp: String,
         @Field("Name") name: String,
         @Field("Email") email: String? = null,
         @Field("Password") password: String,
@@ -475,4 +553,100 @@ interface ApiService {
         @Field("Lat") lat: Double? = null,
         @Field("Lng") lng: Double? = null,
     ): Response<AuthDto>
+
+    @FormUrlEncoded
+    @POST("Family/SignIn")
+    suspend fun signInFamily(
+        @Field("HrCode") hrCode: String,
+        @Field("Password") password: String,
+    ): Response<AuthDto>
+
+    @POST("Family/ForgetPassword")
+    suspend fun forgetPassFamily(
+        @Query("HrCode") hrCode: String,
+    ): Response<ResetChangePassDto>
+
+    @FormUrlEncoded
+    @POST("Family/ForgetPassword/CheckCode")
+    suspend fun forgetPassCheckCodeFamily(
+        @Field("HrCode") hrCode: String,
+        @Field("Code") code: String,
+    ): Response<ResetChangePassDto>
+
+    @FormUrlEncoded
+    @POST("Family/ResetPassword")
+    suspend fun resetPassFamily(
+        @Field("HrCode") hrCode: String,
+        @Field("Code") code: String,
+        @Field("NewPassword") newPassword: String,
+    ): Response<ResetChangePassDto>
+
+    @GET("Stocks/AddToNotifyMe")
+    suspend fun addToNotifyMe(
+        @Query("StockId") productId: Int,
+    ): Response<BaseResponseDto>
+
+    @GET("Stocks/RemoveFromNotifyMe")
+    suspend fun removeFromNotifyMe(
+        @Query("StockId") productId: Int,
+    ): Response<BaseResponseDto>
+
+    @GET("User/LoyaltyPoints")
+    suspend fun getUserLoyaltyPoints(
+    ): Response<BaseResponseDto>
+
+    @POST("PushNotification/SendDeviceToken")
+    suspend fun sendFCMToken(
+        @Query("DeviceToken", encoded = true) deviceToken: String,
+        @Query("IsPushNotificationEnabled") isPushNotificationEnabled: Boolean,
+    ): Response<BaseResponseDto>
+
+    @PUT("PushNotification/EnableAndDisable")
+    suspend fun updateFCMToken(
+        @Query("DeviceToken", encoded = true) deviceToken: String,
+        @Query("EnableOrDisable") enableOrDisable: Boolean,
+    ): Response<BaseResponseDto>
+
+    @GET("MarketPlaceProduct/GetAll")
+    suspend fun getExploreProducts(
+        @Query("PageNumber") pageNumber: Int,
+        @Query("SearchWord") searchWord: String? = null,
+        @Query("SearchLanguage") searchLanguage: String? = null,
+        @Query("CatID") catID: Int? = null,
+        @Query("SubCatId") subCatId: Int? = null,
+    ): Response<ExploreProductsDto>
+
+    @GET("MarketPlaceService/GetAll")
+    suspend fun getExploreServices(
+        @Query("PageNumber") pageNumber: Int,
+        @Query("SearchWord") searchWord: String? = null,
+        @Query("SearchLanguage") searchLanguage: String? = null,
+        @Query("CatID") catID: Int? = null,
+        @Query("SubCatId") subCatId: Int? = null,
+    ): Response<ExploreServicesDto>
+
+    @POST("MarketPlaceProduct/RequestToBuy")
+    suspend fun requestToBuy(
+        @Query("ProductId") productId: Int
+    ):Response<BaseResponseDto>
+    @POST("MarketPlaceService/RequestToRent")
+    suspend fun requestToRent(
+        @Query("ServiceId") serviceId: Int,
+        @Query("RentTo") rentTo: String,
+        @Query("RentFrom") rentFrom: String
+    ):Response<BaseResponseDto>
+    @GET("Surveys/GetStatus")
+    suspend fun getSurveysStatus(): Response<SurveysStatusDto>
+    @GET("Survey/GetAll")
+    suspend fun getAllSurveys(): Response<SurveysDto>
+    @GET("Survey/GetById")
+    suspend fun getSurvey(
+        @Query("SurveyId") surveyId:Int
+    ): Response<SurveyDto>
+    @POST("Survey/Subbmit")
+    suspend fun submitSurvey(
+        @Body survey: SurveyBodyDto
+    ): Response<BaseResponseDto>
+    @GET("Survey/GetSurveyImage")
+    suspend fun getSurveyImage():Response<SurveyImageDto>
 }

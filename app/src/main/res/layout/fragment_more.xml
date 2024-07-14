@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.home.more.MoreViewModel" />
+            type="com.anaraya.anaraya.screens.more.MoreViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.more.MoreFragment">
+        tools:context=".screens.more.MoreFragment">
 
         <ProgressBar
             android:id="@+id/progress_more"
@@ -58,6 +58,7 @@
             android:maxLines="1"
             android:text="@{viewModel.moreUiState.profileUiState.name}"
             android:textColor="@color/colorTextMore"
+            app:layout_constraintBottom_toTopOf="@+id/txtEmailMore"
             app:layout_constraintEnd_toStartOf="@+id/btnEditMore"
             app:layout_constraintStart_toEndOf="@+id/cardImgPersonalMore"
             app:layout_constraintTop_toTopOf="@+id/cardImgPersonalMore"
@@ -84,13 +85,26 @@
             android:ellipsize="end"
             android:fontFamily="@font/inter_light"
             android:maxLines="1"
+            bindViewVisibilityGone="@{viewModel.moreUiState.profileUiState.visibilityEmail}"
             android:text="@{viewModel.moreUiState.profileUiState.email}"
+            android:textColor="@color/colorTextEmailMore"
+            app:layout_constraintBottom_toTopOf="@+id/txtPointsMore"
+            app:layout_constraintStart_toStartOf="@+id/txtNameMore"
+            app:layout_constraintTop_toBottomOf="@+id/txtNameMore"
+            tools:text="ahmedAli@gmail.com" />
+        <TextView
+            android:id="@+id/txtPointsMore"
+            bindTextPoints="@{viewModel.moreUiState.loyaltyPoints}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="1"
             android:textColor="@color/colorTextEmailMore"
             app:layout_constraintBottom_toBottomOf="@+id/cardImgPersonalMore"
             app:layout_constraintStart_toStartOf="@+id/txtNameMore"
-            app:layout_constraintTop_toBottomOf="@+id/txtNameMore"
-            tools:text="ahmedali@gmail.com" />
-
+            app:layout_constraintTop_toBottomOf="@+id/txtEmailMore"
+            tools:text="0" />
         <View
             android:id="@+id/lineUnderPersonalMore"
             android:layout_width="match_parent"
@@ -136,9 +150,9 @@
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.navigateToMyInfo()}"
             android:text="@string/my_information"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgInfoMore"
             app:layout_constraintStart_toEndOf="@+id/imgInfoMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgInfoMore" />
 
         <ImageView
@@ -157,9 +171,9 @@
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.navigateToSchedule()}"
             android:text="@string/office_delivery_schedule"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgOfficeDeliveryMore"
             app:layout_constraintStart_toEndOf="@+id/imgOfficeDeliveryMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgOfficeDeliveryMore" />
 
         <!--<ImageView
@@ -182,46 +196,46 @@
             app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgPaymentMore" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imgPromoMore"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/dimen_between_images"-->
-<!--            android:src="@drawable/ic_promo"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imgPromoMore"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/dimen_between_images"-->
+        <!--            android:src="@drawable/ic_promo"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/txtPromoMore"-->
-<!--            style="@style/textMore"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/promo_code"-->
-<!--            android:onClick="@{()->viewModel.navigateToPromo()}"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/imgPromoMore"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/imgPromoMore"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imgPromoMore" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/txtPromoMore"-->
+        <!--            style="@style/textMore"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/promo_code"-->
+        <!--            android:onClick="@{()->viewModel.navigateToPromo()}"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imgPromoMore"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imgPromoMore"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imgPromoMore" />-->
 
-<!--        <ImageView-->
-<!--            android:id="@+id/imgNotificationMore"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/dimen_between_images"-->
-<!--            android:src="@drawable/ic_notification"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
+        <!--        <ImageView-->
+        <!--            android:id="@+id/imgNotificationMore"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="@dimen/dimen_between_images"-->
+        <!--            android:src="@drawable/ic_notification"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/imgOfficeDeliveryMore"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/imgOfficeDeliveryMore" />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/txtNotificationMore"-->
-<!--            style="@style/textMore"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@string/notifications"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/imgNotificationMore"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/imgNotificationMore"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/imgNotificationMore" />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/txtNotificationMore"-->
+        <!--            style="@style/textMore"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@string/notifications"-->
+        <!--            app:layout_constraintBottom_toBottomOf="@+id/imgNotificationMore"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/imgNotificationMore"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"-->
+        <!--            app:layout_constraintTop_toTopOf="@+id/imgNotificationMore" />-->
 
         <ImageView
             android:id="@+id/imgHelpMore"
@@ -239,9 +253,9 @@
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.navigateToHelp()}"
             android:text="@string/help"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgHelpMore"
             app:layout_constraintStart_toEndOf="@+id/imgHelpMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgHelpMore" />
 
         <ImageView
@@ -260,9 +274,9 @@
             android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.navigateToFeedBack()}"
             android:text="@string/feedback"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgFeedbackMore"
             app:layout_constraintStart_toEndOf="@+id/imgFeedbackMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgFeedbackMore" />
 
 
@@ -280,11 +294,11 @@
             style="@style/textMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/about"
             android:onClick="@{()->viewModel.navigateToAboutUs()}"
+            android:text="@string/about"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgAboutMore"
             app:layout_constraintStart_toEndOf="@+id/imgAboutMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgAboutMore" />
 
         <ImageView
@@ -301,13 +315,98 @@
             style="@style/textMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/family"
             android:onClick="@{()->viewModel.navigateToFamily()}"
+            android:text="@string/family"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="@+id/imgChildMore"
             app:layout_constraintStart_toEndOf="@+id/imgChildMore"
-            app:layout_constraintStart_toStartOf="@+id/txtOrderMore"
             app:layout_constraintTop_toTopOf="@+id/imgChildMore" />
 
+        <ImageView
+            android:id="@+id/imgTermsAndConditionMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_terms_condition"
+            app:layout_constraintStart_toStartOf="@+id/imgChildMore"
+            app:layout_constraintTop_toBottomOf="@id/imgChildMore" />
+
+        <TextView
+            android:id="@+id/txtTermsAndConditionMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToTermsCondition()}"
+            android:text="@string/terms_amp_conditions"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgTermsAndConditionMore"
+            app:layout_constraintStart_toEndOf="@+id/imgTermsAndConditionMore"
+            app:layout_constraintTop_toTopOf="@+id/imgTermsAndConditionMore" />
+
+        <ImageView
+            android:id="@+id/imgLanguageMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_lang"
+            app:layout_constraintStart_toStartOf="@+id/imgTermsAndConditionMore"
+            app:layout_constraintTop_toBottomOf="@id/imgTermsAndConditionMore" />
+
+        <TextView
+            android:id="@+id/txtLanguageMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToLanguage()}"
+            android:text="@string/language"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgLanguageMore"
+            app:layout_constraintStart_toEndOf="@+id/imgLanguageMore"
+            app:layout_constraintTop_toTopOf="@+id/imgLanguageMore" />
+
+        <ImageView
+            android:id="@+id/imgPrivacyPolicyMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_privacy_policy"
+            app:layout_constraintStart_toStartOf="@+id/imgLanguageMore"
+            app:layout_constraintTop_toBottomOf="@id/imgLanguageMore" />
+
+        <TextView
+            android:id="@+id/txtPrivacyPolicyMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->viewModel.navigateToPrivacyPolicy()}"
+            android:text="@string/privacy_policy"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgPrivacyPolicyMore"
+            app:layout_constraintStart_toEndOf="@+id/imgPrivacyPolicyMore"
+            app:layout_constraintTop_toTopOf="@+id/imgPrivacyPolicyMore" />
+
+        <ImageView
+            android:id="@+id/imgSurveysMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_between_images"
+            android:src="@drawable/ic_survey"
+            bindViewVisibilityGone="@{viewModel.moreUiState.showSurveys}"
+            app:layout_constraintStart_toStartOf="@+id/imgPrivacyPolicyMore"
+            app:layout_constraintTop_toBottomOf="@id/imgPrivacyPolicyMore" />
+
+        <TextView
+            android:id="@+id/txtSurveysMore"
+            style="@style/textMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            bindViewVisibilityGone="@{viewModel.moreUiState.showSurveys}"
+            android:onClick="@{()->viewModel.navigateToSurveys()}"
+            android:text="@string/surveys"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgSurveysMore"
+            app:layout_constraintStart_toEndOf="@+id/imgSurveysMore"
+            app:layout_constraintTop_toTopOf="@+id/imgSurveysMore" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnLogOut"
             android:layout_width="0dp"
@@ -320,7 +419,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btnEditMore"
             app:layout_constraintStart_toStartOf="@+id/cardImgPersonalMore"
-            app:layout_constraintTop_toBottomOf="@id/imgChildMore" />
+            app:layout_constraintTop_toBottomOf="@id/imgSurveysMore" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
