@@ -94,9 +94,9 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
                     //Toast.makeText(context, it.deleteMsg, Toast.LENGTH_SHORT).show()
                     if(it.isSucceedDeleteProduct) {
                         minusNumBasket(sharedPreferences, sharedViewModel, requireContext())
-                        if(it.isPoints)
-                            sharedViewModel.getPoints()
-                        else
+//                        if(it.isPoints)
+//                            sharedViewModel.getPoints()
+                        if(!it.isPoints)
                             sharedViewModel.getTrending()
                     }
                 }

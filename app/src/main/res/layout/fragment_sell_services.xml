@@ -1,330 +1,461 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-<data>
-    <variable
-        name="viewModel"
-        type="com.anaraya.anaraya.screens.services.store.service.sell.SellServicesViewModel" />
-</data>
+    <data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.services.store.service.sell.SellServicesFragment">
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.screens.services.store.service.sell.SellServicesViewModel" />
+    </data>
 
-    <ProgressBar
-        android:id="@+id/progressSellService"
-        style="?android:attr/progressBarStyleHorizontal"
-        bindProgress="@{viewModel.sellUiState.loading}"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateBehavior="cycle"
-        android:indeterminateTint="@color/colorPrimary"
-        android:progressTint="@color/colorPrimary"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        tools:context=".screens.services.store.service.sell.SellServicesFragment">
 
-    <ScrollView
-        android:id="@+id/scrollSellStoreService"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressSellService">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ProgressBar
+            android:id="@+id/progressSellService"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.sellUiState.loading}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txtSellStoreService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/inter600"
-                android:text="@string/offering_item_for_sale"
-                android:textAllCaps="true"
-                android:textColor="@color/colorTextGrey"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <ScrollView
+            android:id="@+id/scrollSellStoreService"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressSellService">
 
-            <TextView
-                android:id="@+id/txtTitleSellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/title"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtSellStoreService" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutTitleSellService"
-                style="@style/addressEditText"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.titleError}"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:helperText="@string/choose_unique_title_for_your_item"
-                app:helperTextTextColor="@color/colorGreyText"
-                app:layout_constraintTop_toBottomOf="@+id/txtTitleSellService">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtTitleSell"
+                <TextView
+                    android:id="@+id/txtSellStoreService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/inter600"
+                    android:text="@string/offering_item_for_sale"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="24sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtTitleSellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/title"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSellStoreService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutTitleSellService"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.titleError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:padding="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    app:helperText="@string/choose_unique_title_for_your_item"
+                    app:helperTextTextColor="@color/colorGreyText"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTitleSellService">
 
-            <TextView
-                android:id="@+id/txtCategorySellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/category"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutTitleSellService" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtTitleSell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutCategorySellService"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.categoryError}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
-                app:boxStrokeColor="@color/color_stroke_search"
-                app:expandedHintEnabled="false"
-                app:layout_constraintTop_toBottomOf="@+id/txtCategorySellService"
-                app:placeholderText="@string/item_selected"
-                app:placeholderTextColor="@color/colorTextHint">
+                <TextView
+                    android:id="@+id/txtCategorySellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/category"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutTitleSellService" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/edtCategorySellService"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/txtSubCategorySellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/sub_category"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutCategorySellService" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutSubCategorySellService"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.subCategoryError}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:boxBackgroundColor="@color/white"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
-                app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
-                app:boxStrokeColor="@color/color_stroke_search"
-                app:expandedHintEnabled="false"
-                app:layout_constraintTop_toBottomOf="@+id/txtSubCategorySellService"
-                app:placeholderText="@string/item_selected"
-                app:placeholderTextColor="@color/colorTextHint">
-
-                <AutoCompleteTextView
-                    android:id="@+id/edtSubCategorySellService"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="none" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/txtItemDescriptionSellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/item_description"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutSubCategorySellService" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutItemDescriptionSellService"
-                style="@style/addressEditText"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.descriptionError}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:endIconMode="none"
-                app:helperText="@string/write_a_short_description_for_your_item"
-                app:helperTextTextColor="@color/colorGreyText"
-                app:layout_constraintTop_toBottomOf="@+id/txtItemDescriptionSellService">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtItemDescriptionSellService"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:padding="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/txtPriceSellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/price"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutItemDescriptionSellService" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutPriceSellService"
-                style="@style/addressEditText"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.priceError}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:helperTextTextColor="@color/colorGreyText"
-                app:layout_constraintTop_toBottomOf="@+id/txtPriceSellService">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPriceSellService"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutCategorySellService"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.categoryError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:padding="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="1dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCategorySellService"
+                    app:placeholderText="@string/item_selected"
+                    app:placeholderTextColor="@color/colorTextHint">
 
-            <TextView
-                android:id="@+id/txtLocationSellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/location"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutPriceSellService" />
+                    <AutoCompleteTextView
+                        android:id="@+id/edtCategorySellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutLocationSellService"
-                style="@style/addressEditText"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.locationError}"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:helperTextTextColor="@color/colorGreyText"
-                app:layout_constraintTop_toBottomOf="@+id/txtLocationSellService">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtLocationSellService"
+                <TextView
+                    android:id="@+id/txtSubCategorySellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/sub_category"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutCategorySellService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutSubCategorySellService"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.subCategoryError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:padding="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="1dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSubCategorySellService"
+                    app:placeholderText="@string/item_selected"
+                    app:placeholderTextColor="@color/colorTextHint">
 
-            <TextView
-                android:id="@+id/txtPictureSellService"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/inter400"
-                android:text="@string/picture"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutLocationSellService" />
+                    <AutoCompleteTextView
+                        android:id="@+id/edtSubCategorySellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/edtLayoutPictureSellService"
-                style="@style/addressEditText"
-                bindTextInputLayoutEmptyError="@{viewModel.sellUiState.pictureError}"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:helperText="@string/image_max_size_2mpx"
-                app:helperTextTextColor="@color/colorGreyText"
-                app:layout_constraintEnd_toStartOf="@+id/btnChoosePictureService"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPictureSellService">
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPictureSellService"
+                <TextView
+                    android:id="@+id/txtIsServiceRental"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/is_this_service_a_rental"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutSubCategorySellService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutIsServiceRental"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.serviceRentalError}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
-                    android:maxLines="2"
-                    android:ellipsize="end"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="1dp"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                    app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                    app:boxStrokeColor="@color/color_stroke_search"
+                    app:expandedHintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@+id/txtIsServiceRental"
+                    app:placeholderText="@string/item_selected"
+                    app:placeholderTextColor="@color/colorTextHint">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnChoosePictureService"
-                style="@style/btnAddressTypeSelected"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:paddingVertical="15dp"
-                android:text="@string/choose_picture"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/edtLayoutPictureSellService"
-                app:layout_constraintTop_toBottomOf="@+id/txtPictureSellService" />
+                    <AutoCompleteTextView
+                        android:id="@+id/edtIsServiceRental"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="none" />
 
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/checkboxAgreeSellStoreService"
-                style="@style/styleCheckBoxFilter"
-                bindChkTermsAndConditionError="@{viewModel.sellUiState.conditionAndTermsError}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@null"
-                android:text="@string/i_agree_to_the_terms_conditions"
-                android:textColor="@color/colorGreyText"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edtLayoutPictureSellService" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSubmitSellStoreService"
-                style="@style/btnAddressTypeSelected"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:paddingVertical="15dp"
-                android:text="@string/submit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkboxAgreeSellStoreService" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardFromDate"
+                    bindViewVisibilityGone="@{viewModel.sellUiState.serviceRental}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutIsServiceRental"
+                    app:strokeColor="@color/colorStroke"
+                    app:strokeWidth="1dp">
 
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/txtFromDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter400"
+                            android:text="@string/rent_from_date"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtFromDateValue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txtFromDateValue" />
+
+                        <TextView
+                            android:id="@+id/txtFromDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_item_selected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="@font/inter400"
+                            android:padding="8dp"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="dd/MM/yyyy" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardToDate"
+                    bindViewVisibilityGone="@{viewModel.sellUiState.serviceRental}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cardFromDate"
+                    app:strokeColor="@color/colorStroke"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/txtToDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter400"
+                            android:text="@string/rent_to_date"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtToDateValue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txtToDateValue" />
+
+                        <TextView
+                            android:id="@+id/txtToDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_item_selected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="@font/inter400"
+                            android:padding="8dp"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="dd/MM/yyyy" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/txtItemDescriptionSellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/item_description"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardToDate" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutItemDescriptionSellService"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.descriptionError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:endIconMode="none"
+                    app:helperText="@string/write_a_short_description_for_your_item"
+                    app:helperTextTextColor="@color/colorGreyText"
+                    app:layout_constraintTop_toBottomOf="@+id/txtItemDescriptionSellService">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtItemDescriptionSellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:gravity="top|start"
+                        android:inputType="textMultiLine"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtPriceSellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/price"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutItemDescriptionSellService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutPriceSellService"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.priceError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:helperTextTextColor="@color/colorGreyText"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPriceSellService">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPriceSellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtLocationSellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/location"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPriceSellService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutLocationSellService"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.locationError}"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:helperTextTextColor="@color/colorGreyText"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationSellService">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtLocationSellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="15dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/txtPictureSellService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/picture"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutLocationSellService" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edtLayoutPictureSellService"
+                    style="@style/addressEditText"
+                    bindTextInputLayoutEmptyError="@{viewModel.sellUiState.pictureError}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:helperText="@string/image_max_size_2mpx"
+                    app:helperTextTextColor="@color/colorGreyText"
+                    app:layout_constraintEnd_toStartOf="@+id/btnChoosePictureService"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPictureSellService">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtPictureSellService"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:enabled="false"
+                        android:inputType="none"
+                        android:maxLines="2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnChoosePictureService"
+                    style="@style/btnAddressTypeSelected"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/choose_picture"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/edtLayoutPictureSellService"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPictureSellService" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/checkboxAgreeSellStoreService"
+                    style="@style/styleCheckBoxFilter"
+                    bindChkTermsAndConditionError="@{viewModel.sellUiState.conditionAndTermsError}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@null"
+                    android:text="@string/i_agree_to_the_terms_conditions"
+                    android:textColor="@color/colorGreyText"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edtLayoutPictureSellService" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSubmitSellStoreService"
+                    style="@style/btnAddressTypeSelected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:paddingVertical="15dp"
+                    android:text="@string/submit"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/checkboxAgreeSellStoreService" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

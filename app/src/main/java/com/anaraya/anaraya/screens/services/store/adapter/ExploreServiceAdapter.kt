@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.anaraya.anaraya.databinding.LayoutItemExploreServiceBinding
-import com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreServiceUiDetails
+import com.anaraya.anaraya.screens.services.store.service.explore.explore_services.ExploreServiceUiDetails
 import com.anaraya.anaraya.screens.services.store.interaction.ExploreServiceInteraction
 
 
@@ -51,7 +51,7 @@ class ExploreServiceAdapter(private val interactionListener: ExploreServiceInter
     override fun onBindViewHolder(holder: ExploreProductViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
         holder.layoutItemExploreServiceBinding.clickExploreService.setOnClickListener {
-            interactionListener.onClick(getItem(position)!!)
+            interactionListener.onClick(getItem(position)!!.id)
         }
     }
 

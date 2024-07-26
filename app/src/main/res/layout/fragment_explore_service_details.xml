@@ -1,14 +1,443 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".screens.services.store.service.service_details.ExploreServiceDetailsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.anaraya.anaraya.screens.services.store.service.explore.service_details.ExploreServiceDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:context=".screens.services.store.service.explore.service_details.ExploreServiceDetailsFragment">
 
-</FrameLayout>
+
+        <ImageButton
+            android:id="@+id/btnBackAllExploreProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtProductNameExploreProductDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_light"
+            android:maxLines="2"
+            android:text="@string/preview"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBackAllExploreProductDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBackAllExploreProductDetails"
+            tools:text="Preview" />
+
+        <ProgressBar
+            android:id="@+id/progressExploreProductDetails"
+            style="?android:attr/progressBarStyleHorizontal"
+            bindProgress="@{viewModel.product.loading}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="cycle"
+            android:indeterminateTint="@color/colorPrimary"
+            android:progressTint="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/txtProductNameExploreProductDetails" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressExploreProductDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardImageExploreProductDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/colorGreyLight"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            bindImage="@{viewModel.product.product.serviceImageUrl}"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:scaleType="fitXY"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/txtNameExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@{viewModel.product.product.title}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardImageExploreProductDetails"
+                    tools:text="Beef Bone" />
+
+                <TextView
+                    android:id="@+id/txtDescExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@{viewModel.product.product.serviceDescription}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNameExploreProductDetails"
+                    tools:text="Beef Bone" />
+
+                <TextView
+                    android:id="@+id/txtPriceValueExploreProductDetails"
+                    bindTxtPrice="@{viewModel.product.product.price}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="30dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtNameExploreProductDetails"
+                    tools:text="1000.0 EGP" />
+
+                <TextView
+                    android:id="@+id/txtCategoryValueExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.product.category}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails"
+                    tools:text="furniture" />
+
+                <TextView
+                    android:id="@+id/txtLocationValueExploreProductDetails"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.product.location}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryValueExploreProductDetails"
+                    tools:text="Cairo" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txtPeriod"-->
+                <!--                    bindViewVisibilityGone="@{viewModel.product.visibilityPeriodRent}"-->
+                <!--                    from="@{viewModel.product.product.baseRentFrom}"-->
+                <!--                    to="@{viewModel.product.product.baseRentTo}"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:ellipsize="end"-->
+                <!--                    android:fontFamily="@font/inter400"-->
+                <!--                    android:maxLines="2"-->
+                <!--                    android:textColor="@color/colorGrey"-->
+                <!--                    android:textSize="12sp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"-->
+                <!--                    tools:text="Cairo" />-->
+
+                <TextView
+                    android:id="@+id/txtPeriodFrom"
+                    bindTextPeriodFrom="@{viewModel.product.product.baseRentFrom}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityPeriodRent}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="Cairo" />
+
+                <TextView
+                    android:id="@+id/txtPeriodTo"
+                    bindTextPeriodTo="@{viewModel.product.product.baseRentTo}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityPeriodRent}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPeriodFrom"
+                    tools:text="Cairo" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardFromDate"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityPeriodRent}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPeriodTo"
+                    app:strokeColor="@color/colorStroke"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/txtFromDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter400"
+                            android:text="@string/rent_from_date"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtFromDateValue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txtFromDateValue" />
+
+                        <TextView
+                            android:id="@+id/txtFromDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_item_selected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="@font/inter400"
+                            android:padding="8dp"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="dd/MM/yyyy" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardToDate"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityPeriodRent}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintEnd_toEndOf="@id/cardFromDate"
+                    app:layout_constraintStart_toStartOf="@id/cardFromDate"
+                    app:layout_constraintTop_toBottomOf="@+id/cardFromDate"
+                    app:strokeColor="@color/colorStroke"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:id="@+id/txtToDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter400"
+                            android:text="@string/rent_to_date"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtToDateValue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txtToDateValue" />
+
+                        <TextView
+                            android:id="@+id/txtToDateValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_item_selected"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="@font/inter400"
+                            android:padding="8dp"
+                            android:textColor="@color/colorGreyText"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="dd/MM/yyyy" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRequestToBuy"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityButton}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/shape_button_add_2"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="18dp"
+                    android:text="@string/request"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:bindButtonRequest="@{viewModel.product.product.rentStatus}"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtSellerInfo"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/cardToDate" />
+
+                <TextView
+                    android:id="@+id/txtSellerInfo"
+                    bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/seller_info"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/btnRequestToBuy"
+                    tools:text="Seller Info" />
+
+                <TextView
+                    android:id="@+id/txtSellerName"
+                    bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/name"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />
+
+                <TextView
+                    android:id="@+id/txtSellerNameValue"
+                    bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.sellerName}"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtSellerName"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />
+
+                <TextView
+                    android:id="@+id/txtSellerNumber"
+                    bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/number"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />
+
+                <TextView
+                    android:id="@+id/txtSellerNumberValue"
+                    bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.sellerPhoneNumber}"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtSellerNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

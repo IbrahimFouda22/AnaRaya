@@ -133,6 +133,9 @@ class SellServicesViewModel @Inject constructor(
         location: String?,
         productImage: File?,
         accept: Boolean,
+        isServiceRental: Boolean?,
+        fromDate: String,
+        toDate: String,
     ) {
         resetErrors()
         _sellUiState.update {
@@ -153,6 +156,9 @@ class SellServicesViewModel @Inject constructor(
                         location,
                         productImage,
                         accept,
+                        isServiceRental,
+                        fromDate,
+                        toDate
                     )
                 )
             } catch (e: NoInternetException) {
@@ -203,6 +209,15 @@ class SellServicesViewModel @Inject constructor(
                     it.copy(
                         isLoading = false,
                         subCategoryError = true,
+                        focusError = true
+                    )
+                }
+            }
+            context.getString(R.string.service_field_is_empty) -> {
+                _sellUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        isServiceRentalError = true,
                         focusError = true
                     )
                 }
@@ -271,13 +286,14 @@ class SellServicesViewModel @Inject constructor(
 
     }
 
-    private fun resetErrors(){
+    fun resetErrors(){
         _sellUiState.update {
             it.copy(
                 isLoading = false,
                 titleError = false,
                 categoryError = false,
                 subCategoryError = false,
+                isServiceRentalError = false,
                 descriptionError = false,
                 priceError = false,
                 locationError = false,
@@ -298,6 +314,13 @@ class SellServicesViewModel @Inject constructor(
         _sellUiState.update {
             it.copy(
                 addProductMsg = null
+            )
+        }
+    }
+    fun visibilityServiceRental(boolean: Boolean){
+        _sellUiState.update {
+            it.copy(
+                isServiceRental = boolean
             )
         }
     }

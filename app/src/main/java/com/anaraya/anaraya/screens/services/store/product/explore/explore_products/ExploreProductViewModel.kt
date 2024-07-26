@@ -39,9 +39,6 @@ class ExploreProductViewModel @AssistedInject constructor(
     private val _loadingState = MutableStateFlow(false)
     val loadingState = _loadingState as StateFlow<Boolean>
 
-    private val _navigateToCart = MutableStateFlow(false)
-    val navigateToCart = _navigateToCart as StateFlow<Boolean>
-
 
     private val _categories = MutableStateFlow(ExploreProductUiState())
     val categories = _categories as StateFlow<ExploreProductUiState>
@@ -196,18 +193,6 @@ class ExploreProductViewModel @AssistedInject constructor(
     fun showLoading(boolean: Boolean) {
         _loadingState.update {
             boolean
-        }
-    }
-
-    fun navigateToCart() {
-        _navigateToCart.update {
-            true
-        }
-    }
-
-    fun navigateToCartDone() {
-        _navigateToCart.update {
-            false
         }
     }
 

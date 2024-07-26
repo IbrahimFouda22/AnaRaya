@@ -2,6 +2,8 @@ package com.anaraya.anaraya.screens.services.store.service.my_items
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -21,11 +23,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
+@RequiresApi(Build.VERSION_CODES.O)
 @HiltViewModel
 class MyItemsServicesViewModel @Inject constructor(
     private val manageStoreUseCase: ManageStoreUseCase,
-    @field:SuppressLint("StaticFieldLeak") @ApplicationContext private val context: Context
+    @field:SuppressLint("StaticFieldLeak") @ApplicationContext private val context: Context,
 ) :
     ViewModel() {
 
@@ -48,7 +50,7 @@ class MyItemsServicesViewModel @Inject constructor(
         }
         viewModelScope.launch {
             try {
-                onGetItemsServicesSuccess(manageStoreUseCase.getStoreService(statusId))
+                onGetItemsServicesSuccess(manageStoreUseCase.getStoreService(statusId), statusId)
             } catch (e: NoInternetException) {
                 onGetItemsServicesFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -57,14 +59,20 @@ class MyItemsServicesViewModel @Inject constructor(
         }
     }
 
-    private fun onGetItemsServicesSuccess(response: Flow<PagingData<ServiceStoreItemList>>) {
+    private fun onGetItemsServicesSuccess(
+        response: Flow<PagingData<ServiceStoreItemList>>,
+        status: Int,
+    ) {
         _myItemsUiState.update {
             it.copy(
                 isLoading = false,
                 error = null,
                 itemsServices = response.map { d ->
                     d.map { data ->
-                        data.toState()
+                        data.toState(
+                            visibilityBadge = status == 1 && data.numberOfBuyers > 0,
+                            isListed = status == 1
+                        )
                     }
                 }
             )
@@ -133,7 +141,8 @@ class MyItemsServicesViewModel @Inject constructor(
             boolean
         }
     }
-    fun resetMsg(){
+
+    fun resetMsg() {
         _myItemsUiState.update {
             it.copy(
                 requestToDeleteMsg = null

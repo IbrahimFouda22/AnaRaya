@@ -9,6 +9,7 @@ import com.anaraya.data.dto.AddUpdateAddressDto
 import com.anaraya.data.dto.AddressesDto
 import com.anaraya.data.dto.ApplyPromoDto
 import com.anaraya.data.dto.AuthDto
+import com.anaraya.data.dto.BankAccountDto
 import com.anaraya.data.dto.BaseResponseDto
 import com.anaraya.data.dto.CartDto
 import com.anaraya.data.dto.CategoryDto
@@ -34,6 +35,7 @@ import com.anaraya.data.dto.ProductDetailsDto
 import com.anaraya.data.dto.ProductDto
 import com.anaraya.data.dto.ProductStoreDto
 import com.anaraya.data.dto.ProductStoreDtoDetails
+import com.anaraya.data.dto.ProductStoreDtoDetailsForCustomer
 import com.anaraya.data.dto.ProductsAdsDto
 import com.anaraya.data.dto.ProfileDto
 import com.anaraya.data.dto.PromoCodeDto
@@ -41,6 +43,8 @@ import com.anaraya.data.dto.ReferralsDto
 import com.anaraya.data.dto.RelationshipsDto
 import com.anaraya.data.dto.ResetChangePassDto
 import com.anaraya.data.dto.ServiceStoreDto
+import com.anaraya.data.dto.ServiceStoreDtoDetailsData
+import com.anaraya.data.dto.ServiceStoreDtoDetailsForCustomer
 import com.anaraya.data.dto.SurveyBodyDto
 import com.anaraya.data.dto.SurveyDto
 import com.anaraya.data.dto.SurveyImageDto
@@ -132,6 +136,7 @@ interface ApiService {
         @Query("MainCatId") catId: Int,
         @Query("PageNumber") pageNumber: Int,
     ): Response<ProductDto>
+
     @GET("Stocks/FilterByCat")
     suspend fun getProductsByCategory(
         @Query("CatId") catId: Int,
@@ -436,6 +441,9 @@ interface ApiService {
         @Part("ServiceDescription") itemDescription: RequestBody,
         @Part("Price") price: RequestBody,
         @Part("Location") location: RequestBody,
+        @Part("ItIsARental") itIsARental: RequestBody,
+        @Part("RentFrom") rentFrom: RequestBody? = null,
+        @Part("RentTo") rentTo: RequestBody? = null,
         @Part Servicemage: MultipartBody.Part,
     ): Response<BaseResponseDto>
 
@@ -444,10 +452,26 @@ interface ApiService {
         @Query("PageNumber") pageNumber: Int,
         @Query("status") status: Int,
     ): Response<ProductStoreDto>
+
     @GET("MarketPlaceProduct/GetByIdForOwner")
     suspend fun getStoreProductByIdForOwner(
         @Query("ProductId") productId: Int,
     ): Response<ProductStoreDtoDetails>
+
+    @GET("MarketPlaceProduct/GetByIdForCustomer")
+    suspend fun getStoreProductByIdForCustomer(
+        @Query("ProductId") productId: Int,
+    ): Response<ProductStoreDtoDetailsForCustomer>
+
+    @GET("MarketPlaceService/GetByIdForOwner")
+    suspend fun getStoreServiceByIdForOwner(
+        @Query("ServiceId") productId: Int,
+    ): Response<ServiceStoreDtoDetailsData>
+
+    @GET("MarketPlaceService/GetByIdForCustomer")
+    suspend fun getStoreServiceByIdForCustomer(
+        @Query("ServiceId") serviceId: Int,
+    ): Response<ServiceStoreDtoDetailsForCustomer>
 
     @GET("MarketPlaceService/GetByStatus")
     suspend fun getStoreMyService(
@@ -462,7 +486,7 @@ interface ApiService {
 
     @PUT("MarketPlaceService/Cancel")
     suspend fun requestToDeleteService(
-        @Query("CustomerProductId") customerProductId: Int,
+        @Query("CustomerServiceId") customerServiceId: Int,
     ): Response<BaseResponseDto>
 
     @Multipart
@@ -483,13 +507,16 @@ interface ApiService {
     @Multipart
     @PUT("MarketPlaceService/Update")
     suspend fun storeUpdateService(
+        @Part("id") id: RequestBody?,
         @Part("MarketPlaceSubCategoryId") subCategoryId: RequestBody,
-        @Part("Condition") condition: RequestBody,
         @Part("Title") title: RequestBody,
-        @Part("ItemDescription") itemDescription: RequestBody,
+        @Part("ServiceDescription") itemDescription: RequestBody,
         @Part("Price") price: RequestBody,
         @Part("Location") location: RequestBody,
-        @Part ProductImage: MultipartBody.Part,
+        @Part("ItIsARental") itIsARental: RequestBody,
+        @Part("RentFrom") rentFrom: RequestBody? = null,
+        @Part("RentTo") rentTo: RequestBody? = null,
+        @Part ServiceImage: MultipartBody.Part?,
     ): Response<BaseResponseDto>
 
     @POST("User/VerifyPhoneNumber")
@@ -627,26 +654,57 @@ interface ApiService {
 
     @POST("MarketPlaceProduct/RequestToBuy")
     suspend fun requestToBuy(
-        @Query("ProductId") productId: Int
-    ):Response<BaseResponseDto>
+        @Query("ProductId") productId: Int,
+    ): Response<BaseResponseDto>
+
     @POST("MarketPlaceService/RequestToRent")
     suspend fun requestToRent(
         @Query("ServiceId") serviceId: Int,
-        @Query("RentTo") rentTo: String,
-        @Query("RentFrom") rentFrom: String
-    ):Response<BaseResponseDto>
+        @Query("RentTo") rentTo: String? = null,
+        @Query("RentFrom") rentFrom: String? = null,
+    ): Response<BaseResponseDto>
+
     @GET("Surveys/GetStatus")
     suspend fun getSurveysStatus(): Response<SurveysStatusDto>
+
     @GET("Survey/GetAll")
     suspend fun getAllSurveys(): Response<SurveysDto>
+
     @GET("Survey/GetById")
     suspend fun getSurvey(
-        @Query("SurveyId") surveyId:Int
+        @Query("SurveyId") surveyId: Int,
     ): Response<SurveyDto>
+
     @POST("Survey/Subbmit")
     suspend fun submitSurvey(
-        @Body survey: SurveyBodyDto
+        @Body survey: SurveyBodyDto,
     ): Response<BaseResponseDto>
+
     @GET("Survey/GetSurveyImage")
-    suspend fun getSurveyImage():Response<SurveyImageDto>
+    suspend fun getSurveyImage(): Response<SurveyImageDto>
+
+    @POST("MarketPlaceProduct/ProceedWithSale")
+    suspend fun proceedWithSale(
+        @Query("ListiningId") listeningId: Int,
+    ): Response<BaseResponseDto>
+    @POST("MarketPlaceService/ProceedWithRent")
+    suspend fun proceedWithRent(
+        @Query("ListiningId") listeningId: Int,
+    ): Response<BaseResponseDto>
+
+    @PUT("MarketPlaceProduct/ConfirmDeal")
+    suspend fun confirmProductDeal(
+        @Query("ListiningId") listeningId: Int,
+        @Query("CompanyAddressId") companyAddressId: String? = null,
+        @Query("PaymentMethod") paymentMethod: Int,
+    ): Response<BaseResponseDto>
+    @PUT("MarketPlaceService/ConfirmDeal")
+    suspend fun confirmServiceDeal(
+        @Query("ListiningId") listeningId: Int,
+        @Query("CompanyAddressId") companyAddressId: String? = null,
+        @Query("PaymentMethod") paymentMethod: Int,
+    ): Response<BaseResponseDto>
+
+    @GET("BankAccount/Get")
+    suspend fun getBankAccount(): Response<BankAccountDto>
 }

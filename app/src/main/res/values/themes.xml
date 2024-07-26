@@ -8,12 +8,19 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <!--   A darker variant of the primary color, used for
            the status bar (on Android 5.0+) and contextual app bars. -->
-<!--        <color name="colorPrimaryDark">#303F9F</color>-->
+        <!--        <color name="colorPrimaryDark">#303F9F</color>-->
 
         <!--   a secondary color for controls like checkboxes and text fields. -->
-        <item name="colorAccent"> @color/colorTextApp</item>
+        <item name="colorAccent">@color/colorTextApp</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
     </style>
+
+
+    <style name="Theme_Dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
 
     <style name="Theme.AnaRaya" parent="Base.Theme.AnaRaya" />
 
@@ -22,11 +29,13 @@
         <item name="android:buttonBarPositiveButtonStyle">@style/DialogButtonStyled</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/DialogButtonStyled</item>
     </style>
+
     <style name="DialogButtonStyled" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/colorPrimary</item> <!-- button text color -->
     </style>
+
     <style name="buttonStyle">
-        <item name="android:backgroundTint"> @color/colorPrimary</item>
+        <item name="android:backgroundTint">@color/colorPrimary</item>
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">10dp</item>
         <item name="android:textSize">@dimen/txtHead</item>
@@ -51,18 +60,22 @@
         <item name="android:textSize">@dimen/txtUnderHead</item>
         <item name="fontFamily">@font/inter_light</item>
     </style>
+
     <style name="textNormalTitle">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/inter_light</item>
     </style>
+
     <style name="textNormal">
         <item name="android:textColor">@color/colorGreyText</item>
         <item name="fontFamily">@font/inter_light</item>
     </style>
+
     <style name="textNormalHome">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="fontFamily">@font/inter_light</item>
     </style>
+
     <style name="textMore">
         <item name="android:textColor">@color/color_text_clicked</item>
         <item name="fontFamily">@font/inter400</item>
@@ -77,6 +90,7 @@
         <item name="android:focusable">true</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textPriceBottomSheet">
         <item name="android:textColor">@color/colorTextApp</item>
         <item name="fontFamily">@font/inter500</item>
@@ -92,6 +106,7 @@
         <item name="android:focusable">true</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="btnAddressTypeSelected">
         <item name="android:background">@drawable/shape_button_add_2</item>
         <item name="textAllCaps">false</item>
@@ -121,18 +136,19 @@
 
     <style name="textHeadTotalCost">
         <item name="android:textColor">@color/colorTextTotalCost</item>
-        <item name="fontFamily"> @font/inter500</item>
+        <item name="fontFamily">@font/inter500</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="textUnderHeadTotalCost">
         <item name="android:textColor">@color/colorTextTotalCost</item>
-        <item name="fontFamily"> @font/inter400</item>
+        <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="textUnderHeadValueTotalCost">
         <item name="android:textColor">@color/colorTextTotalCostSecond</item>
-        <item name="fontFamily"> @font/inter400</item>
+        <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">12sp</item>
     </style>
 
@@ -161,6 +177,7 @@
         <item name="fontFamily">@font/inter500</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textMyInfoValue">
         <item name="android:textColor">@color/colorGreyTextMyInfoValue</item>
         <item name="fontFamily">@font/inter500</item>
@@ -168,6 +185,7 @@
         <item name="maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
+
     <style name="textMyInfoEdit">
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="fontFamily">@font/inter400</item>
@@ -182,7 +200,7 @@
     </style>
 
     <style name="normalEditTextApp">
-        <item name="boxBackgroundMode"> filled</item>
+        <item name="boxBackgroundMode">filled</item>
         <item name="endIconMode">clear_text</item>
         <item name="expandedHintEnabled">false</item>
         <item name="placeholderText">@string/text_here</item>
@@ -191,7 +209,7 @@
     </style>
 
     <style name="passwordEditTextApp">
-        <item name="boxBackgroundMode"> filled</item>
+        <item name="boxBackgroundMode">filled</item>
         <item name="endIconMode">password_toggle</item>
         <item name="expandedHintEnabled">false</item>
         <item name="placeholderText">@string/text_here</item>
@@ -200,8 +218,9 @@
         <item name="helperTextTextColor">@color/colorTextHint</item>
         <item name="android:layout_marginTop">5dp</item>
     </style>
+
     <style name="addressEditText">
-        <item name="boxBackgroundMode"> outline</item>
+        <item name="boxBackgroundMode">outline</item>
         <item name="endIconMode">clear_text</item>
         <item name="expandedHintEnabled">false</item>
         <item name="placeholderText">@string/text_here</item>
@@ -219,38 +238,45 @@
         <item name="fontFamily">@font/inter500</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textHelpDetailsProblem">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textHelpDetailsAnswer">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textHelpDetailsHead">
         <item name="android:textColor">@color/colorTextGrey</item>
         <item name="fontFamily">@font/inter500</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="textOrderStatus">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">14sp</item>
     </style>
+
     <style name="textPromoName">
         <item name="android:textColor">@color/colorOffWhite</item>
         <item name="fontFamily">@font/inter700</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
     <style name="textPromoOff">
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/inter400</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
     <style name="OtpWidget.OtpView" parent="Widget.AppCompat.EditText">
         <item name="android:background">@null</item>
         <item name="android:minHeight">0dp</item>

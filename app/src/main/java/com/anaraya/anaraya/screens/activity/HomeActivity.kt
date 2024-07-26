@@ -3,6 +3,10 @@ package com.anaraya.anaraya.screens.activity
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,6 +28,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navHostFragment: NavHostFragment
     private val viewModel: HomeActivityViewModel by viewModels()
+    private var backPressedOnce = false
+    private val backPressHandler = Handler(Looper.getMainLooper())
+    private val backPressRunnable = Runnable { backPressedOnce = false }
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -39,6 +46,18 @@ class HomeActivity : AppCompatActivity() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.navHome) as NavHostFragment
 //        binding.bottomNavHome.setupWithNavController(navHostFragment.navController)
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedOnce) {
+                    finish()
+                } else {
+                    backPressedOnce = true
+                    Toast.makeText(applicationContext,
+                        getString(R.string.press_back_again_to_exit), Toast.LENGTH_SHORT).show()
+                    backPressHandler.postDelayed(backPressRunnable, 2000)
+                }
+            }
+        })
         lifecycleScope.launch {
             viewModel.homeState.collectLatest {
                 if (it.error != null) {
@@ -132,6 +151,13 @@ class HomeActivity : AppCompatActivity() {
                         "Product" -> {
                             viewModel.navigateToProduct(id)
                         }
+                        "MarketPlaceProduct" -> {
+                            viewModel.navigateToMarketPlaceOwnerProduct(id)
+                        }
+
+                        "MarketPlaceService" -> {
+                            viewModel.navigateToMarketPlaceOwnerService(id)
+                        }
                     }
                 }
                 else{
@@ -172,6 +198,13 @@ class HomeActivity : AppCompatActivity() {
                         "Product" -> {
                             viewModel.navigateToProduct(id)
                         }
+                        "MarketPlaceProduct" -> {
+                            viewModel.navigateToMarketPlaceOwnerProduct(id)
+                        }
+
+                        "MarketPlaceService" -> {
+                            viewModel.navigateToMarketPlaceOwnerService(id)
+                        }
                     }
                 }
                 else{
@@ -197,13 +230,10 @@ class HomeActivity : AppCompatActivity() {
         sharedPreferences.edit().putString("itemId", null).apply()
     }
 
-//    @Deprecated("Deprecated in Java")
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        when(navHostFragment.navController.currentBackStackEntry){
-//            navHostFragment.navController.getBackStackEntry(R.id.homeFragment) -> binding.bottomNavHome.setItemSelected(R.id.homeFragment)
-//            navHostFragment.navController.getBackStackEntry(R.id.servicesFragment) -> binding.bottomNavHome.setItemSelected(R.id.servicesFragment)
-//            navHostFragment.navController.getBackStackEntry(R.id.moreFragment) -> binding.bottomNavHome.setItemSelected(R.id.moreFragment)
-//        }
-//    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        backPressHandler.removeCallbacks(backPressRunnable)
+    }
+
 }

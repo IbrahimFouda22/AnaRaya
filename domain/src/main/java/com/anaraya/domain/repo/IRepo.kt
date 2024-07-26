@@ -10,6 +10,7 @@ import com.anaraya.domain.entity.AddUpdateAddress
 import com.anaraya.domain.entity.Addresses
 import com.anaraya.domain.entity.ApplyPromo
 import com.anaraya.domain.entity.Auth
+import com.anaraya.domain.entity.BankAccount
 import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.entity.Cart
 import com.anaraya.domain.entity.Category
@@ -34,11 +35,13 @@ import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
 import com.anaraya.domain.entity.ProductDetails
 import com.anaraya.domain.entity.ProductStore
+import com.anaraya.domain.entity.ProductStoreForCustomer
 import com.anaraya.domain.entity.Profile
 import com.anaraya.domain.entity.PromoCode
 import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.entity.Relationships
 import com.anaraya.domain.entity.ResetChangePass
+import com.anaraya.domain.entity.ServiceStoreForCustomer
 import com.anaraya.domain.entity.ServiceStoreItemList
 import com.anaraya.domain.entity.Survey
 import com.anaraya.domain.entity.SurveyBody
@@ -238,12 +241,27 @@ interface IRepo {
         handleDelivery: Boolean?,
         productImage: File?,
     ): BaseResponse
+    suspend fun storeUpdateService(
+        id: Int,
+        subCategoryId: String,
+        title: String,
+        itemDescription: String,
+        price: String,
+        location: String,
+        isRental: Boolean,
+        fromDate: String,
+        toDate: String,
+        serviceImage: File?,
+    ): BaseResponse
     suspend fun storeAddService(
         subCategoryId: String,
         title: String,
         itemDescription: String,
         price: String,
         location: String,
+        isRental: Boolean,
+        fromDate: String,
+        toDate: String,
         serviceImage: File,
     ): BaseResponse
 
@@ -253,7 +271,15 @@ interface IRepo {
     suspend fun getStoreProductByIdForOwner(
         productId: Int
     ): ProductStore
-
+    suspend fun getStoreProductByIdForCustomer(
+        productId: Int,
+    ): ProductStoreForCustomer
+    suspend fun getStoreServiceByIdForOwner(
+        serviceId: Int,
+    ): ServiceStoreItemList
+    suspend fun getStoreServiceByIdForCustomer(
+        serviceId: Int,
+    ): ServiceStoreForCustomer
     suspend fun getStoreService(
         status: Int,
     ): Flow<PagingData<ServiceStoreItemList>>
@@ -335,11 +361,25 @@ interface IRepo {
     suspend fun sendFCMToken(token: String, enabled: Boolean): BaseResponse
     suspend fun updateFCMToken(token: String, enabled: Boolean): BaseResponse
     suspend fun requestToBuy(productId: Int): BaseResponse
-    suspend fun requestToRent(serviceId: Int, rentTo: String, rentFrom: String): BaseResponse
+    suspend fun requestToRent(serviceId: Int, rentTo: String?, rentFrom: String?): BaseResponse
     suspend fun getSurveysStatus(): SurveysStatus
     suspend fun getAllSurveys(): Surveys
     suspend fun getSurvey(surveyId: Int): Survey
     suspend fun submitSurvey(surveyBody: SurveyBody): BaseResponse
     suspend fun getSurveyImage(): SurveyImage
+    suspend fun proceedWithSale(listeningId: Int): BaseResponse
+    suspend fun proceedWithRent(listeningId: Int): BaseResponse
+
+    suspend fun confirmProductDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse
+    suspend fun confirmServiceDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse
+    suspend fun getBankAccount(): BankAccount
 
 }

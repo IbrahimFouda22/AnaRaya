@@ -6,18 +6,14 @@
     <data>
 
         <variable
-            name="item"
-            type="com.anaraya.anaraya.screens.services.store.product.explore.explore_products.ExploreProductUiDetails" />
-
-        <variable
             name="viewModel"
-            type="com.anaraya.anaraya.screens.services.store.product.product_details.ExploreProductDetailsViewModel" />
+            type="com.anaraya.anaraya.screens.services.store.product.explore.product_details.ExploreProductDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.services.store.product.product_details.ExploreProductDetailsFragment">
+        tools:context=".screens.services.store.product.explore.product_details.ExploreProductDetailsFragment">
 
 
         <ImageButton
@@ -26,8 +22,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:padding="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="5dp"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,8 +74,8 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardImageExploreProductDetails"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_marginHorizontal="40dp"
+                    android:layout_height="220dp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/colorGreyLight"
                     app:cardCornerRadius="16dp"
@@ -93,10 +89,9 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            bindImage="@{item.productImageUrl}"
+                            bindImage="@{viewModel.product.product.productImageUrl}"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_margin="40dp"
                             android:scaleType="fitXY"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -109,13 +104,17 @@
                     android:id="@+id/txtNameExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/inter400"
-                    android:text="@{item.title}"
+                    android:text="@{viewModel.product.product.title}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardImageExploreProductDetails"
                     tools:text="Beef Bone" />
 
@@ -125,135 +124,89 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter400"
-                    android:text="@{item.itemDescription}"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
+                    android:text="@{viewModel.product.product.itemDescription}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtNameExploreProductDetails"
                     tools:text="Beef Bone" />
 
                 <TextView
-                    android:id="@+id/txtPriceExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/price2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails" />
-
-                <TextView
                     android:id="@+id/txtPriceValueExploreProductDetails"
-                    bindTxtPrice="@{item.price}"
+                    bindTxtPrice="@{viewModel.product.product.price}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="30dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtPriceExploreProductDetails"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtNameExploreProductDetails"
                     tools:text="1000.0 EGP" />
-
-                <TextView
-                    android:id="@+id/txtStatusExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/condition2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtPriceExploreProductDetails" />
-
-                <TextView
-                    android:id="@+id/txtStatusValueExploreProductDetails"
-                    bindTextCondition="@{item.condition}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/inter400"
-                    android:maxLines="1"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtStatusExploreProductDetails"
-                    tools:text="New" />
-
-                <TextView
-                    android:id="@+id/txtCategoryExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/category2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtStatusExploreProductDetails" />
 
                 <TextView
                     android:id="@+id/txtCategoryValueExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
-                    android:maxLines="1"
-                    android:text="@{item.category}"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtCategoryExploreProductDetails"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.product.category}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails"
                     tools:text="furniture" />
 
                 <TextView
-                    android:id="@+id/txtLocationExploreProductDetails"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtConditionValueExploreProductDetails"
+                    bindTextCondition="@{viewModel.product.product.condition}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter400"
-                    android:text="@string/location2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryExploreProductDetails" />
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryValueExploreProductDetails"
+                    tools:text="Cairo" />
 
                 <TextView
                     android:id="@+id/txtLocationValueExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
-                    android:maxLines="1"
-                    android:text="@{item.location}"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtLocationExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtLocationExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtLocationExploreProductDetails"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.product.location}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtConditionValueExploreProductDetails"
                     tools:text="Cairo" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestToBuy"
-                    android:layout_width="match_parent"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityButton}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/shape_button_add_2"
                     android:fontFamily="@font/inter400"
@@ -261,9 +214,9 @@
                     android:text="@string/request_to_buy"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    app:bindButtonRequestToBuy="@{viewModel.product.sellingStatus}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:bindButtonRequestToBuy="@{viewModel.product.product.sellingStatus}"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails" />
 
                 <TextView
@@ -278,8 +231,8 @@
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
-                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/btnRequestToBuy"
                     tools:text="Seller Info" />
 
@@ -293,7 +246,7 @@
                     android:text="@string/name"
                     android:textColor="@color/colorGrey"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />
 
                 <TextView
@@ -306,11 +259,11 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
-                    android:text="@{item.sellerName}"
-                    android:textAlignment="textEnd"
+                    android:text="@{viewModel.product.product.sellerName}"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toEndOf="@+id/txtSellerName"
                     app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />
 
@@ -324,7 +277,7 @@
                     android:text="@string/number"
                     android:textColor="@color/colorGrey"
                     android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />
 
                 <TextView
@@ -337,11 +290,11 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
-                    android:text="@{item.sellerPhoneNumber}"
-                    android:textAlignment="textEnd"
+                    android:text="@{viewModel.product.product.sellerPhoneNumber}"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toEndOf="@+id/txtSellerNumber"
                     app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />
             </androidx.constraintlayout.widget.ConstraintLayout>

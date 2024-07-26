@@ -2,9 +2,11 @@ package com.anaraya.data.mapper
 
 import com.anaraya.data.dto.ProductStoreDto
 import com.anaraya.data.dto.ProductStoreDtoDetails
+import com.anaraya.data.dto.ProductStoreDtoDetailsForCustomer
 import com.anaraya.data.dto.ProductStoreDtoItemList
 import com.anaraya.domain.entity.CustomerInformation
 import com.anaraya.domain.entity.ProductStore
+import com.anaraya.domain.entity.ProductStoreForCustomer
 
 fun ProductStoreDto.toEntity(): List<ProductStore> {
     return data.itemsList.map {
@@ -37,9 +39,9 @@ fun ProductStoreDtoItemList.toEntity(): ProductStore {
                 nationalID = customerInformation.nationalID,
                 hrId = customerInformation.hrid,
                 phoneNumber = customerInformation.phoneNumber,
-                email = customerInformation.email,
-                payMethod = customerInformation.payMethod,
-                sellingStatus = customerInformation.sellingStatus
+                email = customerInformation.email ?: "",
+                payMethod = customerInformation.payMethod ?: -1,
+                sellingStatus = customerInformation.sellingStatus ?: 0
             )
         },
         customerWantsToBuy = customerWantsToBuy
@@ -48,4 +50,23 @@ fun ProductStoreDtoItemList.toEntity(): ProductStore {
 
 fun ProductStoreDtoDetails.toEntity(): ProductStore {
     return data.toEntity()
+}
+
+fun ProductStoreDtoDetailsForCustomer.toEntity(): ProductStoreForCustomer {
+    return ProductStoreForCustomer(
+        id = data.id,
+        category = data.category,
+        subCategory = data.subCategory,
+        condition = data.condition,
+        title = data.title,
+        itemDescription = data.itemDescription,
+        price = data.price,
+        location = data.location,
+        productImageUrl = data.productImageUrl,
+        isAnonymous = data.isAnonymous,
+        sellerName = data.sellerName ?: "",
+        sellingStatus = data.sellingStatus ?: 0,
+        sellerPhoneNumber = data.sellerPhoneNumber ?: "",
+        isUserProduct = data.isUserProduct
+    )
 }

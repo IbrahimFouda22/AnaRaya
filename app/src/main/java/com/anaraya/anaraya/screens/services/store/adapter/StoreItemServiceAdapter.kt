@@ -51,7 +51,7 @@ class StoreItemServiceAdapter(private val itemsServicesInteraction: ItemsService
     override fun onBindViewHolder(holder: HomeTrendingProductViewHolder, position: Int) {
         holder.bind(getItem(position)!!)
         holder.itemItemStoreBinding.consDataStore.setOnClickListener {
-            itemsServicesInteraction.onClick(getItem(position),getItem(position)!!.id , getItem(position)!!.userAction)
+            itemsServicesInteraction.onClick(getItem(position)!!.id , getItem(position)!!.status)
         }
 //        holder.itemProductUiStateBinding.btnAddProductItem.setOnClickListener {
 //            interactionListener.addToCart(getItem(position)!!.id,position)

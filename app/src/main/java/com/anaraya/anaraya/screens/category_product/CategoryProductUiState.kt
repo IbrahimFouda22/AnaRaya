@@ -24,7 +24,7 @@ data class CategoryUiState(
 fun Product.toUiState(isPoints: Boolean = false): ProductUiState {
     return ProductUiState(
         image = image,
-        price = priceAfter,
+        price = if(isPoints) pointInRedeem else priceAfter,
         priceBeforeDiscount = priceBefore,
         name = name,
         qty = availableQty,

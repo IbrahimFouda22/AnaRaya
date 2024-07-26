@@ -46,6 +46,12 @@
         <action
             android:id="@+id/action_homeFragment_to_pointsProductsFragment"
             app:destination="@id/pointsProductsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_itemDetailsFragment"
+            app:destination="@id/itemDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_serviceDetailsOwnerFragment"
+            app:destination="@id/serviceDetailsOwnerFragment" />
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
@@ -392,12 +398,15 @@
         <action
             android:id="@+id/action_storeFragment_to_itemDetailsFragment"
             app:destination="@id/itemDetailsFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_itemSoldFragment"
+            app:destination="@id/itemSoldFragment" />
     </fragment>
     <fragment
         android:id="@+id/editItemServiceFragment"
-        android:name="com.anaraya.anaraya.screens.services.store.product.edit_product.EditItemServiceFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.my_items.edit_product.EditItemServiceFragment"
         android:label="EditItemServiceFragment"
-        tools:layout="@layout/fragment_edit_item_service" >
+        tools:layout="@layout/fragment_edit_item_service">
         <argument
             android:name="productId"
             app:argType="integer" />
@@ -469,10 +478,13 @@
         <action
             android:id="@+id/action_exploreProductsFragment_to_exploreProductDetailsFragment"
             app:destination="@id/exploreProductDetailsFragment" />
+        <action
+            android:id="@+id/action_exploreProductsFragment_to_searchProductStoreFragment"
+            app:destination="@id/searchProductStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/exploreServicesFragment"
-        android:name="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreCategoriesServicesFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.explore.explore_services.ExploreCategoriesServicesFragment"
         android:label="fragment_explore_services"
         tools:layout="@layout/fragment_explore_categories_services">
         <argument
@@ -484,24 +496,27 @@
         <action
             android:id="@+id/action_exploreServicesFragment_to_exploreServiceDetailsFragment"
             app:destination="@id/exploreServiceDetailsFragment" />
+        <action
+            android:id="@+id/action_exploreServicesFragment_to_searchServiceStoreFragment"
+            app:destination="@id/searchServiceStoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/exploreProductDetailsFragment"
-        android:name="com.anaraya.anaraya.screens.services.store.product.product_details.ExploreProductDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.explore.product_details.ExploreProductDetailsFragment"
         android:label="ExploreProductDetailsFragment"
         tools:layout="@layout/fragment_explore_product_details">
         <argument
-            android:name="product"
-            app:argType="com.anaraya.anaraya.screens.services.store.product.explore.explore_products.ExploreProductUiDetails" />
+            android:name="productId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/exploreServiceDetailsFragment"
-        android:name="com.anaraya.anaraya.screens.services.store.service.service_details.ExploreServiceDetailsFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.explore.service_details.ExploreServiceDetailsFragment"
         android:label="fragment_explore_service_details"
         tools:layout="@layout/fragment_explore_service_details">
         <argument
-            android:name="service"
-            app:argType="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreServiceUiDetails" />
+            android:name="serviceId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/storeServiceFragment"
@@ -514,6 +529,12 @@
         <action
             android:id="@+id/action_storeServiceFragment_to_termsAndConditionFragment"
             app:destination="@id/termsAndConditionFragment" />
+        <action
+            android:id="@+id/action_storeServiceFragment_to_serviceDetailsOwnerFragment"
+            app:destination="@id/serviceDetailsOwnerFragment" />
+        <action
+            android:id="@+id/action_storeServiceFragment_to_serviceSoldFragment"
+            app:destination="@id/serviceSoldFragment" />
     </fragment>
     <fragment
         android:id="@+id/surveysFragment"
@@ -550,19 +571,82 @@
     </fragment>
     <fragment
         android:id="@+id/languageMoreFragment"
-        tools:layout="@layout/fragment_language_more"
         android:name="com.anaraya.anaraya.screens.more.language.LanguageMoreFragment"
-        android:label="@string/language" />
+        android:label="@string/language"
+        tools:layout="@layout/fragment_language_more" />
     <fragment
         android:id="@+id/itemDetailsFragment"
-        tools:layout="@layout/fragment_item_details"
         android:name="com.anaraya.anaraya.screens.services.store.product.my_items.item_details.ItemDetailsFragment"
-        android:label="ItemDetailsFragment" >
+        android:label="ItemDetailsFragment"
+        tools:layout="@layout/fragment_item_details">
         <action
             android:id="@+id/action_itemDetailsFragment_to_editItemServiceFragment"
             app:destination="@id/editItemServiceFragment" />
         <argument
             android:name="productId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemSoldFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.my_items.item_sold.ItemSoldFragment"
+        android:label="fragment_item_sold"
+        tools:layout="@layout/fragment_item_sold">
+        <argument
+            android:name="productId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/serviceDetailsOwnerFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.my_items.item_details.ServiceDetailsOwnerFragment"
+        android:label="ServiceDetailsOwnerFragment"
+        tools:layout="@layout/fragment_service_details_owner">
+        <argument
+            android:name="serviceId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_serviceDetailsOwnerFragment_to_editServiceStoreFragment"
+            app:destination="@id/editServiceStoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serviceSoldFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.my_items.item_sold.ServiceSoldFragment"
+        android:label="fragment_service_sold"
+        tools:layout="@layout/fragment_service_sold">
+        <argument
+            android:name="serviceId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchProductStoreFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.product.explore.search.SearchProductStoreFragment"
+        android:label="SearchProductStoreFragment"
+        tools:layout="@layout/fragment_search_product_store">
+        <action
+            android:id="@+id/action_searchProductStoreFragment_to_exploreProductDetailsFragment"
+            app:destination="@id/exploreProductDetailsFragment" />
+        <argument
+            android:name="catId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchServiceStoreFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.explore.search.SearchServiceStoreFragment"
+        android:label="SearchServiceStoreFragment"
+        tools:layout="@layout/fragment_search_service_store">
+        <action
+            android:id="@+id/action_searchServiceStoreFragment_to_exploreServiceDetailsFragment"
+            app:destination="@id/exploreServiceDetailsFragment" />
+        <argument
+            android:name="catId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/editServiceStoreFragment"
+        android:name="com.anaraya.anaraya.screens.services.store.service.my_items.edit_service.EditServiceStoreFragment"
+        android:label="EditServiceStoreFragment"
+        tools:layout="@layout/fragment_edit_service_store">
+        <argument
+            android:name="serviceId"
             app:argType="integer" />
     </fragment>
 </navigation>

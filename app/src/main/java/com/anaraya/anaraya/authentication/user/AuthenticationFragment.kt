@@ -137,7 +137,7 @@ class AuthenticationFragment : Fragment() {
         when (num) {
             3 -> viewModel.setStateSignInUpdate(--num)
             2 -> viewModel.setStateSignInUpdate(--num)
-            else -> viewModel.setStateSignInUpdate(num)
+            else -> findNavController().popBackStack()
         }
     }
 
@@ -145,7 +145,10 @@ class AuthenticationFragment : Fragment() {
         var num = viewModel.stateSignIn.value
         when (num) {
             2 -> viewModel.setStateSignUpUpdate(--num)
-            else -> viewModel.setStateSignUpUpdate(num)
+            else -> {
+                viewModel.setStatePage(0)
+                binding.tabAuth.selectTab(binding.tabAuth.getTabAt(0))
+            }
         }
     }
 

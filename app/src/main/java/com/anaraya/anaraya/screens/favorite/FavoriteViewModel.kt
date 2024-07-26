@@ -9,6 +9,7 @@ import com.anaraya.anaraya.screens.category_product.toUiState
 import com.anaraya.anaraya.screens.shared_data.ProductUiState
 import com.anaraya.domain.entity.AddAllToBasket
 import com.anaraya.domain.entity.AddDeleteFav
+import com.anaraya.domain.entity.AddRemoveCart
 import com.anaraya.domain.entity.Product
 import com.anaraya.domain.exception.NoInternetException
 import com.anaraya.domain.usecase.ManageCartUseCase
@@ -176,6 +177,7 @@ class FavoriteViewModel @SuppressLint("StaticFieldLeak")
             it.copy(
                 isLoading = false,
                 error = null,
+                isSucceed = addAllToBasket.isSucceed,
                 addAllToBasketMsg = addAllToBasket.message,
                 numAdded = addAllToBasket.data,
             )
@@ -188,8 +190,52 @@ class FavoriteViewModel @SuppressLint("StaticFieldLeak")
             it.copy(
                 isLoading = false,
                 error = error,
+                isSucceed = false,
                 addAllToBasketMsg = null,
                 numAdded = 0
+            )
+        }
+    }
+    fun addProductToBasket(productId: Int) {
+        viewModelScope.launch {
+            _products.update {
+                it.copy(
+                    isLoading = true,
+                    error = null,
+                    isSucceedAddProductToCart = false,
+                    addProductToBasketMsg = ""
+                )
+            }
+            try {
+                onAddProductToBasketSuccess(
+                    manageCartUseCase.addCart(productId = productId, productQty = 1)
+                )
+            } catch (e: NoInternetException) {
+                onAddProductToBasketFailure(context.getString(R.string.no_internet))
+            } catch (e: Exception) {
+                onAddProductToBasketFailure(e.message.toString())
+            }
+        }
+    }
+
+    private fun onAddProductToBasketSuccess(addCart: AddRemoveCart) {
+        _products.update {
+            it.copy(
+                isLoading = false,
+                error = null,
+                isSucceedAddProductToCart = true,
+                addProductToBasketMsg = addCart.message,
+            )
+        }
+    }
+
+    private fun onAddProductToBasketFailure(error: String) {
+        _products.update {
+            it.copy(
+                isLoading = false,
+                error = error,
+                isSucceedAddProductToCart = false,
+                addProductToBasketMsg = ""
             )
         }
     }
@@ -222,6 +268,11 @@ class FavoriteViewModel @SuppressLint("StaticFieldLeak")
     fun clearAddAll() {
         _products.update {
             it.copy(addAllToBasketMsg = null, numAdded = 0)
+        }
+    }
+    fun clearMsg() {
+        _products.update {
+            it.copy(addProductToBasketMsg = "")
         }
     }
 

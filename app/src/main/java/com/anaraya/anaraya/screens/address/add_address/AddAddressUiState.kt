@@ -40,7 +40,9 @@ data class CompanyAddressUiItem(
     val deliveryFrom: String,
     val deliveryTo: String,
     val addedToFavouriteOrNot: Boolean,
-)
+){
+    var isSelected = false
+}
 
 fun CompanyAddressItem.toUiState(): CompanyAddressUiItem {
     return CompanyAddressUiItem(

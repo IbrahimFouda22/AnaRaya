@@ -322,10 +322,53 @@
         <item>نعم</item>
         <item>لا، أرغب في الاتصال بالبائعين مباشرةn\وترتيب عملية البيع بنفسى</item>
     </string-array>
+    <string-array name="arrayServiceRental">
+        <item>نعم</item>
+        <item>لا</item>
+    </string-array>
     <string name="please_allow_permission_to_take_an_image">" يرجى السماح بالإذن لالتقاط صورة"</string>
     <string name="gallery">معرض الصور</string>
     <string name="camera">كاميرا</string>
     <string name="would_you_like_to_be_anonymous_to_potential_buyers">" هل ترغب في أن تكون مجهولاً للمشترين المحتملين؟"</string>
     <string name="would_you_also_like_us_to_handle_the_delivery">"هل تريد أيضًا أن نتولى عملية التسليم؟ "</string>
     <string name="listed">مدرج</string>
+    <string name="seller_info">معلومات البائع</string>
+    <string name="number">رقم الهاتف</string>
+    <string name="item_details">تفاصيل المنتج</string>
+    <string name="edit_request_pending">طلب التعديل معلق</string>
+    <string name="add_request_pending">طلب الاضافة معلق</string>
+    <string name="you_have_a_purchase_request">لديك طلب شراء</string>
+    <string name="you_proceed_with_the_sale">يمكنك المضي قدما في البيع</string>
+    <string name="someone_from_our_team_will_notify_you_when_the_sale_is_complete_to_arrange_the_payment">سيقوم أحد أعضاء فريقنا بإعلامك عند اكتمال عملية البيع لترتيب عملية الدفع</string>
+    <string name="customer_info">معلومات المشترى</string>
+    <string name="order_complete">اكمال الطلب</string>
+    <string name="proceeding_with_sale">المضي قدما في البيع</string>
+    <string name="order_completed_with_customer">اكتمل الطلب مع العميل</string>
+    <string name="please_select_the_payment_method_for_our_service_fees_of_5">برجاء تحديد طريقة الدفع لرسوم خدماتنا البالغة 5%</string>
+    <string name="bank_transfer">التحويل المصرفي</string>
+    <string name="in_person_card_payment">الدفع بالبطاقة شخصيًا</string>
+    <string name="cash">نقدي</string>
+    <string name="iban">رقم الحساب (IBAN)</string>
+    <string name="please_not_that_by">يرجى ملاحظة أنه من خلال الإجراء فإنك توافق على الدفع في حالة قبول السلعة ولديها طلبات شراء بنسبة 5% بحد أدنى 50 جنيهًا مصريًا. (لا يشمل أي رسوم التوصيل)</string>
+    <string name="name_of_company">اسم المؤسسة</string>
+    <string name="town">المدينة-الفرع</string>
+    <string name="please_click_submit_when_you_have_tranfered_the_amount">الرجاء الضغط على إرسال عندما تقوم بتحويل المبلغ</string>
+    <string name="service_fees_paid">رسوم الخدمة مدفوعة</string>
+    <string name="item_sold">السلعة مباعة</string>
+    <string name="is_this_service_a_rental">هل هذه الخدمة تأجير؟</string>
+    <string name="service_field_is_empty">حقل الخدمة فارغ</string>
+    <string name="rent_from_date">الايجار من</string>
+    <string name="rent_to_date">الايجار حتى</string>
+    <string name="this_service_is_available_from_to">هذه الخدمة متاحة من %1$s إلى %2$s</string>
+    <string name="request">طلب</string>
+    <string name="you_have_a_purchase_request_num">لديك طلب شراء %1$s</string>
+    <string name="customers_info">معلومات المشترى</string>
+    <string name="completed">مكتمل</string>
+    <string name="rent_from">الإيجار من : %1$s</string>
+    <string name="rent_to">الإيجار إلى : %1$s</string>
+    <string name="delete_request_pending">طلب الحذف معلق</string>
+    <string name="add_selected_to_cart">أضف المحدد إلى سلة التسوق</string>
+    <string name="products_is_already_in_basket">المنتجات موجودة بالفعل في السلة</string>
+    <string name="selected_products_added_to_cart">تم إضافة المنتجات المختارة إلى سلة التسوق</string>
+    <string name="press_back_again_to_exit">اضغط مرة أخرى للخروج</string>
 </resources>

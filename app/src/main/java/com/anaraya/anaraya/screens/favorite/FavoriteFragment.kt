@@ -2,13 +2,13 @@ package com.anaraya.anaraya.screens.favorite
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -36,13 +36,17 @@ class FavoriteFragment : Fragment(), FavoriteInteraction {
     private lateinit var btnReload: Button
     private lateinit var binding: FragmentFavoriteBinding
     private lateinit var adapter: FavoriteAdapter
+
     //private var pos = -1
-    private lateinit var list :MutableList<ProductUiState>
+    private lateinit var list: MutableList<ProductUiState>
+    private var selectedList: MutableList<Int> = mutableListOf()
+    private var index = 0
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFavoriteBinding.inflate(layoutInflater)
@@ -71,15 +75,52 @@ class FavoriteFragment : Fragment(), FavoriteInteraction {
 //                    Toast.makeText(context, it.deleteMsg, Toast.LENGTH_SHORT).show()
                     viewModel.clearDeleteMsg()
                 }
+                if (it.isSucceedAddProductToCart) {
+                    if (index < selectedList.size) {
+                        viewModel.addProductToBasket(selectedList[index])
+                        index++
+                    } else {
+                        sharedViewModel.getCart()
+                        Toast.makeText(
+                            requireContext(),
+                            getString(R.string.selected_products_added_to_cart),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        viewModel.clearMsg()
+                    }
+                }
                 if (it.addAllToBasketMsg != null) {
-                    Toast.makeText(context, it.addAllToBasketMsg, Toast.LENGTH_SHORT).show()
-                    plusQtyBasket(sharedPreferences,sharedViewModel,requireContext(),it.numAdded)
+                    if (it.isSucceed) {
+                        Toast.makeText(requireContext(), it.addAllToBasketMsg, Toast.LENGTH_SHORT)
+                            .show()
+                        sharedViewModel.getCart()
+                        plusQtyBasket(
+                            sharedPreferences,
+                            sharedViewModel,
+                            requireContext(),
+                            it.numAdded
+                        )
+                    }else{
+                        Toast.makeText(requireContext(),
+                            getString(R.string.products_is_already_in_basket), Toast.LENGTH_SHORT)
+                            .show()
+                    }
                     viewModel.clearAddAll()
                 }
                 if (it.products.isNotEmpty()) {
                     list = it.products.toMutableList()
                     adapter.submitList(it.products)
                 }
+            }
+        }
+
+        binding.btnAddAllToCart.setOnClickListener {
+            index = 0
+            if (selectedList.isNotEmpty()) {
+                viewModel.addProductToBasket(selectedList[index])
+                index++
+            } else {
+                viewModel.addAllToBasket()
             }
         }
 
@@ -108,6 +149,20 @@ class FavoriteFragment : Fragment(), FavoriteInteraction {
     }
 
     override fun onClickDelete(productId: Int, position: Int) {
-        viewModel.deleteFavProduct(productId,position,list)
+        viewModel.deleteFavProduct(productId, position, list)
+    }
+
+    override fun onClickCheckBox(productId: Int, isChecked: Boolean) {
+        if (isChecked) {
+            if (!selectedList.contains(productId))
+                selectedList.add(productId)
+        } else {
+            if (selectedList.contains(productId))
+                selectedList.remove(productId)
+        }
+        if (selectedList.size > 0)
+            binding.btnAddAllToCart.text = getString(R.string.add_selected_to_cart)
+        else
+            binding.btnAddAllToCart.text = getString(R.string.add_all_to_cart)
     }
 }

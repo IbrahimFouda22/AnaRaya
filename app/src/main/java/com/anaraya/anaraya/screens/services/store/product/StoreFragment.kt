@@ -55,6 +55,14 @@ class StoreFragment : Fragment() {
                     )
                     sharedViewModel.navigateToItemDetailsProductDone()
                 }
+                if (it.navigateToItemSoldProduct) {
+                    findNavController().navigate(
+                        StoreFragmentDirections.actionStoreFragmentToItemSoldFragment(
+                            sharedViewModel.homeState.value.itemSoldProductId!!
+                        )
+                    )
+                    sharedViewModel.navigateToItemSoldProductDone()
+                }
                 if (it.navigateToExploreProduct) {
                     findNavController().navigate(
                         StoreFragmentDirections.actionStoreFragmentToExploreProductsFragment(

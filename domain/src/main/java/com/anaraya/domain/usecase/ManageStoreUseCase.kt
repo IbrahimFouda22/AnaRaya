@@ -15,7 +15,53 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
     suspend fun getStoreProduct(statusId: Int) =
         repo.getStoreProduct(statusId)
 
-    suspend fun getStoreProductByIdForOwner(productId: Int) = repo.getStoreProductByIdForOwner(productId)
+    suspend fun getStoreProductByIdForOwner(productId: Int) =
+        repo.getStoreProductByIdForOwner(productId)
+
+    suspend fun getStoreProductByIdForCustomer(productId: Int) =
+        repo.getStoreProductByIdForCustomer(productId)
+
+    suspend fun getStoreServiceByIdForOwner(serviceId: Int) =
+        repo.getStoreServiceByIdForOwner(serviceId)
+
+    suspend fun getStoreServiceByIdForCustomer(serviceId: Int) =
+        repo.getStoreServiceByIdForCustomer(serviceId)
+
+    suspend fun proceedWithSale(listeningId: Int) = repo.proceedWithSale(listeningId)
+
+    suspend fun confirmProductDeal(
+        companyId: String?,
+        governorateId: String?,
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse {
+        if (paymentMethod == 1 || paymentMethod == 2)
+            checkCompanyAddressDataValidation(companyId, governorateId, companyAddressId)
+        return repo.confirmProductDeal(
+            listeningId,
+            if (paymentMethod == 1 || paymentMethod == 2) companyAddressId else null,
+            paymentMethod
+        )
+    }
+
+    suspend fun confirmServiceDeal(
+        companyId: String?,
+        governorateId: String?,
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse {
+        if (paymentMethod == 1 || paymentMethod == 2)
+            checkCompanyAddressDataValidation(companyId, governorateId, companyAddressId)
+        return repo.confirmServiceDeal(
+            listeningId,
+            if (paymentMethod == 1 || paymentMethod == 2) companyAddressId else null,
+            paymentMethod
+        )
+    }
+
+    suspend fun getBankAccount() = repo.getBankAccount()
 
 
     suspend fun getStoreService(statusId: Int) =
@@ -112,6 +158,9 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
         location: String?,
         serviceImage: File?,
         accept: Boolean,
+        isServiceRental: Boolean?,
+        fromDate: String,
+        toDate: String,
     ): BaseResponse {
         checkDataValidationService(
             title,
@@ -121,7 +170,8 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
             price,
             location,
             serviceImage,
-            accept
+            accept,
+            isServiceRental
         )
         return repo.storeAddService(
             subCategoryId.toString(),
@@ -129,7 +179,50 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
             itemDescription!!,
             price!!,
             location!!,
+            isServiceRental!!,
+            fromDate,
+            toDate,
             serviceImage!!,
+        )
+    }
+
+    suspend fun storeUpdateService(
+        id: Int,
+        title: String?,
+        categoryId: Int,
+        subCategoryId: Int,
+        itemDescription: String?,
+        price: String?,
+        location: String?,
+        serviceImage: File?,
+        accept: Boolean,
+        isServiceRental: Boolean?,
+        fromDate: String,
+        toDate: String,
+        imageUrl: String?,
+    ): BaseResponse {
+        checkDataValidationServiceUpdate(
+            title,
+            categoryId,
+            subCategoryId,
+            itemDescription,
+            price,
+            location,
+            serviceImage,
+            accept,
+            imageUrl
+        )
+        return repo.storeUpdateService(
+            id,
+            subCategoryId.toString(),
+            title!!,
+            itemDescription!!,
+            price!!,
+            location!!,
+            isServiceRental!!,
+            fromDate,
+            toDate,
+            serviceImage,
         )
     }
 
@@ -160,7 +253,7 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
         productImage: File?,
         accept: Boolean,
         imageUrl: String? = null,
-        ) {
+    ) {
         if (title.isNullOrEmpty())
             throw EmptyDataException("Title Field is Empty")
         if (categoryId == -1)
@@ -183,8 +276,6 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
             throw EmptyDataException("Image Field is Empty")
         if (!accept)
             throw TermsAndConditionException("Must Accept Terms And Conditions")
-
-
     }
 
     private fun checkDataValidationService(
@@ -196,6 +287,39 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
         location: String?,
         productImage: File?,
         accept: Boolean,
+        isServiceRental: Boolean?,
+    ) {
+        if (title.isNullOrEmpty())
+            throw EmptyDataException("Title Field is Empty")
+        if (categoryId == -1)
+            throw EmptyDataException("Category Field is Empty")
+        if (subCategoryId == -1)
+            throw EmptyDataException("Sub Category Field is Empty")
+        if (isServiceRental == null)
+            throw EmptyDataException("Service Field is Empty")
+        if (itemDescription.isNullOrEmpty())
+            throw EmptyDataException("Description Field is Empty")
+        if (price.isNullOrEmpty())
+            throw EmptyDataException("Price Field is Empty")
+        if (location.isNullOrEmpty())
+            throw EmptyDataException("Location Field is Empty")
+        if (productImage == null)
+            throw EmptyDataException("Image Field is Empty")
+        if (!accept)
+            throw TermsAndConditionException("Must Accept Terms And Conditions")
+
+    }
+
+    private fun checkDataValidationServiceUpdate(
+        title: String?,
+        categoryId: Int,
+        subCategoryId: Int,
+        itemDescription: String?,
+        price: String?,
+        location: String?,
+        productImage: File?,
+        accept: Boolean,
+        imageUrl: String?,
     ) {
         if (title.isNullOrEmpty())
             throw EmptyDataException("Title Field is Empty")
@@ -209,13 +333,13 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
             throw EmptyDataException("Price Field is Empty")
         if (location.isNullOrEmpty())
             throw EmptyDataException("Location Field is Empty")
-        if (productImage == null)
+        if (productImage == null && imageUrl == null)
             throw EmptyDataException("Image Field is Empty")
         if (!accept)
             throw TermsAndConditionException("Must Accept Terms And Conditions")
-
-
     }
+
+    suspend fun proceedWithRent(listeningId: Int) = repo.proceedWithRent(listeningId)
 
     suspend fun requestToDeleteProduct(customerProductId: Int) =
         repo.requestToDeleteProduct(customerProductId)
@@ -224,6 +348,19 @@ class ManageStoreUseCase @Inject constructor(private val repo: IRepo) {
         repo.requestToDeleteService(customerProductId)
 
     suspend fun requestToBuy(productId: Int) = repo.requestToBuy(productId)
-    suspend fun requestToRent(serviceId: Int, rentTo: String, rentFrom: String) =
-        repo.requestToRent(serviceId, rentTo, rentFrom)
+    suspend fun requestToRent(serviceId: Int, rentTo: String?, rentFrom: String?) =
+        repo.requestToRent(serviceId = serviceId, rentTo = rentTo, rentFrom = rentFrom)
+
+    private fun checkCompanyAddressDataValidation(
+        company: String?,
+        governorate: String?,
+        companyAddress: String?,
+    ) {
+        if (company.isNullOrEmpty())
+            throw EmptyDataException("Company Field is Empty")
+        if (governorate.isNullOrEmpty())
+            throw EmptyDataException("Governorate Company Field is Empty")
+        if (companyAddress.isNullOrEmpty())
+            throw EmptyDataException("Company Address Field is Empty")
+    }
 }

@@ -123,6 +123,5 @@ class ManageAddressesUseCase @Inject constructor(private val repo: IRepo) {
             throw EmptyDataException("Governorate Company Field is Empty")
         if (companyAddress.isNullOrEmpty())
             throw EmptyDataException("Company Address Field is Empty")
-
     }
 }

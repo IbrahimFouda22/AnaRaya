@@ -51,6 +51,7 @@ fun ProductDetailsDto.toEntity(): ProductDetails {
                     },
                     limitQtyForUserPerMonth = data.limityQtyForUserPerMonth,
                     qtyUsedFromLimit = data.qtyUsedFromLimtit,
+                    pointInRedeem = 0.0
                 )
             },
         )

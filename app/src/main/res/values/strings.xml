@@ -262,7 +262,7 @@
     <string name="sold">Sold</string>
     <string name="canceled">Canceled</string>
     <string name="request_to_delete">Request to delete</string>
-    <string name="proceed_with_sale">Proceed with sale</string>
+    <string name="proceed_with_sale">Proceed with Sale</string>
     <string name="request_to_edit">Request to edit</string>
     <string name="try_later">Try Later</string>
     <string name="please_add_items">Please add items</string>
@@ -335,6 +335,40 @@
     <string name="item_details">Item Details</string>
     <string name="edit_request_pending">edit request pending</string>
     <string name="add_request_pending">add request pending</string>
+    <string name="you_have_a_purchase_request">You have a purchase request</string>
+    <string name="you_proceed_with_the_sale">You proceed with the Sale</string>
+    <string name="someone_from_our_team_will_notify_you_when_the_sale_is_complete_to_arrange_the_payment">Someone from our team will notify you when the sale is complete to arrange the payment</string>
+    <string name="customer_info">Customer Info</string>
+    <string name="order_complete">Order Complete</string>
+    <string name="proceeding_with_sale">Proceed with Sale</string>
+    <string name="order_completed_with_customer">Order Completed with Customer</string>
+    <string name="please_select_the_payment_method_for_our_service_fees_of_5">Please select the payment method for our service fees of 5%</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="in_person_card_payment">in-person Card Payment</string>
+    <string name="cash">Cash</string>
+    <string name="iban">رقم الحساب (IBAN)</string>
+    <string name="please_not_that_by">Please not that by proceeding you are agreeing to pay in case item is accepted and has requests to purchase of 5% with a minimum of 50 L.E. (not including any delivery fees)</string>
+    <string name="name_of_company">اسم المؤسسة</string>
+    <string name="town">المدينة-الفرع</string>
+    <string name="please_click_submit_when_you_have_tranfered_the_amount">please click submit when you have tranfered the amount</string>
+    <string name="service_fees_paid">Service Fees Paid</string>
+    <string name="item_sold">Item Sold</string>
+    <string name="is_this_service_a_rental">Is this service a rental?</string>
+    <string name="service_field_is_empty">Service Field is Empty</string>
+    <string name="rent_from_date">Rent From Date</string>
+    <string name="rent_to_date">Rent To Date</string>
+    <string name="this_service_is_available_from_to">This service is available from %1$s to %2$s</string>
+    <string name="request">Request</string>
+    <string name="you_have_a_purchase_request_num">You have a %1$s purchase request</string>
+    <string name="customers_info">Customers Info</string>
+    <string name="completed">Completed</string>
+    <string name="rent_from">Rent From : %1$s</string>
+    <string name="rent_to">Rent To : %1$s</string>
+    <string name="delete_request_pending">delete request pending</string>
+    <string name="add_selected_to_cart">Add Selected To Cart</string>
+    <string name="products_is_already_in_basket">Products is Already in Basket</string>
+    <string name="selected_products_added_to_cart">Selected Products added to cart</string>
+    <string name="press_back_again_to_exit">Press back again to exit</string>
 
     <string-array name="lang">
         <item>Arabic</item>
@@ -348,5 +382,9 @@
     <string-array name="arrayAnonymous">
         <item>Yes</item>
         <item>No, I would like to directly contact my\nsellers and arrange the sale my self</item>
+    </string-array>
+    <string-array name="arrayServiceRental">
+        <item>Yes</item>
+        <item>No</item>
     </string-array>
 </resources>

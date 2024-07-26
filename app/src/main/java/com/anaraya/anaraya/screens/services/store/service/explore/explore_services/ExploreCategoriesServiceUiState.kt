@@ -1,9 +1,8 @@
-package com.anaraya.anaraya.screens.services.store.service.explore_services
+package com.anaraya.anaraya.screens.services.store.service.explore.explore_services
 
 import androidx.paging.PagingData
 import com.anaraya.domain.entity.ExploreServices
 import kotlinx.coroutines.flow.Flow
-import java.io.Serializable
 
 data class ExploreServiceUiState(
     val isLoading: Boolean = false,
@@ -48,5 +47,5 @@ data class ExploreServiceUiDetails(
     val rentTo: String,
     val rentStatus: Int,
     val isUserService: Boolean,
-):Serializable
+)
 

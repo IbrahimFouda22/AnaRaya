@@ -36,7 +36,7 @@ class LanguageFragment : Fragment() {
             index = newVal
         }
 
-        binding.picker.setOnClickListener {
+        binding.btnNext.setOnClickListener {
             when(index){
                 0 -> {
                     sharedPreferences.edit().putString("lang","ar").apply()
@@ -54,6 +54,8 @@ class LanguageFragment : Fragment() {
             requireActivity().recreate()
             findNavController().navigate(LanguageFragmentDirections.actionLanguageFragmentToAuthenticationFragment())
         }
+//        binding.picker.setOnClickListener {
+//        }
         return binding.root
     }
 

@@ -1,13 +1,15 @@
 package com.anaraya.anaraya.screens.services.store.service.my_items
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -21,6 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 
 @AndroidEntryPoint
 class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
@@ -36,7 +40,7 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMyItemsServicesBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
@@ -45,8 +49,9 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
         adapter = StoreItemServiceAdapter(this)
-        binding.recyclerStoreItemsServices.adapter = adapter
-        lifecycleScope.launch {
+        binding.recyclerStoreItemsService.adapter = adapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.myItemsUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
@@ -89,7 +94,7 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
             }
         }
 
-        binding.chipStatusServices.setOnCheckedStateChangeListener(onChipSelectedListener())
+        binding.chipStatus.setOnCheckedStateChangeListener(onChipSelectedListener())
 
         btnBack.setOnClickListener {
             reload()
@@ -101,28 +106,32 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
 
         return binding.root
     }
+
     private fun onChipSelectedListener(): ChipGroup.OnCheckedStateChangeListener {
         return ChipGroup.OnCheckedStateChangeListener { _, checkedIds ->
             if (checkedIds.isNotEmpty()) {
                 if (checkedIds[0] != statusId) {
                     viewModel.showLoading(true)
                     statusId = checkedIds[0]
-                    viewModel.getItemsServices(mutableMap[checkedIds[0]]!!)
+                    try {
+                        viewModel.getItemsServices(mutableMap[checkedIds[0]]!!)
+                    } catch (e: Exception) {
+                        viewModel.getItemsServices(1)
+                    }
                 } else {
-                    binding.chipStatusServices.check(statusId)
+                    binding.chipStatus.check(statusId)
                 }
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
-        mutableMap[binding.chipPendingServices.id] = 1
-        mutableMap[binding.chipAcceptedServices.id] = 2
-        mutableMap[binding.chipRejectedServices.id] = 3
-        mutableMap[binding.chipSoldServices.id] = 4
-        mutableMap[binding.chipCancelServices.id] = 5
-        statusId = binding.chipPendingServices.id
-        binding.chipStatusServices.check(statusId)
+        mutableMap[binding.chipList.id] = 1
+        mutableMap[binding.chipSold.id] = 2
+        mutableMap[binding.chipCancel.id] = 3
+        statusId = binding.chipList.id
+        binding.chipStatus.check(statusId)
         viewModel.getItemsServices(mutableMap[statusId]!!)
     }
 
@@ -133,10 +142,16 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
         sharedViewModel.reloadClickDone()
     }
 
-    override fun onClick(item: ProductStoreItemServiceState?, itemId: Int, userAction: Int) {
-//        when (statusId) {
-//            binding.chipPendingServices.id -> showBottomSheet(item,itemId, userAction, 1)
-//            binding.chipAcceptedServices.id -> showBottomSheet(item,itemId, userAction, 2)
-//        }
+    override fun onClick(itemId: Int, status: Int) {
+        when (statusId) {
+            binding.chipList.id -> {
+                if (status == 2)
+                    sharedViewModel.navigateToItemDetailsService(itemId)
+            }
+
+            binding.chipSold.id -> {
+                sharedViewModel.navigateToItemSoldService(itemId)
+            }
+        }
     }
 }

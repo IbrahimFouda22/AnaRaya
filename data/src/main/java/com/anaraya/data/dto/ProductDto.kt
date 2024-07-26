@@ -27,5 +27,6 @@ data class ProductDtoItemList(
     val limitQtyForUserPerMonth: Int,
     val qtyUsedFromLimit: Int,
     val qtyInBasket: Int,
+    val pointInRedem: Double?,
     val notifyMe: Boolean,
 )

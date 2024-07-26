@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.screens.services.store.service.explore_services
+package com.anaraya.anaraya.screens.services.store.service.explore.explore_services
 
 import android.annotation.SuppressLint
 import android.content.Context

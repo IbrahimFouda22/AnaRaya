@@ -306,7 +306,7 @@ class SellViewModel @Inject constructor(
 
     }
 
-    private fun resetErrors() {
+    fun resetErrors() {
         _sellUiState.update {
             it.copy(
                 isLoading = false,

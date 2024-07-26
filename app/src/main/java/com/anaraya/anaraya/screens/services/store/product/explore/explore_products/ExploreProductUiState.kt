@@ -45,7 +45,7 @@ data class ExploreProductUiDetails(
     val itemDescription:String,
     val price:Double,
     val location:String,
-    val productImageUrl:String,
+    val productImageUrl:String?,
     val sellerName:String,
     val sellerPhoneNumber:String,
     val sellingStatus:Int,

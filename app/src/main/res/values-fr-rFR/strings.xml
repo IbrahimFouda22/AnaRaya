@@ -322,10 +322,53 @@
         <item>Oui</item>
         <item>Non, je souhaite contacter directement mes\nvendeurs et organiser moi-même la vente.</item>
     </string-array>
+    <string-array name="arrayServiceRental">
+        <item>Oui</item>
+        <item>Non</item>
+    </string-array>
     <string name="please_allow_permission_to_take_an_image">Veuillez autoriser l\'autorisation de prendre une image</string>
     <string name="gallery">Galerie</string>
     <string name="camera">Caméra</string>
     <string name="would_you_like_to_be_anonymous_to_potential_buyers">Souhaitez-vous rester anonyme auprès des acheteurs potentiels ?</string>
     <string name="would_you_also_like_us_to_handle_the_delivery">Souhaitez-vous également que nous nous occupions de la livraison ?</string>
     <string name="listed">Répertorié</string>
+    <string name="seller_info">Informations sur le vendeur</string>
+    <string name="number">Nombre</string>
+    <string name="item_details">Détails de l\'article</string>
+    <string name="edit_request_pending">demande de modification en attente</string>
+    <string name="add_request_pending">ajouter la demande en attente</string>
+    <string name="you_have_a_purchase_request">Vous avez une demande d\'achat</string>
+    <string name="you_proceed_with_the_sale">Vous procédez à la Vente</string>
+    <string name="someone_from_our_team_will_notify_you_when_the_sale_is_complete_to_arrange_the_payment">Un membre de notre équipe vous avertira lorsque la vente sera finalisée pour organiser le paiement.</string>
+    <string name="customer_info">informations concernant le client</string>
+    <string name="order_complete">Commande terminée</string>
+    <string name="proceeding_with_sale">Procéder à la vente</string>
+    <string name="order_completed_with_customer">Commande terminée avec le client</string>
+    <string name="please_select_the_payment_method_for_our_service_fees_of_5">Veuillez sélectionner le mode de paiement pour nos frais de service de 5 %</string>
+    <string name="bank_transfer">Virement</string>
+    <string name="in_person_card_payment">Paiement par carte en personne</string>
+    <string name="cash">Espèces</string>
+    <string name="iban">رقم الحساب (IBAN)</string>
+    <string name="please_not_that_by">Veuillez noter qu\'en poursuivant, vous acceptez de payer au cas où l\'article serait accepté et aurait des demandes d\'achat de 5% avec un minimum de 50 L.E. (hors frais de livraison éventuels)</string>
+    <string name="name_of_company">اسم المؤسسة</string>
+    <string name="town">المدينة-الفرع</string>
+    <string name="please_click_submit_when_you_have_tranfered_the_amount">veuillez cliquer sur Soumettre lorsque vous avez transféré le montant</string>
+    <string name="service_fees_paid">Frais de service payés</string>
+    <string name="item_sold">Article vendu</string>
+    <string name="is_this_service_a_rental">Ce service est-il une location ?</string>
+    <string name="service_field_is_empty">Le champ de service est vide</string>
+    <string name="rent_from_date">Date de location à partir de</string>
+    <string name="rent_to_date">Louer à ce jour</string>
+    <string name="this_service_is_available_from_to">Ce service est disponible du %1$s au %2$s</string>
+    <string name="request">Demande</string>
+    <string name="you_have_a_purchase_request_num">Vous avez une demande d\'achat %1$s</string>
+    <string name="customers_info">Informations clients</string>
+    <string name="completed">Complété</string>
+    <string name="rent_from">Loyer à partir de : %1$s</string>
+    <string name="rent_to">Louer à : %1$s</string>
+    <string name="delete_request_pending">demande de suppression en attente</string>
+    <string name="add_selected_to_cart">Ajouter la sélection au panier</string>
+    <string name="products_is_already_in_basket">Les produits sont déjà dans le panier</string>
+    <string name="selected_products_added_to_cart">Produits sélectionnés ajoutés au panier</string>
+    <string name="press_back_again_to_exit">Appuyez à nouveau pour quitter</string>
 </resources>

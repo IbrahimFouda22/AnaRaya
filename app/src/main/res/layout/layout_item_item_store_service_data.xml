@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.anaraya.anaraya.screens.services.store.service.my_items.ProductStoreItemServiceState" />
@@ -26,8 +25,8 @@
                 android:id="@+id/cardItemService"
                 android:layout_width="100dp"
                 android:layout_height="70dp"
-                app:cardCornerRadius="15dp"
                 android:layout_marginVertical="5dp"
+                app:cardCornerRadius="15dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -45,12 +44,15 @@
                 android:id="@+id/txtNameItemItemService"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/inter700"
+                android:maxLines="1"
+                android:textAlignment="viewStart"
                 android:text="@{item.title}"
                 android:textColor="@color/colorTextNameProduct"
                 android:textSize="16sp"
-                android:layout_marginEnd="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/txtDescItemItemService"
                 app:layout_constraintEnd_toStartOf="@+id/txtPriceItemService"
                 app:layout_constraintStart_toEndOf="@+id/cardItemService"
@@ -62,7 +64,11 @@
                 android:id="@+id/txtDescItemItemService"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:ellipsize="end"
+                android:textAlignment="viewStart"
                 android:fontFamily="@font/inter700"
+                android:maxLines="1"
                 android:text="@{item.category}"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="14sp"
@@ -78,13 +84,48 @@
                 bindTxtPrice="@{item.price}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:fontFamily="@font/inter700"
+                android:textAlignment="viewEnd"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/cardItemService"
+                app:layout_constraintEnd_toStartOf="@+id/txtBadge"
+                app:layout_constraintTop_toTopOf="@+id/txtNameItemItemService"
+                tools:text="$4.9999999" />
+
+            <TextView
+                android:id="@+id/txtStatus"
+                isListed="@{item.listed}"
+                status="@{item.status}"
+                userAction="@{item.userAction}"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter700"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/colorTextNameProduct"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/txtPriceItemService"
+                app:layout_constraintStart_toStartOf="@+id/txtDescItemItemService"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescItemItemService"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Bell Pepper Red" />
+
+            <TextView
+                android:id="@+id/txtBadge"
+                style="@style/textNormal"
+                bindTextNumOfBasket="@{item.numberOfBuyers}"
+                bindViewVisibilityGone="@{item.visibilityBadge}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_badge"
+                android:maxLength="4"
+                android:paddingHorizontal="5dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toTopOf="@+id/txtStatus"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardItemService"
-                tools:text="$4.99" />
+                app:layout_constraintTop_toBottomOf="@+id/txtPriceItemService"
+                tools:text="20000" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View

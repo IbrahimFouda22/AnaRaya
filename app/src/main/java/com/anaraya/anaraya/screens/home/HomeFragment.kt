@@ -1,12 +1,14 @@
 package com.anaraya.anaraya.screens.home
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,6 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -99,6 +100,7 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
         binding.lifecycleOwner = viewLifecycleOwner
         binding.homeViewModel = viewModel
 
+        Log.d("TAG", sharedPreferences.getString("token", "")!!)
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
         edtSearch = requireActivity().findViewById(R.id.edtSearch)
@@ -167,24 +169,40 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
                     )
                     sharedViewModel.navigateToMarketPlaceProductDone()
                 }
+                if (it.navigateToMarketPlaceOwnerProduct) {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToItemDetailsFragment(
+                            sharedViewModel.homeState.value.navigationId.toInt()
+                        )
+                    )
+                    sharedViewModel.navigateToMarketPlaceOwnerProductDone()
+                }
                 if (it.navigateToMarketPlaceService) {
                     findNavController().navigate(
                         HomeFragmentDirections.actionHomeFragmentToStoreServiceFragment()
                     )
                     sharedViewModel.navigateToMarketPlaceServiceDone()
                 }
-                if(it.getCart) {
+                if (it.navigateToMarketPlaceOwnerService) {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeFragmentToServiceDetailsOwnerFragment(
+                            sharedViewModel.homeState.value.navigationId.toInt()
+                        )
+                    )
+                    sharedViewModel.navigateToMarketPlaceOwnerServiceDone()
+                }
+                if (it.getCart) {
                     viewModel.getCartData()
                     sharedViewModel.getCartDone()
                 }
-                if(it.getTrendingData) {
+                if (it.getTrendingData) {
                     viewModel.getHomeTrending()
                     sharedViewModel.getTrendingDone()
                 }
-                if(it.getPointsData) {
-                    viewModel.getHomePoints()
-                    sharedViewModel.getPointsDone()
-                }
+//                if(it.getPointsData) {
+//                    viewModel.getHomePoints()
+//                    sharedViewModel.getPointsDone()
+//                }
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
@@ -658,14 +676,20 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
     }
 
     private fun showDialogSurvey(surveyImage: String, surveyId: Int) {
+//        val view = LayoutDialogSurveyImageBinding.inflate(layoutInflater)
+//        view.image = surveyImage
+//        val dialog = AlertDialog.Builder(requireContext()).create()
+//        dialog.setCancelable(false)
+//        dialog.setView(view.root)
+//        dialog.window?.setBackgroundDrawableResource(R.drawable.survey_dialog_shape)
+//        dialog.show()
         val view = LayoutDialogSurveyImageBinding.inflate(layoutInflater)
         view.image = surveyImage
-        val dialog = AlertDialog.Builder(requireContext()).create()
+        val dialog = Dialog(requireContext())
         dialog.setCancelable(false)
-        dialog.setView(view.root)
+        dialog.setContentView(view.root)
         dialog.window?.setBackgroundDrawableResource(R.drawable.survey_dialog_shape)
         dialog.show()
-
         view.imgSurvey.setOnClickListener {
             dialog.dismiss()
             findNavController().navigate(

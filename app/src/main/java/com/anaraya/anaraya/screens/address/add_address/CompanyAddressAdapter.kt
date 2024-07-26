@@ -68,4 +68,4 @@ class CompanyAddressAdapter() :
 }
 
 @SuppressLint("SimpleDateFormat")
-private fun Date.toDateString():String = SimpleDateFormat("HH:mm").format(this)
+fun Date.toDateString():String = SimpleDateFormat("HH:mm").format(this)

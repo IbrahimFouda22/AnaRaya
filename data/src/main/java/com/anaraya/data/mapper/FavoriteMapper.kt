@@ -3,7 +3,7 @@ package com.anaraya.data.mapper
 import com.anaraya.data.dto.FavoriteDto
 import com.anaraya.domain.entity.Product
 
-fun FavoriteDto.toEntity():List<Product>{
+fun FavoriteDto.toEntity(): List<Product> {
     return data.map {
         Product(
             priceBefore = it.pricE_BEFORE,
@@ -22,7 +22,8 @@ fun FavoriteDto.toEntity():List<Product>{
             inBasket = it.isInBasket,
             limitQtyForUserPerMonth = it.limitQtyForUserPerMonth,
             qtyUsedFromLimit = it.qtyUsedFromLimit,
-            notifyMe = it.notifyMe
+            notifyMe = it.notifyMe,
+            pointInRedeem = it.pointInRedem ?: 0.0
         )
     }
 }

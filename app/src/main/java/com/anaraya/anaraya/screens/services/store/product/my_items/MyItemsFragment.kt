@@ -34,7 +34,7 @@ class MyItemsFragment : Fragment(), ItemsProductInteraction {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMyItemsBinding.inflate(layoutInflater)
@@ -46,6 +46,7 @@ class MyItemsFragment : Fragment(), ItemsProductInteraction {
 
         adapter = StoreProductItemServiceAdapter(this)
         binding.recyclerStoreItemsService.adapter = adapter
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.myItemsUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
@@ -108,7 +109,11 @@ class MyItemsFragment : Fragment(), ItemsProductInteraction {
                 if (checkedIds[0] != statusId) {
                     viewModel.showLoading(true)
                     statusId = checkedIds[0]
-                    viewModel.getItemsServices(mutableMap[checkedIds[0]]!!)
+                    try {
+                        viewModel.getItemsServices(mutableMap[checkedIds[0]]!!)
+                    }catch (e:Exception){
+                        viewModel.getItemsServices(1)
+                    }
                 } else {
                     binding.chipStatus.check(statusId)
                 }
@@ -136,8 +141,11 @@ class MyItemsFragment : Fragment(), ItemsProductInteraction {
     override fun onClick(productId: Int, productStatus: Int) {
         when (statusId) {
             binding.chipList.id -> {
-                if(productStatus == 2)
+                if (productStatus == 2)
                     sharedViewModel.navigateToItemDetailsProduct(productId)
+            }
+            binding.chipSold.id -> {
+                sharedViewModel.navigateToItemSoldProduct(productId)
             }
         }
     }

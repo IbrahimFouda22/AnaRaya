@@ -81,6 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -95,26 +96,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/txtItemsCount"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toEndOf="@+id/txtItemsCount"
-                            app:layout_constraintTop_toTopOf="@+id/txtItemsCount"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerCheckOut"
                             tools:text="EGP 30,12" />
-                        <TextView
-                            android:id="@+id/txtTotalPoints"
-                            style="@style/textUnderHeadTotalCost"
-                            bindNumOfItems="@{viewModel.totalCostUiState.addOrderUiState.numOfItems}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            bindViewVisibilityGone="@{viewModel.totalCostUiState.visibilityPoints}"
-                            app:layout_constraintEnd_toStartOf="@+id/txtTotalPointsValue"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="spread_inside"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/txtItemsCount"
-                            tools:text="14 items in cart" />
+                        <!--                        <TextView-->
+                        <!--                            android:id="@+id/txtTotalPoints"-->
+                        <!--                            style="@style/textUnderHeadTotalCost"-->
+                        <!--                            bindNumOfItems="@{viewModel.totalCostUiState.addOrderUiState.numOfItems}"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:padding="10dp"-->
+                        <!--                            bindViewVisibilityGone="@{viewModel.totalCostUiState.visibilityPoints}"-->
+                        <!--                            app:layout_constraintEnd_toStartOf="@+id/txtTotalPointsValue"-->
+                        <!--                            app:layout_constraintHorizontal_bias="0.5"-->
+                        <!--                            app:layout_constraintHorizontal_chainStyle="spread_inside"-->
+                        <!--                            app:layout_constraintStart_toStartOf="parent"-->
+                        <!--                            app:layout_constraintTop_toBottomOf="@+id/txtItemsCount"-->
+                        <!--                            tools:text="14 items in cart" />-->
 
                         <TextView
                             android:id="@+id/txtTotalPointsValue"
@@ -124,11 +123,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            app:layout_constraintBottom_toBottomOf="@+id/txtTotalPoints"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/txtTotalPoints"
-                            app:layout_constraintTop_toTopOf="@+id/txtTotalPoints"
+                            app:layout_constraintStart_toStartOf="@+id/textView"
+                            app:layout_constraintTop_toBottomOf="@+id/textView"
                             tools:text="EGP 30,12" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>

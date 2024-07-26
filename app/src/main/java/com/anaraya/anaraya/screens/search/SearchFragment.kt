@@ -117,11 +117,7 @@ class SearchFragment : Fragment(), ProductInteractionListener {
             }
         }
         edtSearch.addTextChangedListener(textWatcher())
-//        lifecycleScope.launch {
-//            adapter.loadStateFlow.collect {
-//                viewModel.showLoading(it.refresh is LoadState.Loading)
-//            }
-//        }
+
         adapter.addLoadStateListener { loadState ->
             val errorState = when {
                 loadState.append is LoadState.Error -> loadState.append as LoadState.Error

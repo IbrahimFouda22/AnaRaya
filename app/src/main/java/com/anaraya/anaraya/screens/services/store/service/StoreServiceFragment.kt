@@ -1,10 +1,12 @@
 package com.anaraya.anaraya.screens.services.store.service
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,6 +25,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 class StoreServiceFragment : Fragment() {
     private lateinit var binding: FragmentStoreServiceBinding
     private val sharedViewModel by viewModels<HomeActivityViewModel>({ requireActivity() })
@@ -47,6 +50,22 @@ class StoreServiceFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             sharedViewModel.homeState.collectLatest {
+                if (it.navigateToItemDetailsService) {
+                    findNavController().navigate(
+                        StoreServiceFragmentDirections.actionStoreServiceFragmentToServiceDetailsOwnerFragment(
+                            sharedViewModel.homeState.value.itemDetailsServiceId!!
+                        )
+                    )
+                    sharedViewModel.navigateToItemDetailsServiceDone()
+                }
+                if (it.navigateToItemSoldService) {
+                    findNavController().navigate(
+                        StoreServiceFragmentDirections.actionStoreServiceFragmentToServiceSoldFragment(
+                            sharedViewModel.homeState.value.itemSoldServiceId!!
+                        )
+                    )
+                    sharedViewModel.navigateToItemSoldServiceDone()
+                }
                 if (it.navigateToExploreService) {
                     findNavController().navigate(
                         StoreServiceFragmentDirections.actionStoreServiceFragmentToExploreServicesFragment(
@@ -103,5 +122,6 @@ class StoreServiceFragment : Fragment() {
         showBottomNavBar(requireActivity(), false)
         showToolBar(requireActivity(), false)
         showCardHome(requireActivity(),false)
+        sharedViewModel.setVisibilityIsRental(false)
     }
 }

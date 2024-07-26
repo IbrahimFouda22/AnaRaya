@@ -1,4 +1,4 @@
-package com.anaraya.anaraya.screens.services.store.product.edit_product
+package com.anaraya.anaraya.screens.services.store.product.my_items.edit_product
 
 import com.anaraya.anaraya.screens.home.CategoryUiState
 import com.anaraya.anaraya.screens.services.store.product.my_items.ProductStoreItemState

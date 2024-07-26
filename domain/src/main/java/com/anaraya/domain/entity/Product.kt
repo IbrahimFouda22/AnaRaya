@@ -23,4 +23,5 @@ data class Product(
     val limitQtyForUserPerMonth: Int,
     val qtyUsedFromLimit: Int,
     val textTrending: String? = null,
+    val pointInRedeem: Double
 )

@@ -1,14 +1,14 @@
-package com.anaraya.anaraya.screens.services.store.service.explore_services
+package com.anaraya.anaraya.screens.services.store.service.explore.explore_services
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -38,6 +38,7 @@ class ExploreCategoriesServicesFragment : Fragment(), ExploreServiceInteraction 
     private var count = 0
     private lateinit var catList: List<CategoryUiState>
     private lateinit var catMap: MutableMap<Int, String>
+
     //to know if i selected cat or all to know if internet is not available and make refresh
     private var categoryId = -1
     private lateinit var adapter: ExploreServiceAdapter
@@ -51,6 +52,7 @@ class ExploreCategoriesServicesFragment : Fragment(), ExploreServiceInteraction 
             factory
         )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -138,6 +140,12 @@ class ExploreCategoriesServicesFragment : Fragment(), ExploreServiceInteraction 
             findNavController().popBackStack()
         }
 
+        binding.btnSearchAllExploreService.setOnClickListener {
+            findNavController().navigate(ExploreCategoriesServicesFragmentDirections.actionExploreServicesFragmentToSearchServiceStoreFragment(
+                navArgs.categoryId
+            ))
+        }
+
         btnBack.setOnClickListener {
             reload()
         }
@@ -146,12 +154,16 @@ class ExploreCategoriesServicesFragment : Fragment(), ExploreServiceInteraction 
             reload()
         }
 
-
         return binding.root
     }
 
 
-    override fun onClick(exploreServiceUiDetails: ExploreServiceUiDetails) {
+    override fun onClick(serviceId: Int) {
+        findNavController().navigate(
+            ExploreCategoriesServicesFragmentDirections.actionExploreServicesFragmentToExploreServiceDetailsFragment(
+                serviceId
+            )
+        )
     }
 
     override fun onStart() {

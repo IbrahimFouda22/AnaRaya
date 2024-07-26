@@ -2,6 +2,10 @@ package com.anaraya.anaraya
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
@@ -19,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+    private var backPressedOnce = false
+    private val backPressHandler = Handler(Looper.getMainLooper())
+    private val backPressRunnable = Runnable { backPressedOnce = false }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +50,21 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (backPressedOnce) {
+                    finish()
+                } else {
+                    backPressedOnce = true
+                    Toast.makeText(applicationContext,
+                        getString(R.string.press_back_again_to_exit), Toast.LENGTH_SHORT).show()
+                    backPressHandler.postDelayed(backPressRunnable, 2000)
+                }
+            }
+        })
     }
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        backPressHandler.removeCallbacks(backPressRunnable)
+    }
 }

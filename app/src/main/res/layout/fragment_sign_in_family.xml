@@ -74,7 +74,7 @@
                         android:id="@+id/edtRayaIdNum_signInFamily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number|textCapCharacters"
+                        android:inputType="text"
                         android:padding="5dp" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView

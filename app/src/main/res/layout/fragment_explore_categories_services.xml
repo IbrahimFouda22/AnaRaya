@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
-tools:context=".screens.services.store.service.explore_services.ExploreCategoriesServicesFragment">
+tools:context=".screens.services.store.service.explore.explore_services.ExploreCategoriesServicesFragment">
 
 <data>
     <variable
         name="viewModel"
-        type="com.anaraya.anaraya.screens.services.store.service.explore_services.ExploreCategoriesServiceViewModel" />
+        type="com.anaraya.anaraya.screens.services.store.service.explore.explore_services.ExploreCategoriesServiceViewModel" />
 </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,7 +70,7 @@ tools:context=".screens.services.store.service.explore_services.ExploreCategorie
             android:id="@+id/chipExploreFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"
+            android:paddingStart="20dp"
             app:chipSpacingHorizontal="10dp"
             app:singleLine="true"
             app:singleSelection="true">

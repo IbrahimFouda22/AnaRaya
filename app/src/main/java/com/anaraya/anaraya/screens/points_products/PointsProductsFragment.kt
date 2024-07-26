@@ -57,7 +57,7 @@ class PointsProductsFragment : Fragment(), ProductPointsInteractionListener {
                         Toast.makeText(context, it.addCartUiState, Toast.LENGTH_SHORT).show()
                     else {
                         sharedViewModel.getCart()
-                        sharedViewModel.getPoints()
+//                        sharedViewModel.getPoints()
                     }
                 }
                 if (it.products != null) {

@@ -58,6 +58,20 @@ fun bindButtonRequestToBuy(appCompatButton: AppCompatButton, status: Int) {
         appCompatButton.isEnabled = true
     }
 }
+@BindingAdapter("bindButtonRequest")
+fun bindButtonRequest(appCompatButton: AppCompatButton, status: Int) {
+    if (status != 0) {
+        appCompatButton.setBackgroundResource(R.drawable.shape_button_request_to_buy_sent)
+        appCompatButton.setTextColor(appCompatButton.context.getColor(R.color.white))
+        appCompatButton.text = appCompatButton.context.getString(R.string.request)
+        appCompatButton.isEnabled = false
+    } else {
+        appCompatButton.setBackgroundResource(R.drawable.shape_button_add_2)
+        appCompatButton.setTextColor(appCompatButton.context.getColor(R.color.white))
+        appCompatButton.text = appCompatButton.context.getString(R.string.request)
+        appCompatButton.isEnabled = true
+    }
+}
 
 @BindingAdapter("bindStatusOrderVisibility")
 fun bindStatusOrderVisibility(constraintLayout: ConstraintLayout, boolean: Boolean) {
@@ -83,7 +97,26 @@ fun bindViewVisibilityGone(view: View, boolean: Boolean) {
     else
         view.gone()
 }
+@SuppressLint("SetTextI18n")
+@BindingAdapter(value = ["from", "to"], requireAll = true)
+fun bindTextPeriodFromTo(textView: TextView, from: String?,to:String?) {
+    textView.text = textView.context.getString(R.string.this_service_is_available_from_to, from, to)
+}
+@SuppressLint("SetTextI18n")
+@BindingAdapter("bindTextPeriodFrom")
+fun bindTextPeriodFrom(textView: TextView, from: String?) {
+    textView.text = textView.context.getString(R.string.rent_from, from)
+}@SuppressLint("SetTextI18n")
+@BindingAdapter("bindTextPeriodTo")
+fun bindTextPeriodTo(textView: TextView, to: String?) {
+    textView.text = textView.context.getString(R.string.rent_to, to)
+}
 
+@SuppressLint("SetTextI18n", "StringFormatMatches")
+@BindingAdapter("bindTextNumOfPurchase")
+fun bindTextNumOfPurchase(textView: TextView, num: Int) {
+    textView.text = textView.context.getString(R.string.you_have_a_purchase_request_num, num)
+}
 @BindingAdapter("bindGender")
 fun bindGender(radioGroup: RadioGroup, status: Int) {
     if (status > 0)
@@ -548,7 +581,7 @@ fun bindVisibilityConsHomeTrending(constraintLayout: ConstraintLayout, visibilit
 
 @BindingAdapter(value = ["status", "userAction", "isListed"], requireAll = false)
 fun bindTextItemStoreStatus(text: TextView, status: Int, userAction: Int, isListed: Boolean) {
-    if(isListed){
+    if (isListed) {
         text.visible()
         when (status) {
             1 -> {
@@ -557,12 +590,18 @@ fun bindTextItemStoreStatus(text: TextView, status: Int, userAction: Int, isList
                         text.text = text.context.getString(R.string.add_request_pending)
                         text.setTextColor(text.context.getColor(R.color.colorPrimary))
                     }
+
                     2 -> {
                         text.text = text.context.getString(R.string.edit_request_pending)
                         text.setTextColor(text.context.getColor(R.color.colorPrimary))
                     }
+                    3 -> {
+                        text.text = text.context.getString(R.string.delete_request_pending)
+                        text.setTextColor(text.context.getColor(R.color.red))
+                    }
                 }
             }
+
             2 -> {
                 text.text = text.context.getString(R.string.accepted)
                 text.setTextColor(text.context.getColor(R.color.green))
@@ -573,8 +612,7 @@ fun bindTextItemStoreStatus(text: TextView, status: Int, userAction: Int, isList
                 text.setTextColor(text.context.getColor(R.color.red))
             }
         }
-    }
-    else{
+    } else {
         text.gone()
     }
 }

@@ -12,6 +12,7 @@ import com.anaraya.domain.entity.AddUpdateAddress
 import com.anaraya.domain.entity.Addresses
 import com.anaraya.domain.entity.ApplyPromo
 import com.anaraya.domain.entity.Auth
+import com.anaraya.domain.entity.BankAccount
 import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.entity.Cart
 import com.anaraya.domain.entity.Category
@@ -36,11 +37,13 @@ import com.anaraya.domain.entity.Product
 import com.anaraya.domain.entity.ProductAd
 import com.anaraya.domain.entity.ProductDetails
 import com.anaraya.domain.entity.ProductStore
+import com.anaraya.domain.entity.ProductStoreForCustomer
 import com.anaraya.domain.entity.Profile
 import com.anaraya.domain.entity.PromoCode
 import com.anaraya.domain.entity.Referrals
 import com.anaraya.domain.entity.Relationships
 import com.anaraya.domain.entity.ResetChangePass
+import com.anaraya.domain.entity.ServiceStoreForCustomer
 import com.anaraya.domain.entity.ServiceStoreItemList
 import com.anaraya.domain.entity.Survey
 import com.anaraya.domain.entity.SurveyBody
@@ -609,17 +612,56 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun storeUpdateServices(
+        id: RequestBody,
+        subCategoryId: RequestBody,
+        title: RequestBody,
+        itemDescription: RequestBody,
+        price: RequestBody,
+        location: RequestBody,
+        isRental: RequestBody,
+        fromDate: RequestBody?,
+        toDate: RequestBody?,
+        serviceImage: MultipartBody.Part?,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.storeUpdateService(
+                id,
+                subCategoryId,
+                title,
+                itemDescription,
+                price,
+                location,
+                isRental,
+                fromDate,
+                toDate,
+                serviceImage
+            )
+        }.toEntity()
+    }
+
     override suspend fun storeAddServices(
         subCategoryId: RequestBody,
         title: RequestBody,
         itemDescription: RequestBody,
         price: RequestBody,
         location: RequestBody,
+        isRental: RequestBody,
+        fromDate: RequestBody?,
+        toDate: RequestBody?,
         serviceImage: MultipartBody.Part,
     ): BaseResponse {
         return wrapApiResponse {
             apiService.storeAddService(
-                subCategoryId, title, itemDescription, price, location, serviceImage
+                subCategoryId,
+                title,
+                itemDescription,
+                price,
+                location,
+                isRental,
+                fromDate,
+                toDate,
+                serviceImage
             )
         }.toEntity()
     }
@@ -635,6 +677,24 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     override suspend fun getStoreProductByIdForOwner(productId: Int): ProductStore {
         return wrapApiResponse {
             apiService.getStoreProductByIdForOwner(productId)
+        }.toEntity()
+    }
+
+    override suspend fun getStoreProductByIdForCustomer(productId: Int): ProductStoreForCustomer {
+        return wrapApiResponse {
+            apiService.getStoreProductByIdForCustomer(productId)
+        }.toEntity()
+    }
+
+    override suspend fun getStoreServiceByIdForOwner(serviceId: Int): ServiceStoreItemList {
+        return wrapApiResponse {
+            apiService.getStoreServiceByIdForOwner(serviceId)
+        }.toEntity()
+    }
+
+    override suspend fun getStoreServiceByIdForCustomer(serviceId: Int): ServiceStoreForCustomer {
+        return wrapApiResponse {
+            apiService.getStoreServiceByIdForCustomer(serviceId = serviceId)
         }.toEntity()
     }
 
@@ -844,12 +904,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
 
     override suspend fun requestToRent(
         serviceId: Int,
-        rentTo: String,
-        rentFrom: String,
+        rentTo: String?,
+        rentFrom: String?,
     ): BaseResponse {
         return wrapApiResponse {
             apiService.requestToRent(
-                serviceId, rentTo, rentFrom
+                serviceId = serviceId, rentTo = rentTo, rentFrom = rentFrom
             )
         }.toEntity()
     }
@@ -881,6 +941,44 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     override suspend fun getSurveyImage(): SurveyImage {
         return wrapApiResponse {
             apiService.getSurveyImage()
+        }.toEntity()
+    }
+
+    override suspend fun proceedWithSale(listeningId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.proceedWithSale(listeningId)
+        }.toEntity()
+    }
+
+    override suspend fun proceedWithRent(listeningId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.proceedWithRent(listeningId)
+        }.toEntity()
+    }
+
+    override suspend fun confirmProductDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.confirmProductDeal(listeningId, companyAddressId, paymentMethod)
+        }.toEntity()
+    }
+
+    override suspend fun confirmServiceDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ): BaseResponse {
+        return wrapApiResponse {
+            apiService.confirmServiceDeal(listeningId, companyAddressId, paymentMethod)
+        }.toEntity()
+    }
+
+    override suspend fun getBankAccount(): BankAccount {
+        return wrapApiResponse {
+            apiService.getBankAccount()
         }.toEntity()
     }
 

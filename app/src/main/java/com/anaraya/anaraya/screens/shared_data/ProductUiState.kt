@@ -17,4 +17,6 @@ data class ProductUiState(
     val qtyUsedFromLimit: Int,
     val isPoints: Boolean = false,
     val textTrending: String? = null,
-)
+){
+    var isSelectedInFavToAddToCart:Boolean = false
+}

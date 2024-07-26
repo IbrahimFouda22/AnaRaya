@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.anaraya.anaraya.R
 import com.anaraya.anaraya.screens.category_product.toUiState
 import com.anaraya.domain.entity.AddRemoveCart
 import com.anaraya.domain.entity.BaseResponse
@@ -74,7 +73,7 @@ class HomeViewModel @Inject constructor(
         getProductsAds()
         getTrendingProducts()
         getHomeCategory()
-        getPointsProducts()
+        //getPointsProducts()
         getCartData()
         getSurveyImage()
         getLoyaltyPoints()
@@ -163,8 +162,8 @@ class HomeViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = null,
-                trendingProductUiState = list.map {
-                    it.map { p ->
+                trendingProductUiState = list.map { data ->
+                    data.map { p ->
                         p.toUiState()
                     }
                 },
@@ -218,8 +217,8 @@ class HomeViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = null,
-                pointsProductUiState = list.map {
-                    it.map { p ->
+                pointsProductUiState = list.map { data ->
+                    data.map { p ->
                         p.toUiState(isPoints = true)
                     }
                 }

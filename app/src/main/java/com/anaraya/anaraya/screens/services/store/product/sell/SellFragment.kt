@@ -3,6 +3,7 @@ package com.anaraya.anaraya.screens.services.store.product.sell
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -46,6 +47,9 @@ class SellFragment : Fragment() {
     private var isAnonymous: Boolean? = null
     private var handleDelivery: Boolean? = null
     private var image: File? = null
+    private lateinit var adapterCategories : ArrayAdapter<String>
+    private lateinit var adapterSubCategories : ArrayAdapter<String>
+
     private val requestPermissionGalleryLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             if (!it)
@@ -81,24 +85,6 @@ class SellFragment : Fragment() {
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
-        val adapterConditions =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        adapterConditions.add(getString(R.string.neww))
-        adapterConditions.add(getString(R.string.used))
-        val adapterAnonymous =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        adapterAnonymous.addAll(resources.getStringArray(R.array.arrayAnonymous).toList())
-        val adapterHandleDelivery =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        adapterHandleDelivery.addAll(resources.getStringArray(R.array.arrayHandleDelivery).toList())
-        binding.edtConditionSell.setAdapter(adapterConditions)
-        binding.edtAnonymous.setAdapter(adapterAnonymous)
-        binding.edtHandleDelivery.setAdapter(adapterHandleDelivery)
-
-        val adapterCategories =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        var adapterSubCategories =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.sellUiState.collectLatest {
                 if (it.error != null) {
@@ -187,6 +173,7 @@ class SellFragment : Fragment() {
             else{
                 if (isChecked)
                     viewModel.updateStateTermsAndCondition()
+                viewModel.resetErrors()
                 sharedViewModel.setTermsAndCondition(true)
                 sharedViewModel.navigateToTermsAndCondition()
             }
@@ -214,6 +201,22 @@ class SellFragment : Fragment() {
         binding.edtConditionSell.setDropDownBackgroundResource(R.drawable.shape_drop_down)
         binding.edtAnonymous.setDropDownBackgroundResource(R.drawable.shape_drop_down)
         binding.edtHandleDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
+        adapterCategories =  ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterSubCategories =ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        val adapterAnonymous =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        val adapterHandleDelivery =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        binding.edtAnonymous.setAdapter(adapterAnonymous)
+        binding.edtHandleDelivery.setAdapter(adapterHandleDelivery)
+
+        adapterAnonymous.addAll(resources.getStringArray(R.array.arrayAnonymous).toList())
+        adapterHandleDelivery.addAll(resources.getStringArray(R.array.arrayHandleDelivery).toList())
+        val adapterConditions =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterConditions.add(getString(R.string.neww))
+        adapterConditions.add(getString(R.string.used))
+        binding.edtConditionSell.setAdapter(adapterConditions)
     }
 
     private fun reload() {
@@ -265,19 +268,12 @@ class SellFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == 1) {
             val img = data?.extras?.get("data")
 
-            val file = crateFileFromBitmap(img as Bitmap)
+            val file = crateFileFromBitmap(img as Bitmap,requireContext())
             binding.edtPictureSell.setText(file.name)
             image = file
         }
     }
 
-    private fun crateFileFromBitmap(bitmap: Bitmap): File {
-        val file = File(requireContext().cacheDir, "img170080070.png")
-        file.outputStream().use {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-        }
-        return file
-    }
     private fun checkExternalPermissionAndPickImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
@@ -316,7 +312,7 @@ class SellFragment : Fragment() {
             binding.edtTitleSell.text.toString(),
             categoryId,
             subCategoryId,
-            condition + 1,
+            if(condition == -1) -1 else condition + 1,
             binding.edtItemDescriptionSell.text.toString(),
             binding.edtPriceSell.text.toString(),
             binding.edtLocationSell.text.toString(),
@@ -331,4 +327,12 @@ class SellFragment : Fragment() {
         binding.scrollSellStore.smoothScrollTo(0, this.top)
     }
 
+}
+
+fun crateFileFromBitmap(bitmap: Bitmap,context: Context): File {
+    val file = File(context.cacheDir, "img170080070.png")
+    file.outputStream().use {
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+    }
+    return file
 }

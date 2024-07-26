@@ -24,7 +24,8 @@ fun ProductDto.toEntity(): List<Product> {
             qtyUsedFromLimit = it.qtyUsedFromLimit,
             notifyMe = it.notifyMe,
             inLoyaltyBasket = it.isInLoyaltyBasket,
-            textTrending = message ?: ""
+            textTrending = message ?: "",
+            pointInRedeem = it.pointInRedem ?: 0.0
         )
     }
 }

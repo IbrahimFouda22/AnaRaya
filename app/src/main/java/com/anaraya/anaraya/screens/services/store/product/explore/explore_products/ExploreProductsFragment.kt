@@ -139,6 +139,11 @@ class ExploreProductsFragment : Fragment(), ExploreProductInteraction {
 
         binding.chipExploreFilter.setOnCheckedStateChangeListener(onChipSelectedListener())
 
+        binding.btnSearchAllExploreProduct.setOnClickListener {
+            findNavController().navigate(ExploreProductsFragmentDirections.actionExploreProductsFragmentToSearchProductStoreFragment(
+                navArgs.categoryId
+            ))
+        }
         binding.btnBackAllExploreProduct.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -157,7 +162,7 @@ class ExploreProductsFragment : Fragment(), ExploreProductInteraction {
     override fun onClick(exploreProductUiDetails: ExploreProductUiDetails) {
         findNavController().navigate(
             ExploreProductsFragmentDirections.actionExploreProductsFragmentToExploreProductDetailsFragment(
-                exploreProductUiDetails
+                exploreProductUiDetails.id
             )
         )
     }
@@ -166,7 +171,7 @@ class ExploreProductsFragment : Fragment(), ExploreProductInteraction {
         super.onStart()
         showCardHome(requireActivity(), false)
         showBottomNavBar(requireActivity(), false)
-        if(sharedPreferences.getString("lang","en") == "ar")
+        if (sharedPreferences.getString("lang", "en") == "ar")
             binding.chipExploreFilter.layoutDirection = View.LAYOUT_DIRECTION_RTL
         else
             binding.chipExploreFilter.layoutDirection = View.LAYOUT_DIRECTION_LTR

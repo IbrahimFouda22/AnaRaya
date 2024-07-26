@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.anaraya.anaraya.screens.services.store.product.my_items.item_details.ItemDetailsProductViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -71,8 +73,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardImageExploreProductDetails"
-                    android:layout_width="240dp"
-                    android:layout_height="160dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/colorGreyLight"
                     app:cardCornerRadius="16dp"
@@ -101,13 +104,16 @@
                     android:id="@+id/txtNameExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/inter400"
                     android:text="@{viewModel.product.product.title}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintHorizontal_weight="2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cardImageExploreProductDetails"
                     tools:text="Beef Bone" />
@@ -119,24 +125,13 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter400"
                     android:text="@{viewModel.product.product.itemDescription}"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtNameExploreProductDetails"
                     tools:text="Beef Bone" />
-
-                <TextView
-                    android:id="@+id/txtPriceExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/price2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails" />
 
                 <TextView
                     android:id="@+id/txtPriceValueExploreProductDetails"
@@ -144,211 +139,748 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="30dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtPriceExploreProductDetails"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toTopOf="@+id/txtNameExploreProductDetails"
                     tools:text="1000.0 EGP" />
-
-                <TextView
-                    android:id="@+id/txtStatusExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/condition2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtPriceExploreProductDetails" />
-
-                <TextView
-                    android:id="@+id/txtStatusValueExploreProductDetails"
-                    bindTextCondition="@{viewModel.product.product.condition}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/inter400"
-                    android:maxLines="1"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtStatusExploreProductDetails"
-                    tools:text="New" />
-
-                <TextView
-                    android:id="@+id/txtCategoryExploreProductDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/inter400"
-                    android:text="@string/category2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtStatusExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtStatusExploreProductDetails" />
 
                 <TextView
                     android:id="@+id/txtCategoryValueExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:text="@{viewModel.product.product.category}"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtCategoryExploreProductDetails"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails"
                     tools:text="furniture" />
 
                 <TextView
-                    android:id="@+id/txtLocationExploreProductDetails"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txtConditionValueExploreProductDetails"
+                    bindTextCondition="@{viewModel.product.product.condition}"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter400"
-                    android:text="@string/location2"
-                    android:textColor="@color/colorTextNameProduct"
-                    android:textSize="14sp"
-                    app:layout_constraintStart_toStartOf="@+id/txtCategoryExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryExploreProductDetails" />
+                    android:maxLines="2"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCategoryValueExploreProductDetails"
+                    tools:text="Cairo" />
 
                 <TextView
                     android:id="@+id/txtLocationValueExploreProductDetails"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="2"
+                    android:text="@{viewModel.product.product.location}"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtConditionValueExploreProductDetails"
+                    tools:text="Cairo" />
+
+                <TextView
+                    android:id="@+id/txtProceedWithSale"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSale}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/you_have_a_purchase_request"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/btnProceedWithSale"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="You have a purchase request" />
+
+                <Button
+                    android:id="@+id/btnProceedWithSale"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSale}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_product_store"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="8dp"
+                    android:text="@string/proceed_with_sale"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/txtProceedWithNote"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtProceedWithSale" />
+
+                <TextView
+                    android:id="@+id/txtProceedWithNote"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSale}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/please_not_that_by"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/btnRequestToEdit"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/btnProceedWithSale"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Please not that by proceeding you are agreeing to pay in case item is accepted and has requests to purchase of 5% with a minimum of 50 L.E. (not including any delivery fees)" />
+
+                <TextView
+                    android:id="@+id/txtProceedWithSaleDone"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSaleDone}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/you_proceed_with_the_sale"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="You proceed with the Sale" />
+
+                <TextView
+                    android:id="@+id/txtProceedWithSaleDoneAndHandleDelivery"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSaleDoneAndRayaIsHandleDelivery}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/you_proceed_with_the_sale"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="You proceed with the Sale" />
+
+                <TextView
+                    android:id="@+id/txtSomeOne"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSaleDoneAndRayaIsHandleDelivery}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/someone_from_our_team_will_notify_you_when_the_sale_is_complete_to_arrange_the_payment"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtProceedWithSaleDone"
+                    tools:text="Someone from our team will notify you when the sale is complete to arrange the payment" />
+
+                <TextView
+                    android:id="@+id/txtProceedWithSaleCustomerInfo"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/you_proceed_with_the_sale"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="You proceed with the Sale" />
+
+                <TextView
+                    android:id="@+id/txtCustomerInfo"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/customer_info"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtProceedWithSaleCustomerInfo"
+                    tools:text="Customer Info" />
+
+                <TextView
+                    android:id="@+id/txtCustomerName"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/name"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerInfo" />
+
+                <TextView
+                    android:id="@+id/txtCustomerNameValue"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
-                    android:text="@{viewModel.product.product.location}"
+                    android:text="@{viewModel.product.product.customerInformation.name}"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/txtLocationExploreProductDetails"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
-                    app:layout_constraintStart_toEndOf="@+id/txtLocationExploreProductDetails"
-                    app:layout_constraintTop_toTopOf="@+id/txtLocationExploreProductDetails"
-                    tools:text="Cairo" />
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtCustomerName"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerInfo" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/txtSellerInfo"-->
-                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="15dp"-->
-                <!--                android:fontFamily="@font/inter400"-->
-                <!--                android:text="@string/seller_info"-->
-                <!--                android:textAlignment="center"-->
-                <!--                android:textColor="@color/colorTextNameProduct"-->
-                <!--                android:textSize="18sp"-->
-                <!--                android:textStyle="bold"-->
-                <!--                app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"-->
-                <!--                tools:text="Seller Info" />-->
+                <TextView
+                    android:id="@+id/txtCustomerNumber"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/number"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerName" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/txtSellerName"-->
-                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="10dp"-->
-                <!--                android:fontFamily="@font/inter400"-->
-                <!--                android:text="@string/name"-->
-                <!--                android:textColor="@color/colorGrey"-->
-                <!--                android:textSize="14sp"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />-->
+                <TextView
+                    android:id="@+id/txtCustomerNumberValue"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.customerInformation.phoneNumber}"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtCustomerNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerName" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/txtSellerNameValue"-->
-                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginStart="10dp"-->
-                <!--                android:layout_marginTop="10dp"-->
-                <!--                android:ellipsize="end"-->
-                <!--                android:fontFamily="@font/inter400"-->
-                <!--                android:maxLines="1"-->
-                <!--                android:text="@{item.sellerName}"-->
-                <!--                android:textAlignment="textEnd"-->
-                <!--                android:textColor="@color/colorTextNameProduct"-->
-                <!--                android:textSize="14sp"-->
-                <!--                app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"-->
-                <!--                app:layout_constraintStart_toEndOf="@+id/txtSellerName"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerInfo" />-->
+                <Button
+                    android:id="@+id/btnOrderComplete"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/shape_button_product_store"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="8dp"
+                    android:text="@string/order_complete"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerNumberValue" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/txtSellerNumber"-->
-                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
-                <!--                android:layout_width="wrap_content"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginTop="2dp"-->
-                <!--                android:fontFamily="@font/inter400"-->
-                <!--                android:text="@string/number"-->
-                <!--                android:textColor="@color/colorGrey"-->
-                <!--                android:textSize="14sp"-->
-                <!--                app:layout_constraintStart_toStartOf="@+id/txtPriceExploreProductDetails"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />-->
+                <!--                step 4-->
+                <TextView
+                    android:id="@+id/txtProceedWithSaleConfirmDeal"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/proceeding_with_sale"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="Proceeding with Sale" />
 
-                <!--            <TextView-->
-                <!--                android:id="@+id/txtSellerNumberValue"-->
-                <!--                bindViewVisibilityGone="@{viewModel.product.visibilitySellerInfo}"-->
-                <!--                android:layout_width="0dp"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:layout_marginStart="10dp"-->
-                <!--                android:layout_marginTop="2dp"-->
-                <!--                android:ellipsize="end"-->
-                <!--                android:fontFamily="@font/inter400"-->
-                <!--                android:maxLines="1"-->
-                <!--                android:text="@{item.sellerPhoneNumber}"-->
-                <!--                android:textAlignment="textEnd"-->
-                <!--                android:textColor="@color/colorTextNameProduct"-->
-                <!--                android:textSize="14sp"-->
-                <!--                app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"-->
-                <!--                app:layout_constraintStart_toEndOf="@+id/txtSellerNumber"-->
-                <!--                app:layout_constraintTop_toBottomOf="@+id/txtSellerName" />-->
+                <ImageView
+                    android:id="@+id/line"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="4dp"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="2dp"
+                    android:src="@drawable/img_line_order"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtProceedWithSaleConfirmDeal"
+                    app:layout_constraintTop_toBottomOf="@+id/txtProceedWithSaleConfirmDeal" />
+
+                <TextView
+                    android:id="@+id/txtOrderCompleting"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/order_completed_with_customer"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/line"
+                    tools:text="Order Completed with Customer" />
+
+                <TextView
+                    android:id="@+id/txtCustomerInfoConfirm"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/customer_info"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/cardImageExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/cardImageExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtOrderCompleting"
+                    tools:text="Customer Info" />
+
+                <TextView
+                    android:id="@+id/txtCustomerNameConfirm"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/name"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerInfoConfirm" />
+
+                <TextView
+                    android:id="@+id/txtCustomerNameValueConfirm"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.customerInformation.name}"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtCustomerNameConfirm"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerInfoConfirm" />
+
+                <TextView
+                    android:id="@+id/txtCustomerNumberConfirm"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/inter400"
+                    android:text="@string/number"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerNameConfirm" />
+
+                <TextView
+                    android:id="@+id/txtCustomerNumberValueConfirm"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter400"
+                    android:maxLines="1"
+                    android:text="@{viewModel.product.product.customerInformation.phoneNumber}"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtCustomerNumberConfirm"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerNameConfirm" />
+
+                <TextView
+                    android:id="@+id/txtPleaseSelect"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/please_select_the_payment_method_for_our_service_fees_of_5"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerNumberValueConfirm"
+                    tools:text="Please select the payment method for our service fees of 5%" />
+
+                <TextView
+                    android:id="@+id/txtPayment"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/inter300"
+                    android:text="@string/payment"
+                    android:textColor="@color/colorTextGrey"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPleaseSelect" />
+
+                <TextView
+                    android:id="@+id/txtPaymentMethod"
+                    style="@style/textBottomSheet"
+                    bindTextPaymentCheckOut="@{viewModel.product.selectedMethod}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/inter500"
+                    android:maxLines="1"
+                    android:textAlignment="textEnd"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:drawableEndCompat="@drawable/ic_down_bottom_sheet"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toEndOf="@+id/txtPayment"
+                    app:layout_constraintTop_toTopOf="@+id/txtPayment"
+                    tools:text="Cash on delivery" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardPayment"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityCardCash}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPayment"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        bindViewVisibilityGone="@{viewModel.product.visibilityDeliverySchedule}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/txtCompanyDelivery"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/company"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/edtLayoutCompanyDelivery"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            bindTextInputLayoutEmptyError="@{viewModel.product.companyError}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                            app:boxStrokeColor="@color/color_stroke_search"
+                            app:expandedHintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/txtCompanyDelivery"
+                            app:layout_constraintTop_toBottomOf="@+id/txtCompanyDelivery"
+                            app:placeholderText="@string/select_company"
+                            app:placeholderTextColor="@color/colorTextHint">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/edtCompanyDelivery"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/txtGovernorateDelivery"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/governorate"
+                            app:layout_constraintStart_toStartOf="@+id/txtCompanyDelivery"
+                            app:layout_constraintTop_toBottomOf="@+id/edtLayoutCompanyDelivery" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/edtLayoutGovernorateDelivery"
+                            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            bindTextInputLayoutEmptyError="@{viewModel.product.governorateCompanyError}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="1dp"
+                            app:boxBackgroundColor="@color/white"
+                            app:boxBackgroundMode="outline"
+                            app:boxCornerRadiusBottomEnd="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusBottomStart="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusTopEnd="@dimen/dimen_box_edit_text_corner"
+                            app:boxCornerRadiusTopStart="@dimen/dimen_box_edit_text_corner"
+                            app:boxStrokeColor="@color/color_stroke_search"
+                            app:expandedHintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtGovernorateDelivery"
+                            app:placeholderText="@string/select_your_government"
+                            app:placeholderTextColor="@color/colorTextHint">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/edtLineGovernmentDelivery"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerAddress"
+                            bindRecyclerLayout="@{false}"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/shape_recycler"
+                            android:backgroundTint="@color/colorGreyTab"
+                            android:padding="10dp"
+                            app:layout_constraintTop_toBottomOf="@+id/edtLayoutGovernorateDelivery" />
+
+                        <TextView
+                            android:id="@+id/txtRecyclerError"
+                            bindViewVisibilityGone="@{viewModel.product.companyAddressError}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/inter400"
+                            android:text="@string/field_require"
+                            android:textColor="@color/red"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerAddress" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        bindViewVisibilityGone="@{viewModel.product.visibilityBankAmount}"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="20dp">
+
+                        <TextView
+                            android:id="@+id/txtAccountNumber"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{viewModel.product.iban}"
+                            app:layout_constraintEnd_toStartOf="@+id/txtAccountNumberValue"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtAccountNumberValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter700"
+                            android:text="@string/iban"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt2"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{viewModel.product.companyName}"
+                            app:layout_constraintEnd_toStartOf="@+id/txt2Value"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtAccountNumber" />
+
+                        <TextView
+                            android:id="@+id/txt2Value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter700"
+                            android:text="@string/name_of_company"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txt2" />
+
+                        <TextView
+                            android:id="@+id/txt3"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{viewModel.product.branchName}"
+                            app:layout_constraintEnd_toStartOf="@+id/txt3Value"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txt2" />
+
+                        <TextView
+                            android:id="@+id/txt3Value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter700"
+                            android:text="@string/town"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/txt3" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/txtAccount4"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityBankAmount}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/inter700"
+                    android:text="@string/please_click_submit_when_you_have_tranfered_the_amount"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextNameProduct"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/cardPayment" />
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="30dp"
+                    android:background="@drawable/shape_button_product_store"
+                    android:fontFamily="@font/inter400"
+                    android:paddingVertical="8dp"
+                    android:text="@string/submit"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtAccount4" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestToEdit"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityButtons}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/shape_button_add_items"
+                    android:background="@drawable/shape_button_product_store"
                     android:fontFamily="@font/inter400"
                     android:paddingVertical="18dp"
                     android:text="@string/request_to_edit"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnRequestToDelete"
                     app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnRequestToDelete"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityButtons}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/shape_button_add_items"
+                    android:background="@drawable/shape_button_product_store"
                     android:fontFamily="@font/inter400"
                     android:paddingVertical="18dp"
                     android:text="@string/request_to_delete"
                     android:textAllCaps="false"
                     android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/btnRequestToEdit"
-                    app:layout_constraintEnd_toEndOf="@+id/txtNameExploreProductDetails"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toEndOf="@id/btnRequestToEdit"
                     app:layout_constraintTop_toTopOf="@+id/btnRequestToEdit" />
 

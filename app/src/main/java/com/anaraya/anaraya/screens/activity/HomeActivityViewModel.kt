@@ -204,6 +204,40 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToItemDetailsProduct = false)
         }
     }
+    fun navigateToItemSoldProduct(productId: Int) {
+        _homeState.update {
+            it.copy(navigateToItemSoldProduct = true, itemSoldProductId = productId)
+        }
+    }
+
+    fun navigateToItemSoldProductDone() {
+        _homeState.update {
+            it.copy(navigateToItemSoldProduct = false)
+        }
+    }
+
+    fun navigateToItemDetailsService(serviceId: Int) {
+        _homeState.update {
+            it.copy(navigateToItemDetailsService = true, itemDetailsServiceId = serviceId)
+        }
+    }
+
+    fun navigateToItemDetailsServiceDone() {
+        _homeState.update {
+            it.copy(navigateToItemDetailsService = false)
+        }
+    }
+    fun navigateToItemSoldService(serviceId: Int) {
+        _homeState.update {
+            it.copy(navigateToItemSoldService = true, itemSoldServiceId = serviceId)
+        }
+    }
+
+    fun navigateToItemSoldServiceDone() {
+        _homeState.update {
+            it.copy(navigateToItemSoldService = false)
+        }
+    }
 
     fun navigateToBrand(id: String) {
         _homeState.update {
@@ -276,6 +310,17 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToMarketPlaceProduct = false)
         }
     }
+    fun navigateToMarketPlaceOwnerProduct(id: String) {
+        _homeState.update {
+            it.copy(navigateToMarketPlaceOwnerProduct = true, navigationId = id)
+        }
+    }
+
+    fun navigateToMarketPlaceOwnerProductDone() {
+        _homeState.update {
+            it.copy(navigateToMarketPlaceOwnerProduct = false)
+        }
+    }
 
     fun navigateToMarketPlaceService() {
         _homeState.update {
@@ -288,6 +333,17 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToMarketPlaceService = false)
         }
     }
+    fun navigateToMarketPlaceOwnerService(id: String) {
+        _homeState.update {
+            it.copy(navigateToMarketPlaceOwnerService = true, navigationId = id)
+        }
+    }
+
+    fun navigateToMarketPlaceOwnerServiceDone() {
+        _homeState.update {
+            it.copy(navigateToMarketPlaceOwnerService = false)
+        }
+    }
 
     fun navigateToExploreProduct(catId: Int, catName: String) {
         _homeState.update {
@@ -295,6 +351,22 @@ class HomeActivityViewModel @Inject constructor(
                 navigateToExploreProduct = true,
                 exploreSubCatId = catId,
                 exploreSubCatName = catName
+            )
+        }
+    }
+    fun setFromAndToDate(from: String, to: String)  {
+        _homeState.update {
+            it.copy(
+                fromDate = from,
+                toDate = to
+            )
+        }
+    }
+    fun setFromAndToDateLanguage(from: String, to: String)  {
+        _homeState.update {
+            it.copy(
+                fromDateLang = from,
+                toDateLang = to
             )
         }
     }
@@ -337,6 +409,11 @@ class HomeActivityViewModel @Inject constructor(
     fun setTermsAndCondition(boolean: Boolean) {
         _homeState.update {
             it.copy(isEnteredToTermsAndCondition = boolean)
+        }
+    }
+    fun setVisibilityIsRental(boolean: Boolean) {
+        _homeState.update {
+            it.copy(setVisibilityIsRental = boolean)
         }
     }
 

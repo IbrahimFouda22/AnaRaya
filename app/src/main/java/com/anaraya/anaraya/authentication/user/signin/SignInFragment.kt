@@ -140,7 +140,7 @@ class SignInFragment : Fragment() {
         AlertDialog.Builder(requireContext()).setCancelable(false)
             .setTitle(getString(R.string.contact_number)).setMessage(contactNumber)
             .setNeutralButton(
-                "OK"
+                getString(R.string.ok)
             ) { dialog, _ ->
                 dialog.cancel()
             }.show()

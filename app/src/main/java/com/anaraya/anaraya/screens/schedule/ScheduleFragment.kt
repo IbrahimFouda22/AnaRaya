@@ -1,7 +1,6 @@
 package com.anaraya.anaraya.screens.schedule
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 class ScheduleFragment : Fragment() {
 
     private lateinit var binding: FragmentScheduleBinding
-    private val viewModel by viewModels<ScheduleViewModel>({this})
+    private val viewModel by viewModels<ScheduleViewModel>({ this })
 
     private val sharedViewModel by viewModels<HomeActivityViewModel>({ requireActivity() })
     private lateinit var btnBack: ImageButton
@@ -41,9 +41,11 @@ class ScheduleFragment : Fragment() {
 
     private var allCompanyAddressId = -1
     private var allCompanyAddress = emptyList<String>()
+    private lateinit var adapterAllCompanies : ArrayAdapter<String>
+    private lateinit var adapterAllGovernorate : ArrayAdapter<String>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentScheduleBinding.inflate(layoutInflater)
@@ -53,23 +55,17 @@ class ScheduleFragment : Fragment() {
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
-        binding.edtCompanyDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
-        binding.edtLineGovernmentDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
 
-        val adapterAllCompanies =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        binding.edtCompanyDelivery.setAdapter(adapterAllCompanies)
-        val adapter = CompanyAddressAdapter()
-        binding.recyclerDelivery.adapter = adapter
+        var adapter = CompanyAddressAdapter()
 
         lifecycleScope.launch {
-            viewModel.scheduleUiState.collectLatest{
+            viewModel.scheduleUiState.collectLatest {
                 if (it.error != null) {
                     sharedViewModel.setError(it.error)
                     if (it.error != getString(R.string.no_internet))
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
-                if (it.navigateToBack){
+                if (it.navigateToBack) {
                     findNavController().popBackStack()
                     viewModel.navigateToBackDone()
                 }
@@ -82,22 +78,18 @@ class ScheduleFragment : Fragment() {
                             data.name
                         }
                         adapterAllCompanies.addAll(m)
+                        binding.edtCompanyDelivery.setAdapter(adapterAllCompanies)
                     }
                 }
                 if (it.allGovernorate.isNotEmpty()) {
                     if (allGovernorate.isEmpty()) {
                         allGovernorate = it.allGovernorate
-                        binding.edtLineGovernmentDelivery.text.clear()
-                        val adapterAllGovernorate =
-                            ArrayAdapter<String>(
-                                requireContext(),
-                                R.layout.layout_item_company_address
-                            )
-                        binding.edtLineGovernmentDelivery.setAdapter(adapterAllGovernorate)
                         adapterAllGovernorate.addAll(it.allGovernorate)
+                        binding.edtLineGovernmentDelivery.setAdapter(adapterAllGovernorate)
                     }
                 }
                 if (it.allCompanyAddresses != null) {
+                    binding.recyclerDelivery.adapter = adapter
                     it.allCompanyAddresses.collectLatest { data ->
                         adapter.submitData(data)
                     }
@@ -114,7 +106,11 @@ class ScheduleFragment : Fragment() {
 
                 allCompanyAddress = emptyList()
                 allCompanyAddressId = -1
-                //adapter = CompanyAddressAdapter()
+                adapterAllGovernorate.clear()
+                binding.edtLineGovernmentDelivery.setAdapter(ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address))
+                binding.edtLineGovernmentDelivery.text.clear()
+                adapter = CompanyAddressAdapter()
+                binding.recyclerDelivery.adapter = adapter
 
                 viewModel.getAllGovernorateByCompanyId(allCompanies[position])
             }
@@ -126,6 +122,8 @@ class ScheduleFragment : Fragment() {
                 allCompanyAddress = emptyList()
                 allCompanyAddressId = -1
 
+                adapter = CompanyAddressAdapter()
+                binding.recyclerDelivery.adapter = adapter
                 viewModel.getAllCompanyAddresses(
                     allCompanies[allCompaniesId],
                     allGovernorate[position]
@@ -148,6 +146,11 @@ class ScheduleFragment : Fragment() {
         val bottomNav = requireActivity().findViewById<ChipNavigationBar>(R.id.bottomNavHome)
         cardSearch.gone()
         bottomNav.gone()
+        binding.edtCompanyDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
+        binding.edtLineGovernmentDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
+
+        adapterAllCompanies = ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterAllGovernorate = ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
     }
 
     private fun reload() {

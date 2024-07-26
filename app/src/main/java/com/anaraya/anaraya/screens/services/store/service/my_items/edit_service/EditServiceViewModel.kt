@@ -1,15 +1,17 @@
-package com.anaraya.anaraya.screens.services.store.product.edit_product
+package com.anaraya.anaraya.screens.services.store.service.my_items.edit_service
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.screens.home.CategoryUiState
-import com.anaraya.anaraya.screens.services.store.product.my_items.toState
+import com.anaraya.anaraya.screens.services.store.service.my_items.toState
 import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.entity.Category
-import com.anaraya.domain.entity.ProductStore
+import com.anaraya.domain.entity.ServiceStoreItemList
 import com.anaraya.domain.exception.NoInternetException
 import com.anaraya.domain.usecase.ManageStoreUseCase
 import dagger.assisted.Assisted
@@ -24,21 +26,23 @@ import kotlinx.coroutines.launch
 import java.io.File
 
 @Suppress("UNCHECKED_CAST")
-class EditItemServiceViewModel @AssistedInject constructor(
+@RequiresApi(Build.VERSION_CODES.O)
+
+class EditServiceViewModel @AssistedInject constructor(
     private val manageStoreUseCase: ManageStoreUseCase,
     @ApplicationContext private val context: Context,
-    @Assisted private val productId:Int
+    @Assisted private val serviceId: Int,
 ) :
     ViewModel() {
 
-    private val _editItemServiceUiState = MutableStateFlow(EditItemServiceUiState())
-    val editItemServiceUiState = _editItemServiceUiState as StateFlow<EditItemServiceUiState>
+    private val _editItemServiceUiState = MutableStateFlow(EditServiceUiState())
+    val editItemServiceUiState = _editItemServiceUiState as StateFlow<EditServiceUiState>
 
     fun getAllData() {
-        getStoreProductByIdForOwner()
+        getStoreServiceByIdForOwner()
     }
 
-    private fun getStoreProductByIdForOwner() {
+    private fun getStoreServiceByIdForOwner() {
         _editItemServiceUiState.update {
             it.copy(
                 isLoading = true,
@@ -47,7 +51,7 @@ class EditItemServiceViewModel @AssistedInject constructor(
         }
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                onGetProductSuccess(manageStoreUseCase.getStoreProductByIdForOwner(productId = productId))
+                onGetProductSuccess(manageStoreUseCase.getStoreServiceByIdForOwner(serviceId = serviceId))
             } catch (e: NoInternetException) {
                 onGetProductFailure(context.getString(R.string.no_internet))
             } catch (e: Exception) {
@@ -56,12 +60,16 @@ class EditItemServiceViewModel @AssistedInject constructor(
         }
     }
 
-    private fun onGetProductSuccess(response: ProductStore) {
+    private fun onGetProductSuccess(response: ServiceStoreItemList) {
         _editItemServiceUiState.update {
             it.copy(
                 isLoading = false,
                 error = null,
-                product = response.toState(visibilityBadge = false, isListed = false,isEditing = true)
+                product = response.toState(
+                    visibilityBadge = false,
+                    isListed = false,
+                    isEditing = true
+                )
             )
         }
         getCategories()
@@ -76,6 +84,7 @@ class EditItemServiceViewModel @AssistedInject constructor(
             )
         }
     }
+
     private fun getCategories() {
         _editItemServiceUiState.update {
             it.copy(
@@ -171,13 +180,13 @@ class EditItemServiceViewModel @AssistedInject constructor(
         title: String?,
         categoryId: Int,
         subCategoryId: Int,
-        condition: Int,
         itemDescription: String?,
         price: String?,
         location: String?,
-        isAnonymous: Boolean?,
-        handleDelivery: Boolean?,
         productImage: File?,
+        isServiceRental: Boolean?,
+        fromDate: String,
+        toDate: String,
         accept: Boolean,
         imageUrl: String?,
     ) {
@@ -191,19 +200,19 @@ class EditItemServiceViewModel @AssistedInject constructor(
         viewModelScope.launch {
             try {
                 onAddItemSuccess(
-                    manageStoreUseCase.storeUpdateProduct(
+                    manageStoreUseCase.storeUpdateService(
                         id,
                         title,
                         categoryId,
                         subCategoryId,
-                        condition,
                         itemDescription,
                         price,
                         location,
-                        isAnonymous,
-                        handleDelivery,
                         productImage,
                         accept,
+                        isServiceRental,
+                        fromDate,
+                        toDate,
                         imageUrl
                     )
                 )
@@ -269,15 +278,6 @@ class EditItemServiceViewModel @AssistedInject constructor(
                 }
             }
 
-            context.getString(R.string.condition_field_is_empty) -> {
-                _editItemServiceUiState.update {
-                    it.copy(
-                        isLoading = false,
-                        conditionError = true,
-                        focusError = true
-                    )
-                }
-            }
 
             context.getString(R.string.description_field_is_empty) -> {
                 _editItemServiceUiState.update {
@@ -343,33 +343,31 @@ class EditItemServiceViewModel @AssistedInject constructor(
 
     }
 
-    private fun resetErrors(){
+    private fun resetErrors() {
         _editItemServiceUiState.update {
             it.copy(
                 isLoading = false,
                 titleError = false,
                 categoryError = false,
                 subCategoryError = false,
-                conditionError = false,
                 descriptionError = false,
                 priceError = false,
                 locationError = false,
-                anonymousError = false,
-                deliveryError = false,
                 pictureError = false,
                 conditionAndTermsError = false,
             )
         }
     }
 
-    fun updateStateTermsAndCondition(){
+    fun updateStateTermsAndCondition() {
         _editItemServiceUiState.update {
             it.copy(
                 conditionAndTermsError = false,
             )
         }
     }
-    fun resetMsg(){
+
+    fun resetMsg() {
         _editItemServiceUiState.update {
             it.copy(
                 addProductMsg = null
@@ -377,15 +375,23 @@ class EditItemServiceViewModel @AssistedInject constructor(
         }
     }
 
+    fun visibilityServiceRental(boolean: Boolean) {
+        _editItemServiceUiState.update {
+            it.copy(
+                isServiceRental = boolean
+            )
+        }
+    }
+
     @AssistedFactory
-    interface EditProductAssistedFactory {
-        fun create(id: Int): EditItemServiceViewModel
+    interface EditServiceAssistedFactory {
+        fun create(id: Int): EditServiceViewModel
     }
 
     companion object {
-        fun createEditProductFactory(
-            assistedFactory: EditProductAssistedFactory,
-            id: Int
+        fun createEditServiceFactory(
+            assistedFactory: EditServiceAssistedFactory,
+            id: Int,
         ): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
                 override fun <T : ViewModel> create(modelClass: Class<T>): T {

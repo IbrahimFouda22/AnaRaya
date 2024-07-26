@@ -318,12 +318,41 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
         ) else null
     )
 
+    override suspend fun storeUpdateService(
+        id: Int,
+        subCategoryId: String,
+        title: String,
+        itemDescription: String,
+        price: String,
+        location: String,
+        isRental: Boolean,
+        fromDate: String,
+        toDate: String,
+        serviceImage: File?,
+    ) = remoteDataSource.storeUpdateServices(
+        id = createPart(id.toString()),
+        subCategoryId = createPart(subCategoryId),
+        title = createPart(title),
+        itemDescription = createPart(itemDescription),
+        price = createPart(price),
+        location = createPart(location),
+        isRental = createPart(isRental.toString()),
+        fromDate = if (isRental) createPart(fromDate) else null,
+        toDate = if (isRental) createPart(toDate) else null,
+        serviceImage = if(serviceImage != null ) createMultiPart(
+            serviceImage, "ServiceImage"
+        ) else null,
+    )
+
     override suspend fun storeAddService(
         subCategoryId: String,
         title: String,
         itemDescription: String,
         price: String,
         location: String,
+        isRental: Boolean,
+        fromDate: String,
+        toDate: String,
         serviceImage: File,
     ) =
         remoteDataSource.storeAddServices(
@@ -332,6 +361,9 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
             itemDescription = createPart(itemDescription),
             price = createPart(price),
             location = createPart(location),
+            isRental = createPart(isRental.toString()),
+            fromDate = if (isRental) createPart(fromDate) else null,
+            toDate = if (isRental) createPart(toDate) else null,
             serviceImage = createMultiPart(
                 serviceImage, "Servicemage"
             ),
@@ -340,7 +372,17 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
     override suspend fun getStoreProduct(status: Int) =
         getStoreProductsAndServices(status, ::StoreProductPagingSource)
 
-    override suspend fun getStoreProductByIdForOwner(productId: Int) = remoteDataSource.getStoreProductByIdForOwner(productId)
+    override suspend fun getStoreProductByIdForOwner(productId: Int) =
+        remoteDataSource.getStoreProductByIdForOwner(productId)
+
+    override suspend fun getStoreProductByIdForCustomer(productId: Int) =
+        remoteDataSource.getStoreProductByIdForCustomer(productId)
+
+    override suspend fun getStoreServiceByIdForOwner(serviceId: Int) =
+        remoteDataSource.getStoreServiceByIdForOwner(serviceId)
+
+    override suspend fun getStoreServiceByIdForCustomer(serviceId: Int) =
+        remoteDataSource.getStoreServiceByIdForCustomer(serviceId)
 
     override suspend fun getStoreService(status: Int) =
         getStoreProductsAndServices(status, ::StoreServicePagingSource)
@@ -464,9 +506,9 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
 
     override suspend fun requestToRent(
         serviceId: Int,
-        rentTo: String,
-        rentFrom: String,
-    ) = remoteDataSource.requestToRent(serviceId, rentTo, rentFrom)
+        rentTo: String?,
+        rentFrom: String?,
+    ) = remoteDataSource.requestToRent(serviceId = serviceId, rentTo = rentTo, rentFrom = rentFrom)
 
     override suspend fun getSurveysStatus() = remoteDataSource.getSurveysStatus()
     override suspend fun getAllSurveys() = remoteDataSource.getAllSurveys()
@@ -475,6 +517,25 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
         remoteDataSource.submitSurvey(surveyBody)
 
     override suspend fun getSurveyImage() = remoteDataSource.getSurveyImage()
+    override suspend fun proceedWithSale(listeningId: Int) =
+        remoteDataSource.proceedWithSale(listeningId)
+
+    override suspend fun proceedWithRent(listeningId: Int) =
+        remoteDataSource.proceedWithRent(listeningId)
+
+    override suspend fun confirmProductDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ) = remoteDataSource.confirmProductDeal(listeningId, companyAddressId, paymentMethod)
+
+    override suspend fun confirmServiceDeal(
+        listeningId: Int,
+        companyAddressId: String?,
+        paymentMethod: Int,
+    ) = remoteDataSource.confirmServiceDeal(listeningId, companyAddressId, paymentMethod)
+
+    override suspend fun getBankAccount() = remoteDataSource.getBankAccount()
 
     private fun <T : Any> getData(sourceFactory: (RemoteDataSource) -> PagingSource<Int, T>): Flow<PagingData<T>> {
         return Pager(

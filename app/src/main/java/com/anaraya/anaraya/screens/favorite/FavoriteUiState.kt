@@ -10,6 +10,8 @@ data class FavoriteUiState(
     val error: String? = null,
     val deleteMsg: String? = null,
     val addAllToBasketMsg: String? = null,
+    val addProductToBasketMsg: String = "",
+    val isSucceedAddProductToCart: Boolean = false,
     val numAdded: Int = 0,
     val products: List<ProductUiState> = emptyList()
 )

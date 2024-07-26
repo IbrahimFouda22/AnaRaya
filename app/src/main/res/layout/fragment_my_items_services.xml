@@ -10,10 +10,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.services.store.service.my_items.MyItemsServicesFragment">
+    tools:context=".screens.services.store.product.my_items.MyItemsFragment">
 
     <ProgressBar
-        android:id="@+id/progressMyItemsServices"
+        android:id="@+id/progressMyItems"
         style="?android:attr/progressBarStyleHorizontal"
         bindProgress="@{viewModel.loadingState}"
         android:layout_width="match_parent"
@@ -26,68 +26,49 @@
         app:layout_constraintTop_toTopOf="parent" />
     <HorizontalScrollView
         android:id="@+id/horizontalScrollChipsMyItems"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbarSize="5dp"
         android:scrollbarStyle="outsideInset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressMyItemsServices">
+        app:layout_constraintTop_toBottomOf="@+id/progressMyItems">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipStatusServices"
+            android:id="@+id/chipStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="15dp"
             app:chipSpacingHorizontal="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressMyItems"
             app:singleLine="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipPendingServices"
+                android:id="@+id/chipList"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:text="@string/pending"
+                android:text="@string/listed"
                 android:textColor="@color/color_text_chip"
+                android:textAlignment="center"
                 android:textSize="@dimen/chipTextSize"
+                android:layout_weight="1"
                 app:chipBackgroundColor="@color/color_background_chip"
                 app:chipCornerRadius="@dimen/chipCorner"
                 app:chipStrokeColor="@color/color_stroke_chip"
                 app:chipStrokeWidth="@dimen/chipStroke" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipAcceptedServices"
+                android:id="@+id/chipSold"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/accepted"
-                android:textColor="@color/color_text_chip"
-                android:textSize="@dimen/chipTextSize"
-                app:chipBackgroundColor="@color/color_background_chip"
-                app:chipCornerRadius="@dimen/chipCorner"
-                app:chipStrokeColor="@color/color_stroke_chip"
-                app:chipStrokeWidth="@dimen/chipStroke" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipRejectedServices"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/rejected"
-                android:textColor="@color/color_text_chip"
-                android:textSize="@dimen/chipTextSize"
-                app:chipBackgroundColor="@color/color_background_chip"
-                app:chipCornerRadius="@dimen/chipCorner"
-                app:chipStrokeColor="@color/color_stroke_chip"
-                app:chipStrokeWidth="@dimen/chipStroke" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chipSoldServices"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="@string/sold"
+                android:textAlignment="center"
+                android:layout_weight="1"
                 android:textColor="@color/color_text_chip"
                 android:textSize="@dimen/chipTextSize"
                 app:chipBackgroundColor="@color/color_background_chip"
@@ -96,11 +77,13 @@
                 app:chipStrokeWidth="@dimen/chipStroke" />
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chipCancelServices"
+                android:id="@+id/chipCancel"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:text="@string/canceled"
+                android:layout_weight="1"
+                android:textAlignment="center"
                 android:textColor="@color/color_text_chip"
                 android:textSize="@dimen/chipTextSize"
                 app:chipBackgroundColor="@color/color_background_chip"
@@ -113,7 +96,7 @@
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerStoreItemsServices"
+        android:id="@+id/recyclerStoreItemsService"
         bindRecyclerLayout="@{false}"
         android:layout_width="match_parent"
         android:layout_height="0dp"

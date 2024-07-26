@@ -63,7 +63,8 @@ class SignInFamilyFragment : Fragment() {
 
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                    if (it.error != getString(R.string.no_internet))
+                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (!it.isSucceedSignIn) {
                     Toast.makeText(context, it.messageSignIn, Toast.LENGTH_SHORT).show()

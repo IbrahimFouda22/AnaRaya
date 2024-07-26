@@ -1,10 +1,11 @@
-package com.anaraya.anaraya.screens.services.store.product.edit_product
+package com.anaraya.anaraya.screens.services.store.product.my_items.edit_product
 
 import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,7 +27,10 @@ import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.FragmentEditItemServiceBinding
 import com.anaraya.anaraya.databinding.LayoutDialogImageBinding
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
+import com.anaraya.anaraya.screens.services.store.product.sell.crateFileFromBitmap
 import com.anaraya.anaraya.util.RealPathUtil
+import com.anaraya.anaraya.util.showBottomNavBar
+import com.anaraya.anaraya.util.showCardHome
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -49,6 +53,11 @@ class EditItemServiceFragment : Fragment() {
     private var imageUrl: String? = null
     private var firstTime = true
     private val navArgs by navArgs<EditItemServiceFragmentArgs>()
+    private lateinit var adapterCategories: ArrayAdapter<String>
+    private lateinit var adapterSubCategories: ArrayAdapter<String>
+    private lateinit var adapterConditions: ArrayAdapter<String>
+    private lateinit var adapterAnonymous: ArrayAdapter<String>
+    private lateinit var adapterHandleDelivery: ArrayAdapter<String>
 
     @Inject
     lateinit var factory: EditItemServiceViewModel.EditProductAssistedFactory
@@ -92,12 +101,6 @@ class EditItemServiceFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
-
-
-        val adapterCategories =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
-        var adapterSubCategories =
-            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.editItemServiceUiState.collectLatest {
@@ -149,13 +152,18 @@ class EditItemServiceFragment : Fragment() {
                 if (it.sellSubCategoriesList.isNotEmpty() && adapterSubCategories.isEmpty) {
                     val d = it.sellSubCategoriesList.map { data -> data.name }
                     if (it.product != null) {
-                        binding.edtSubCategorySell.setText(it.product.subCategory)
                         adapterSubCategories.addAll(d)
                         binding.edtSubCategorySell.setAdapter(adapterSubCategories)
                     }
                 }
                 if (it.product != null) {
                     if (firstTime) {
+                        binding.edtTitleSell.setText(it.product.title)
+                        binding.edtItemDescriptionSell.setText(it.product.itemDescription)
+                        binding.edtPriceSell.setText(it.product.price.toString())
+                        binding.edtLocationSell.setText(it.product.location)
+                        binding.edtPictureSell.setText(it.product.productImageUrl)
+                        binding.edtSubCategorySell.setText(it.product.subCategory)
                         imageUrl = it.product.productImageUrl
                         val listHandleDelivery =
                             resources.getStringArray(R.array.arrayHandleDelivery).toList()
@@ -168,21 +176,11 @@ class EditItemServiceFragment : Fragment() {
                         if (it.product.condition == 1) {
                             condition = 0
                             binding.edtConditionSell.setText(listCondition[0])
-                            val adapterConditions =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterConditions.addAll(listCondition)
                             binding.edtConditionSell.setAdapter(adapterConditions)
                         } else {
                             condition = 1
                             binding.edtConditionSell.setText(listCondition[1])
-                            val adapterConditions =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterConditions.addAll(listCondition)
                             binding.edtConditionSell.setAdapter(adapterConditions)
                         }
@@ -191,22 +189,12 @@ class EditItemServiceFragment : Fragment() {
                             isAnonymous = true
 //                        binding.edtAnonymous.setText(resources.getStringArray(R.array.arrayAnonymous).toList()[0])
                             binding.edtAnonymous.setText(listAnonymous[0])
-                            val adapterAnonymous =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterAnonymous.addAll(listAnonymous)
                             binding.edtAnonymous.setAdapter(adapterAnonymous)
                         } else {
                             isAnonymous = false
 //                        binding.edtAnonymous.setText(resources.getStringArray(R.array.arrayAnonymous).toList()[1])
                             binding.edtAnonymous.setText(listAnonymous[1])
-                            val adapterAnonymous =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterAnonymous.addAll(listAnonymous)
                             binding.edtAnonymous.setAdapter(adapterAnonymous)
                         }
@@ -214,21 +202,11 @@ class EditItemServiceFragment : Fragment() {
                         if (it.product.handleDelivery) {
                             handleDelivery = true
                             binding.edtHandleDelivery.setText(listHandleDelivery[0])
-                            val adapterHandleDelivery =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterHandleDelivery.addAll(listHandleDelivery)
                             binding.edtHandleDelivery.setAdapter(adapterHandleDelivery)
                         } else {
                             handleDelivery = false
                             binding.edtHandleDelivery.setText(listHandleDelivery[1])
-                            val adapterHandleDelivery =
-                                ArrayAdapter<String>(
-                                    requireContext(),
-                                    R.layout.layout_item_company_address
-                                )
                             adapterHandleDelivery.addAll(listHandleDelivery)
                             binding.edtHandleDelivery.setAdapter(adapterHandleDelivery)
                         }
@@ -292,6 +270,8 @@ class EditItemServiceFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        showCardHome(requireActivity(), false)
+        showBottomNavBar(requireActivity(), false)
         loadData()
     }
 
@@ -317,6 +297,13 @@ class EditItemServiceFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == 3) {
             val img = data?.data
             val file = File(RealPathUtil.getRealPath(requireContext(), img!!)!!)
+            binding.edtPictureSell.setText(file.name)
+            image = file
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            val img = data?.extras?.get("data")
+
+            val file = crateFileFromBitmap(img as Bitmap,requireContext())
             binding.edtPictureSell.setText(file.name)
             image = file
         }
@@ -350,7 +337,16 @@ class EditItemServiceFragment : Fragment() {
         binding.edtConditionSell.setDropDownBackgroundResource(R.drawable.shape_drop_down)
         binding.edtAnonymous.setDropDownBackgroundResource(R.drawable.shape_drop_down)
         binding.edtHandleDelivery.setDropDownBackgroundResource(R.drawable.shape_drop_down)
+        adapterCategories =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterSubCategories =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
         viewModel.getAllData()
+        adapterConditions =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterAnonymous =
+            ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
+        adapterHandleDelivery = ArrayAdapter<String>(requireContext(), R.layout.layout_item_company_address)
     }
 
     private fun pickImageFromCamera() {

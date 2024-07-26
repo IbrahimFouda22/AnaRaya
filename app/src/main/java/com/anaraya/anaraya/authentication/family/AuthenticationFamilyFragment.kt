@@ -130,7 +130,7 @@ class AuthenticationFamilyFragment : Fragment() {
         when (num) {
             3 -> viewModel.setStateSignInUpdate(--num)
             2 -> viewModel.setStateSignInUpdate(--num)
-            else -> viewModel.setStateSignInUpdate(num)
+            else -> findNavController().popBackStack()
         }
     }
 
@@ -138,7 +138,10 @@ class AuthenticationFamilyFragment : Fragment() {
         var num = viewModel.stateSignIn.value
         when (num) {
             2 -> viewModel.setStateSignUpUpdate(--num)
-            else -> viewModel.setStateSignUpUpdate(num)
+            else -> {
+                viewModel.setStatePage(0)
+                binding.tabAuthFamily.selectTab(binding.tabAuthFamily.getTabAt(0))
+            }
         }
     }
 

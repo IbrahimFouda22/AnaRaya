@@ -29,6 +29,7 @@ data class ProductStoreItemState(
     val isAnonymous: Boolean,
     val handleDelivery: Boolean,
     val customerInformation: CustomerInformationState? = null,
+    val numberOfBuyers: Int,
     val customerWantsToBuy: Int,
     val visibilityBadge: Boolean = false,
     val isListed: Boolean = false,
@@ -85,6 +86,7 @@ fun ProductStore.toState(
                 sellingStatus = it.sellingStatus
             )
         },
-        customerWantsToBuy = customerWantsToBuy
+        numberOfBuyers = if (customerWantsToBuy > 0) 1 else 0,
+        customerWantsToBuy = customerWantsToBuy,
     )
 }

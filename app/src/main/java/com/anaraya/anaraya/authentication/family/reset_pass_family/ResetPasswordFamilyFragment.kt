@@ -33,7 +33,8 @@ class ResetPasswordFamilyFragment : Fragment() {
         binding = FragmentResetPasswordFamilyBinding.inflate(layoutInflater)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
+        btnBack = requireActivity().findViewById(R.id.btnBackMainActivity)
+        btnReload = requireActivity().findViewById(R.id.btnReloadMain)
         binding.btnArrowNextResetPasswordFamily.setOnClickListener {
             setStateResetPlus()
         }

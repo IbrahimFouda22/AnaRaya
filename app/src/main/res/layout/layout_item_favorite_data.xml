@@ -15,12 +15,23 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp">
 
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/checkBoxAddToCart"
+            style="@style/styleCheckBoxFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:checked="@{item.selectedInFavToAddToCart}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgFav"
+            app:layout_constraintBottom_toBottomOf="@id/imgFav"/>
+
         <ImageView
             android:id="@+id/imgFav"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             bindImage="@{item.image}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checkBoxAddToCart"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/img_no_internet" />
 
@@ -28,7 +39,7 @@
             android:id="@+id/txtNameItemFav"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="4dp"
             android:fontFamily="@font/inter600"
             android:text="@{item.name}"
             android:textColor="@color/colorTextNameProduct"
