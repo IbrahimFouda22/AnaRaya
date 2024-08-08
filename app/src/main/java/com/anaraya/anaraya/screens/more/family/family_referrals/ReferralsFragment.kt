@@ -43,7 +43,8 @@ class ReferralsFragment : Fragment() {
             viewModel.familyReferralsUiState.collectLatest {
                 if (it.error != null) {
                     sharedViewModel.setError(error = it.error)
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
+                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.listFamilyReferrals.isNotEmpty()) {
                     adapter.submitList(it.listFamilyReferrals)

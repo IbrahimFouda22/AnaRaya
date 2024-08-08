@@ -1,5 +1,8 @@
 package com.anaraya.anaraya.screens.services.store.service.my_items.item_details
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -31,6 +34,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @RequiresApi(Build.VERSION_CODES.O)
 
 @AndroidEntryPoint
@@ -84,7 +88,7 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
             viewModel.product.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.requestToDeleteMsg != null) {
@@ -95,20 +99,30 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
                     viewModel.resetMsg()
                 }
                 if (it.isSucceedProceedWithSale) {
-                    if (index < it.product!!.customerWantsToRent.size) {
-                        viewModel.proceedWithRent(viewModel.product.value.product!!.customerWantsToRent[index])
+                    if (index < it.listeningIds.size) {
+                        viewModel.proceedWithRent(viewModel.product.value.listeningIds[index])
                         index++
                     } else {
                         viewModel.getStoreProductByIdForOwner()
                     }
                 }
-                if (it.isSucceedConfirmDeal) {
-                    findNavController().popBackStack()
+                if (it.confirmDealMsg != null) {
+                    if (it.isSucceedConfirmDeal) {
+//                        findNavController().popBackStack()
+                        viewModel.getStoreProductByIdForOwner()
+                    } else {
+                        Toast.makeText(context, it.confirmDealMsg, Toast.LENGTH_SHORT).show()
+                        viewModel.resetMsg()
+                    }
                 }
                 if (it.product != null) {
-                    if (it.product.customerInformation.isNotEmpty()) {
-                        adapterCustomer.submitList(it.product.customerInformation)
+                    if (it.product.customerInformation.any { customerInformationUiState -> customerInformationUiState.sellingStatus == 3 }) {
+                        adapterCustomer.submitList(it.product.customerInformation.filter { informationUiState ->
+                            informationUiState.sellingStatus == 3
+                        })
                     }
+//                    else
+//                        adapterCustomer.submitList(emptyList())
                 }
                 if (it.allCompanies.isNotEmpty()) {
                     if (allCompanies.isEmpty()) {
@@ -154,7 +168,8 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
         }
 
         binding.btnRequestToDelete.setOnClickListener {
-            viewModel.requestToDelete(navArgs.serviceId)
+            if (!viewModel.product.value.isLoading)
+                viewModel.requestToDelete(navArgs.serviceId)
         }
         binding.btnRequestToEdit.setOnClickListener {
             findNavController().navigate(
@@ -185,14 +200,17 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
         }
 
         binding.btnProceedWithSale.setOnClickListener {
-            viewModel.product.value.product?.let { _ ->
-                viewModel.proceedWithRent(viewModel.product.value.product!!.customerWantsToRent[0])
-                index++
+            if (!viewModel.product.value.isLoading) {
+                viewModel.product.value.product?.let { _ ->
+                    viewModel.proceedWithRent(viewModel.product.value.listeningIds[0])
+                    index++
+                }
             }
         }
 
         binding.btnOrderComplete.setOnClickListener {
-            viewModel.orderComplete(selectedCustomer)
+            if (!viewModel.product.value.isLoading)
+                viewModel.orderComplete(selectedCustomer)
         }
 
         binding.edtCompanyDelivery.setOnItemClickListener { _, _, position, _ ->
@@ -244,13 +262,15 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
             binding.txtPaymentMethod.startAnimation(anim)
         } else {
             //after selected method
-            viewModel.confirmDeal(
-                companyAddress = selectedAddress,
-                company = if (allCompaniesId > -1) "s" else null,
-                governorate = if (allGovernorateId > -1) "s" else null ,
-                listeningId = selectedCustomer!!,
-                paymentMethod = viewModel.product.value.cashStatus
-            )
+            if (!viewModel.product.value.isLoading) {
+                viewModel.confirmDeal(
+                    companyAddress = selectedAddress,
+                    company = if (allCompaniesId > -1) "s" else null,
+                    governorate = if (allGovernorateId > -1) "s" else null,
+                    listeningId = selectedCustomer!!,
+                    paymentMethod = viewModel.product.value.cashStatus
+                )
+            }
         }
     }
 
@@ -267,7 +287,7 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
 
     override fun onClick(id: String, position: Int) {
         selectedAddress = id
-        if(selectedPos != -1)
+        if (selectedPos != -1)
             adapter.changeSelected(selectedPos, false)
         selectedPos = position
         adapter.changeSelected(position, true)
@@ -275,9 +295,21 @@ class ServiceDetailsOwnerFragment : Fragment(), AddressesInteraction, CustomerIn
 
     override fun onClickCustomer(listeningId: Int, position: Int) {
         selectedCustomer = listeningId
-        if(selectedCustomerPos != -1)
+        if (selectedCustomerPos != -1)
             adapterCustomer.changeSelected(selectedCustomerPos, false)
         selectedCustomerPos = position
         adapterCustomer.changeSelected(position, true)
+    }
+
+    override fun onClickNumberValue(text: String) {
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(getString(R.string.copied_text), text)
+        clipboard.setPrimaryClip(clip)
+        // Optionally show a toast or other feedback to the user
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.text_copied_to_clipboard), Toast.LENGTH_SHORT
+        ).show()
     }
 }

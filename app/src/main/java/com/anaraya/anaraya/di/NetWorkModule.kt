@@ -29,12 +29,6 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideInterceptor(sharedPreferences: SharedPreferences): RayaInterceptor {
-        return RayaInterceptor(sharedPreferences)
-    }
-
-    @Provides
-    @Singleton
     fun provideOkHttp(
         interceptor: RayaInterceptor,
         httpLoggingInterceptor: HttpLoggingInterceptor
@@ -42,7 +36,7 @@ object NetWorkModule {
         return OkHttpClient.Builder().connectTimeout(600, TimeUnit.SECONDS).addInterceptor(
             httpLoggingInterceptor
         )
-            .readTimeout(600, TimeUnit.SECONDS).addInterceptor(interceptor).build()
+            .readTimeout(600, TimeUnit.SECONDS).writeTimeout(600, TimeUnit.SECONDS).addInterceptor(interceptor).build()
     }
 
     @Provides

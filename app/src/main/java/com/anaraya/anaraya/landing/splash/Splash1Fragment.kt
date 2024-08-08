@@ -62,6 +62,13 @@ class Splash1Fragment @Inject constructor() : Fragment() {
                                 )
                             )
                         }
+                        else{
+                            findNavController().navigate(
+                                Splash1FragmentDirections.actionSplashFragmentToSplash2Fragment(
+                                    "auth"
+                                )
+                            )
+                        }
                         /*if(token!=null){
                             rayaId = sharedPreferences.getString("rayaId",null)
                             nationalId = sharedPreferences.getString("nationalId",null)

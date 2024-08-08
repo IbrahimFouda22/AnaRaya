@@ -82,7 +82,7 @@ class SearchFragment : Fragment(), ProductInteractionListener {
             viewModel.products.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.navigateToFilter) {

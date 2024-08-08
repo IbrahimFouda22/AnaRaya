@@ -52,6 +52,7 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface IRepo {
+
     suspend fun checkAuth(
         rayaId: String,
         nationalId: String,
@@ -152,6 +153,7 @@ interface IRepo {
     suspend fun changePassword(currentPassword: String, newPassword: String): EditInfo
 
     suspend fun getOrders(): Order
+    suspend fun deleteOrder(orderId:Int): BaseResponse
 
     suspend fun forgetPass(rayaId: String, nationalId: String): ResetChangePass
     suspend fun forgetPassCheckCode(
@@ -197,6 +199,8 @@ interface IRepo {
 
     suspend fun getAllPromoCodes(): PromoCode
     suspend fun applyPromo(promoCode: String): ApplyPromo
+    suspend fun removePromoCode(): ApplyPromo
+
     suspend fun getAboutUs(): AboutUS
     suspend fun getTermsAndCondition(): BaseResponse
     suspend fun getPrivacyPolicy(): BaseResponse

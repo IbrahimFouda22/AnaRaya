@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.anaraya.anaraya.screens.order.OrderViewModel" />
+            type="com.anaraya.anaraya.screens.order.get_order.OrdersViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,7 @@
         tools:context=".screens.order.get_order.OrdersFragment">
 
         <ProgressBar
-            android:id="@+id/progress_cart"
+            android:id="@+id/progress"
             style="?android:attr/progressBarStyleHorizontal"
             bindProgress="@{viewModel.orderUiState.loading}"
             android:layout_width="match_parent"
@@ -24,7 +24,6 @@
             android:indeterminateBehavior="cycle"
             android:indeterminateTint="@color/colorPrimary"
             android:progressTint="@color/colorPrimary"
-            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -36,6 +35,6 @@
             android:layout_marginBottom="10dp"
             android:paddingHorizontal="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress_cart" />
+            app:layout_constraintTop_toBottomOf="@+id/progress" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

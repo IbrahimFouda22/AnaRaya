@@ -1,6 +1,9 @@
 package com.anaraya.anaraya.screens.cart
+
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,15 +23,19 @@ import com.anaraya.anaraya.screens.cart.adapter.CartAdapter
 import com.anaraya.anaraya.screens.cart.adapter.CartAddressAdapter
 import com.anaraya.anaraya.screens.cart.interaction.CartAddressInteraction
 import com.anaraya.anaraya.screens.cart.interaction.CartInteraction
+import com.anaraya.anaraya.util.gone
 import com.anaraya.anaraya.util.minusNumBasket
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showCardHome
 import com.anaraya.anaraya.util.showToolBar
+import com.anaraya.anaraya.util.visible
+import com.google.android.material.card.MaterialCardView
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
     private val viewModel by viewModels<CartViewModel>({ this })
@@ -39,12 +46,14 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
     private lateinit var binding: FragmentCartBinding
     private lateinit var adapter: CartAdapter
     private lateinit var addressesAdapter: CartAddressAdapter
+    private var isExpanded = false
     private var checkOutUiState: CheckOutUiStateData? = null
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentCartBinding.inflate(layoutInflater)
@@ -62,7 +71,7 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
             viewModel.cartUiState.collectLatest {
                 if (it.error != null) {
                     Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.errorChangeDefaultAddress != null) {
@@ -85,18 +94,20 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
                 if (it.navigateToTotalCost) {
                     findNavController().navigate(
                         CartFragmentDirections.actionCartFragmentToTotalCostFragment(
-                            it.addOrderUiState!!, viewModel.cartUiState.value.selectedMethod!!,it.totalPoints.toFloat()
+                            it.addOrderUiState!!,
+                            viewModel.cartUiState.value.selectedMethod!!,
+                            it.totalPoints.toFloat()
                         )
                     )
                     viewModel.navigateToTotalCostDone()
                 }
                 if (it.deleteMsg != null) {
                     //Toast.makeText(context, it.deleteMsg, Toast.LENGTH_SHORT).show()
-                    if(it.isSucceedDeleteProduct) {
+                    if (it.isSucceedDeleteProduct) {
                         minusNumBasket(sharedPreferences, sharedViewModel, requireContext())
 //                        if(it.isPoints)
 //                            sharedViewModel.getPoints()
-                        if(!it.isPoints)
+                        if (!it.isPoints)
                             sharedViewModel.getTrending()
                     }
                 }
@@ -107,6 +118,12 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
                     adapter.submitList(it.cartUiState.cartUiListState)
                 }
                 if (it.allAddressesUiState.isNotEmpty()) {
+                    if (!isExpanded) {
+                        binding.txtSelectedAddress.visible()
+                        binding.txtSelectedAddressValue.visible()
+                        binding.recyclerAddressesCart.gone()
+                        binding.txtAddAddressCart.gone()
+                    }
                     addressesAdapter.submitList(it.allAddressesUiState)
                 }
             }
@@ -114,6 +131,8 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.navigateToAddAddress.collectLatest {
                 if (it) {
+                    sharedViewModel.setSelectedMethodInCart(viewModel.cartUiState.value.selectedMethod)
+                    sharedViewModel.saveSelectedMethodInCart(true)
                     findNavController().navigate(
                         CartFragmentDirections.actionCartFragmentToAddAddressFragment(
                             true
@@ -131,6 +150,30 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
                 }
             }
         }
+        binding.txtDeliveryAddressCart.setOnClickListener {
+            var v = binding.txtSelectedAddress.expand(binding.cardAddAddressCart)
+            binding.txtSelectedAddress.visibility = v
+            v = binding.txtSelectedAddressValue.expand(binding.cardAddAddressCart)
+            binding.txtSelectedAddressValue.visibility = v
+            v = binding.txtAddAddressCart.expand(binding.cardAddAddressCart)
+            binding.txtAddAddressCart.visibility = v
+            v = binding.recyclerAddressesCart.expand(binding.cardAddAddressCart)
+            binding.recyclerAddressesCart.visibility = v
+        }
+//        binding.txtDeliveryAddressCart.setOnClickListener {
+//            isExpanded = !isExpanded
+//            if (isExpanded) {
+//                binding.txtSelectedAddress.gone()
+//                binding.txtSelectedAddressValue.gone()
+//                binding.recyclerAddressesCart.visible()
+//                binding.txtAddAddressCart.visible()
+//            } else {
+//                binding.txtSelectedAddress.visible()
+//                binding.txtSelectedAddressValue.visible()
+//                binding.recyclerAddressesCart.gone()
+//                binding.txtAddAddressCart.gone()
+//            }
+//        }
         binding.btnGoToMarget.setOnClickListener {
             viewModel.navigateToMarket()
         }
@@ -175,6 +218,16 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
                 }
             }
         }
+
+        if (sharedViewModel.homeState.value.saveSelected) {
+            sharedViewModel.homeState.value.selectedMethodInCart?.let {
+                viewModel.setSelectedMethod(
+                    it
+                )
+                binding.selectedMethod = it
+            }
+            sharedViewModel.saveSelectedMethodInCart(false)
+        }
         btnBack.setOnClickListener {
             reload()
         }
@@ -183,31 +236,38 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
         }
         return binding.root
     }
+
     private fun reload() {
         sharedViewModel.reloadClick()
         viewModel.getAllData()
         sharedViewModel.reloadClickDone()
     }
+
     override fun onStart() {
         super.onStart()
         showBottomNavBar(requireActivity(), false)
         showCardHome(requireActivity(), false)
         showToolBar(requireActivity(), false)
     }
+
     override fun onClickDelete(productId: Int, position: Int, isLoyalty: Boolean) {
-        viewModel.removeProduct(productId,isLoyalty)
+        viewModel.removeProduct(productId, isLoyalty)
     }
+
     override fun onClickPlus(productId: Int, newQty: Int, isLoyalty: Boolean) {
-        viewModel.addProductToCart(productId, newQty,isLoyalty)
+        viewModel.addProductToCart(productId, newQty, isLoyalty)
     }
+
     override fun onClickMinus(productId: Int, newQty: Int, isLoyalty: Boolean) {
-        viewModel.addProductToCart(productId, newQty,isLoyalty)
+        viewModel.addProductToCart(productId, newQty, isLoyalty)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding.unbind()
     }
-    private fun checkSelectedMethod(){
+
+    private fun checkSelectedMethod() {
         if (viewModel.cartUiState.value.selectedMethod == null) {
             val anim =
                 AnimationUtils.loadAnimation(requireContext(), R.anim.shake_animation)
@@ -220,6 +280,7 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
             viewModel.navigateToTotalCost()
         }
     }
+
     override fun onClickAddress(id: String, position: Int, isUserAddress: Boolean) {
         viewModel.changeDefaultAddress(id, isUserAddress)
     }
@@ -227,5 +288,12 @@ class CartFragment : Fragment(), CartInteraction, CartAddressInteraction {
     override fun onDestroy() {
         super.onDestroy()
         sharedViewModel.getCart()
+
+    }
+
+    private fun View.expand(card: MaterialCardView): Int {
+        val v = if (this.visibility == View.GONE) View.VISIBLE else View.GONE
+        TransitionManager.beginDelayedTransition(card, AutoTransition())
+        return v
     }
 }

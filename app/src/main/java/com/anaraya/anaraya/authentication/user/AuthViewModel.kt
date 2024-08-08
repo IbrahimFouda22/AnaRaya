@@ -153,10 +153,11 @@ class AuthViewModel @Inject constructor(
             AuthUiState(
                 isLoading = false,
                 token = response.token,
+                refreshToken = response.refreshToken,
                 isSucceedSignIn = response.isSucceed,
                 messageSignIn = response.message,
                 productsInBasket = response.productsInBasket,
-                error = null
+                error = null,
             )
         }
     }
@@ -230,7 +231,14 @@ class AuthViewModel @Inject constructor(
                     )
                 }
             }
-
+            "ban" -> {
+                _signInResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        isDeleted = true
+                    )
+                }
+            }
             else -> {
                 _signInResponse.update {
                     AuthUiState(
@@ -425,6 +433,7 @@ class AuthViewModel @Inject constructor(
             AuthUiState(
                 isLoading = false,
                 token = auth.token,
+                refreshToken = auth.refreshToken,
                 isSucceedSignUp = auth.isSucceed,
                 messageSignUp = auth.message,
                 error = null

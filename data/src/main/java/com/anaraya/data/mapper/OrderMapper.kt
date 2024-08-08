@@ -7,7 +7,7 @@ import com.anaraya.domain.entity.OrderData
 fun OrderDto.toEntity(): Order {
     return Order(
         isSucceed = isSucceed,
-        message = message,
+        message = message ?: "",
         data = data.map {
             OrderData(
                 orderId = it.orderId,

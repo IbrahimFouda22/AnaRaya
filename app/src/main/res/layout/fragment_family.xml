@@ -2,7 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.anaraya.anaraya.screens.more.family.FamilyViewModel" />
@@ -42,8 +44,8 @@
                     android:id="@+id/txtReferrals"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
                     android:fontFamily="@font/inter500"
                     android:text="@string/reference_a_family_or_a_friend"
                     android:textAlignment="center"
@@ -66,7 +68,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtReferrals"
-                    app:placeholderText="@string/name">
+                    app:placeholderText="@string/referral_name">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtNameFamily"
@@ -87,7 +89,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edtLayoutNameFamily"
-                    app:placeholderText="@string/phone_number">
+                    app:placeholderText="@string/referral_mobile">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtPhoneFamily"

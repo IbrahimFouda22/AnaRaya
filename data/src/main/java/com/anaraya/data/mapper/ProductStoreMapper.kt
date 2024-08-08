@@ -44,7 +44,8 @@ fun ProductStoreDtoItemList.toEntity(): ProductStore {
                 sellingStatus = customerInformation.sellingStatus ?: 0
             )
         },
-        customerWantsToBuy = customerWantsToBuy
+        customerWantsToBuy = customerWantsToBuy,
+        isPaymentConfirmed = isPaymentConfirmed ?: false
     )
 }
 

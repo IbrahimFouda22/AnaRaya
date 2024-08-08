@@ -1,8 +1,11 @@
 package com.anaraya.anaraya.screens.services.store.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,14 +13,20 @@ import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.LayoutItemCustomerSelectedBinding
 import com.anaraya.anaraya.screens.services.store.interaction.CustomerInteraction
 import com.anaraya.anaraya.screens.services.store.service.my_items.ServiceCustomerInformationUiState
+import com.anaraya.anaraya.util.copyText
 
 
-class CustomerSelectedAdapter(private val interAction: CustomerInteraction) :
+class CustomerSelectedAdapter(
+    private val interAction: CustomerInteraction,
+) :
     ListAdapter<ServiceCustomerInformationUiState, CustomerSelectedAdapter.CompanySelectedViewHolder>(
         CompanySelectedDiffUtil()
     ) {
     inner class CompanySelectedViewHolder(val layoutItemCustomerSelectedBinding: LayoutItemCustomerSelectedBinding) :
         RecyclerView.ViewHolder(layoutItemCustomerSelectedBinding.root) {
+        val txtNumber: TextView =
+            layoutItemCustomerSelectedBinding.consCustomerSelected.findViewById(R.id.txtPhoneValue)
+
         @SuppressLint("SimpleDateFormat")
         fun bind(item: ServiceCustomerInformationUiState) {
             layoutItemCustomerSelectedBinding.item = item
@@ -61,11 +70,15 @@ class CustomerSelectedAdapter(private val interAction: CustomerInteraction) :
 
     override fun onBindViewHolder(holder: CompanySelectedViewHolder, position: Int) {
         val item = getItem(position)
-        if(item != null){
+        if (item != null) {
             holder.bind(item)
         }
         holder.layoutItemCustomerSelectedBinding.consCustomerSelected.setOnClickListener {
-            interAction.onClickCustomer(getItem(position).listeningId,position)
+            interAction.onClickCustomer(getItem(position).listeningId, position)
+        }
+        holder.txtNumber.setOnLongClickListener {
+            interAction.onClickNumberValue(holder.txtNumber.text.toString())
+            true
         }
     }
 

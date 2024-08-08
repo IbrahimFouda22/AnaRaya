@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="item"
             type="com.anaraya.anaraya.screens.services.store.service.my_items.ServiceCustomerInformationUiState" />
@@ -13,10 +14,10 @@
         android:id="@+id/consCustomerSelected"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:selectable="true"
+        android:layout_marginBottom="5dp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginBottom="5dp">
+        android:selectable="true">
 
         <TextView
             android:id="@+id/txtName"
@@ -25,10 +26,10 @@
             android:ellipsize="end"
             android:focusable="true"
             android:maxLines="1"
-            android:textAlignment="viewStart"
             android:padding="8dp"
             android:selectable="true"
             android:text="@string/name"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorTextNameProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,9 +59,9 @@
             android:focusable="true"
             android:maxLines="1"
             android:padding="8dp"
-            android:textAlignment="viewStart"
             android:selectable="true"
             android:text="@string/phone_number"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorTextNameProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtNameValue" />
@@ -69,6 +70,8 @@
             android:id="@+id/txtPhoneValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
             android:ellipsize="end"
             android:focusable="true"
             android:maxLines="2"
@@ -91,9 +94,9 @@
             android:focusable="true"
             android:maxLines="1"
             android:padding="8dp"
-            android:textAlignment="viewStart"
             android:selectable="true"
             android:text="@string/rent_from_date"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorTextNameProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPhoneValue" />
@@ -125,9 +128,9 @@
             android:focusable="true"
             android:maxLines="1"
             android:padding="8dp"
-            android:textAlignment="viewStart"
             android:selectable="true"
             android:text="@string/rent_to_date"
+            android:textAlignment="viewStart"
             android:textColor="@color/colorTextNameProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtRentFromDateValue" />

@@ -42,7 +42,7 @@ class TermsAndConditionFragment : Fragment() {
             viewModel.termsAndConditionUiState.collectLatest {
                 if (it.error != null) {
                     sharedViewModel.setError(it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
             }

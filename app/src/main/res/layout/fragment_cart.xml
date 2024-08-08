@@ -227,8 +227,8 @@
                 <TextView
                     android:id="@+id/txtTotalPointsValue"
                     bindTxtPrice="@{viewModel.cartUiState.totalPoints}"
-                    isPoints="@{true}"
                     bindViewVisibilityGone="@{viewModel.cartUiState.visibilityPoints}"
+                    isPoints="@{true}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter300"
@@ -261,15 +261,51 @@
 
                         <TextView
                             android:id="@+id/txtDeliveryAddressCart"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:fontFamily="@font/inter_regular"
                             android:padding="10dp"
                             android:text="@string/delivery_address"
                             android:textSize="16sp"
                             android:textStyle="bold"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="Subtotal" />
+
+                        <TextView
+                            android:id="@+id/txtSelectedAddress"
+                            style="@style/textNormalTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/selected_address"
+                            android:textColor="@color/colorTextNameProduct"
+                            android:textSize="12sp"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/txtDeliveryAddressCart"
+                            tools:text="Subtotal" />
+
+                        <TextView
+                            android:id="@+id/txtSelectedAddressValue"
+                            style="@style/textNormalTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:paddingHorizontal="10dp"
+                            android:text="@{viewModel.cartUiState.defaultAddressTitle}"
+                            android:textAlignment="viewEnd"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@+id/txtSelectedAddress"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/txtSelectedAddress"
+                            app:layout_constraintTop_toTopOf="@+id/txtSelectedAddress"
                             tools:text="Subtotal" />
 
                         <TextView
@@ -285,6 +321,7 @@
                             android:text="@string/add_address"
                             android:textColor="@color/colorPrimary"
                             android:textStyle="bold"
+                            android:visibility="gone"
                             app:drawableStartCompat="@drawable/ic_add_address_cart"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/txtDeliveryAddressCart"
@@ -296,6 +333,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingHorizontal="10dp"
+                            android:visibility="gone"
                             app:layout_constraintHeight_max="200dp"
                             app:layout_constraintTop_toBottomOf="@+id/txtAddAddressCart" />
 

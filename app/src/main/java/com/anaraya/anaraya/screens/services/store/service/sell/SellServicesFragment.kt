@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
@@ -98,14 +99,18 @@ class SellServicesFragment : Fragment() {
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
-        fromDate = getTodayDate()
-        toDate = getTodayDate()
+        fromDate = getTodayDate(pattern = "yyyy-MM-dd HH:mm")
+        toDate = getTodayDate("yyyy-MM-dd HH:mm")
         binding.txtFromDateValue.text =
             if (sharedViewModel.homeState.value.fromDate == "") getTodayDateLanguage(
-                sharedPreferences
+                sharedPreferences, "MMM dd, yyyy hh:mm a"
             ) else sharedViewModel.homeState.value.fromDateLang
         binding.txtToDateValue.text =
-            if (sharedViewModel.homeState.value.toDate == "") getTodayDateLanguage(sharedPreferences) else sharedViewModel.homeState.value.toDateLang
+            if (sharedViewModel.homeState.value.toDate == "") getTodayDateLanguage(
+                sharedPreferences,
+                "MMM dd, yyyy hh:mm a"
+            )
+            else sharedViewModel.homeState.value.toDateLang
         isServiceRental = sharedViewModel.homeState.value.setVisibilityIsRental
         viewModel.visibilityServiceRental(isServiceRental ?: false)
 
@@ -203,69 +208,143 @@ class SellServicesFragment : Fragment() {
         }
         binding.txtFromDateValue.setOnClickListener {
             binding.txtFromDateValue.showSoftInputOnFocus = false
-            val d = DatePickerDialog(requireContext())
-            d.setCancelable(false)
-            d.show()
-            d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                val day =
-                    if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
-                var m = d.datePicker.month.toString().toInt()
-                m++
-                val month =
-                    if (m.toString().length == 1) "0${m}" else m
-//                val monthName = monthNames[m - 1]
-                fromDate = "${d.datePicker.year}-$month-$day"
-                binding.txtFromDateValue.text =
-                    formatLanguageDate(
-                        d.datePicker.year,
-                        m,
-                        day.toString().toInt(),
-                        sharedPreferences
+            val calendar = Calendar.getInstance()
+
+            // Create and show the DatePickerDialog
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, monthOfYear, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, monthOfYear)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    // Create and show the TimePickerDialog after selecting the date
+                    val timePickerDialog = TimePickerDialog(
+                        requireContext(),
+                        { _, hourOfDay, minute ->
+                            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            calendar.set(Calendar.MINUTE, minute)
+
+                            // Combine selected date and time
+                            val selectedDateTime = calendar.time
+
+                            // Format the date and time in 24-hour format
+                            val dateFormat24Hour = formatLanguageDate(
+                                date = selectedDateTime,
+                                sharedPreferences = sharedPreferences,
+                                pattern = "yyyy-MM-dd HH:mm"
+                            )
+
+                            // Format the date and time in 12-hour format with AM/PM
+                            val dateFormat12Hour = formatLanguageDate(
+                                date = selectedDateTime,
+                                sharedPreferences = sharedPreferences,
+                                pattern = "MMM dd,yyyy hh:mm a"
+                            )
+                            // Display the formatted date and time
+                            binding.txtFromDateValue.text = dateFormat12Hour
+
+                            fromDate = dateFormat24Hour
+                            sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+
+                            binding.txtFromDateValue.clearFocus()
+                        },
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        false // Set to false for 12-hour format with AM/PM
                     )
-                sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+                    timePickerDialog.setCancelable(false)
+                    timePickerDialog.show()
+
+                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+                        binding.txtFromDateValue.clearFocus()
+                        timePickerDialog.cancel()
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.setCancelable(false)
+            datePickerDialog.show()
+
+            datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
                 binding.txtFromDateValue.clearFocus()
-                d.cancel()
-            }
-            d.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
-                binding.txtFromDateValue.clearFocus()
-                d.cancel()
+                datePickerDialog.cancel()
             }
         }
         binding.txtToDateValue.setOnClickListener {
             binding.txtToDateValue.showSoftInputOnFocus = false
-            val d = DatePickerDialog(requireContext())
-            d.setCancelable(false)
-            d.show()
-            d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                val day =
-                    if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
-                var m = d.datePicker.month.toString().toInt()
-                m++
-                val month =
-                    if (m.toString().length == 1) "0${m}" else m
-//                val monthName = monthNames[m - 1]
-                toDate = "${d.datePicker.year}-$month-$day"
-                binding.txtToDateValue.text =
-                    formatLanguageDate(
-                        d.datePicker.year,
-                        m,
-                        day.toString().toInt(),
-                        sharedPreferences
+            val calendar = Calendar.getInstance()
+
+            // Create and show the DatePickerDialog
+            val datePickerDialog = DatePickerDialog(
+                requireContext(),
+                { _, year, monthOfYear, dayOfMonth ->
+                    calendar.set(Calendar.YEAR, year)
+                    calendar.set(Calendar.MONTH, monthOfYear)
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                    // Create and show the TimePickerDialog after selecting the date
+                    val timePickerDialog = TimePickerDialog(
+                        requireContext(),
+                        { _, hourOfDay, minute ->
+                            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                            calendar.set(Calendar.MINUTE, minute)
+
+                            // Combine selected date and time
+                            val selectedDateTime = calendar.time
+
+                            // Format the date and time in 24-hour format
+                            val dateFormat24Hour = formatLanguageDate(
+                                date = selectedDateTime,
+                                sharedPreferences = sharedPreferences,
+                                pattern = "yyyy-MM-dd HH:mm"
+                            )
+
+                            // Format the date and time in 12-hour format with AM/PM
+                            val dateFormat12Hour = formatLanguageDate(
+                                date = selectedDateTime,
+                                sharedPreferences = sharedPreferences,
+                                pattern = "MMM dd,yyyy hh:mm a"
+                            )
+                            binding.txtToDateValue.text = dateFormat12Hour
+
+                            toDate = dateFormat24Hour
+                            sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+
+                            binding.txtToDateValue.clearFocus()
+                        },
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        false // Set to false for 12-hour format with AM/PM
                     )
-                sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+                    timePickerDialog.setCancelable(false)
+                    timePickerDialog.show()
+
+                    timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+                        binding.txtToDateValue.clearFocus()
+                        timePickerDialog.cancel()
+                    }
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePickerDialog.setCancelable(false)
+            datePickerDialog.show()
+
+            datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
                 binding.txtToDateValue.clearFocus()
-                d.cancel()
-            }
-            d.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
-                binding.txtToDateValue.clearFocus()
-                d.cancel()
+                datePickerDialog.cancel()
             }
         }
         binding.btnChoosePictureService.setOnClickListener {
             showDialog()
         }
         binding.btnSubmitSellStoreService.setOnClickListener {
-            addItem()
+            if (!viewModel.sellUiState.value.isLoading)
+                addItem()
         }
         btnBack.setOnClickListener {
             reload()
@@ -400,41 +479,31 @@ class SellServicesFragment : Fragment() {
     private fun View.scroll() {
         binding.scrollSellStoreService.smoothScrollTo(0, this.top)
     }
-
-//    private fun String.toLanguageDate():String{
-//        val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale(sharedPreferences.getString("lang", "en")!!))
-//        return dateFormat.parse(this)?.toString() ?: ""
-//    }
 }
 
-fun getTodayDate(): String {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale("en"))
+fun getTodayDate(pattern: String = "yyyy-MM-dd"): String {
+    val dateFormat = SimpleDateFormat(pattern, Locale("en"))
     return dateFormat.format(Date())
 }
 
-fun getTodayDateLanguage(sharedPreferences: SharedPreferences): String {
+fun getTodayDateLanguage(
+    sharedPreferences: SharedPreferences,
+    pattern: String = "MMM dd, yyyy",
+): String {
     return SimpleDateFormat(
-        "MMM dd, yyyy",
+        pattern,
         Locale(sharedPreferences.getString("lang", "en")!!)
     ).format(Date())
 }
 
 fun formatLanguageDate(
-    year: Int,
-    month: Int,
-    day: Int,
+    date: Date,
     sharedPreferences: SharedPreferences,
+    pattern: String = "MMM dd, yyyy",
 ): String {
-    // Create a Calendar instance to set the year, month, and day
-    val calendar = Calendar.getInstance()
-    calendar.set(year, month - 1, day)
-
-    // Create a SimpleDateFormat instance with Arabic locale and desired pattern
     val dateFormat = SimpleDateFormat(
-        "MMM dd, yyyy",
+        pattern,
         Locale(sharedPreferences.getString("lang", "en")!!)
-    ) // Specify Arabic locale
-
-    // Format the date using the SimpleDateFormat instance
-    return dateFormat.format(calendar.time)
+    )
+    return dateFormat.format(date)
 }

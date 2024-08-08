@@ -55,7 +55,7 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
             viewModel.myItemsUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.itemsServices != null) {
@@ -145,7 +145,7 @@ class MyItemsServicesFragment : Fragment(), ItemsServicesInteraction {
     override fun onClick(itemId: Int, status: Int) {
         when (statusId) {
             binding.chipList.id -> {
-                if (status == 2)
+                if (status == 2|| status == 3)
                     sharedViewModel.navigateToItemDetailsService(itemId)
             }
 

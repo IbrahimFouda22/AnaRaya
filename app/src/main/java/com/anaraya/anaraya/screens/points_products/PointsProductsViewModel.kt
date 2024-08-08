@@ -77,8 +77,8 @@ class PointsProductsViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = null,
-                products = allProduct.map {
-                    it.map { data ->
+                products = allProduct.map { productPagingData ->
+                    productPagingData.map { data ->
                         data.toUiState(isPoints = true)
                     }
                 }

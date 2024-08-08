@@ -272,7 +272,7 @@
     <string name="we_have_sent_the_verification_code_to_your_mobile_number">We have sent the verification code to your mobile number</string>
     <string name="verify">Verify</string>
     <string name="referrals">Referrals</string>
-    <string name="reference_a_family_or_a_friend">Reference a family or a friend</string>
+    <string name="reference_a_family_or_a_friend">Refer a family or a friend</string>
     <string name="send">Send</string>
     <string name="relationship">Relationship</string>
     <string name="my_referrals">My Referrals</string>
@@ -347,7 +347,7 @@
     <string name="in_person_card_payment">in-person Card Payment</string>
     <string name="cash">Cash</string>
     <string name="iban">رقم الحساب (IBAN)</string>
-    <string name="please_not_that_by">Please not that by proceeding you are agreeing to pay in case item is accepted and has requests to purchase of 5% with a minimum of 50 L.E. (not including any delivery fees)</string>
+    <string name="please_not_that_by">By proceeding you are agreeing to us a 5% service fee upon sale (excluding delivery fees)</string>
     <string name="name_of_company">اسم المؤسسة</string>
     <string name="town">المدينة-الفرع</string>
     <string name="please_click_submit_when_you_have_tranfered_the_amount">please click submit when you have tranfered the amount</string>
@@ -369,6 +369,23 @@
     <string name="products_is_already_in_basket">Products is Already in Basket</string>
     <string name="selected_products_added_to_cart">Selected Products added to cart</string>
     <string name="press_back_again_to_exit">Press back again to exit</string>
+    <string name="you_have_been_banned_from_using_our_app">You have been banned from using our app</string>
+    <string name="order_is_cancelled">Order is Cancelled</string>
+    <string name="copied_text">Copied Text</string>
+    <string name="text_copied_to_clipboard">Text copied to clipboard</string>
+    <string name="selected_address">Selected address</string>
+    <string name="delete">Delete</string>
+    <string name="your_add_request_is_rejected">Your add request is rejected</string>
+    <string name="your_edit_request_is_rejected">Your edit request is rejected</string>
+    <string name="your_delete_request_is_rejected">Your delete request is rejected</string>
+    <string name="service_history">Service history</string>
+    <string name="rent_status">Rent status</string>
+    <string name="payment_complete">Payment complete</string>
+    <string name="pending_payment">Pending payment</string>
+    <string name="referral_name">Referral Name</string>
+    <string name="referral_mobile">Referral Mobile</string>
+    <string name="select_payment_method_2">Select Payment Method</string>
+    <string name="please_select_your_branch_and_time_slot_for_the_payment_to_be_collected_by_one_of_our_sales_representatives">Please select your branch and time slot for the payment to be collected by one of our sales representatives</string>
 
     <string-array name="lang">
         <item>Arabic</item>
@@ -381,7 +398,7 @@
     </string-array>
     <string-array name="arrayAnonymous">
         <item>Yes</item>
-        <item>No, I would like to directly contact my\nsellers and arrange the sale my self</item>
+        <item>No, I\'d like to directly contact buyers my self</item>
     </string-array>
     <string-array name="arrayServiceRental">
         <item>Yes</item>

@@ -4,6 +4,7 @@ import com.anaraya.data.dto.ServiceStoreDto
 import com.anaraya.data.dto.ServiceStoreDtoDetailsData
 import com.anaraya.data.dto.ServiceStoreDtoDetailsForCustomer
 import com.anaraya.data.dto.ServiceStoreDtoItemList
+import com.anaraya.domain.entity.RentedPeriods
 import com.anaraya.domain.entity.ServiceCustomerInformation
 import com.anaraya.domain.entity.ServiceStoreForCustomer
 import com.anaraya.domain.entity.ServiceStoreItemList
@@ -51,7 +52,8 @@ fun ServiceStoreDtoItemList.toEntity(): ServiceStoreItemList {
                 rentTo = d.rentTo ?: ""
             )
         },
-        customerWantsToRent = customerWantsToRent
+        customerWantsToRent = customerWantsToRent,
+        isPaymentConfirmed = isPaymentConfirmed
     )
 }
 
@@ -73,6 +75,12 @@ fun ServiceStoreDtoDetailsForCustomer.toEntity(): ServiceStoreForCustomer {
         baseRentFrom = data.baseRentFrom ?: "",
         baseRentTo = data.baseRentTo ?: "",
         rentFrom = data.rentFrom ?: "",
-        rentTo = data.rentTo ?: ""
+        rentTo = data.rentTo ?: "",
+        rentedPeriods = data.rentedPeriods?.map {
+            RentedPeriods(
+                rentFrom = it.rentFrom,
+                rentTo = it.rentTo
+            )
+        } ?: emptyList()
     )
 }

@@ -6,7 +6,7 @@ import com.anaraya.domain.entity.Cart
 import com.anaraya.domain.entity.CartData
 import com.anaraya.domain.entity.CartDataList
 
-fun CartDto.toEntity():Cart{
+fun CartDto.toEntity(): Cart {
     return Cart(
         isSucceed = isSucceed,
         message = message,
@@ -14,13 +14,14 @@ fun CartDto.toEntity():Cart{
     )
 }
 
-fun CartDtoData.toEntity():CartData{
+fun CartDtoData.toEntity(): CartData {
     return CartData(
         cartTotal = this.cartTotal,
         cartTotalAmount = this.totalAmount,
         cartDeliveryFee = this.deliveryFee,
         cartAmountToTakeFreeDelivery = this.ammountToTakeFreeDelivery,
         cartPromoCodeDiscount = this.promoCodeDiscount,
+        promoCode = this.promoCode ?: "",
         hasAddress = this.hasAddress,
         data = this.stocksList.map {
             CartDataList(
@@ -34,6 +35,7 @@ fun CartDtoData.toEntity():CartData{
                 stockImg = it.stockImg,
                 deliveryFee = it.deliveryFee,
                 description = it.description,
+                pointInRedeem = 0.0
             )
         },
         loyaltyData = this.loyaltyStockList.map {
@@ -47,6 +49,7 @@ fun CartDtoData.toEntity():CartData{
                 specs2 = it.specs2,
                 stockImg = it.stockImg,
                 description = it.description,
+                pointInRedeem = it.pointInRedem,
                 deliveryFee = 0.0,
             )
         }

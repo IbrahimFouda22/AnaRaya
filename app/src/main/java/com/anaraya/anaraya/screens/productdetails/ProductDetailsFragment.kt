@@ -70,7 +70,7 @@ class ProductDetailsFragment : Fragment(), ProductInteractionListener {
             viewModel.product.collectLatest {
                 if (it.error != null) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (!it.messageAdd.isNullOrEmpty()) {
@@ -122,11 +122,14 @@ class ProductDetailsFragment : Fragment(), ProductInteractionListener {
             }
         }
         binding.btnAddToBasket.setOnClickListener {
-            if (viewModel.product.value.qtyInBasket == 0)
-                Toast.makeText(context, getString(R.string.please_add_qty), Toast.LENGTH_SHORT)
-                    .show()
-            else
-                viewModel.addProductToCart(viewModel.product.value.qtyInBasket, false)
+            if(!viewModel.product.value.isLoading)
+            {
+                if (viewModel.product.value.qtyInBasket == 0)
+                    Toast.makeText(context, getString(R.string.please_add_qty), Toast.LENGTH_SHORT)
+                        .show()
+                else
+                    viewModel.addProductToCart(viewModel.product.value.qtyInBasket, false)
+            }
         }
 //        binding.btnFavProductDetails.setOnClickListener {
 //            if(viewModel.product.value.productDetailsUiState.favouriteStock)

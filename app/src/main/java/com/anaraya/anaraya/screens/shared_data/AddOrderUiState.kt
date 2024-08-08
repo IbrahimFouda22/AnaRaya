@@ -8,6 +8,7 @@ data class AddOrderUiState(
     val fee: Double = 0.0,
     val shipping: Double = 0.0,
     val discount: Double = 0.0,
+    val promoCode: String = "",
     val numOfItems: Int = 0,
-    val amountToTakeDeliveryFree: Double = 0.0
-): Serializable
+    val amountToTakeDeliveryFree: Double = 0.0,
+) : Serializable

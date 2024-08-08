@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.anaraya.anaraya.screens.cart.CartUiList
-import com.anaraya.anaraya.screens.services.store.product.my_items.ProductStoreItemState
 import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.exception.NoInternetException
 import com.anaraya.domain.usecase.ManageProfileUseCase
@@ -86,6 +85,21 @@ class HomeActivityViewModel @Inject constructor(
         }
     }
 
+    fun setSelectedMethodInCart(text: String?) {
+        _homeState.update {
+            it.copy(
+                selectedMethodInCart = text
+            )
+        }
+    }
+    fun saveSelectedMethodInCart(boolean: Boolean) {
+        _homeState.update {
+            it.copy(
+                saveSelected = boolean
+            )
+        }
+    }
+
     fun getTrending() {
         _homeState.update {
             it.copy(
@@ -102,21 +116,21 @@ class HomeActivityViewModel @Inject constructor(
         }
     }
 
-    fun getPoints() {
-        _homeState.update {
-            it.copy(
-                getPointsData = true
-            )
-        }
-    }
-
-    fun getPointsDone() {
-        _homeState.update {
-            it.copy(
-                getPointsData = false
-            )
-        }
-    }
+//    fun getPoints() {
+//        _homeState.update {
+//            it.copy(
+//                getPointsData = true
+//            )
+//        }
+//    }
+//
+//    fun getPointsDone() {
+//        _homeState.update {
+//            it.copy(
+//                getPointsData = false
+//            )
+//        }
+//    }
 
     fun getAddresses() {
         _homeState.update {
@@ -204,6 +218,7 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToItemDetailsProduct = false)
         }
     }
+
     fun navigateToItemSoldProduct(productId: Int) {
         _homeState.update {
             it.copy(navigateToItemSoldProduct = true, itemSoldProductId = productId)
@@ -227,6 +242,7 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToItemDetailsService = false)
         }
     }
+
     fun navigateToItemSoldService(serviceId: Int) {
         _homeState.update {
             it.copy(navigateToItemSoldService = true, itemSoldServiceId = serviceId)
@@ -310,6 +326,7 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToMarketPlaceProduct = false)
         }
     }
+
     fun navigateToMarketPlaceOwnerProduct(id: String) {
         _homeState.update {
             it.copy(navigateToMarketPlaceOwnerProduct = true, navigationId = id)
@@ -333,6 +350,7 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(navigateToMarketPlaceService = false)
         }
     }
+
     fun navigateToMarketPlaceOwnerService(id: String) {
         _homeState.update {
             it.copy(navigateToMarketPlaceOwnerService = true, navigationId = id)
@@ -354,7 +372,8 @@ class HomeActivityViewModel @Inject constructor(
             )
         }
     }
-    fun setFromAndToDate(from: String, to: String)  {
+
+    fun setFromAndToDate(from: String, to: String) {
         _homeState.update {
             it.copy(
                 fromDate = from,
@@ -362,7 +381,8 @@ class HomeActivityViewModel @Inject constructor(
             )
         }
     }
-    fun setFromAndToDateLanguage(from: String, to: String)  {
+
+    fun setFromAndToDateLanguage(from: String, to: String) {
         _homeState.update {
             it.copy(
                 fromDateLang = from,
@@ -411,6 +431,7 @@ class HomeActivityViewModel @Inject constructor(
             it.copy(isEnteredToTermsAndCondition = boolean)
         }
     }
+
     fun setVisibilityIsRental(boolean: Boolean) {
         _homeState.update {
             it.copy(setVisibilityIsRental = boolean)

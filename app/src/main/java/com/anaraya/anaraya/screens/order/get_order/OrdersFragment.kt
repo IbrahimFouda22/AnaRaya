@@ -14,6 +14,7 @@ import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.FragmentOrdersBinding
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
 import com.anaraya.anaraya.screens.order.get_order.adapter.OrdersAdapter
+import com.anaraya.anaraya.screens.order.get_order.interaction.OrderInteraction
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showToolBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class OrdersFragment : Fragment() {
+class OrdersFragment : Fragment(), OrderInteraction {
 
     private lateinit var binding: FragmentOrdersBinding
     private val viewModel by viewModels<OrdersViewModel>({ this })
@@ -38,13 +39,14 @@ class OrdersFragment : Fragment() {
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
-        val adapter = OrdersAdapter()
+        val adapter = OrdersAdapter(this)
         binding.recyclerOrder.adapter = adapter
 
         lifecycleScope.launch {
             viewModel.orderUiState.collectLatest {
                 if (it.error != null) {
-                    if (it.error != getString(R.string.no_internet))
+                    sharedViewModel.setError(it.error)
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if(it.ordersUiState.isNotEmpty()){
@@ -74,6 +76,10 @@ class OrdersFragment : Fragment() {
         super.onStart()
         showBottomNavBar(requireActivity(),false)
         showToolBar(requireActivity(),true)
+    }
+
+    override fun onClickDelete(orderId: Int) {
+        viewModel.deleteOrder(orderId)
     }
 
 }

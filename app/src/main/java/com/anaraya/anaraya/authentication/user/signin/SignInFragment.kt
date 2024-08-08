@@ -1,5 +1,6 @@
 package com.anaraya.anaraya.authentication.user.signin
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.user.AuthViewModel
 import com.anaraya.anaraya.databinding.FragmentSignInBinding
+import com.anaraya.anaraya.databinding.LayoutDialogBanBinding
 import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -57,7 +59,7 @@ class SignInFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.signInResponse.collectLatest {
                 if (it.token != null) {
-                    saveUser(it.token,it.productsInBasket)
+                    saveUser(it.token,it.productsInBasket,it.refreshToken)
                     startActivity(Intent(requireActivity(), HomeActivity::class.java))
                     requireActivity().finish()
                 }
@@ -65,10 +67,21 @@ class SignInFragment : Fragment() {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
                     if (it.error != getString(R.string.no_internet))
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
+                }
+                if (it.isDeleted) {
+                    val view = LayoutDialogBanBinding.inflate(layoutInflater)
+                    val dialog = Dialog(requireContext())
+                    dialog.setCancelable(false)
+                    dialog.setContentView(view.root)
+                    dialog.window?.setBackgroundDrawableResource(R.drawable.ban_dialog_shape)
+                    dialog.show()
+                    view.txtOkBan.setOnClickListener {
+                        dialog.dismiss()
+                    }
                 }
                 if (!it.isSucceedSignIn) {
-                    Toast.makeText(context, it.messageSignIn, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.messageSignIn, Toast.LENGTH_SHORT).show()
                 }
                 if (it.contactNumber != null) {
                     contactNumber = it.contactNumber
@@ -112,8 +125,9 @@ class SignInFragment : Fragment() {
         viewModel.signIn(rayaId, nationalId, password)
     }
 
-    private fun saveUser(token: String, productsInBasket: Int) {
+    private fun saveUser(token: String, productsInBasket: Int, refreshToken: String?) {
         sharedPreferences.edit().putString("token", token).apply()
+        sharedPreferences.edit().putString("refreshToken", refreshToken).apply()
         sharedPreferences.edit().putInt(getString(R.string.productsinbasket), productsInBasket).apply()
         sharedPreferences.edit().putBoolean("auth", false).apply()
         sharedPreferences.edit().putString("rayaId", binding.edtRayaIdNumSignIn.text.toString())

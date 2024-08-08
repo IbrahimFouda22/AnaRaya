@@ -58,6 +58,7 @@ fun bindButtonRequestToBuy(appCompatButton: AppCompatButton, status: Int) {
         appCompatButton.isEnabled = true
     }
 }
+
 @BindingAdapter("bindButtonRequest")
 fun bindButtonRequest(appCompatButton: AppCompatButton, status: Int) {
     if (status != 0) {
@@ -97,16 +98,31 @@ fun bindViewVisibilityGone(view: View, boolean: Boolean) {
     else
         view.gone()
 }
+@BindingAdapter("bindButtonDelete")
+fun bindButtonDelete(appCompatButton: AppCompatButton, discount: Double) {
+    if (discount > 0){
+        appCompatButton.setBackgroundResource(R.drawable.shape_button_delete)
+        appCompatButton.text = appCompatButton.context.getString(R.string.delete)
+    }
+    else {
+        appCompatButton.setBackgroundResource(R.drawable.shape_button_add_2)
+        appCompatButton.text = appCompatButton.context.getString(R.string.apply)
+    }
+}
+
 @SuppressLint("SetTextI18n")
 @BindingAdapter(value = ["from", "to"], requireAll = true)
-fun bindTextPeriodFromTo(textView: TextView, from: String?,to:String?) {
+fun bindTextPeriodFromTo(textView: TextView, from: String?, to: String?) {
     textView.text = textView.context.getString(R.string.this_service_is_available_from_to, from, to)
 }
+
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindTextPeriodFrom")
 fun bindTextPeriodFrom(textView: TextView, from: String?) {
     textView.text = textView.context.getString(R.string.rent_from, from)
-}@SuppressLint("SetTextI18n")
+}
+
+@SuppressLint("SetTextI18n")
 @BindingAdapter("bindTextPeriodTo")
 fun bindTextPeriodTo(textView: TextView, to: String?) {
     textView.text = textView.context.getString(R.string.rent_to, to)
@@ -117,6 +133,7 @@ fun bindTextPeriodTo(textView: TextView, to: String?) {
 fun bindTextNumOfPurchase(textView: TextView, num: Int) {
     textView.text = textView.context.getString(R.string.you_have_a_purchase_request_num, num)
 }
+
 @BindingAdapter("bindGender")
 fun bindGender(radioGroup: RadioGroup, status: Int) {
     if (status > 0)
@@ -151,6 +168,16 @@ fun bindTextNumOfBasket(textView: TextView, num: Int) {
     if (num > 0) {
         textView.visible()
         textView.text = num.toString()
+    } else {
+        textView.gone()
+    }
+}
+
+@BindingAdapter(value = ["numberOfBuyers", "isVisible"], requireAll = true)
+fun bindTextNumOfBasketExtension(textView: TextView, numberOfBuyers: Int, isVisible: Boolean) {
+    if (isVisible && numberOfBuyers > 0) {
+        textView.visible()
+        textView.text = numberOfBuyers.toString()
     } else {
         textView.gone()
     }
@@ -595,6 +622,7 @@ fun bindTextItemStoreStatus(text: TextView, status: Int, userAction: Int, isList
                         text.text = text.context.getString(R.string.edit_request_pending)
                         text.setTextColor(text.context.getColor(R.color.colorPrimary))
                     }
+
                     3 -> {
                         text.text = text.context.getString(R.string.delete_request_pending)
                         text.setTextColor(text.context.getColor(R.color.red))
@@ -610,6 +638,27 @@ fun bindTextItemStoreStatus(text: TextView, status: Int, userAction: Int, isList
             3 -> {
                 text.text = text.context.getString(R.string.rejected)
                 text.setTextColor(text.context.getColor(R.color.red))
+            }
+        }
+    } else {
+        text.gone()
+    }
+}
+@BindingAdapter(value = ["rejectStatus", "rejectUserAction", ], requireAll = true)
+fun bindRejectStatus(text: TextView, rejectStatus: Int, rejectUserAction: Int) {
+    if (rejectStatus == 3) {
+        text.visible()
+        when (rejectUserAction) {
+            1 -> {
+                text.text = text.context.getString(R.string.your_add_request_is_rejected)
+            }
+
+            2 -> {
+                text.text = text.context.getString(R.string.your_edit_request_is_rejected)
+            }
+
+            3 -> {
+                text.text = text.context.getString(R.string.your_delete_request_is_rejected)
             }
         }
     } else {
@@ -634,6 +683,17 @@ fun bindNumOfItems(textView: TextView, num: Int) {
         textView.text = "$num ${textView.context.getString(R.string.items)}"
     else
         textView.text = "$num ${textView.context.getString(R.string.item)}"
+}
+@BindingAdapter("bindRentStatus")
+fun bindRentStatus(textView: TextView, rentStatus: Int) {
+    if(rentStatus == 6 ){
+        textView.text = textView.context.getString(R.string.payment_complete)
+        textView.setTextColor(textView.context.getColor(R.color.green))
+    }
+    if(rentStatus == 5 ){
+        textView.text = textView.context.getString(R.string.pending_payment)
+        textView.setTextColor(textView.context.getColor(R.color.red))
+    }
 }
 
 @SuppressLint("SetTextI18n", "StringFormatMatches", "DefaultLocale")
@@ -798,6 +858,17 @@ fun bindTextInputLayoutPassMsgError(textInputLayout: TextInputLayout, number: In
 @BindingAdapter("bindTextReferralsItem")
 fun bindTextReferralsItem(textView: TextView, text: String) {
     textView.text = textView.context.getString(R.string.referrals_sent_to, text)
+}
+@BindingAdapter("bindTextReferralsStatus")
+fun bindTextReferralsStatus(textView: TextView, boolean: Boolean?) {
+    if (boolean == null)
+        textView.text = textView.context.getString(R.string.pending)
+    else{
+        if(boolean)
+            textView.text = textView.context.getString(R.string.accepted)
+        else
+            textView.text = textView.context.getString(R.string.rejected)
+    }
 }
 
 //sign up visibility

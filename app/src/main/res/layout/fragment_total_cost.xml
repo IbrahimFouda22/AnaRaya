@@ -119,6 +119,7 @@
                             android:id="@+id/txtTotalPointsValue"
                             style="@style/textUnderHeadValueTotalCost"
                             bindTxtPrice="@{viewModel.totalCostUiState.totalPoints}"
+                            bindViewVisibilityGone="@{viewModel.totalCostUiState.visibilityPoints}"
                             isPoints="@{true}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -178,6 +179,7 @@
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnApplyCoupon"
                             style="@style/btnAddressTypeSelected"
+                            bindButtonDelete="@{viewModel.totalCostUiState.addOrderUiState.discount}"
                             android:layout_width="wrap_content"
                             android:layout_height="35dp"
                             android:layout_marginHorizontal="10dp"

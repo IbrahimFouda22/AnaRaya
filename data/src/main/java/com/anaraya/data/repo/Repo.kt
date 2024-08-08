@@ -20,6 +20,8 @@ import com.anaraya.data.pagingsource.StoreProductPagingSource
 import com.anaraya.data.pagingsource.StoreServicePagingSource
 import com.anaraya.data.pagingsource.TrendingProductPagingSource
 import com.anaraya.data.remote.RemoteDataSource
+import com.anaraya.domain.entity.ApplyPromo
+import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.entity.SurveyBody
 import com.anaraya.domain.repo.IRepo
 import kotlinx.coroutines.flow.Flow
@@ -35,6 +37,7 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
     companion object {
         const val PAGE_SIZE = 10
     }
+
 
     override suspend fun checkAuth(rayaId: String, nationalId: String) =
         remoteDataSource.checkAuth(rayaId, nationalId)
@@ -189,6 +192,8 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
         remoteDataSource.changePassword(currentPassword, newPassword)
 
     override suspend fun getOrders() = remoteDataSource.getOrders()
+    override suspend fun deleteOrder(orderId: Int) = remoteDataSource.deleteOrder(orderId)
+
     override suspend fun forgetPass(rayaId: String, nationalId: String) =
         remoteDataSource.forgetPass(rayaId, nationalId)
 
@@ -233,6 +238,8 @@ class Repo @Inject constructor(private val remoteDataSource: RemoteDataSource) :
 
     override suspend fun getAllPromoCodes() = remoteDataSource.getAllPromoCodes()
     override suspend fun applyPromo(promoCode: String) = remoteDataSource.applyPromo(promoCode)
+    override suspend fun removePromoCode() = remoteDataSource.removePromoCode()
+
     override suspend fun getAboutUs() = remoteDataSource.getAboutUs()
     override suspend fun getTermsAndCondition() = remoteDataSource.getTermsAndCondition()
 

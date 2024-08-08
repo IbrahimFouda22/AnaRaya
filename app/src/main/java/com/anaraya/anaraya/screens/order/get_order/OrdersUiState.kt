@@ -5,6 +5,7 @@ import com.anaraya.domain.entity.OrderData
 
 data class OrdersUiState(
     val isLoading: Boolean = false,
+    val isSucceedDeleteOrder: Boolean = false,
     val error: String? = null,
     val ordersUiState: List<OrderUiStateData> = emptyList()
 )

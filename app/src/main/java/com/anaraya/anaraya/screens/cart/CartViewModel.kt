@@ -86,7 +86,7 @@ class CartViewModel @Inject constructor(
                     isSucceedGetCartData = true,
                     cartUiState = cart.toUiState(),
                     visibilityPoints = cart.data.loyaltyData.isNotEmpty(),
-                    totalPoints = cart.data.loyaltyData.sumOf { item -> item.totalProductPrice },
+                    totalPoints = cart.data.loyaltyData.sumOf { item -> item.pointInRedeem * item.qty },
                 )
             }
             getCheckOut()
@@ -151,6 +151,27 @@ class CartViewModel @Inject constructor(
             it.copy(
                 allAddressesUiState = it.addressUiState + it.companyAddressUiState
             )
+        }
+
+        if (_cartUiState.value.allAddressesUiState.isEmpty()) {
+            _cartUiState.update {
+                it.copy(
+                    showEmptyAddress = true,
+                    defaultAddressTitle = ""
+                )
+            }
+        } else {
+            for (item in _cartUiState.value.allAddressesUiState) {
+                if (item.defaultAddress) {
+                    _cartUiState.update {
+                        it.copy(
+                            showEmptyAddress = false,
+                            defaultAddressTitle = item.addressUiState.addressLabel,
+                        )
+                    }
+                    break
+                }
+            }
         }
     }
 
@@ -235,7 +256,7 @@ class CartViewModel @Inject constructor(
                     isSucceedGetCheckOut = checkOut.isSucceed,
                     deliveryAddressLabel = checkOut.data.deliveryAddressLabel,
                     totalCost = checkOut.data.totalCost,
-                    paymentMethods = checkOut.data.paymentMethods
+                    paymentMethods = checkOut.data.paymentMethods,
                 )
             )
         }
@@ -317,7 +338,8 @@ class CartViewModel @Inject constructor(
                         discount = it.cartUiState.cartPromoCodeDiscount,
                         numOfItems = it.cartUiState.cartUiListState.size,
                         fee = it.cartUiState.cartDeliveryFee,
-                        amountToTakeDeliveryFree = it.cartUiState.cartAmountToTakeFreeDelivery
+                        amountToTakeDeliveryFree = it.cartUiState.cartAmountToTakeFreeDelivery,
+                        promoCode = it.cartUiState.cartPromoCode
                     )
                 )
             }
@@ -357,7 +379,7 @@ class CartViewModel @Inject constructor(
     private fun onChangeDefaultAddressSuccess(response: ChangeDefaultAddress) {
         _cartUiState.update {
             it.copy(
-                isLoading = false, error = null,
+                isLoading = true, error = null,
                 errorChangeDefaultAddress = null,
                 isSucceedChangeAddress = response.isSucceed,
                 changeAddressUiState = ChangeAddressUiState(
@@ -366,6 +388,8 @@ class CartViewModel @Inject constructor(
                 )
             )
         }
+        if (response.isSucceed)
+            getCartDataToUpdateTotals()
     }
 
 
@@ -374,6 +398,89 @@ class CartViewModel @Inject constructor(
             it.copy(
                 isLoading = false, error = null, changeAddressUiState = null,
                 errorChangeDefaultAddress = error, isSucceedChangeAddress = false
+            )
+        }
+    }
+
+    private fun getCartDataToUpdateTotals() {
+        viewModelScope.launch {
+            try {
+                onGetProductsToUpdateTotalsSuccess(manageCartUseCase.getCart())
+            } catch (e: NoInternetException) {
+                onGetProductsToUpdateTotalsFailure("No Internet")
+            } catch (e: Exception) {
+                onGetProductsToUpdateTotalsFailure(e.message.toString())
+            }
+        }
+    }
+
+    private fun onGetProductsToUpdateTotalsSuccess(cart: Cart) {
+        _cartUiState.update {
+            it.copy(
+                error = null,
+                isSucceedGetCartData = true,
+                cartUiState = it.cartUiState?.copy(
+                    cartTotal = cart.data.cartTotal,
+                    cartPromoCodeDiscount = cart.data.cartPromoCodeDiscount,
+                    cartDeliveryFee = cart.data.cartDeliveryFee,
+                    cartTotalAmount = cart.data.cartTotalAmount,
+                    cartAmountToTakeFreeDelivery = cart.data.cartAmountToTakeFreeDelivery,
+                    hasAddress = cart.data.hasAddress,
+                ),
+            )
+        }
+        getCheckOutAndUpdateTotals()
+    }
+
+    private fun onGetProductsToUpdateTotalsFailure(error: String) {
+        _cartUiState.update {
+            it.copy(
+                isLoading = false,
+                error = error,
+                cartUiState = null,
+                isSucceedGetCartData = false,
+                showEmptyCart = false,
+                totalPoints = 0.0,
+                visibilityPoints = false
+            )
+        }
+    }
+
+    private fun getCheckOutAndUpdateTotals() {
+        viewModelScope.launch {
+            try {
+                onGetCheckOutAndUpdateTotalsSuccess(manageCartUseCase.getCheckOut())
+            } catch (_: IllegalStateException) {
+
+            } catch (e: NoInternetException) {
+                onGetCheckOutAndUpdateTotalsFailure("No Internet")
+            } catch (e: Exception) {
+                onGetCheckOutAndUpdateTotalsFailure(e.message.toString())
+            }
+        }
+    }
+
+    private fun onGetCheckOutAndUpdateTotalsSuccess(checkOut: CheckOut) {
+        _cartUiState.update {
+            it.copy(
+                isLoading = false,
+                error = null,
+                checkOutUiState = CheckOutUiStateData(
+                    isSucceedGetCheckOut = checkOut.isSucceed,
+                    deliveryAddressLabel = checkOut.data.deliveryAddressLabel,
+                    totalCost = checkOut.data.totalCost,
+                )
+            )
+        }
+        fillAddOrder()
+    }
+
+    private fun onGetCheckOutAndUpdateTotalsFailure(error: String) {
+        _cartUiState.update {
+            it.copy(
+                isLoading = false,
+                error = error,
+                checkOutUiState = null
             )
         }
     }

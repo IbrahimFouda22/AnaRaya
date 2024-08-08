@@ -100,7 +100,6 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
         binding.lifecycleOwner = viewLifecycleOwner
         binding.homeViewModel = viewModel
 
-        Log.d("TAG", sharedPreferences.getString("token", "")!!)
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
         edtSearch = requireActivity().findViewById(R.id.edtSearch)
@@ -121,76 +120,76 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
                     findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToFavoriteFragment())
                     sharedViewModel.navigateToFavDone()
                 }
-                if (it.navigateToBrand) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
-                            selectionType = 4,
-                            id = sharedViewModel.homeState.value.navigationId
-                        )
-                    )
-                    sharedViewModel.navigateToBrandDone()
-                }
-                if (it.navigateToMainCat) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
-                            selectionType = 2,
-                            id = sharedViewModel.homeState.value.navigationId
-                        )
-                    )
-                    sharedViewModel.navigateToMainCatDone()
-                }
-                if (it.navigateToCat) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
-                            selectionType = 3,
-                            id = sharedViewModel.homeState.value.navigationId
-                        )
-                    )
-                    sharedViewModel.navigateToCatDone()
-                }
-                if (it.navigateToProduct) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(
-                            productId = sharedViewModel.homeState.value.navigationId.toInt(),
-                            isPoints = false
-                        )
-                    )
-                    sharedViewModel.navigateToProductDone()
-                }
-                if (it.navigateToSurvey) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToSurveysFragment()
-                    )
-                    sharedViewModel.navigateToSurveyDone()
-                }
-                if (it.navigateToMarketPlaceProduct) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToStoreFragment()
-                    )
-                    sharedViewModel.navigateToMarketPlaceProductDone()
-                }
-                if (it.navigateToMarketPlaceOwnerProduct) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToItemDetailsFragment(
-                            sharedViewModel.homeState.value.navigationId.toInt()
-                        )
-                    )
-                    sharedViewModel.navigateToMarketPlaceOwnerProductDone()
-                }
-                if (it.navigateToMarketPlaceService) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToStoreServiceFragment()
-                    )
-                    sharedViewModel.navigateToMarketPlaceServiceDone()
-                }
-                if (it.navigateToMarketPlaceOwnerService) {
-                    findNavController().navigate(
-                        HomeFragmentDirections.actionHomeFragmentToServiceDetailsOwnerFragment(
-                            sharedViewModel.homeState.value.navigationId.toInt()
-                        )
-                    )
-                    sharedViewModel.navigateToMarketPlaceOwnerServiceDone()
-                }
+//                if (it.navigateToBrand) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
+//                            selectionType = 4,
+//                            id = sharedViewModel.homeState.value.navigationId
+//                        )
+//                    )
+//                    sharedViewModel.navigateToBrandDone()
+//                }
+//                if (it.navigateToMainCat) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
+//                            selectionType = 2,
+//                            id = sharedViewModel.homeState.value.navigationId
+//                        )
+//                    )
+//                    sharedViewModel.navigateToMainCatDone()
+//                }
+//                if (it.navigateToCat) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToSearchFragment(
+//                            selectionType = 3,
+//                            id = sharedViewModel.homeState.value.navigationId
+//                        )
+//                    )
+//                    sharedViewModel.navigateToCatDone()
+//                }
+//                if (it.navigateToProduct) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment(
+//                            productId = sharedViewModel.homeState.value.navigationId.toInt(),
+//                            isPoints = false
+//                        )
+//                    )
+//                    sharedViewModel.navigateToProductDone()
+//                }
+//                if (it.navigateToSurvey) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToSurveysFragment()
+//                    )
+//                    sharedViewModel.navigateToSurveyDone()
+//                }
+//                if (it.navigateToMarketPlaceProduct) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToStoreFragment()
+//                    )
+//                    sharedViewModel.navigateToMarketPlaceProductDone()
+//                }
+//                if (it.navigateToMarketPlaceOwnerProduct) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToItemDetailsFragment(
+//                            sharedViewModel.homeState.value.navigationId.toInt()
+//                        )
+//                    )
+//                    sharedViewModel.navigateToMarketPlaceOwnerProductDone()
+//                }
+//                if (it.navigateToMarketPlaceService) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToStoreServiceFragment()
+//                    )
+//                    sharedViewModel.navigateToMarketPlaceServiceDone()
+//                }
+//                if (it.navigateToMarketPlaceOwnerService) {
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.actionHomeFragmentToServiceDetailsOwnerFragment(
+//                            sharedViewModel.homeState.value.navigationId.toInt()
+//                        )
+//                    )
+//                    sharedViewModel.navigateToMarketPlaceOwnerServiceDone()
+//                }
                 if (it.getCart) {
                     viewModel.getCartData()
                     sharedViewModel.getCartDone()
@@ -300,10 +299,12 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
                     if (it.error == getString(R.string.no_internet)) {
                         if (!noInternet) {
                             noInternet = true
-//                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.isNotEmpty())
+                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.contains("user not found", ignoreCase = true))
+                            logOut()
                     }
                 }
                 if (it.productsAdsUiState.isNotEmpty()) {
@@ -323,7 +324,8 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
 //                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.isNotEmpty())
+                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                     }
                 }
                 if (it.trendingProductUiState != null) {
@@ -344,7 +346,8 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
 //                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.isNotEmpty())
+                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                     }
                 }
                 if (it.pointsProductUiState != null) {
@@ -364,7 +367,8 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
 //                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.isNotEmpty())
+                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                     }
                 }
                 if (it.addCartUiState != null) {
@@ -440,7 +444,8 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
 //                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                        if(it.error.isNotEmpty())
+                            Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                     }
                 }
                 if (it.categoryUiState != null) {
@@ -676,13 +681,6 @@ class HomeFragment : Fragment(), ProductInteractionListener, CategoryInteraction
     }
 
     private fun showDialogSurvey(surveyImage: String, surveyId: Int) {
-//        val view = LayoutDialogSurveyImageBinding.inflate(layoutInflater)
-//        view.image = surveyImage
-//        val dialog = AlertDialog.Builder(requireContext()).create()
-//        dialog.setCancelable(false)
-//        dialog.setView(view.root)
-//        dialog.window?.setBackgroundDrawableResource(R.drawable.survey_dialog_shape)
-//        dialog.show()
         val view = LayoutDialogSurveyImageBinding.inflate(layoutInflater)
         view.image = surveyImage
         val dialog = Dialog(requireContext())

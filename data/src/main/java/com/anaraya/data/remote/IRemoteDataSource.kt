@@ -147,6 +147,7 @@ interface IRemoteDataSource {
     suspend fun changePassword(currentPassword: String, newPassword: String): EditInfo
 
     suspend fun getOrders(): Order
+    suspend fun deleteOrder(orderId:Int): BaseResponse
 
     suspend fun forgetPass(rayaId: String, nationalId: String): ResetChangePass
     suspend fun forgetPassCheckCode(
@@ -189,6 +190,7 @@ interface IRemoteDataSource {
     suspend fun addFeedBack(rating: Int, review: String?): FeedBack
     suspend fun getAllPromoCodes(): PromoCode
     suspend fun applyPromo(promoCode: String): ApplyPromo
+    suspend fun removePromoCode(): ApplyPromo
     suspend fun getAboutUs(): AboutUS
     suspend fun getTermsAndCondition(): BaseResponse
     suspend fun getPrivacyPolicy(): BaseResponse
@@ -235,6 +237,7 @@ interface IRemoteDataSource {
         handleDelivery: RequestBody?,
         productImage: MultipartBody.Part?,
     ): BaseResponse
+
     suspend fun storeUpdateServices(
         id: RequestBody,
         subCategoryId: RequestBody,
@@ -272,9 +275,11 @@ interface IRemoteDataSource {
     suspend fun getStoreProductByIdForCustomer(
         productId: Int,
     ): ProductStoreForCustomer
+
     suspend fun getStoreServiceByIdForOwner(
         serviceId: Int,
     ): ServiceStoreItemList
+
     suspend fun getStoreServiceByIdForCustomer(
         serviceId: Int,
     ): ServiceStoreForCustomer
@@ -384,11 +389,12 @@ interface IRemoteDataSource {
         companyAddressId: String?,
         paymentMethod: Int,
     ): BaseResponse
+
     suspend fun confirmServiceDeal(
         listeningId: Int,
         companyAddressId: String?,
         paymentMethod: Int,
     ): BaseResponse
 
-    suspend fun getBankAccount():BankAccount
+    suspend fun getBankAccount(): BankAccount
 }

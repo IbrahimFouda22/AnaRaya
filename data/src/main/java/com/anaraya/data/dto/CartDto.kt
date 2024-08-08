@@ -14,6 +14,7 @@ data class CartDtoData(
     val deliveryFee: Double,
     val totalAmount: Double,
     val promoCodeDiscount: Double,
+    val promoCode: String?,
     val ammountToTakeFreeDelivery: Double,
     val hasAddress: Boolean,
 )
@@ -41,9 +42,10 @@ data class CartDtoLoyaltyStockList(
     val brand: String,
     val pointsPerOne: Double,
     val totalPoints: Double,
+    val pointInRedem: Double,
     val productAvailableQty: Int,
     val qty: Int,
     val specs1: String,
     val specs2: String,
-    val stockImg: String? = null
+    val stockImg: String? = null,
 )

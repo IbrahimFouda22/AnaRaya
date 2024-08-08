@@ -3,11 +3,14 @@
 package com.anaraya.anaraya.util
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
@@ -127,6 +130,7 @@ fun removeUser(sharedPreferences: SharedPreferences, context: Context) {
     sharedPreferences.edit().putString("password", null).apply()
     sharedPreferences.edit().putInt(context.getString(R.string.productsinbasket), 0).apply()
     sharedPreferences.edit().putBoolean(context.getString(R.string.signupstate), false).apply()
+    sharedPreferences.edit().putBoolean("isFamily", false).apply()
 }
 
 fun minusNumBasket(
@@ -171,5 +175,19 @@ fun resetQtyBasket(
     sharedPreferences.edit().putInt(context.getString(R.string.productsinbasket), 0).apply()
     sharedViewModel.setProductInBasket(0)
 }
+
+fun TextView.copyText(activity: Activity,context: Context){
+    this.setOnLongClickListener {
+        val textToCopy = this.text.toString()
+        val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(context.getString(R.string.copied_text), textToCopy)
+        clipboard.setPrimaryClip(clip)
+        // Optionally show a toast or other feedback to the user
+        Toast.makeText(context,
+            context.getString(R.string.text_copied_to_clipboard), Toast.LENGTH_SHORT).show()
+        true
+    }
+}
+
 
 

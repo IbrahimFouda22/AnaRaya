@@ -37,31 +37,33 @@ class EditAddressViewModel @AssistedInject constructor(
     }
 
     fun editAddress() {
-
-        _editAddressUiState.update {
-            EditAddressUiState(
-                isLoading = true,
-                error = null
-            )
-        }
-        viewModelScope.launch {
-            try {
-                onEditAddressSuccess(
-                    manageAddressesUseCase.updateAddress(
-                        addressUiState.id,
-                        addressLabel.value,
-                        governorate.value,
-                        district.value,
-                        address.value,
-                        street.value,
-                        building.value,
-                        landmark.value
-                    )
+        if(!_editAddressUiState.value.isLoading)
+        {
+            _editAddressUiState.update {
+                EditAddressUiState(
+                    isLoading = true,
+                    error = null
                 )
-            } catch (e: NoInternetException) {
-                onEditAddressFailure("No Internet")
-            } catch (e: Exception) {
-                onEditAddressFailure(e.message.toString())
+            }
+            viewModelScope.launch {
+                try {
+                    onEditAddressSuccess(
+                        manageAddressesUseCase.updateAddress(
+                            addressUiState.id,
+                            addressLabel.value,
+                            governorate.value,
+                            district.value,
+                            address.value,
+                            street.value,
+                            building.value,
+                            landmark.value
+                        )
+                    )
+                } catch (e: NoInternetException) {
+                    onEditAddressFailure("No Internet")
+                } catch (e: Exception) {
+                    onEditAddressFailure(e.message.toString())
+                }
             }
         }
     }

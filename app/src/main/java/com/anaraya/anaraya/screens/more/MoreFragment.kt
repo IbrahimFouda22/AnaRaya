@@ -25,11 +25,12 @@ import com.anaraya.anaraya.MainActivity
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.FragmentMoreBinding
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
+import com.anaraya.anaraya.util.RealPathUtil
+import com.anaraya.anaraya.util.gone
 import com.anaraya.anaraya.util.removeUser
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showCardHome
 import com.anaraya.anaraya.util.showToolBar
-import com.anaraya.anaraya.util.RealPathUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,21 +45,22 @@ class MoreFragment : Fragment() {
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var binding: FragmentMoreBinding
     private val viewModel by viewModels<MoreViewModel>({ this })
-    private val sharedViewModel by activityViewModels<HomeActivityViewModel> ()
+    private val sharedViewModel by activityViewModels<HomeActivityViewModel>()
     private lateinit var btnBack: ImageButton
     private lateinit var btnReload: Button
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-        if(!it)
-            Toast.makeText(
-                requireContext(),
-                getString(R.string.please_allow_permission_to_upload_image),
-                Toast.LENGTH_SHORT
-            ).show()
-    }
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (!it)
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.please_allow_permission_to_upload_image),
+                    Toast.LENGTH_SHORT
+                ).show()
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMoreBinding.inflate(layoutInflater)
@@ -68,6 +70,12 @@ class MoreFragment : Fragment() {
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
 
+        val isFamily = sharedPreferences.getBoolean("isFamily", false)
+
+        if (isFamily) {
+            binding.imgChildMore.gone()
+            binding.txtChildMore.gone()
+        }
         binding.btnLogOut.setOnClickListener {
             val token = sharedPreferences.getString("fcm_token", "")
             if (token != null) {
@@ -80,8 +88,8 @@ class MoreFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.moreUiState.collectLatest {
                 if (it.error != null) {
-                    Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
-                    if (it.error != getString(R.string.no_internet))
+                    sharedViewModel.setError(it.error)
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.uploadMsg != null) {
@@ -135,7 +143,7 @@ class MoreFragment : Fragment() {
                     findNavController().navigate(MoreFragmentDirections.actionMoreFragmentToSurveysFragment())
                     viewModel.navigateToSurveysDone()
                 }
-                if(it.isFCMSent){
+                if (it.isFCMSent) {
                     logOut()
                 }
             }
@@ -184,15 +192,22 @@ class MoreFragment : Fragment() {
         startActivityForResult(intent, 3)
     }
 
-    private fun checkExternalPermissionAndPickImage(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-            if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED)
+    private fun checkExternalPermissionAndPickImage() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_MEDIA_IMAGES
+                ) == PackageManager.PERMISSION_GRANTED
+            )
                 pickImageFromGallery()
             else
                 requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
-        }
-        else{
-            if(ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+        } else {
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ) == PackageManager.PERMISSION_GRANTED
+            )
                 pickImageFromGallery()
             else
                 requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)

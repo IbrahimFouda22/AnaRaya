@@ -65,15 +65,17 @@ class TotalCostFragment : Fragment() {
         toolBar.setNavigationIcon(R.drawable.ic_nav_back)
         toolBar.visible()
 
+
+
         val adapter = CheckOutAdapter()
         adapter.submitList(sharedViewModel.homeState.value.cartUiListState)
         binding.recyclerCheckOut.adapter = adapter
 
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.totalCostUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.navigateToMarket) {
@@ -87,11 +89,12 @@ class TotalCostFragment : Fragment() {
                 }
                 if (it.message != null) {
                     resetQtyBasket(sharedPreferences,sharedViewModel,requireContext())
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     viewModel.resetMsg()
                 }
                 if (it.messageApplyPromo != null) {
-                    Toast.makeText(context, it.messageApplyPromo, Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, it.messageApplyPromo, Toast.LENGTH_SHORT).show()
+                    viewModel.resetMsg()
                 }
                 if (it.isSucceed) {
                     viewModel.navigateToOrder()
@@ -103,7 +106,8 @@ class TotalCostFragment : Fragment() {
             binding.recyclerCheckOut.visibility = v
         }
         binding.btnPlaceOrderTotalCost.setOnClickListener {
-            viewModel.placeOrder(navArgs.paymentMethod)
+            if(!viewModel.totalCostUiState.value.isLoading)
+                viewModel.placeOrder(navArgs.paymentMethod)
         }
         binding.txtCoupon.setOnClickListener {
             val v = binding.edtCoupon.expand(binding.cardCoupon)
@@ -111,8 +115,14 @@ class TotalCostFragment : Fragment() {
             binding.btnApplyCoupon.visibility = v
         }
         binding.btnApplyCoupon.setOnClickListener {
-            if (!binding.edtCoupon.text.isNullOrEmpty())
-                viewModel.applyPromo(binding.edtCoupon.text.toString())
+            if(!viewModel.totalCostUiState.value.isLoading) {
+                if(viewModel.totalCostUiState.value.addOrderUiState!!.discount > 0)
+                    viewModel.removePromo()
+                else{
+                    if (!binding.edtCoupon.text.isNullOrEmpty())
+                        viewModel.applyPromo(binding.edtCoupon.text.toString())
+                }
+            }
         }
         binding.cardCoupon.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
@@ -123,6 +133,14 @@ class TotalCostFragment : Fragment() {
         val v = if (this.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(card, AutoTransition())
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(navArgs.orderState.discount > 0){
+            binding.edtCoupon.setText(navArgs.orderState.promoCode)
+            binding.btnApplyCoupon
+        }
     }
 
 }

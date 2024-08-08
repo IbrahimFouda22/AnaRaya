@@ -20,6 +20,8 @@ data class CartUiState(
     val navigateToSchedule: Boolean = false,
     val navigateToAddress: Boolean = false,
     val navigateToMarket: Boolean = false,
+    val showEmptyAddress: Boolean = false,
+    val defaultAddressTitle: String = "",
     val navigateToTotalCost: Boolean = false,
     val deleteMsg: String? = null,
     val updateMsg: String? = null,
@@ -43,6 +45,7 @@ data class CartUiData(
     val cartTotalAmount: Double = 0.0,
     val cartPromoCodeDiscount: Double = 0.0,
     val cartAmountToTakeFreeDelivery: Double = 0.0,
+    val cartPromoCode: String = "",
     val hasAddress: Boolean,
 )
 
@@ -71,6 +74,7 @@ fun Cart.toUiState(): CartUiData {
     return CartUiData(
         cartTotal = data.cartTotal,
         cartPromoCodeDiscount = data.cartPromoCodeDiscount,
+        cartPromoCode = data.promoCode,
         cartDeliveryFee = data.cartDeliveryFee,
         cartTotalAmount = data.cartTotalAmount,
         cartAmountToTakeFreeDelivery = data.cartAmountToTakeFreeDelivery,
@@ -82,6 +86,7 @@ fun Cart.toUiState(): CartUiData {
         }
     )
 }
+
 
 //cartUiListState = data.data.map { data ->
 //    CartUiList(
@@ -97,7 +102,7 @@ fun Cart.toUiState(): CartUiData {
 fun CartDataList.toLoyalty(): CartUiList {
     return CartUiList(
         id = id,
-        price = totalProductPrice,
+        price = pointInRedeem * qty,
         qty = qty,
         name = description,
         desc = specs2,

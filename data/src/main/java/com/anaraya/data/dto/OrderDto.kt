@@ -2,7 +2,7 @@ package com.anaraya.data.dto
 
 data class OrderDto(
     val isSucceed: Boolean,
-    val message: String,
+    val message: String?,
     val data: List<OrderDtoData>
 )
 

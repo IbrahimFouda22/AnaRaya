@@ -9,4 +9,5 @@ import javax.inject.Inject
 class ManageOrdersUseCase @Inject constructor(private val repo: IRepo) {
     suspend fun placeOrder(paymentMethod: String) = repo.placeOrder(paymentMethod)
     suspend fun getOrders() = repo.getOrders()
+    suspend fun deleteOrder(orderId: Int) = repo.deleteOrder(orderId)
 }

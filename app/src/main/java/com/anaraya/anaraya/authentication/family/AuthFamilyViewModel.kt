@@ -150,6 +150,7 @@ class AuthFamilyViewModel @Inject constructor(
             AuthUiState(
                 isLoading = false,
                 token = response.token,
+                refreshToken = response.refreshToken,
                 isSucceedSignIn = response.isSucceed,
                 messageSignIn = response.message,
                 productsInBasket = response.productsInBasket,
@@ -225,11 +226,19 @@ class AuthFamilyViewModel @Inject constructor(
                     )
                 }
             }
-
+            "ban" -> {
+                _signInResponse.update {
+                    AuthUiState(
+                        isLoading = false,
+                        isDeleted = true
+                    )
+                }
+            }
             else -> {
                 _signInResponse.update {
                     AuthUiState(
                         isLoading = false,
+                        isDeleted = it.isDeleted,
                         error = error,
                     )
                 }
@@ -597,6 +606,7 @@ class AuthFamilyViewModel @Inject constructor(
             AuthUiState(
                 isLoading = false,
                 token = auth.token,
+                refreshToken = auth.refreshToken,
                 isSucceedSignUp = auth.isSucceed,
                 messageSignUp = auth.message,
                 error = null

@@ -18,4 +18,9 @@ data class ServiceStoreForCustomer(
     val rentStatus: Int,
     val isUserService:Boolean,
     val itIsARent:Boolean,
+    val rentedPeriods:List<RentedPeriods>
+)
+data class RentedPeriods(
+    val rentFrom:String,
+    val rentTo:String,
 )

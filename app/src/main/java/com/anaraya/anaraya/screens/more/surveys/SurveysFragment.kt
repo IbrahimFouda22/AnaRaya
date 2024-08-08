@@ -48,7 +48,7 @@ class SurveysFragment : Fragment(), SurveysInteraction {
             viewModel.surveysUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.surveys.isNotEmpty()){

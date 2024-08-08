@@ -35,6 +35,7 @@ data class ProductStoreItemServiceState(
     val visibilityBadge: Boolean = false,
     val isListed: Boolean = false,
     val itIsARent: Boolean,
+    val isPaymentConfirmed: Boolean,
 )
 
 data class ServiceCustomerInformationUiState(
@@ -71,11 +72,12 @@ fun ServiceStoreItemList.toState(
         price = price,
         location = location,
         serviceImageUrl = if (isEditing) serviceImageUrl?.replaceAfter(
-            "Raya",
-            ""
+            "Raya", ""
         ) else serviceImageUrl,
         userAction = userAction,
-        numberOfBuyers = numberOfBuyers,
+        numberOfBuyers = customerInformation.count {
+            it.rentStatus == 1
+        },
         status = status,
         visibilityBadge = visibilityBadge,
         isListed = isListed,
@@ -96,8 +98,9 @@ fun ServiceStoreItemList.toState(
             )
         },
         customerWantsToRent = customerWantsToRent,
-        rentFrom = if (rentFrom.isNotEmpty()) rentFrom.formatDate("YYYY-MM-dd") else "",
-        rentTo = if (rentTo.isNotEmpty()) rentTo.formatDate("YYYY-MM-dd") else "",
-        itIsARent = itIsARent
+        rentFrom = if (rentFrom.isNotEmpty()) rentFrom.formatDate("YYYY-MM-dd hh:mm a") else "",
+        rentTo = if (rentTo.isNotEmpty()) rentTo.formatDate("YYYY-MM-dd hh:mm a") else "",
+        itIsARent = itIsARent,
+        isPaymentConfirmed = isPaymentConfirmed
     )
 }

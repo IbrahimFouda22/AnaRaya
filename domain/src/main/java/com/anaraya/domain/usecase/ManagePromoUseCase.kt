@@ -6,5 +6,7 @@ import javax.inject.Inject
 class ManagePromoUseCase @Inject constructor(private val repo: IRepo) {
     suspend fun getAllPromoCodes() = repo.getAllPromoCodes()
     suspend fun applyPromo(promoCode: String) = repo.applyPromo(promoCode)
+    suspend fun removePromoCode() = repo.removePromoCode()
+
 
 }

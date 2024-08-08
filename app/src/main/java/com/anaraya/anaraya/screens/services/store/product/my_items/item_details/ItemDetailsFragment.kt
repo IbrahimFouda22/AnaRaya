@@ -21,6 +21,7 @@ import com.anaraya.anaraya.databinding.FragmentItemDetailsBinding
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
 import com.anaraya.anaraya.screens.services.store.adapter.CompanyAddressSelectedAdapter
 import com.anaraya.anaraya.screens.services.store.interaction.AddressesInteraction
+import com.anaraya.anaraya.util.copyText
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showCardHome
 import dagger.hilt.android.AndroidEntryPoint
@@ -74,7 +75,7 @@ class ItemDetailsFragment : Fragment(), AddressesInteraction {
             viewModel.product.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.requestToDeleteMsg != null) {
@@ -130,8 +131,11 @@ class ItemDetailsFragment : Fragment(), AddressesInteraction {
             }
         }
 
+        binding.txtCustomerNumberValue.copyText(requireActivity(),requireContext())
+        binding.txtCustomerNumberValueConfirm.copyText(requireActivity(),requireContext())
         binding.btnRequestToDelete.setOnClickListener {
-            viewModel.requestToDelete(navArgs.productId)
+            if(!viewModel.product.value.isLoading)
+                viewModel.requestToDelete(navArgs.productId)
         }
         binding.btnRequestToEdit.setOnClickListener {
             findNavController().navigate(
@@ -169,7 +173,8 @@ class ItemDetailsFragment : Fragment(), AddressesInteraction {
         }
 
         binding.btnOrderComplete.setOnClickListener {
-            viewModel.orderComplete()
+            if(!viewModel.product.value.isLoading)
+                viewModel.orderComplete()
         }
         binding.edtCompanyDelivery.setOnItemClickListener { _, _, position, _ ->
             if (allCompaniesId != position) {
@@ -219,13 +224,15 @@ class ItemDetailsFragment : Fragment(), AddressesInteraction {
             binding.txtPaymentMethod.startAnimation(anim)
         } else {
             //after selected method
-            viewModel.confirmDeal(
-                companyAddress = selectedAddress,
-                company = if (allCompaniesId > -1) "s" else null,
-                governorate = if (allGovernorateId > -1) "s" else null,
-                listeningId = viewModel.product.value.product!!.customerInformation!!.listeningId,
-                paymentMethod = viewModel.product.value.cashStatus
-            )
+            if(!viewModel.product.value.isLoading){
+                viewModel.confirmDeal(
+                    companyAddress = selectedAddress,
+                    company = if (allCompaniesId > -1) "s" else null,
+                    governorate = if (allGovernorateId > -1) "s" else null,
+                    listeningId = viewModel.product.value.product!!.customerInformation!!.listeningId,
+                    paymentMethod = viewModel.product.value.cashStatus
+                )
+            }
         }
     }
 

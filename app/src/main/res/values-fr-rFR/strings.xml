@@ -256,7 +256,7 @@
     <string name="we_have_sent_the_verification_code_to_your_mobile_number">Nous avons envoyé le code de vérification à votre numéro de mobile</string>
     <string name="verify">Vérifier</string>
     <string name="referrals">Références</string>
-    <string name="reference_a_family_or_a_friend">Référencez une famille ou un ami</string>
+    <string name="reference_a_family_or_a_friend">Référez une famille ou un ami</string>
     <string name="send">Envoyer</string>
     <string name="relationship">Relation</string>
     <string name="my_referrals">mes recommandations</string>
@@ -320,7 +320,7 @@
     </string-array>
     <string-array name="arrayAnonymous">
         <item>Oui</item>
-        <item>Non, je souhaite contacter directement mes\nvendeurs et organiser moi-même la vente.</item>
+        <item>Non, je souhaite contacter directement les acheteurs moi-même</item>
     </string-array>
     <string-array name="arrayServiceRental">
         <item>Oui</item>
@@ -349,7 +349,7 @@
     <string name="in_person_card_payment">Paiement par carte en personne</string>
     <string name="cash">Espèces</string>
     <string name="iban">رقم الحساب (IBAN)</string>
-    <string name="please_not_that_by">Veuillez noter qu\'en poursuivant, vous acceptez de payer au cas où l\'article serait accepté et aurait des demandes d\'achat de 5% avec un minimum de 50 L.E. (hors frais de livraison éventuels)</string>
+    <string name="please_not_that_by">En continuant, vous acceptez que nous vous facturions des frais de service de 5% sur la vente (hors frais de livraison)</string>
     <string name="name_of_company">اسم المؤسسة</string>
     <string name="town">المدينة-الفرع</string>
     <string name="please_click_submit_when_you_have_tranfered_the_amount">veuillez cliquer sur Soumettre lorsque vous avez transféré le montant</string>

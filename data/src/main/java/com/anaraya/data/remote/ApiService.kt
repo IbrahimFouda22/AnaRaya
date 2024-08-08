@@ -40,6 +40,7 @@ import com.anaraya.data.dto.ProductsAdsDto
 import com.anaraya.data.dto.ProfileDto
 import com.anaraya.data.dto.PromoCodeDto
 import com.anaraya.data.dto.ReferralsDto
+import com.anaraya.data.dto.RefreshTokenDto
 import com.anaraya.data.dto.RelationshipsDto
 import com.anaraya.data.dto.ResetChangePassDto
 import com.anaraya.data.dto.ServiceStoreDto
@@ -58,6 +59,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -65,6 +67,12 @@ import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface ApiService {
+    @Headers("Content-Type: application/json-patch+json", "accept: text/plain")
+    @POST("RefreshToken")
+    suspend fun refreshToken(
+        @Body refreshToken: String,
+    ): Response<RefreshTokenDto>
+
     @FormUrlEncoded
     @POST("CheckAuth")
     suspend fun checkAuth(
@@ -296,6 +304,11 @@ interface ApiService {
     suspend fun getOrders(
     ): Response<OrderDto>
 
+    @PUT("Orders/CancelOrder")
+    suspend fun deleteOrder(
+        @Query("OrderId") orderId: Int,
+    ): Response<BaseResponseDto>
+
     @FormUrlEncoded
     @POST("ForgetPassword")
     suspend fun forgetPass(
@@ -373,6 +386,9 @@ interface ApiService {
     suspend fun applyPromoCode(
         @Query("PromoCode") promoCode: String,
     ): Response<ApplyPromoDto>
+
+    @DELETE("UserCheckOut/RemovePromoCode")
+    suspend fun removePromoCode(): Response<ApplyPromoDto>
 
     @GET("PromoCodes/GetValidPromo")
     suspend fun getAllPromoCodes(): Response<PromoCodeDto>
@@ -687,6 +703,7 @@ interface ApiService {
     suspend fun proceedWithSale(
         @Query("ListiningId") listeningId: Int,
     ): Response<BaseResponseDto>
+
     @POST("MarketPlaceService/ProceedWithRent")
     suspend fun proceedWithRent(
         @Query("ListiningId") listeningId: Int,
@@ -698,6 +715,7 @@ interface ApiService {
         @Query("CompanyAddressId") companyAddressId: String? = null,
         @Query("PaymentMethod") paymentMethod: Int,
     ): Response<BaseResponseDto>
+
     @PUT("MarketPlaceService/ConfirmDeal")
     suspend fun confirmServiceDeal(
         @Query("ListiningId") listeningId: Int,

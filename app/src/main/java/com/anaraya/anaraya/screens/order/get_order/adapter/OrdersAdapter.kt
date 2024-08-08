@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.LayoutItemOrderDetailsBinding
 import com.anaraya.anaraya.screens.order.get_order.OrderUiStateData
+import com.anaraya.anaraya.screens.order.get_order.interaction.OrderInteraction
 import com.chauthai.swipereveallayout.ViewBinderHelper
 
 
-class OrdersAdapter :
+class OrdersAdapter(private val interaction: OrderInteraction) :
     ListAdapter<OrderUiStateData, OrdersAdapter.OrderViewHolder>(
         OrderDiffUtil()
     ) {
@@ -58,14 +59,19 @@ class OrdersAdapter :
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         viewBinderHelper.bind(holder.layout,getItem(position).orderId.toString())
-        if (!getItem(position).cancellable)
+        if (!getItem(position).cancellable) {
+            viewBinderHelper.closeLayout(getItem(position).orderId.toString())
             viewBinderHelper.lockSwipe(getItem(position).orderId.toString())
+        }
         holder.bind(getItem(position)!!)
         holder.delBtn.setOnClickListener {
+            interaction.onClickDelete(getItem(position).orderId)
         }
         holder.dataLayout.setOnClickListener {
-            getItem(position).expanded = !getItem(position).expanded
-            notifyItemChanged(position)
+            if(!getItem(position).isCancelled) {
+                getItem(position).expanded = !getItem(position).expanded
+                notifyItemChanged(position)
+            }
         }
     }
 

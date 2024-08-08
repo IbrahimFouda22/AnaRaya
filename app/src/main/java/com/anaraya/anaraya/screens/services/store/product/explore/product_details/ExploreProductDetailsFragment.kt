@@ -1,5 +1,6 @@
 package com.anaraya.anaraya.screens.services.store.product.explore.product_details
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.databinding.FragmentExploreProductDetailsBinding
 import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
+import com.anaraya.anaraya.util.copyText
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showCardHome
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +54,7 @@ class ExploreProductDetailsFragment : Fragment() {
             viewModel.product.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (!it.requestToBuyMessage.isNullOrEmpty()) {
@@ -63,8 +65,10 @@ class ExploreProductDetailsFragment : Fragment() {
                 }
             }
         }
+        binding.txtSellerNumberValue.copyText(requireActivity(),requireContext())
         binding.btnRequestToBuy.setOnClickListener {
-            viewModel.requestToBuy(viewModel.product.value.product!!.id)
+            if(!viewModel.product.value.isLoading)
+                viewModel.requestToBuy(viewModel.product.value.product!!.id)
         }
         binding.btnBackAllExploreProductDetails.setOnClickListener {
             findNavController().popBackStack()

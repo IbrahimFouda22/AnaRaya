@@ -51,7 +51,7 @@ class EditAddressFragment : Fragment() {
             viewModel.editAddressUiState.collectLatest {
                 if (!it.error.isNullOrEmpty()){
                     Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if(it.editAddressUiState!=null){

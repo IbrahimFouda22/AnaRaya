@@ -15,6 +15,7 @@ data class CartData(
     val cartPromoCodeDiscount: Double,
     val cartAmountToTakeFreeDelivery: Double,
     val hasAddress: Boolean,
+    val promoCode: String,
 )
 
 data class CartDataList(
@@ -28,4 +29,5 @@ data class CartDataList(
     val stockImg: String? = null,
     val productAvailableQty: Int,
     val deliveryFee: Double,
+    val pointInRedeem: Double,
 )

@@ -41,6 +41,23 @@
             app:layout_constraintTop_toTopOf="@+id/imgOrder"
             tools:text="Order #TX8778" />
 
+        <TextView
+            android:id="@+id/txtOrderCancelled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter500"
+            android:maxLines="1"
+            bindViewVisibilityGone="@{item.cancelled}"
+            android:text="@string/order_is_cancelled"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgOrder"
+            app:layout_constraintTop_toBottomOf="@+id/txtOrderId" />
+
         <!--<TextView
             android:id="@+id/txtOrderStatus"
             android:layout_width="0dp"

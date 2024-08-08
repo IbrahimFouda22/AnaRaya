@@ -320,7 +320,7 @@
     </string-array>
     <string-array name="arrayAnonymous">
         <item>نعم</item>
-        <item>لا، أرغب في الاتصال بالبائعين مباشرةn\وترتيب عملية البيع بنفسى</item>
+        <item>لا، أرغب في الاتصال بالمشترين مباشرة بنفسى</item>
     </string-array>
     <string-array name="arrayServiceRental">
         <item>نعم</item>
@@ -349,7 +349,7 @@
     <string name="in_person_card_payment">الدفع بالبطاقة شخصيًا</string>
     <string name="cash">نقدي</string>
     <string name="iban">رقم الحساب (IBAN)</string>
-    <string name="please_not_that_by">يرجى ملاحظة أنه من خلال الإجراء فإنك توافق على الدفع في حالة قبول السلعة ولديها طلبات شراء بنسبة 5% بحد أدنى 50 جنيهًا مصريًا. (لا يشمل أي رسوم التوصيل)</string>
+    <string name="please_not_that_by">من خلال المتابعة فإنك توافق على فرض رسوم خدمة بنسبة 5% عند البيع (باستثناء رسوم التوصيل)</string>
     <string name="name_of_company">اسم المؤسسة</string>
     <string name="town">المدينة-الفرع</string>
     <string name="please_click_submit_when_you_have_tranfered_the_amount">الرجاء الضغط على إرسال عندما تقوم بتحويل المبلغ</string>

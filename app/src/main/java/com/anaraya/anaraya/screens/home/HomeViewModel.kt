@@ -70,13 +70,19 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getAllData() {
-        getProductsAds()
-        getTrendingProducts()
-        getHomeCategory()
-        //getPointsProducts()
-        getCartData()
-        getSurveyImage()
-        getLoyaltyPoints()
+        try {
+            viewModelScope.launch (Dispatchers.IO){
+                getProductsAds()
+                getTrendingProducts()
+                getHomeCategory()
+                //getPointsProducts()
+                getCartData()
+                getSurveyImage()
+                getLoyaltyPoints()
+            }
+        }catch (_:Exception){
+
+        }
     }
 
     fun getHomeTrending() {

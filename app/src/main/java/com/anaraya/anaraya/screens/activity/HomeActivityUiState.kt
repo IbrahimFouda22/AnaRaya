@@ -12,6 +12,8 @@ data class HomeActivityUiState(
     val getAddresses: Boolean = false,
     val getUserMoreInfo: Boolean = false,
     val getCart: Boolean = false,
+    val saveSelected: Boolean = false,
+    val selectedMethodInCart: String? = null,
     val getTrendingData: Boolean = false,
     val getPointsData: Boolean = false,
     val navigateToFav: Boolean = false,

@@ -28,6 +28,7 @@ data class ProductStoreDtoItemList(
     val status: Int,
     val customerWantsToBuy: Int,
     val isAnonymous:Boolean?,
+    val isPaymentConfirmed: Boolean?,
     val handleDelivery:Boolean?,
     val customerInformation: CustomerInformation?,
 )

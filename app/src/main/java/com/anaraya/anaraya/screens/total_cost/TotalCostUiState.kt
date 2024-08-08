@@ -11,9 +11,9 @@ data class TotalCostUiState(
     val message: String? = null,
     val isSucceedApplyPromo: Boolean = false,
     val messageApplyPromo: String? = null,
-    val isSucceedDeletePromo: Boolean = false,
-    val messageDeletePromo: String? = null,
+    val isSucceedRemovePromo: Boolean = false,
+    val messageRemovePromo: String? = null,
     val navigateToOrder: Boolean = false,
     val navigateToMarket: Boolean = false,
-    val addOrderUiState: AddOrderUiState? = null
+    val addOrderUiState: AddOrderUiState? = null,
 )

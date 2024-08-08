@@ -67,11 +67,21 @@ class ProductDetailsViewModel @AssistedInject constructor(
             ProductDetailsUiState(
                 isLoading = false,
                 error = null,
-                qtyInBasket = product.data.qtyInBasket,
+                qtyInBasket = if (isPoints) product.data.qtyInLoyaltyBasket else product.data.qtyInBasket,
                 availableQty = product.data.availableQty,
                 favouriteStock = product.data.favouriteStock,
-                price = product.data.priceAfter,
-                allPrice = if (product.data.qtyInBasket == 0) product.data.priceAfter else product.data.qtyInBasket * product.data.priceAfter,
+                price = if (isPoints) product.data.pointInRedeem else product.data.priceAfter,
+                allPrice = if (isPoints) {
+                    if (product.data.qtyInLoyaltyBasket == 0)
+                        product.data.pointInRedeem
+                    else
+                        product.data.qtyInLoyaltyBasket * product.data.pointInRedeem
+                } else {
+                    if (product.data.qtyInBasket == 0)
+                        product.data.priceAfter
+                    else
+                        product.data.qtyInBasket * product.data.priceAfter
+                },
                 visibilityRecommended = product.data.recommendedStocks.isNotEmpty(),
                 recommendedList = product.data.recommendedStocks.map {
                     it.toUiState()
@@ -82,15 +92,15 @@ class ProductDetailsViewModel @AssistedInject constructor(
                         ProductDetailsUiImages(image = it)
                     },
                     image = null,
-                    price = product.data.priceAfter,
+                    price = if (isPoints) product.data.pointInRedeem else product.data.priceAfter,
                     beforeDiscount = product.data.priceBefore,
                     discount = product.data.discount,
                     availableQty = product.data.availableQty,
                     description = product.data.description,
                     specs1 = product.data.specs1,
                     specs2 = product.data.specs2,
-                    qtyInBasket = product.data.qtyInBasket,
-                    inBasket = product.data.inBasket,
+                    qtyInBasket = if (isPoints) product.data.qtyInLoyaltyBasket else product.data.qtyInBasket,
+                    inBasket = if (isPoints) product.data.isInLoyaltyBasket else product.data.inBasket,
                     notifyMe = product.data.notifyMe,
                     limitQtyForUserPerMonth = product.data.limitQtyForUserPerMonth,
                     qtyUsedFromLimit = product.data.qtyUsedFromLimit

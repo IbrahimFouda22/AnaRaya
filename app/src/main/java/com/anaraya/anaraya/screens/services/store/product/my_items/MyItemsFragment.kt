@@ -141,7 +141,7 @@ class MyItemsFragment : Fragment(), ItemsProductInteraction {
     override fun onClick(productId: Int, productStatus: Int) {
         when (statusId) {
             binding.chipList.id -> {
-                if (productStatus == 2)
+                if (productStatus == 2 || productStatus == 3)
                     sharedViewModel.navigateToItemDetailsProduct(productId)
             }
             binding.chipSold.id -> {

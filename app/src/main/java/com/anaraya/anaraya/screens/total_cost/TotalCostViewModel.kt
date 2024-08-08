@@ -87,6 +87,7 @@ class TotalCostViewModel @AssistedInject constructor(
             it.copy(
                 isLoading = true,
                 error = null,
+                message = null,
                 isSucceedApplyPromo = false,
                 messageApplyPromo = null
             )
@@ -139,48 +140,64 @@ class TotalCostViewModel @AssistedInject constructor(
             )
         }
     }
+    fun removePromo() {
+        _totalCostUiState.update {
+            it.copy(
+                isLoading = true,
+                error = null,
+                isSucceedApplyPromo = false,
+                messageApplyPromo = null
+            )
+        }
+        viewModelScope.launch {
+            try {
+                onRemovePromoSuccess(managePromoUseCase.removePromoCode())
+            } catch (e: NoInternetException) {
+                onRemovePromoFailure("No Internet")
+            } catch (e: Exception) {
+                onRemovePromoFailure(e.message.toString())
+            }
+        }
+    }
 
-    /* private fun getCheckOut() {
-         _totalCostUiState.update {
-             it.copy(
-                 isLoading = true,
-                 error = null,
-                 isSucceedApplyPromo = false,
-                 messageApplyPromo = null
-             )
-         }
-         viewModelScope.launch {
-             try {
-                 onGetCheckOutSuccess(manageCartUseCase.getCheckOut())
-             } catch (e: NoInternetException) {
-                 onGetCheckOutFailure("No Internet")
-             } catch (e: Exception) {
-                 onGetCheckOutFailure(e.message.toString())
-             }
-         }
-     }
+    private fun onRemovePromoSuccess(response: ApplyPromo) {
+        if (response.isSucceed) {
+            _totalCostUiState.update {
+                it.copy(
+                    isLoading = false,
+                    isSucceedRemovePromo = true,
+                    messageRemovePromo = response.message,
+                    error = null,
+                    addOrderUiState = it.addOrderUiState!!.copy(
+                        total = response.data.cartTotalAmount,
+                        discount = response.data.cartPromoCodeDiscount,
+                        amountToTakeDeliveryFree = response.data.cartAmountToTakeFreeDelivery
+                    )
+                )
+            }
+        } else {
+            _totalCostUiState.update {
+                it.copy(
+                    isLoading = false,
+                    isSucceedRemovePromo = false,
+                    messageRemovePromo = response.message,
+                    error = null,
+                )
+            }
+        }
+    }
 
-     private fun onGetCheckOutSuccess(checkOut: CheckOut) {
-         _totalCostUiState.update {
-             it.copy(
-                 isLoading = false,
-                 error = null,
-                 addOrderUiState = it.addOrderUiState!!.copy(
-                     discount = checkOut.data.promoCodeDiscount,
-                     total = checkOut.data.totalCost,
-                 )
-             )
-         }
-     }
+    private fun onRemovePromoFailure(error: String) {
+        _totalCostUiState.update {
+            it.copy(
+                isLoading = false,
+                isSucceedApplyPromo = false,
+                error = error,
+                messageApplyPromo = null
+            )
+        }
+    }
 
-     private fun onGetCheckOutFailure(error: String) {
-         _totalCostUiState.update {
-             it.copy(
-                 isLoading = false,
-                 error = error,
-             )
-         }
-     } */
     fun navigateToOrder() {
         _totalCostUiState.update {
             it.copy(navigateToOrder = true, isSucceed = false, message = null)

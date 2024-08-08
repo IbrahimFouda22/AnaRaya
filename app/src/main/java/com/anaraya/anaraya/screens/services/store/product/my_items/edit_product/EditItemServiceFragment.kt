@@ -106,7 +106,7 @@ class EditItemServiceFragment : Fragment() {
             viewModel.editItemServiceUiState.collectLatest {
                 if (it.error != null) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.focusError) {
@@ -257,7 +257,8 @@ class EditItemServiceFragment : Fragment() {
             showDialog()
         }
         binding.btnSubmitSellStore.setOnClickListener {
-            addItem()
+            if(!viewModel.editItemServiceUiState.value.isLoading)
+                addItem()
         }
         btnBack.setOnClickListener {
             reload()

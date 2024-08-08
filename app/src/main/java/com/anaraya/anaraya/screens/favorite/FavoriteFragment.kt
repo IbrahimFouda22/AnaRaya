@@ -63,7 +63,7 @@ class FavoriteFragment : Fragment(), FavoriteInteraction {
             viewModel.products.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.navigateToHome) {
@@ -149,7 +149,8 @@ class FavoriteFragment : Fragment(), FavoriteInteraction {
     }
 
     override fun onClickDelete(productId: Int, position: Int) {
-        viewModel.deleteFavProduct(productId, position, list)
+        if(!viewModel.products.value.isLoading)
+            viewModel.deleteFavProduct(productId, position, list)
     }
 
     override fun onClickCheckBox(productId: Int, isChecked: Boolean) {

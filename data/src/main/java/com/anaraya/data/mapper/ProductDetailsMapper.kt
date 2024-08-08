@@ -23,6 +23,9 @@ fun ProductDetailsDto.toEntity(): ProductDetails {
             notifyMe = data.notifyMe,
             favouriteStock = data.favouriteStock,
             qtyInBasket = data.qtyInBasket,
+            isInLoyaltyBasket = data.isInLoyaltyBasket,
+            pointInRedeem = data.pointInRedem,
+            qtyInLoyaltyBasket = data.qtyInLoyaltyBasket,
             limitQtyForUserPerMonth = data.limityQtyForUserPerMonth,
             qtyUsedFromLimit = data.qtyUsedFromLimtit,
             stockImages = data.stockImages?.map {

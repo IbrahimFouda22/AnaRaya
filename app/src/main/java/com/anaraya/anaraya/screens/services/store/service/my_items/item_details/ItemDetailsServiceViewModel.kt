@@ -46,9 +46,11 @@ class ItemDetailsServiceViewModel @AssistedInject constructor(
 ) : ViewModel() {
     private val _product = MutableStateFlow(ItemDetailsServiceUiState())
     val product = _product as StateFlow<ItemDetailsServiceUiState>
+
     init {
         getStoreProductByIdForOwner()
     }
+
     fun getStoreProductByIdForOwner() {
         _product.update {
             ItemDetailsServiceUiState(
@@ -67,21 +69,41 @@ class ItemDetailsServiceViewModel @AssistedInject constructor(
         }
     }
 
+    //    response.customerInformation.isNotEmpty() && response.customerWantsToRent.isNotEmpty() && response.userAction != 4
+//    visibilityProceedWithSaleDone = response.customerInformation.isNotEmpty() && response.customerWantsToRent.isNotEmpty() && response.userAction == 4,
+//                visibilityProceedWithSaleDoneAndRayaIsHandleDelivery = response.customerInformation.isEmpty() && response.userAction == 4,
+//    visibilityButtons = response.userAction != 4 && response.userAction != -1 ,
     private fun onGetProductSuccess(response: ServiceStoreItemList) {
         _product.update {
             it.copy(
                 isLoading = false,
                 error = null,
-                product = response.toState(false, isListed = false),
-                visibilityProceedWithSale = response.customerInformation.isEmpty() && response.customerWantsToRent.isNotEmpty() && response.userAction != 4,
-                visibilityProceedWithSaleDone = response.customerInformation.isEmpty() && response.customerWantsToRent.isNotEmpty() && response.userAction == 4,
-                visibilityProceedWithSaleDoneAndRayaIsHandleDelivery = response.customerInformation.isEmpty() && response.userAction == 4,
-                visibilityCustomerInfo = if (response.customerInformation.isNotEmpty()) {
-                    getAllCompanies()
-                    getBankAccount()
-                    true
-                } else false,
-                visibilityButtons = response.userAction != 4 && response.userAction != -1 && response.customerInformation.isEmpty(),
+                product = response.toState(visibilityBadge = false, isListed = false),
+                visibilityRejectedRequest = response.status == 3,
+                listeningIds = response.customerInformation.mapNotNull { information ->
+                    if (information.rentStatus == 1)
+                        information.listiningId
+                    else
+                        null
+                },
+                visibilityProceedWithSale = response.customerInformation.any { customerInformation ->
+                    customerInformation.rentStatus == 1
+                },
+                visibilityCustomerInfo = response.customerInformation.any { customerInformation ->
+                    if (customerInformation.rentStatus == 3) {
+                        getAllCompanies()
+                        getBankAccount()
+                    }
+                    customerInformation.rentStatus == 3
+                },
+                visibilityButtons = response.customerInformation.isEmpty() || response.customerInformation.all { customerInformation ->
+                    customerInformation.rentStatus == 1 || customerInformation.rentStatus == 5
+                },
+            )
+        }
+        _product.update {
+            it.copy(
+                visibilityProceedWithSaleDone = it.visibilityCustomerInfo && !it.visibilityProceedWithSale
             )
         }
     }
@@ -179,19 +201,24 @@ class ItemDetailsServiceViewModel @AssistedInject constructor(
     }
 
     fun orderComplete(selectedCustomer: Int?) {
-        if(selectedCustomer == null){
+        if (selectedCustomer == null) {
             _product.update {
                 it.copy(
                     chooseCustomerError = true
                 )
             }
-        }
-        else{
+        } else {
             _product.update {
                 it.copy(
                     chooseCustomerError = false,
                     visibilityCustomerInfo = false,
-                    visibilityConfirmDeal = true
+                    visibilityProceedWithSaleDone = false,
+                    visibilityConfirmDealPayment = true,
+                )
+            }
+            _product.update {
+                it.copy(
+                    visibilityConfirmDealText = !it.visibilityProceedWithSale
                 )
             }
         }
@@ -422,9 +449,9 @@ class ItemDetailsServiceViewModel @AssistedInject constructor(
     private fun onConfirmDealSuccess(response: BaseResponse) {
         _product.update {
             it.copy(
-                isLoading = false,
                 error = null,
-                isSucceedConfirmDeal = response.isSucceed
+                isSucceedConfirmDeal = response.isSucceed,
+                confirmDealMsg = response.message
             )
         }
     }
@@ -477,7 +504,9 @@ class ItemDetailsServiceViewModel @AssistedInject constructor(
     fun resetMsg() {
         _product.update {
             it.copy(
-                requestToDeleteMsg = null
+                isLoading = false,
+                requestToDeleteMsg = null,
+                confirmDealMsg = null
             )
         }
     }

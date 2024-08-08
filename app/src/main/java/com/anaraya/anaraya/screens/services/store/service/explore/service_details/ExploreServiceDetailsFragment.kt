@@ -1,10 +1,13 @@
 package com.anaraya.anaraya.screens.services.store.service.explore.service_details
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,11 +26,15 @@ import com.anaraya.anaraya.screens.activity.HomeActivityViewModel
 import com.anaraya.anaraya.screens.services.store.service.sell.formatLanguageDate
 import com.anaraya.anaraya.screens.services.store.service.sell.getTodayDate
 import com.anaraya.anaraya.screens.services.store.service.sell.getTodayDateLanguage
+import com.anaraya.anaraya.util.copyText
 import com.anaraya.anaraya.util.showBottomNavBar
 import com.anaraya.anaraya.util.showCardHome
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -60,10 +67,14 @@ class ExploreServiceDetailsFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
 
-        fromDate = getTodayDate()
-        toDate = getTodayDate()
-        binding.txtFromDateValue.text = getTodayDateLanguage(sharedPreferences)
-        binding.txtToDateValue.text = getTodayDateLanguage(sharedPreferences)
+        fromDate = getTodayDate(pattern = "yyyy-MM-dd HH:mm")
+        toDate = getTodayDate(pattern = "yyyy-MM-dd HH:mm")
+        binding.txtFromDateValue.text = getTodayDateLanguage(
+            sharedPreferences, "MMM dd, yyyy hh:mm a"
+        )
+        binding.txtToDateValue.text = getTodayDateLanguage(
+            sharedPreferences, "MMM dd, yyyy hh:mm a"
+        )
 
         btnBack = requireActivity().findViewById(R.id.btnBackHomeActivity)
         btnReload = requireActivity().findViewById(R.id.btnReload)
@@ -71,13 +82,15 @@ class ExploreServiceDetailsFragment : Fragment() {
             viewModel.product.collectLatest {
                 if (!it.error.isNullOrEmpty()) {
                     sharedViewModel.setError(error = it.error)
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
                 if (it.product != null) {
                     if (it.product.rentFrom.isNotEmpty()) {
                         binding.txtFromDateValue.text = it.product.rentFrom
                         binding.txtToDateValue.text = it.product.rentTo
+                        Log.d("TAG","av from : ${it.product.availableFromDate}")
+                        Log.d("TAG","av to : ${it.product.availableToDate}")
                     }
                 }
                 if (!it.requestToBuyMessage.isNullOrEmpty()) {
@@ -88,76 +101,188 @@ class ExploreServiceDetailsFragment : Fragment() {
                 }
             }
         }
+        binding.txtSellerNumberValue.copyText(requireActivity(), requireContext())
         binding.txtFromDateValue.setOnClickListener {
             if (viewModel.product.value.product!!.rentFrom.isEmpty() && !viewModel.product.value.product!!.isUserService) {
                 binding.txtFromDateValue.showSoftInputOnFocus = false
-                val d = DatePickerDialog(requireContext())
-                d.setCancelable(false)
-                d.show()
-                d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                    val day =
-                        if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
-                    var m = d.datePicker.month.toString().toInt()
-                    m++
-                    val month =
-                        if (m.toString().length == 1) "0${m}" else m
-//                val monthName = monthNames[m - 1]
-                    fromDate = "${d.datePicker.year}-$month-$day"
-                    binding.txtFromDateValue.text =
-                        formatLanguageDate(
-                            d.datePicker.year,
-                            m,
-                            day.toString().toInt(),
-                            sharedPreferences
+                val calendar = Calendar.getInstance()
+
+                // Create and show the DatePickerDialog
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, monthOfYear, dayOfMonth ->
+                        calendar.set(Calendar.YEAR, year)
+                        calendar.set(Calendar.MONTH, monthOfYear)
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                        // Create and show the TimePickerDialog after selecting the date
+                        val timePickerDialog = TimePickerDialog(
+                            requireContext(),
+                            { _, hourOfDay, minute ->
+                                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                                calendar.set(Calendar.MINUTE, minute)
+
+                                // Combine selected date and time
+                                val selectedDateTime = calendar.time
+
+                                // Format the date and time in 24-hour format
+                                val dateFormat24Hour = formatLanguageDate(
+                                    date = selectedDateTime,
+                                    sharedPreferences = sharedPreferences,
+                                    pattern = "yyyy-MM-dd HH:mm"
+                                )
+
+                                // Format the date and time in 12-hour format with AM/PM
+                                val dateFormat12Hour = formatLanguageDate(
+                                    date = selectedDateTime,
+                                    sharedPreferences = sharedPreferences,
+                                    pattern = "MMM dd,yyyy hh:mm a"
+                                )
+                                // Display the formatted date and time
+                                binding.txtFromDateValue.text = dateFormat12Hour
+
+                                fromDate = dateFormat24Hour
+                                sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+
+                                binding.txtFromDateValue.clearFocus()
+                            },
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            false // Set to false for 12-hour format with AM/PM
                         )
-                    sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
-                    binding.txtFromDateValue.clearFocus()
-                    d.cancel()
+                        timePickerDialog.setCancelable(false)
+                        timePickerDialog.show()
+
+                        timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+                            binding.txtFromDateValue.clearFocus()
+                            timePickerDialog.cancel()
+                        }
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                ).apply {
+                    setCancelable(false)
+
+                    // Set min and max dates for DatePickerDialog
+                    if (viewModel.product.value.product!!.availableFromDate != null) {
+                        val minSelectableDate = Calendar.getInstance().apply {
+                            time = viewModel.product.value.product!!.availableFromDate!!.toDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")!!
+                            if(viewModel.product.value.product!!.numOfRented > 0)
+                                add(Calendar.DAY_OF_MONTH, 1) // Add one day
+                        }.time
+                        datePicker.minDate = minSelectableDate.time
+                    }
+
+                    if (viewModel.product.value.product!!.availableToDate != null) {
+                        val maxSelectableDate = Calendar.getInstance().apply {
+                            time = viewModel.product.value.product!!.availableToDate!!.toDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")!!
+                        }.time
+                        datePicker.maxDate = maxSelectableDate.time
+                    }
                 }
-                d.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+
+
+                datePickerDialog.show()
+                datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
                     binding.txtFromDateValue.clearFocus()
-                    d.cancel()
+                    datePickerDialog.cancel()
                 }
             }
         }
         binding.txtToDateValue.setOnClickListener {
             if (viewModel.product.value.product!!.rentTo.isEmpty() && !viewModel.product.value.product!!.isUserService) {
                 binding.txtToDateValue.showSoftInputOnFocus = false
-                val d = DatePickerDialog(requireContext())
-                d.setCancelable(false)
-                d.show()
-                d.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-                    val day =
-                        if (d.datePicker.dayOfMonth.toString().length == 1) "0${d.datePicker.dayOfMonth}" else d.datePicker.dayOfMonth
-                    var m = d.datePicker.month.toString().toInt()
-                    m++
-                    val month =
-                        if (m.toString().length == 1) "0${m}" else m
-//                val monthName = monthNames[m - 1]
-                    toDate = "${d.datePicker.year}-$month-$day"
-                    binding.txtToDateValue.text =
-                        formatLanguageDate(
-                            d.datePicker.year,
-                            m,
-                            day.toString().toInt(),
-                            sharedPreferences
+                val calendar = Calendar.getInstance()
+
+                // Create and show the DatePickerDialog
+                val datePickerDialog = DatePickerDialog(
+                    requireContext(),
+                    { _, year, monthOfYear, dayOfMonth ->
+                        calendar.set(Calendar.YEAR, year)
+                        calendar.set(Calendar.MONTH, monthOfYear)
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                        // Create and show the TimePickerDialog after selecting the date
+                        val timePickerDialog = TimePickerDialog(
+                            requireContext(),
+                            { _, hourOfDay, minute ->
+                                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                                calendar.set(Calendar.MINUTE, minute)
+
+                                // Combine selected date and time
+                                val selectedDateTime = calendar.time
+
+                                // Format the date and time in 24-hour format
+                                val dateFormat24Hour = formatLanguageDate(
+                                    date = selectedDateTime,
+                                    sharedPreferences = sharedPreferences,
+                                    pattern = "yyyy-MM-dd HH:mm"
+                                )
+
+                                // Format the date and time in 12-hour format with AM/PM
+                                val dateFormat12Hour = formatLanguageDate(
+                                    date = selectedDateTime,
+                                    sharedPreferences = sharedPreferences,
+                                    pattern = "MMM dd,yyyy hh:mm a"
+                                )
+                                binding.txtToDateValue.text = dateFormat12Hour
+
+                                toDate = dateFormat24Hour
+                                sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
+
+                                binding.txtToDateValue.clearFocus()
+                            },
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            false // Set to false for 12-hour format with AM/PM
                         )
-                    sharedViewModel.setFromAndToDate(fromDate!!, toDate!!)
-                    binding.txtToDateValue.clearFocus()
-                    d.cancel()
+                        timePickerDialog.setCancelable(false)
+                        timePickerDialog.show()
+
+                        timePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+                            binding.txtToDateValue.clearFocus()
+                            timePickerDialog.cancel()
+                        }
+                    },
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                ).apply {
+                    setCancelable(false)
+
+                    // Set min and max dates for DatePickerDialog
+                    if (viewModel.product.value.product!!.availableFromDate != null) {
+                        val minSelectableDate = Calendar.getInstance().apply {
+                            time = viewModel.product.value.product!!.availableFromDate!!.toDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")!!
+//                            add(Calendar.DAY_OF_MONTH, 1) // Add one day
+                        }.time
+                        datePicker.minDate = minSelectableDate.time
+                    }
+
+                    if (viewModel.product.value.product!!.availableToDate != null) {
+                        val maxSelectableDate = Calendar.getInstance().apply {
+                            time = viewModel.product.value.product!!.availableToDate!!.toDate("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")!!
+                        }.time
+                        datePicker.maxDate = maxSelectableDate.time
+                    }
                 }
-                d.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
+                datePickerDialog.show()
+
+                datePickerDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setOnClickListener {
                     binding.txtToDateValue.clearFocus()
-                    d.cancel()
+                    datePickerDialog.cancel()
                 }
             }
         }
         binding.btnRequestToBuy.setOnClickListener {
-            viewModel.requestToRent(
-                serviceId = viewModel.product.value.product!!.id,
-                from = if (viewModel.product.value.product!!.itIsARent) fromDate else null,
-                to = if (viewModel.product.value.product!!.itIsARent) toDate else null
-            )
+            if (!viewModel.product.value.isLoading) {
+                viewModel.requestToRent(
+                    serviceId = viewModel.product.value.product!!.id,
+                    from = if (viewModel.product.value.product!!.itIsARent) fromDate else null,
+                    to = if (viewModel.product.value.product!!.itIsARent) toDate else null
+                )
+            }
         }
         binding.btnBackAllExploreProductDetails.setOnClickListener {
             findNavController().popBackStack()
@@ -181,5 +306,10 @@ class ExploreServiceDetailsFragment : Fragment() {
     private fun reload() {
         sharedViewModel.reloadClick()
         sharedViewModel.reloadClickDone()
+    }
+    @SuppressLint("SimpleDateFormat")
+    private fun String.toDate(pattern:String): Date? {
+        val dateFormat = SimpleDateFormat(pattern)
+        return dateFormat.parse(this)
     }
 }

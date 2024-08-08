@@ -63,7 +63,9 @@ import com.google.gson.JsonSyntaxException
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.HttpException
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
@@ -73,7 +75,11 @@ import java.net.UnknownHostException
 import javax.inject.Inject
 
 
-class RemoteDataSource @Inject constructor(private val apiService: ApiService) : IRemoteDataSource {
+class RemoteDataSource @Inject constructor(
+    private val apiService: ApiService,
+) : IRemoteDataSource {
+
+
     override suspend fun checkAuth(rayaId: String, nationalId: String): CheckAuth {
         return wrapApiResponse {
             apiService.checkAuth(rayaId, nationalId)
@@ -361,6 +367,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
         }.toEntity()
     }
 
+    override suspend fun deleteOrder(orderId: Int): BaseResponse {
+        return wrapApiResponse {
+            apiService.deleteOrder(orderId)
+        }.toEntity()
+    }
+
     override suspend fun forgetPass(rayaId: String, nationalId: String): ResetChangePass {
         return wrapApiResponse {
             apiService.forgetPass(rayaId, nationalId)
@@ -480,6 +492,12 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
     override suspend fun applyPromo(promoCode: String): ApplyPromo {
         return wrapApiResponse {
             apiService.applyPromoCode(promoCode)
+        }.toEntity()
+    }
+
+    override suspend fun removePromoCode(): ApplyPromo {
+        return wrapApiResponse {
+            apiService.removePromoCode()
         }.toEntity()
     }
 
@@ -997,15 +1015,20 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                             response.errorBody()!!.string()
                         )
                         BadRequest(jObjError.getString("message"))
-                        //BadRequest(response.errorBody()!!.string())
                     }
 
                     401 -> {
                         val jObjError = JSONObject(
                             response.errorBody()!!.string()
                         )
+                        if (jObjError.has("data") && !jObjError.isNull("data")) {
+                            val dataObj = jObjError.getJSONObject("data")
+                            // Check if "isDeleted" is true
+                            if (dataObj.getBoolean("isDeleted")) {
+                                throw UnAuthException("ban")
+                            }
+                        }
                         UnAuthException(jObjError.getString("message"))
-                        //UnAuthException(response.errorBody()!!.string())
                     }
 
                     403 -> {
@@ -1013,7 +1036,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                             response.errorBody()!!.string()
                         )
                         UnAuthException(jObjError.getString("message"))
-                        //UnAuthException(response.errorBody()!!.string())
                     }
 
                     405 -> {
@@ -1021,7 +1043,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                             response.errorBody()!!.string()
                         )
                         UnAuthException(jObjError.getString("message"))
-                        //UnAuthException(response.errorBody()!!.string())
                     }
 
                     409 -> {
@@ -1029,7 +1050,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                             response.errorBody()!!.string()
                         )
                         SignUpDataException(jObjError.getString("message"))
-//                        SignUpDataException(response.errorBody()!!.string())
                     }
 
                     429 -> {
@@ -1037,20 +1057,13 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
                             response.errorBody()!!.string()
                         )
                         ResetPasswordBlockedException(jObjError.getString("message"))
-//                        ResetPasswordBlockedException(response.errorBody()!!.string())
                     }
 
                     500 -> {
-//                        val jObjError = JSONObject(
-//                            response.errorBody()!!.string()
-//                        )
                         InternalServerException("Internal Server Error")
                     }
 
                     404 -> {
-//                        val jObjError = JSONObject(
-//                            response.errorBody()!!.string()
-//                        )
                         NotFoundException("Not Found")
                     }
                     //Connection reset
@@ -1062,13 +1075,16 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) :
             throw IllegalStateException("IllegalStateException")
         } catch (e: UnknownHostException) {
             throw NoInternetException("No Internet")
+        } catch (e: HttpException) {
+            throw NoInternetException("No Internet")
         } catch (io: IOException) {
-            throw NoInternetException(io.message)
+            throw NoInternetException("No Internet")
         } catch (e: SocketTimeoutException) {
             throw NoInternetException("No Internet")
         } catch (e: SocketException) {
             throw NoInternetException("No Internet")
+        } catch (e: JSONException) {
+            throw ServerException("")
         }
     }
-
 }

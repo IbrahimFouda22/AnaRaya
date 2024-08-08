@@ -143,7 +143,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -192,12 +192,12 @@
                     android:id="@+id/txtProceedWithSaleConfirmDeal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter700"
                     android:text="@string/proceeding_with_sale"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
@@ -205,9 +205,11 @@
 
                 <ImageView
                     android:id="@+id/line"
-                    android:layout_width="4dp"
-                    android:layout_height="16dp"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/img_line_order"
                     app:layout_constraintStart_toStartOf="@+id/txtProceedWithSaleConfirmDeal"
                     app:layout_constraintTop_toBottomOf="@+id/txtProceedWithSaleConfirmDeal" />
@@ -220,7 +222,7 @@
                     android:text="@string/order_completed_with_customer"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/line"
@@ -228,41 +230,92 @@
 
                 <ImageView
                     android:id="@+id/line2"
-                    android:layout_width="4dp"
-                    android:layout_height="16dp"
+                    bindViewVisibilityGone="@{viewModel.product.product.paymentConfirmed}"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
                     android:layout_marginTop="2dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/img_line_order"
-                    app:layout_constraintStart_toStartOf="@+id/txtProceedWithSaleConfirmDeal"
+                    app:layout_constraintStart_toStartOf="@+id/line"
                     app:layout_constraintTop_toBottomOf="@+id/txtOrderCompleting" />
 
                 <TextView
                     android:id="@+id/txtServiceFeesPaid"
+                    bindViewVisibilityGone="@{viewModel.product.product.paymentConfirmed}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter700"
                     android:text="@string/service_fees_paid"
                     android:textAlignment="viewStart"
                     android:textColor="@color/colorGrey"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/line2"
                     tools:text="Service Fees Paid" />
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtServiceFeesPaid"
+                    app:strokeColor="@color/colorPrimary"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp">
+
+                        <TextView
+                            android:id="@+id/txtServiceHistory"
+                            style="@style/textAddEditAddressName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/service_history"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:drawableEndCompat="@drawable/ic_arrow_drop_down"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerList"
+                            bindRecyclerLayout="@{false}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/shape_recycler"
+                            android:padding="10dp"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@+id/txtServiceHistory" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <TextView
                     android:id="@+id/txtItemSold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
+                    android:layout_marginVertical="20dp"
                     android:fontFamily="@font/inter700"
                     android:text="@string/completed"
-                    android:textAlignment="center"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/green"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
-                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
-                    tools:text="Item Sold" />
+                    app:layout_constraintEnd_toEndOf="@+id/cardList"
+                    app:layout_constraintStart_toStartOf="@+id/cardList"
+                    app:layout_constraintTop_toBottomOf="@+id/cardList" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

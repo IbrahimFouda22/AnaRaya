@@ -1,9 +1,9 @@
 package com.anaraya.anaraya.authentication.family.signin_family
 
+import android.app.Dialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +11,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.anaraya.anaraya.MainActivityViewModel
 import com.anaraya.anaraya.R
 import com.anaraya.anaraya.authentication.family.AuthFamilyViewModel
 import com.anaraya.anaraya.databinding.FragmentSignInFamilyBinding
+import com.anaraya.anaraya.databinding.LayoutDialogBanBinding
 import com.anaraya.anaraya.screens.activity.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -36,7 +38,7 @@ class SignInFamilyFragment : Fragment() {
     lateinit var sharedPreferences: SharedPreferences
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentSignInFamilyBinding.inflate(layoutInflater)
@@ -56,7 +58,7 @@ class SignInFamilyFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.signInResponse.collectLatest {
                 if (it.token != null) {
-                    saveUser(it.token,it.productsInBasket)
+                    saveUser(it.token, it.productsInBasket, it.refreshToken)
                     startActivity(Intent(requireActivity(), HomeActivity::class.java))
                     requireActivity().finish()
                 }
@@ -65,6 +67,17 @@ class SignInFamilyFragment : Fragment() {
                     sharedViewModel.setError(error = it.error)
                     if (it.error != getString(R.string.no_internet))
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
+                }
+                if (it.isDeleted) {
+                    val view = LayoutDialogBanBinding.inflate(layoutInflater)
+                    val dialog = Dialog(requireContext())
+                    dialog.setCancelable(false)
+                    dialog.setContentView(view.root)
+                    dialog.window?.setBackgroundDrawableResource(R.drawable.ban_dialog_shape)
+                    dialog.show()
+                    view.txtOkBan.setOnClickListener {
+                        dialog.dismiss()
+                    }
                 }
                 if (!it.isSucceedSignIn) {
                     Toast.makeText(context, it.messageSignIn, Toast.LENGTH_SHORT).show()
@@ -83,7 +96,7 @@ class SignInFamilyFragment : Fragment() {
         }
 
         binding.btnHelpSignInFamily.setOnClickListener {
-            if(contactNumber == null)
+            if (contactNumber == null)
                 viewModel.getContactNumber()
             else
                 showDialog()
@@ -106,13 +119,17 @@ class SignInFamilyFragment : Fragment() {
         viewModel.signIn(rayaId, password)
     }
 
-    private fun saveUser(token: String, productsInBasket: Int) {
+    private fun saveUser(token: String, productsInBasket: Int, refreshToken: String?) {
         sharedPreferences.edit().putString("token", token).apply()
-        sharedPreferences.edit().putInt(getString(R.string.productsinbasket), productsInBasket).apply()
-        sharedPreferences.edit().putBoolean("auth", false).apply()
-        sharedPreferences.edit().putString("rayaId", binding.edtRayaIdNumSignInFamily.text.toString())
+        sharedPreferences.edit().putString("refreshToken", refreshToken).apply()
+        sharedPreferences.edit().putInt(getString(R.string.productsinbasket), productsInBasket)
             .apply()
-        sharedPreferences.edit().putString("password", binding.edtPasswordSignInFamily.text.toString())
+        sharedPreferences.edit().putBoolean("auth", false).apply()
+        sharedPreferences.edit()
+            .putString("rayaId", binding.edtRayaIdNumSignInFamily.text.toString())
+            .apply()
+        sharedPreferences.edit()
+            .putString("password", binding.edtPasswordSignInFamily.text.toString())
             .apply()
         sharedPreferences.edit().putBoolean("isFamily", true)
             .apply()
@@ -127,7 +144,7 @@ class SignInFamilyFragment : Fragment() {
         sharedViewModel.reloadClickDone()
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
         AlertDialog.Builder(requireContext()).setCancelable(false)
             .setTitle(getString(R.string.contact_number)).setMessage(contactNumber)
             .setNeutralButton(

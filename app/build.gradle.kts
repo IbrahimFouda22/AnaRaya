@@ -92,7 +92,7 @@ dependencies {
     //encrypted sharedPref
     implementation ("androidx.security:security-crypto:1.1.0-alpha06")
 
-    //piccaso
+    //picasso
     implementation ("com.squareup.picasso:picasso:2.8")
 
     //Hilt

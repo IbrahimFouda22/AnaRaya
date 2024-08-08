@@ -14,6 +14,7 @@ data class ServiceStoreItemList(
     val userAction: Int,
     val status: Int,
     val itIsARent: Boolean,
+    val isPaymentConfirmed: Boolean,
     val rentFrom: String,
     val rentTo: String,
     val numberOfBuyers: Int,

@@ -42,7 +42,7 @@ class PrivacyPolicyFragment : Fragment() {
             viewModel.privacyPolicyUiState.collectLatest {
                 if (it.error != null) {
                     Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
-                    if (it.error != getString(R.string.no_internet))
+                    if (it.error != getString(R.string.no_internet) && it.error.isNotEmpty())
                         Toast.makeText(context, it.error, Toast.LENGTH_SHORT).show()
                 }
             }

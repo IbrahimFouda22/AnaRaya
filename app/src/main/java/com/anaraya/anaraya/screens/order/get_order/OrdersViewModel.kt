@@ -2,6 +2,7 @@ package com.anaraya.anaraya.screens.order.get_order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.anaraya.domain.entity.BaseResponse
 import com.anaraya.domain.entity.Order
 import com.anaraya.domain.exception.NoInternetException
 import com.anaraya.domain.usecase.ManageOrdersUseCase
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val manageOrdersUseCase: ManageOrdersUseCase
+    private val manageOrdersUseCase: ManageOrdersUseCase,
 ) : ViewModel() {
 
     private val _orderUiState = MutableStateFlow(OrdersUiState())
@@ -26,7 +27,7 @@ class OrdersViewModel @Inject constructor(
     }
 
     fun getAllData() {
-         getOrders()
+        getOrders()
     }
 
     private fun getOrders() {
@@ -66,6 +67,38 @@ class OrdersViewModel @Inject constructor(
                 isLoading = false,
                 error = error,
                 ordersUiState = emptyList()
+            )
+        }
+    }
+
+    fun deleteOrder(orderId: Int) {
+        _orderUiState.update {
+            it.copy(
+                isLoading = true,
+                isSucceedDeleteOrder = false,
+            )
+        }
+        viewModelScope.launch {
+            try {
+                onDeleteOrderSuccess(manageOrdersUseCase.deleteOrder(orderId))
+            } catch (e: NoInternetException) {
+                onDeleteOrderFailure("No Internet")
+            } catch (e: Exception) {
+                onDeleteOrderFailure(e.message.toString())
+            }
+        }
+    }
+
+    private fun onDeleteOrderSuccess(order: BaseResponse) {
+        if(order.isSucceed)
+            getOrders()
+    }
+
+    private fun onDeleteOrderFailure(error: String) {
+        _orderUiState.update {
+            it.copy(
+                isLoading = false,
+                error = error,
             )
         }
     }

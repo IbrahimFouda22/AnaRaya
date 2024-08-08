@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         }
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                if(navHostFragment.childFragmentManager.backStackEntryCount > 0){
+                    supportFragmentManager.popBackStack()
+                    return
+                }
                 if (backPressedOnce) {
                     finish()
                 } else {

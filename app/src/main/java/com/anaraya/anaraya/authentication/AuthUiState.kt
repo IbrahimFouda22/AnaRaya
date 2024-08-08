@@ -5,6 +5,7 @@ data class AuthUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val token: String? = null,
+    val refreshToken: String? = null,
     val productsInBasket: Int = 0,
     val contactNumber: String? = null,
     val auth: Boolean = false,
@@ -42,6 +43,7 @@ data class AuthUiState(
     val restPasswordErrorNumber: Int = 0,
     val navigateToAddAddress: Boolean = false,
     val navigateToFamily: Boolean = false,
+    val isDeleted: Boolean = false,
     val addressUiStateData: AddressUiStateData? = null,
 )
 

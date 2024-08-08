@@ -75,8 +75,8 @@
                     android:id="@+id/cardImageExploreProductDetails"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:layout_marginTop="20dp"
                     android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
                     android:backgroundTint="@color/colorGreyLight"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
@@ -107,8 +107,8 @@
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
                     android:fontFamily="@font/inter400"
-                    android:textAlignment="viewStart"
                     android:text="@{viewModel.product.product.title}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -125,9 +125,9 @@
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/inter400"
                     android:text="@{viewModel.product.product.serviceDescription}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorTextGrey"
                     android:textSize="12sp"
-                    android:textAlignment="viewStart"
                     app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtNameExploreProductDetails"
@@ -141,9 +141,9 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="30dp"
                     android:ellipsize="end"
-                    android:textAlignment="viewStart"
                     android:fontFamily="@font/inter400"
                     android:maxLines="1"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -162,9 +162,9 @@
                     android:fontFamily="@font/inter400"
                     android:maxLines="2"
                     android:text="@{viewModel.product.product.category}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorGrey"
                     android:textSize="12sp"
-                    android:textAlignment="viewStart"
                     app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtNameExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtDescExploreProductDetails"
@@ -178,13 +178,31 @@
                     android:fontFamily="@font/inter400"
                     android:maxLines="2"
                     android:text="@{viewModel.product.product.location}"
+                    android:textAlignment="viewStart"
                     android:textColor="@color/colorGrey"
                     android:textSize="12sp"
-                    android:textAlignment="viewStart"
                     app:layout_constraintEnd_toEndOf="@+id/txtPriceValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtCategoryValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtCategoryValueExploreProductDetails"
                     tools:text="Cairo" />
+
+                <TextView
+                    android:id="@+id/txtRejected"
+                    rejectStatus="@{viewModel.product.product.status}"
+                    rejectUserAction="@{viewModel.product.product.userAction}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="14dp"
+                    android:fontFamily="@font/inter700"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/btnProceedWithSale"
+                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    tools:text="Your add request is rejected" />
 
                 <TextView
                     android:id="@+id/txtProceedWithSale"
@@ -202,7 +220,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
-                    app:layout_constraintVertical_chainStyle="packed"
                     tools:text="You have a 2 purchase request" />
 
                 <Button
@@ -234,34 +251,14 @@
                     android:textColor="@color/colorTextNameProduct"
                     android:textSize="14sp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@id/btnRequestToEdit"
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/btnProceedWithSale"
-                    app:layout_constraintVertical_chainStyle="packed"
                     tools:text="Please not that by proceeding you are agreeing to pay in case item is accepted and has requests to purchase of 5% with a minimum of 50 L.E. (not including any delivery fees)" />
 
                 <TextView
-                    android:id="@+id/txtProceedWithSaleDone"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSaleDone}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginBottom="14dp"
-                    android:fontFamily="@font/inter700"
-                    android:text="@string/you_proceed_with_the_sale"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorGrey"
-                    android:textSize="16sp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
-                    app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
-                    tools:text="You proceed with the Sale" />
-
-                <TextView
                     android:id="@+id/txtProceedWithSaleCustomerInfo"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityCustomerInfo}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityProceedWithSaleDone}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -274,7 +271,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
-                    app:layout_constraintTop_toBottomOf="@+id/txtLocationValueExploreProductDetails"
+                    app:layout_constraintTop_toBottomOf="@+id/txtProceedWithNote"
                     tools:text="You proceed with the Sale" />
 
                 <TextView
@@ -346,10 +343,10 @@
                 <!--                step 4-->
                 <TextView
                     android:id="@+id/txtProceedWithSaleConfirmDeal"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealText}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter700"
                     android:text="@string/proceeding_with_sale"
                     android:textColor="@color/colorGrey"
@@ -362,10 +359,12 @@
 
                 <ImageView
                     android:id="@+id/line"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
-                    android:layout_width="4dp"
-                    android:layout_height="16dp"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealText}"
+                    android:layout_width="1dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
+                    android:scaleType="fitXY"
                     android:src="@drawable/img_line_order"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/txtProceedWithSaleConfirmDeal"
@@ -373,7 +372,7 @@
 
                 <TextView
                     android:id="@+id/txtOrderCompleting"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealText}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter700"
@@ -388,7 +387,7 @@
 
                 <TextView
                     android:id="@+id/txtPleaseSelect"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealPayment}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -406,14 +405,14 @@
 
                 <TextView
                     android:id="@+id/txtPayment"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealPayment}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:fontFamily="@font/inter300"
-                    android:text="@string/payment"
+                    android:text="@string/select_payment_method_2"
                     android:textColor="@color/colorTextGrey"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@+id/txtLocationValueExploreProductDetails"
                     app:layout_constraintTop_toBottomOf="@+id/txtPleaseSelect" />
@@ -422,7 +421,7 @@
                     android:id="@+id/txtPaymentMethod"
                     style="@style/textBottomSheet"
                     bindTextPaymentCheckOut="@{viewModel.product.selectedMethod}"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealPayment}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -431,7 +430,7 @@
                     android:fontFamily="@font/inter500"
                     android:maxLines="1"
                     android:textAlignment="textEnd"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:visibility="gone"
                     app:drawableEndCompat="@drawable/ic_down_bottom_sheet"
                     app:layout_constraintBottom_toBottomOf="@+id/txtPayment"
@@ -461,6 +460,20 @@
                         android:padding="20dp">
 
                         <TextView
+                            android:id="@+id/txtHint"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter700"
+                            android:text="@string/please_select_your_branch_and_time_slot_for_the_payment_to_be_collected_by_one_of_our_sales_representatives"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="Please select your branch and time slot for the payment to be collected by one of our sales representatives" />
+
+                        <TextView
                             android:id="@+id/txtCompanyDelivery"
                             style="@style/textAddEditAddressName"
                             android:layout_width="match_parent"
@@ -468,7 +481,7 @@
                             android:layout_marginTop="10dp"
                             android:text="@string/company"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintTop_toBottomOf="@+id/txtHint" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/edtLayoutCompanyDelivery"
@@ -662,7 +675,7 @@
 
                 <Button
                     android:id="@+id/btnSubmit"
-                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDeal}"
+                    bindViewVisibilityGone="@{viewModel.product.visibilityConfirmDealPayment}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="30dp"

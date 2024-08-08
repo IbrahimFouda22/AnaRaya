@@ -56,7 +56,7 @@ class SignUpFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.signUpResponse.collectLatest {
                 if (it.token != null) {
-                    saveUser(it.token)
+                    saveUser(it.token,it.refreshToken)
                     startActivity(Intent(requireActivity(), HomeActivity::class.java))
                     requireActivity().finish()
                 }
@@ -134,8 +134,9 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun saveUser(token: String) {
+    private fun saveUser(token: String, refreshToken: String?) {
         sharedPreferences.edit().putString("token", token).apply()
+        sharedPreferences.edit().putString("refreshToken", refreshToken).apply()
         sharedPreferences.edit().putInt(getString(R.string.productsinbasket), 0).apply()
         sharedPreferences.edit().putBoolean("auth", false).apply()
         sharedPreferences.edit().putString("rayaId", binding.edtRayaIdNumSignUp.text.toString())
